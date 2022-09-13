@@ -1,26 +1,26 @@
 * {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  
 }
-body{
+
+body {
   background: #1b1e25;
 }
 
 .container {
+  display: flex;
   margin: 50px auto;
   width: 800px;
-  height: 200px;
 }
 
 .dropdown {
-  
   position: relative;
+  margin-right: 10px;
 }
 
 .select {
   padding: 14px;
-  max-width: 200px;
+  min-width: 200px;
   height: 30px;
   color: #fff;
   display: flex;
@@ -34,7 +34,7 @@ body{
 }
 
 .select:hover {
-transition: 0.5s;
+  transition: 0.5s;
   background: #394050;
 }
 
@@ -53,6 +53,8 @@ transition: 0.5s;
 }
 
 .list {
+  max-height: 230px;
+  overflow-y: auto;
   position: absolute;
   width: 212px;
   padding: 7px;
@@ -72,12 +74,12 @@ transition: 0.5s;
 }
 
 .list__item {
-    transition: 0.5s;
+  transition: 0.5s;
   padding: 15px;
 }
 
 .list__item:hover {
-    transition: 0.5s;
+  transition: 0.5s;
   cursor: pointer;
   background: #394050;
 }
@@ -86,7 +88,6 @@ transition: 0.5s;
   background: #394050;
 }
 .open {
-
   transition: 0.5s;
   display: block;
   opacity: 1;

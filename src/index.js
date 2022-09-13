@@ -1,27 +1,19 @@
-const dropdowns = document.querySelectorAll('.dropdown');
+const dropdown = new DropDown({
+  selector: '.dropdown',
+  selected: 'BMW',
+  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
+});
 
-dropdowns.forEach(drop => {
-    const select = drop.querySelector('.select');
-    const caret = drop.querySelector('.caret');
-    const list = drop.querySelector('.list');
-    const options = drop.querySelectorAll('.list__item')
-    const selected = drop.querySelector('.selected')
+dropdown.on('click', function () {
+  dropdown.open();
+});
 
-    select.addEventListener('click', () => {
-        caret.classList.toggle('caret-rotate');
-        list.classList.toggle('open');
-    });
+const dropdown2 = new DropDown({
+  selector: '.dropdown2',
+  selected: '1',
+  amount: 7,
+});
 
-    options.forEach(option => {
-        option.addEventListener('click', () =>{
-            selected.innerText = option.innerText;
-            caret.classList.remove('caret-rotate'); 
-            list.classList.remove('open');
-            
-            options.forEach(option =>{
-                option.classList.remove('active');
-            })
-            option.classList.add('active');
-        })
-    })
-}) 
+dropdown2.on('click', function () {
+  dropdown2.open();
+});
