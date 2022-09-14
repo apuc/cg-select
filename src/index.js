@@ -4,16 +4,13 @@ const dropdown = new DropDown({
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
 });
 
-dropdown.on('click', function () {
-  dropdown.open();
-});
-
 const dropdown2 = new DropDown({
   selector: '.dropdown2',
-  selected: '1',
-  amount: 7,
+  selected: 'BMW',
+  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
+  targetEvent: 'mouseover',
 });
 
-dropdown2.on('click', function () {
-  dropdown2.open();
-});
+// dropdown.on('click', function () {
+//   dropdown.open();
+// });

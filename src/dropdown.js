@@ -4,38 +4,22 @@ class DropDown {
     this._initSelected();
     this._initAmount();
     this._initItems();
+    this._initEvent();
   }
 
-  on(event, callback) {
-    if (!this._element || typeof callback !== 'function') {
-      return;
-    }
-    this._element.addEventListener(event, callback.bind(this._element));
-  }
+  // on(event, callback) {
+  //   if (!this._element || typeof callback !== 'function') {
+  //     return;
+  //   }
+  //   this._element.addEventListener(event, callback.bind(this._element));
+  // }
 
   open() {
     const list = this._element.querySelector('.list');
     const caret = this._element.querySelector('.caret');
-    const options = this._element.querySelectorAll('.list__item');
-    const selected = this._element.querySelector('.selected');
 
-    // TODO: Fix bug with arrow rotation
     list.classList.toggle('open');
     caret.classList.toggle('caret-rotate');
-
-    // TODO: Fix bug with too much Listeners
-    options.forEach((option) => {
-      option.addEventListener('click', () => {
-        console.log('click on element');
-        selected.innerText = option.innerText;
-        caret.classList.remove('caret-rotate');
-
-        options.forEach((option) => {
-          option.classList.remove('active');
-        });
-        option.classList.add('active');
-      });
-    });
   }
 
   _init(options) {
@@ -56,6 +40,10 @@ class DropDown {
                 <div class="caret"></div>
             </div>
         `;
+
+    this._element.addEventListener('click', () => {
+      this.open();
+    });
   }
 
   _initAmount() {
@@ -83,5 +71,25 @@ class DropDown {
     const templete = items.map((i) => `<li class="list__item">${i}</li>`).join('');
 
     this._element.innerHTML += `<ul class="list">${templete}</ul>`;
+
+    const options = this._element.querySelectorAll('.list__item');
+    const selected = this._element.querySelector('.selected');
+
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        selected.innerText = option.innerText;
+
+        options.forEach((option) => {
+          option.classList.remove('active');
+        });
+        option.classList.add('active');
+      });
+    });
+  }
+
+  _initEvent() {
+    const { targetEvent } = this._options;
+
+    this._element.addEventListener(targetEvent, () => {});
   }
 }
