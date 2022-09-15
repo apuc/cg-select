@@ -6,11 +6,7 @@ const dropdown = new DropDown({
 
 const dropdown2 = new DropDown({
   selector: '.dropdown2',
-  selected: 'BMW',
+  selected: 'Opel',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
-  targetEvent: 'mouseover',
+  event: 'mouseenter',
 });
-
-// dropdown.on('click', function () {
-//   dropdown.open();
-// });

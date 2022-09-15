@@ -7,19 +7,9 @@ class DropDown {
     this._initEvent();
   }
 
-  // on(event, callback) {
-  //   if (!this._element || typeof callback !== 'function') {
-  //     return;
-  //   }
-  //   this._element.addEventListener(event, callback.bind(this._element));
-  // }
-
   open() {
-    const list = this._element.querySelector('.list');
-    const caret = this._element.querySelector('.caret');
-
-    list.classList.toggle('open');
-    caret.classList.toggle('caret-rotate');
+    this._list.classList.toggle('open');
+    this._caret.classList.toggle('caret-rotate');
   }
 
   _init(options) {
@@ -88,8 +78,22 @@ class DropDown {
   }
 
   _initEvent() {
-    const { targetEvent } = this._options;
+    const { event } = this._options;
 
-    this._element.addEventListener(targetEvent, () => {});
+    this._list = this._element.querySelector('.list');
+    this._options = this._element.querySelector('.list__item');
+    this._caret = this._element.querySelector('.caret');
+
+    if (event === 'mouseenter') {
+      this._element.addEventListener(event, () => {
+        this._list.classList.add('open');
+        this._caret.classList.add('caret-rotate');
+      });
+      // TODO: Fix bug with strange closing when mouse under list header
+      this._element.addEventListener('mouseleave', () => {
+        this._list.classList.remove('open');
+        this._caret.classList.remove('caret-rotate');
+      });
+    }
   }
 }
