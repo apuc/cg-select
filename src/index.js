@@ -13,4 +13,17 @@ const dropdown2 = new DropDown({
   event: 'mouseenter',
 });
 
-dropdown;
+// const dropdown3 = new DropDown({
+//   selector: '.cg-dropdown3',
+//   selected: '',
+//   items: [
+//     {
+//       title: 'Russia',
+//       item: ['Rostov', 'Moskow'],
+//     },
+//     {
+//       title: 'Germany',
+//       item: ['Germany', 'Berlin'],
+//     },
+//   ],
+// });

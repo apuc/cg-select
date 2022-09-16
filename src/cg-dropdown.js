@@ -1,48 +1,49 @@
 export class DropDown {
-  #_element;
-  #_list;
-  #_options;
-  #_caret;
+  #element;
+  #list;
+  #options;
+  #caret;
+  //ToDo: Added placeholder, url, style(list, elem)
 
   constructor(options = {}) {
-    this.#_init(options);
-    this.#_initSelected();
-    this.#_initAmount();
-    this.#_initItems();
-    this.#_initEvent();
+    this.#init(options);
+    this.#initSelected();
+    this.#initAmount();
+    this.#initItems();
+    this.#initEvent();
   }
 
   #open() {
-    this.#_list.classList.toggle('open');
-    this.#_caret.classList.toggle('caret_rotate');
+    this.#list.classList.toggle('open');
+    this.#caret.classList.toggle('caret_rotate');
   }
 
-  #_init(options) {
-    this.#_options = options;
+  #init(options) {
+    this.#options = options;
     const elem = document.querySelector(options.selector);
 
     if (!elem) {
       throw new Error(`Element with selector ${options.selector}`);
     }
 
-    this.#_element = elem;
+    this.#element = elem;
   }
 
-  #_initSelected() {
-    this.#_element.innerHTML = `        
+  #initSelected() {
+    this.#element.innerHTML = `        
             <div class="cg-select">
-                <span class="selected">${this.#_options.selected}</span>
+                <span class="selected">${this.#options.selected}</span>
                 <div class="caret"></div>
             </div>
         `;
 
-    this.#_element.addEventListener('click', () => {
+    this.#element.addEventListener('click', () => {
       this.#open();
     });
   }
 
-  #_initAmount() {
-    const { amount } = this.#_options;
+  #initAmount() {
+    const { amount } = this.#options;
 
     if (!amount) {
       return;
@@ -53,11 +54,11 @@ export class DropDown {
     for (let i = 0; i < amount; i++) {
       templete += `<li class="list__item">${i + 1}</li>`;
     }
-    this.#_element.innerHTML += `<ul class="list">${templete}</ul>`;
+    this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
   }
 
-  #_initItems() {
-    const { items } = this.#_options;
+  #initItems() {
+    const { items } = this.#options;
 
     if (!Array.isArray(items)) {
       return;
@@ -65,10 +66,10 @@ export class DropDown {
 
     const templete = items.map((i) => `<li class="list__item">${i}</li>`).join('');
 
-    this.#_element.innerHTML += `<ul class="list">${templete}</ul>`;
+    this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
 
-    const options = this.#_element.querySelectorAll('.list__item');
-    const selected = this.#_element.querySelector('.selected');
+    const options = this.#element.querySelectorAll('.list__item');
+    const selected = this.#element.querySelector('.selected');
 
     options.forEach((option) => {
       option.addEventListener('click', () => {
@@ -80,23 +81,36 @@ export class DropDown {
         option.classList.add('active');
       });
     });
+
+    //ToDo: finish this function
+    items.forEach((item) => {
+      if (typeof item === 'object') {
+        for (const key in item) {
+          const element = item[key];
+          // console.log(element);
+          if (typeof element === 'string') {
+            console.log(element);
+          }
+        }
+      }
+    });
   }
 
-  #_initEvent() {
-    const { event } = this.#_options;
+  #initEvent() {
+    const { event } = this.#options;
 
-    this.#_list = this.#_element.querySelector('.list');
-    this.#_caret = this.#_element.querySelector('.caret');
+    this.#list = this.#element.querySelector('.list');
+    this.#caret = this.#element.querySelector('.caret');
 
     if (event === 'mouseenter') {
-      this.#_element.addEventListener(event, () => {
-        this.#_list.classList.add('open');
-        this.#_caret.classList.add('caret_rotate');
+      this.#element.addEventListener(event, () => {
+        this.#list.classList.add('open');
+        this.#caret.classList.add('caret_rotate');
       });
 
-      this.#_element.addEventListener('mouseleave', () => {
-        this.#_list.classList.remove('open');
-        this.#_caret.classList.remove('caret_rotate');
+      this.#element.addEventListener('mouseleave', () => {
+        this.#list.classList.remove('open');
+        this.#caret.classList.remove('caret_rotate');
       });
     }
   }
