@@ -31,11 +31,11 @@ body {
   cursor: pointer;
   border-radius: 5px;
   transition: 0.5s;
-}
 
-.select:hover {
-  transition: 0.5s;
-  background: #394050;
+  &:hover {
+    transition: 0.5s;
+    background: #394050;
+  }
 }
 
 .caret {
@@ -45,11 +45,11 @@ body {
   border-right: 5px solid transparent;
   border-top: 6px solid #fff;
   transition: 0.5s;
-}
 
-.caret-rotate {
-  transform: rotate(180deg);
-  transition: 0.5s;
+  &_rotate {
+    transform: rotate(180deg);
+    transition: 0.5s;
+  }
 }
 
 .list {
@@ -58,7 +58,7 @@ body {
   position: absolute;
   width: 212px;
   padding: 7px;
-  margin-top: 1px;
+  margin-top: -0.2px;
   list-style: none;
 
   color: white;
@@ -71,22 +71,23 @@ body {
   opacity: 0;
   display: none;
   z-index: 1;
-}
 
-.list__item {
-  transition: 0.5s;
-  padding: 15px;
-}
+  &__item {
+    transition: 0.5s;
+    padding: 15px;
 
-.list__item:hover {
-  transition: 0.5s;
-  cursor: pointer;
-  background: #394050;
+    &:hover {
+      transition: 0.5s;
+      cursor: pointer;
+      background: #394050;
+    }
+  }
 }
 
 .active {
   background: #394050;
 }
+
 .open {
   transition: 0.5s;
   display: block;

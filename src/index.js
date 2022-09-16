@@ -1,3 +1,5 @@
+import { DropDown } from './dropdown';
+
 const dropdown = new DropDown({
   selector: '.dropdown',
   selected: 'BMW',

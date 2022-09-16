@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MaxOvs19/Dropdown-list#readme",
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0",
     "parcel": "^2.7.0",
     "prettier": "^2.7.1"
   }

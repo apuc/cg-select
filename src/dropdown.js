@@ -1,4 +1,4 @@
-class DropDown {
+export class DropDown {
   constructor(options = {}) {
     this._init(options);
     this._initSelected();
@@ -9,7 +9,7 @@ class DropDown {
 
   open() {
     this._list.classList.toggle('open');
-    this._caret.classList.toggle('caret-rotate');
+    this._caret.classList.toggle('caret_rotate');
   }
 
   _init(options) {
@@ -87,12 +87,12 @@ class DropDown {
     if (event === 'mouseenter') {
       this._element.addEventListener(event, () => {
         this._list.classList.add('open');
-        this._caret.classList.add('caret-rotate');
+        this._caret.classList.add('caret_rotate');
       });
-      // TODO: Fix bug with strange closing when mouse under list header
+
       this._element.addEventListener('mouseleave', () => {
         this._list.classList.remove('open');
-        this._caret.classList.remove('caret-rotate');
+        this._caret.classList.remove('caret_rotate');
       });
     }
   }
