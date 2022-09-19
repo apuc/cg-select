@@ -40,15 +40,16 @@ export class DropDown {
       this.#createSelected(this.#options.placeholder);
     }
 
-    if (this.#options.styleCustom) {
-      this.#element.innerHTML = `
-        <div class="cg-select ${this.#options.styleCustom.select}">
-                <span class="selected">
-                ${this.#options.placeholder}
-                </span>
-                <div class="caret ${this.#options.styleCustom.caret}"></div>
-            </div>
-        `;
+    if (
+      (this.#options.styleCustom && this.#options.placeholder) ||
+      (this.#options.styleCustom && this.#options.selected)
+    ) {
+      const cgselect = this.#element.querySelector('.cg-select');
+      const caret = this.#element.querySelector('.caret');
+      console.log(cgselect);
+
+      cgselect.classList.add(this.#options.styleCustom.select);
+      caret.classList.add(this.#options.styleCustom.caret);
     }
 
     this.#element.addEventListener('click', () => {
@@ -82,6 +83,7 @@ export class DropDown {
       const templete = items
         .map((item) => `<li class="list__item ${this.#options.styleCustom.item}">${item}</li>`)
         .join('');
+
       this.#element.innerHTML += `<ul class="list 
       ${this.#options.styleCustom.list}">${templete}</ul>`;
     } else {
