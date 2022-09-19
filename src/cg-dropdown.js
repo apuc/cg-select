@@ -31,29 +31,15 @@ export class DropDown {
 
   #initSelected() {
     if (this.#options.selected) {
-      this.#element.innerHTML = `        
-            <div class="cg-select">
-                <span class="selected">${this.#options.selected}</span>
-                <div class="caret"></div>
-            </div>
-        `;
+      this.#createSelected(this.#options.selected);
     } else {
-      this.#element.innerHTML = `
-              <div class="cg-select">
-                 <span class="selected">Select...</span>
-                 <div class="caret"></div>
-              </div>
-      `;
+      this.#createSelected('Select...');
     }
 
     if (!this.#options.selected && this.#options.placeholder) {
-      this.#element.innerHTML = `        
-            <div class="cg-select">
-                <span class="selected">${this.#options.placeholder}</span>
-                <div class="caret"></div>
-            </div>
-        `;
+      this.#createSelected(this.#options.placeholder);
     }
+
     if (this.#options.styleCustom) {
       this.#element.innerHTML = `
         <div class="cg-select ${this.#options.styleCustom.select}">
@@ -94,17 +80,14 @@ export class DropDown {
 
     if (this.#options.styleCustom) {
       const templete = items
-        .map((i) => `<li class="list__item ${this.#options.styleCustom.item}">${i}</li>`)
+        .map((item) => `<li class="list__item ${this.#options.styleCustom.item}">${item}</li>`)
         .join('');
-
-      this.#element.innerHTML += `<ul class="list ${this.#options.styleCustom.list}">
-      ${templete}
-      </ul>`;
+      this.#element.innerHTML += `<ul class="list 
+      ${this.#options.styleCustom.list}">${templete}</ul>`;
+    } else {
+      const templete = items.map((item) => `<li class="list__item">${item}</li>`).join('');
+      this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
     }
-
-    const templete = items.map((item) => `<li class="list__item">${item}</li>`).join('');
-
-    this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
 
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
@@ -120,7 +103,7 @@ export class DropDown {
       });
     });
 
-    //ToDo: finish this function
+    //ToDo: finish this function(catigories)
     items.forEach((item) => {
       if (typeof item === 'object') {
         for (const key in item) {
@@ -151,5 +134,14 @@ export class DropDown {
         this.#caret.classList.remove('caret_rotate');
       });
     }
+  }
+
+  #createSelected(content) {
+    this.#element.innerHTML = `
+            <div class="cg-select">
+                <span class="selected">${content}</span>
+                <div class="caret"></div>
+            </div>
+    `;
   }
 }

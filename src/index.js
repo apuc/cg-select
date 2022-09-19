@@ -2,7 +2,6 @@ import { DropDown } from './cg-dropdown';
 
 const dropdown = new DropDown({
   selector: '.cg-dropdown',
-
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
 });
 
