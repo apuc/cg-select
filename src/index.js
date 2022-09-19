@@ -8,7 +8,6 @@ const dropdown = new DropDown({
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
-  selected: 'Opel',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
   event: 'mouseenter',
 });

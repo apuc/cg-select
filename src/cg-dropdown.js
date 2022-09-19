@@ -3,7 +3,7 @@ export class DropDown {
   #list;
   #options;
   #caret;
-  //ToDo: Added placeholder, url, style(list, elem)
+  //ToDo: Added  url, style(list, elem)
 
   constructor(options = {}) {
     this.#init(options);
@@ -30,12 +30,21 @@ export class DropDown {
   }
 
   #initSelected() {
-    this.#element.innerHTML = `        
+    if (this.#options.selected) {
+      this.#element.innerHTML = `        
             <div class="cg-select">
                 <span class="selected">${this.#options.selected}</span>
                 <div class="caret"></div>
             </div>
         `;
+    } else {
+      this.#element.innerHTML = `        
+            <div class="cg-select">
+                <span class="selected">Select...</span>
+                <div class="caret"></div>
+            </div>
+        `;
+    }
 
     this.#element.addEventListener('click', () => {
       this.#open();
