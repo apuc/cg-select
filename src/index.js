@@ -2,14 +2,21 @@ import { DropDown } from './cg-dropdown';
 
 const dropdown = new DropDown({
   selector: '.cg-dropdown',
-  selected: 'BMW',
+
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
 });
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
-  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
+  placeholder: 'Выберите авто',
+  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'Kamaz'],
   event: 'mouseenter',
+  styleCustom: {
+    select: 'selectCustom',
+    caret: 'caretCustom',
+    list: 'listCustom',
+    item: 'listCustom__item',
+  },
 });
 
 // const dropdown3 = new DropDown({

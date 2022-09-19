@@ -38,10 +38,29 @@ export class DropDown {
             </div>
         `;
     } else {
+      this.#element.innerHTML = `
+              <div class="cg-select">
+                 <span class="selected">Select...</span>
+                 <div class="caret"></div>
+              </div>
+      `;
+    }
+
+    if (!this.#options.selected && this.#options.placeholder) {
       this.#element.innerHTML = `        
             <div class="cg-select">
-                <span class="selected">Select...</span>
+                <span class="selected">${this.#options.placeholder}</span>
                 <div class="caret"></div>
+            </div>
+        `;
+    }
+    if (this.#options.styleCustom) {
+      this.#element.innerHTML = `
+        <div class="cg-select ${this.#options.styleCustom.select}">
+                <span class="selected">
+                ${this.#options.placeholder}
+                </span>
+                <div class="caret ${this.#options.styleCustom.caret}"></div>
             </div>
         `;
     }
@@ -73,7 +92,17 @@ export class DropDown {
       return;
     }
 
-    const templete = items.map((i) => `<li class="list__item">${i}</li>`).join('');
+    if (this.#options.styleCustom) {
+      const templete = items
+        .map((i) => `<li class="list__item ${this.#options.styleCustom.item}">${i}</li>`)
+        .join('');
+
+      this.#element.innerHTML += `<ul class="list ${this.#options.styleCustom.list}">
+      ${templete}
+      </ul>`;
+    }
+
+    const templete = items.map((item) => `<li class="list__item">${item}</li>`).join('');
 
     this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
 
