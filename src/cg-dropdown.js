@@ -3,6 +3,7 @@ export class DropDown {
   #list;
   #options;
   #caret;
+
   //ToDo: Added  url, style(list, elem)
 
   constructor(options = {}) {
@@ -11,6 +12,7 @@ export class DropDown {
     this.#initAmount();
     this.#initItems();
     this.#initEvent();
+    // this.#customStyles();
   }
 
   #open() {
@@ -25,11 +27,13 @@ export class DropDown {
     if (!elem) {
       throw new Error(`Element with selector ${options.selector}`);
     }
+    const { styles } = this.#options;
 
     this.#element = elem;
   }
 
   #initSelected() {
+    const { styles } = this.#options;
     if (this.#options.selected) {
       this.#createSelected(this.#options.selected);
     } else {
@@ -40,16 +44,8 @@ export class DropDown {
       this.#createSelected(this.#options.placeholder);
     }
 
-    if (
-      (this.#options.styleCustom && this.#options.placeholder) ||
-      (this.#options.styleCustom && this.#options.selected)
-    ) {
-      const cgselect = this.#element.querySelector('.cg-select');
-      const caret = this.#element.querySelector('.caret');
-      console.log(cgselect);
-
-      cgselect.classList.add(this.#options.styleCustom.select);
-      caret.classList.add(this.#options.styleCustom.caret);
+    if (styles) {
+      let style = this.#customStyles(styles);
     }
 
     this.#element.addEventListener('click', () => {
@@ -73,22 +69,22 @@ export class DropDown {
   }
 
   #initItems() {
-    const { items } = this.#options;
+    const { items, styles } = this.#options;
 
     if (!Array.isArray(items)) {
       return;
     }
 
-    if (this.#options.styleCustom) {
-      const templete = items
-        .map((item) => `<li class="list__item ${this.#options.styleCustom.item}">${item}</li>`)
-        .join('');
+    const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
+    this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
+    //ToDo: fix problem list__item
 
-      this.#element.innerHTML += `<ul class="list 
-      ${this.#options.styleCustom.list}">${templete}</ul>`;
-    } else {
-      const templete = items.map((item) => `<li class="list__item">${item}</li>`).join('');
-      this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
+    if (styles) {
+      const templete = items
+        .map((item) => `<li class="list__item" style = "${styles}" >${item}</li>`)
+        .join('');
+      this.#element.innerHTML += `<ul class="list style = "${styles}">${templete}</ul>`;
+      this.#customStyles(styles);
     }
 
     const options = this.#element.querySelectorAll('.list__item');
@@ -138,12 +134,66 @@ export class DropDown {
     }
   }
 
-  #createSelected(content) {
+  #customStyles(styles) {
+    if (!styles) {
+      return;
+    }
+
+    //ToDo: fix problem list__item
+    const { head, caret, list, list__item } = styles;
+    const select = this.#element.querySelector('.cg-select');
+    const crt = this.#element.querySelector('.caret');
+    const ul = this.#element.querySelector('.list');
+    // const li = this.#element.querySelectorAll('.list__item');
+
+    if (head) {
+      Object.entries(head).forEach(([key, value]) => {
+        select.style[key] = value;
+      });
+    }
+
+    if (caret) {
+      Object.entries(caret).forEach(([key, value]) => {
+        crt.style[key] = value;
+      });
+    }
+
+    if (ul) {
+      if (list) {
+        Object.entries(list).forEach(([key, value]) => {
+          ul.style[key] = value;
+        });
+      }
+    }
+  }
+
+  #createSelected(content, styles) {
     this.#element.innerHTML = `
             <div class="cg-select">
                 <span class="selected">${content}</span>
                 <div class="caret"></div>
             </div>
     `;
+
+    if (styles) {
+      this.#customStyles(styles);
+
+      this.#element.innerHTML = `
+            <div class="cg-select" style = "${styles}">
+                <span class="selected">${content}</span>
+                <div class="caret" style = "${styles}"></div>
+            </div>
+    `;
+    }
   }
+
+  // addItem(item) {
+  //   const { items } = this.#options;
+
+  //   console.log('Добавление елемента', item);
+
+  //   items.push(item);
+
+  //   console.log(items);
+  // }
 }
