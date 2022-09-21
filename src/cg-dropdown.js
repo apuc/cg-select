@@ -8,13 +8,15 @@ export class DropDown {
 
   constructor(options = {}) {
     this.#init(options);
-    this.#initSelected();
-    this.#initAmount();
-    this.#initItems();
-    this.#initEvent();
+    // this.#initAmount();
+    this.#render();
+    // this.#initEvent();
   }
 
   #open() {
+    this.#list = this.#element.querySelector('.list');
+    this.#caret = this.#element.querySelector('.caret');
+
     this.#list.classList.toggle('open');
     this.#caret.classList.toggle('caret_rotate');
   }
@@ -32,27 +34,25 @@ export class DropDown {
 
   #initSelected() {
     const { styles } = this.#options;
-    if (this.#options.selected) {
-      this.#createSelected(this.#options.selected);
-    } else {
-      this.#createSelected('Select...');
-    }
+    console.log(this.#options.placeholder);
+
+    // if (this.#options.selected) {
+    //   this.#createSelected(this.#options.selected);
+    // } else {
+    //   this.#createSelected('Select...');
+    // }
 
     if (!this.#options.selected && this.#options.placeholder) {
       this.#createSelected(this.#options.placeholder);
     }
 
-    if ((styles && this.#options.placeholder) || (styles && this.#options.selected)) {
-      this.#createSelected(this.#options.placeholder);
-      this.#customStyles(styles);
-    } else {
-      this.#createSelected('Select...');
-      this.#customStyles(styles);
-    }
-
-    this.#element.addEventListener('click', () => {
-      this.#open();
-    });
+    // if ((styles && this.#options.placeholder) || (styles && this.#options.selected)) {
+    //   this.#createSelected(this.#options.placeholder);
+    //   this.#customStyles(styles);
+    // } else {
+    //   this.#createSelected('Select...');
+    //   this.#customStyles(styles);
+    // }
   }
 
   #initAmount() {
@@ -70,24 +70,49 @@ export class DropDown {
     this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
   }
 
-  #initItems() {
-    const { items, styles } = this.#options;
+  //ToDo: fix problem lisiner!
+  #render() {
+    const { items } = this.#options;
 
-    if (!Array.isArray(items)) {
-      return;
-    }
+    const templete = items.map((item) => {
+      return `
+        <li class="list__item" >${item}</li>
+      `;
+    });
 
-    if (!styles) {
-      const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
-      this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
-    }
+    this.#element.innerHTML = '';
+    this.#initSelected();
+    this.#element.insertAdjacentHTML('beforeend', `<ul class="list">${templete.join('')}</ul>`);
 
-    if (styles) {
-      const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
-      this.#element.innerHTML += `<ul class="list" style="${styles}" >${templete}</ul>`;
-      this.#customStyles(styles);
-    }
+    this.#element.addEventListener('click', () => {
+      console.log('aaasa');
+      this.#open();
+      this.#selecteItem();
+    });
+  }
 
+  // #render() {
+  //   const { items } = this.#options;
+
+  //   const templete = items.map((item) => {
+  //     return `
+  //       <li class="list__item" >${item}</li>
+  //     `;
+  //   });
+
+  //   this.#element.innerHTML = '';
+  //   this.#initSelected();
+  //   this.#element.insertAdjacentHTML('beforeend', `<ul class="list">${templete.join('')}</ul>`);
+
+  //   this.#element.addEventListener('click', openSelect);
+
+  //   function openSelect() {
+  //     console.log('aaasa');
+  //     this.#element.removeEventListener('click', openSelect);
+  //   }
+  // }
+
+  #selecteItem() {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
@@ -101,39 +126,26 @@ export class DropDown {
         option.classList.add('active');
       });
     });
-
-    //ToDo: finish this function(catigories)
-    items.forEach((item) => {
-      if (typeof item === 'object') {
-        for (const key in item) {
-          const element = item[key];
-          // console.log(element);
-          if (typeof element === 'string') {
-            console.log(element);
-          }
-        }
-      }
-    });
   }
 
-  #initEvent() {
-    const { event } = this.#options;
+  // #initEvent() {
+  //   const { event } = this.#options;
 
-    this.#list = this.#element.querySelector('.list');
-    this.#caret = this.#element.querySelector('.caret');
+  //   this.#list = this.#element.querySelector('.list');
+  //   this.#caret = this.#element.querySelector('.caret');
 
-    if (event === 'mouseenter') {
-      this.#element.addEventListener(event, () => {
-        this.#list.classList.add('open');
-        this.#caret.classList.add('caret_rotate');
-      });
+  //   if (event === 'mouseenter') {
+  //     this.#element.addEventListener(event, () => {
+  //       this.#list.classList.add('open');
+  //       this.#caret.classList.add('caret_rotate');
+  //     });
 
-      this.#element.addEventListener('mouseleave', () => {
-        this.#list.classList.remove('open');
-        this.#caret.classList.remove('caret_rotate');
-      });
-    }
-  }
+  //     this.#element.addEventListener('mouseleave', () => {
+  //       this.#list.classList.remove('open');
+  //       this.#caret.classList.remove('caret_rotate');
+  //     });
+  //   }
+  // }
 
   #customStyles(styles) {
     if (!styles) {
@@ -176,32 +188,35 @@ export class DropDown {
   }
 
   #createSelected(content, styles) {
-    this.#element.innerHTML = `
-            <div class="cg-select">
-                <span class="selected">${content}</span>
-                <div class="caret"></div>
-            </div>
-    `;
-
-    if (styles) {
-      this.#customStyles(styles);
+    if (content) {
+      console.log('ds');
 
       this.#element.innerHTML = `
-            <div class="cg-select" style = "${styles}">
-                <span class="selected" style = "${styles}">${content}</span>
-                <div class="caret" style = "${styles}"></div>
-            </div>
-    `;
+      <div class="cg-select">
+          <span class="selected">${content}</span>
+          <div class="caret"></div>
+      </div>
+      `;
     }
+
+    // if (styles) {
+    //   this.#customStyles(styles);
+
+    //   this.#element.innerHTML = `
+    //         <div class="cg-select" style = "${styles}">
+    //             <span class="selected" style = "${styles}">${content}</span>
+    //             <div class="caret" style = "${styles}"></div>
+    //         </div>
+    // `;
+    // }
   }
 
-  // addItem(item) {
-  //   const { items } = this.#options;
+  addItem(item) {
+    const { items } = this.#options;
 
-  //   console.log('Добавление елемента', item);
+    items.push(item);
 
-  //   items.push(item);
-
-  //   console.log(items);
-  // }
+    console.log(items);
+    this.#render();
+  }
 }
