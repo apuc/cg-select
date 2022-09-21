@@ -1,26 +1,26 @@
 * {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  
 }
-body{
+
+body {
   background: #1b1e25;
 }
 
 .container {
+  display: flex;
   margin: 50px auto;
   width: 800px;
-  height: 200px;
 }
 
-.dropdown {
-  
+.cg-dropdown {
   position: relative;
+  margin-right: 10px;
 }
 
-.select {
+.cg-select {
   padding: 14px;
-  max-width: 200px;
+  min-width: 200px;
   height: 30px;
   color: #fff;
   display: flex;
@@ -31,11 +31,11 @@ body{
   cursor: pointer;
   border-radius: 5px;
   transition: 0.5s;
-}
 
-.select:hover {
-transition: 0.5s;
-  background: #394050;
+  &:hover {
+    transition: 0.5s;
+    background: #394050;
+  }
 }
 
 .caret {
@@ -45,18 +45,20 @@ transition: 0.5s;
   border-right: 5px solid transparent;
   border-top: 6px solid #fff;
   transition: 0.5s;
-}
 
-.caret-rotate {
-  transform: rotate(180deg);
-  transition: 0.5s;
+  &_rotate {
+    transform: rotate(180deg);
+    transition: 0.5s;
+  }
 }
 
 .list {
+  max-height: 230px;
+  overflow-y: auto;
   position: absolute;
   width: 212px;
   padding: 7px;
-  margin-top: 1px;
+  margin-top: -0.2px;
   list-style: none;
 
   color: white;
@@ -69,24 +71,24 @@ transition: 0.5s;
   opacity: 0;
   display: none;
   z-index: 1;
-}
 
-.list__item {
+  &__item {
     transition: 0.5s;
-  padding: 15px;
-}
+    padding: 15px;
 
-.list__item:hover {
-    transition: 0.5s;
-  cursor: pointer;
-  background: #394050;
+    &:hover {
+      transition: 0.5s;
+      cursor: pointer;
+      background: #8282822c;
+    }
+  }
 }
 
 .active {
-  background: #394050;
+  background: #8282822c;
 }
-.open {
 
+.open {
   transition: 0.5s;
   display: block;
   opacity: 1;

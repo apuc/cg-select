@@ -1,27 +1,48 @@
-const dropdowns = document.querySelectorAll('.dropdown');
+import { DropDown } from './cg-dropdown';
 
-dropdowns.forEach(drop => {
-    const select = drop.querySelector('.select');
-    const caret = drop.querySelector('.caret');
-    const list = drop.querySelector('.list');
-    const options = drop.querySelectorAll('.list__item')
-    const selected = drop.querySelector('.selected')
+const dropdown = new DropDown({
+  selector: '.cg-dropdown',
 
-    select.addEventListener('click', () => {
-        caret.classList.toggle('caret-rotate');
-        list.classList.toggle('open');
-    });
+  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
+});
 
-    options.forEach(option => {
-        option.addEventListener('click', () =>{
-            selected.innerText = option.innerText;
-            caret.classList.remove('caret-rotate'); 
-            list.classList.remove('open');
-            
-            options.forEach(option =>{
-                option.classList.remove('active');
-            })
-            option.classList.add('active');
-        })
-    })
-}) 
+const dropdown2 = new DropDown({
+  selector: '.cg-dropdown2',
+  placeholder: 'Выберите авто',
+  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'Kamaz'],
+  event: 'mouseenter',
+  styles: {
+    head: {
+      background: 'red',
+      color: 'black',
+      width: '400px',
+    },
+    placeholder: {
+      color: 'grey',
+    },
+    caret: {
+      'border-top': '6px solid black',
+    },
+    list: {
+      background: 'red',
+      color: 'black',
+      width: '412px',
+    },
+  },
+});
+
+// dropdown.addItem('Zaz');
+// const dropdown3 = new DropDown({
+//   selector: '.cg-dropdown3',
+//   selected: '',
+//   items: [
+//     {
+//       title: 'Russia',
+//       item: ['Rostov', 'Moskow'],
+//     },
+//     {
+//       title: 'Germany',
+//       item: ['Germany', 'Berlin'],
+//     },
+//   ],
+// });
