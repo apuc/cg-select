@@ -4,7 +4,7 @@ export class DropDown {
   #options;
   #caret;
 
-  //ToDo: Added  url, style(list, elem)
+  //ToDo: Added  url
 
   constructor(options = {}) {
     this.#init(options);
@@ -12,7 +12,6 @@ export class DropDown {
     this.#initAmount();
     this.#initItems();
     this.#initEvent();
-    // this.#customStyles();
   }
 
   #open() {
@@ -27,7 +26,6 @@ export class DropDown {
     if (!elem) {
       throw new Error(`Element with selector ${options.selector}`);
     }
-    const { styles } = this.#options;
 
     this.#element = elem;
   }
@@ -44,8 +42,12 @@ export class DropDown {
       this.#createSelected(this.#options.placeholder);
     }
 
-    if (styles) {
-      let style = this.#customStyles(styles);
+    if ((styles && this.#options.placeholder) || (styles && this.#options.selected)) {
+      this.#createSelected(this.#options.placeholder);
+      this.#customStyles(styles);
+    } else {
+      this.#createSelected('Select...');
+      this.#customStyles(styles);
     }
 
     this.#element.addEventListener('click', () => {
@@ -77,12 +79,9 @@ export class DropDown {
 
     const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
     this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
-    //ToDo: fix problem list__item
 
     if (styles) {
-      const templete = items
-        .map((item) => `<li class="list__item" style = "${styles}" >${item}</li>`)
-        .join('');
+      const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
       this.#element.innerHTML += `<ul class="list style = "${styles}">${templete}</ul>`;
       this.#customStyles(styles);
     }
@@ -139,12 +138,11 @@ export class DropDown {
       return;
     }
 
-    //ToDo: fix problem list__item
-    const { head, caret, list, list__item } = styles;
+    const { head, caret, list, placeholder } = styles;
     const select = this.#element.querySelector('.cg-select');
     const crt = this.#element.querySelector('.caret');
     const ul = this.#element.querySelector('.list');
-    // const li = this.#element.querySelectorAll('.list__item');
+    const placeh = this.#element.querySelector('.selected');
 
     if (head) {
       Object.entries(head).forEach(([key, value]) => {
@@ -165,6 +163,14 @@ export class DropDown {
         });
       }
     }
+
+    if (placeh) {
+      if (placeholder) {
+        Object.entries(placeholder).forEach(([key, value]) => {
+          placeh.style[key] = value;
+        });
+      }
+    }
   }
 
   #createSelected(content, styles) {
@@ -180,7 +186,7 @@ export class DropDown {
 
       this.#element.innerHTML = `
             <div class="cg-select" style = "${styles}">
-                <span class="selected">${content}</span>
+                <span class="selected" style = "${styles}">${content}</span>
                 <div class="caret" style = "${styles}"></div>
             </div>
     `;

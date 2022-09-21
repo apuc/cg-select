@@ -15,6 +15,10 @@ const dropdown2 = new DropDown({
     head: {
       background: 'red',
       color: 'black',
+      width: '400px',
+    },
+    placeholder: {
+      color: 'grey',
     },
     caret: {
       'border-top': '6px solid black',
@@ -22,9 +26,7 @@ const dropdown2 = new DropDown({
     list: {
       background: 'red',
       color: 'black',
-    },
-    list__item: {
-      color: 'black',
+      width: '412px',
     },
   },
 });
