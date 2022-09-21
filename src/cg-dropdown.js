@@ -77,12 +77,14 @@ export class DropDown {
       return;
     }
 
-    const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
-    this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
+    if (!styles) {
+      const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
+      this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
+    }
 
     if (styles) {
       const templete = items.map((item) => `<li class="list__item" >${item}</li>`).join('');
-      this.#element.innerHTML += `<ul class="list style = "${styles}">${templete}</ul>`;
+      this.#element.innerHTML += `<ul class="list" style="${styles}" >${templete}</ul>`;
       this.#customStyles(styles);
     }
 
