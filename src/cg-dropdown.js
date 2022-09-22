@@ -8,17 +8,9 @@ export class DropDown {
 
   constructor(options = {}) {
     this.#init(options);
-    // this.#initAmount();
+    this.#initAmount();
     this.#render();
     // this.#initEvent();
-  }
-
-  #open() {
-    this.#list = this.#element.querySelector('.list');
-    this.#caret = this.#element.querySelector('.caret');
-
-    this.#list.classList.toggle('open');
-    this.#caret.classList.toggle('caret_rotate');
   }
 
   #init(options) {
@@ -30,29 +22,36 @@ export class DropDown {
     }
 
     this.#element = elem;
+
+    this.#element.addEventListener('click', () => {
+      this.#selectItem();
+      this.#open();
+    });
+
+    this.#list = this.#element.querySelector('.list');
+    this.#caret = this.#element.querySelector('.caret');
   }
 
   #initSelected() {
     const { styles } = this.#options;
-    console.log(this.#options.placeholder);
 
-    // if (this.#options.selected) {
-    //   this.#createSelected(this.#options.selected);
-    // } else {
-    //   this.#createSelected('Select...');
-    // }
+    if (this.#options.selected) {
+      this.#createSelected(this.#options.selected);
+    } else {
+      this.#createSelected('Select...');
+    }
 
     if (!this.#options.selected && this.#options.placeholder) {
       this.#createSelected(this.#options.placeholder);
     }
 
-    // if ((styles && this.#options.placeholder) || (styles && this.#options.selected)) {
-    //   this.#createSelected(this.#options.placeholder);
-    //   this.#customStyles(styles);
-    // } else {
-    //   this.#createSelected('Select...');
-    //   this.#customStyles(styles);
-    // }
+    if ((styles && this.#options.placeholder) || (styles && this.#options.selected)) {
+      this.#createSelected(this.#options.placeholder);
+      this.#customStyles(styles);
+    } else {
+      this.#createSelected('Select...');
+      this.#customStyles(styles);
+    }
   }
 
   #initAmount() {
@@ -70,49 +69,53 @@ export class DropDown {
     this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
   }
 
-  //ToDo: fix problem lisiner!
   #render() {
-    const { items } = this.#options;
+    const { items, styles } = this.#options;
 
-    const templete = items.map((item) => {
-      return `
-        <li class="list__item" >${item}</li>
-      `;
-    });
+    console.log(styles);
 
-    this.#element.innerHTML = '';
     this.#initSelected();
-    this.#element.insertAdjacentHTML('beforeend', `<ul class="list">${templete.join('')}</ul>`);
+    this.#element.querySelector(this.#options.selector);
 
-    this.#element.addEventListener('click', () => {
-      console.log('aaasa');
-      this.#open();
-      this.#selecteItem();
+    let ul = document.createElement('ul');
+
+    if (styles) {
+      const { list } = styles;
+
+      ul.classList.add('list');
+
+      if (ul) {
+        if (list) {
+          Object.entries(list).forEach(([key, value]) => {
+            ul.style[key] = value;
+          });
+        }
+      }
+      this.#element.appendChild(ul);
+    } else {
+      ul.classList.add('list');
+      this.#element.appendChild(ul);
+    }
+
+    items.map((item) => {
+      let li = document.createElement('li');
+      const text = document.createTextNode(item);
+      li.classList.add('list__item');
+
+      li.appendChild(text);
+      ul.appendChild(li);
     });
   }
 
-  // #render() {
-  //   const { items } = this.#options;
+  #open() {
+    this.#list = this.#element.querySelector('.list');
+    this.#caret = this.#element.querySelector('.caret');
 
-  //   const templete = items.map((item) => {
-  //     return `
-  //       <li class="list__item" >${item}</li>
-  //     `;
-  //   });
+    this.#list.classList.toggle('open');
+    this.#caret.classList.toggle('caret_rotate');
+  }
 
-  //   this.#element.innerHTML = '';
-  //   this.#initSelected();
-  //   this.#element.insertAdjacentHTML('beforeend', `<ul class="list">${templete.join('')}</ul>`);
-
-  //   this.#element.addEventListener('click', openSelect);
-
-  //   function openSelect() {
-  //     console.log('aaasa');
-  //     this.#element.removeEventListener('click', openSelect);
-  //   }
-  // }
-
-  #selecteItem() {
+  #selectItem() {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
@@ -128,21 +131,46 @@ export class DropDown {
     });
   }
 
+  //TODO: Fix problems in mouseenter
   // #initEvent() {
   //   const { event } = this.#options;
+  //   if (!event) {
+  //     return;
+  //   }
 
-  //   this.#list = this.#element.querySelector('.list');
+  //   this.#list = this.#element.querySelectorAll('.list');
   //   this.#caret = this.#element.querySelector('.caret');
+  //   // let list = this.#element.querySelectorAll('.list');
+  //   if (event) {
+  //     let list = this.#element.querySelectorAll('.list');
+  //     console.log(list);
+  //     // list.classList.add('open');
+  //     if (event === 'mouseenter') {
+  //       this.#element.addEventListener(event, () => {
+  //         // this.#open();
+  //         this.#list.classList.add('open');
+  //       });
+
+  //       this.#element.addEventListener('mouseleave', () => {
+  //         // this.#list.classList.remove('open');
+  //         // this.#caret.classList.remove('caret_rotate');
+  //         // this.#open();
+  //         console.log('bbb');
+  //       });
+  //     }
+  //   }
 
   //   if (event === 'mouseenter') {
   //     this.#element.addEventListener(event, () => {
-  //       this.#list.classList.add('open');
-  //       this.#caret.classList.add('caret_rotate');
+  //       // this.#open();
+  //       console.log('aaa');
   //     });
 
   //     this.#element.addEventListener('mouseleave', () => {
-  //       this.#list.classList.remove('open');
-  //       this.#caret.classList.remove('caret_rotate');
+  //       // this.#list.classList.remove('open');
+  //       // this.#caret.classList.remove('caret_rotate');
+  //       // this.#open();
+  //       console.log('bbb');
   //     });
   //   }
   // }
@@ -152,10 +180,10 @@ export class DropDown {
       return;
     }
 
-    const { head, caret, list, placeholder } = styles;
+    const { head, caret, placeholder } = styles;
     const select = this.#element.querySelector('.cg-select');
     const crt = this.#element.querySelector('.caret');
-    const ul = this.#element.querySelector('.list');
+
     const placeh = this.#element.querySelector('.selected');
 
     if (head) {
@@ -170,14 +198,6 @@ export class DropDown {
       });
     }
 
-    if (ul) {
-      if (list) {
-        Object.entries(list).forEach(([key, value]) => {
-          ul.style[key] = value;
-        });
-      }
-    }
-
     if (placeh) {
       if (placeholder) {
         Object.entries(placeholder).forEach(([key, value]) => {
@@ -189,8 +209,6 @@ export class DropDown {
 
   #createSelected(content, styles) {
     if (content) {
-      console.log('ds');
-
       this.#element.innerHTML = `
       <div class="cg-select">
           <span class="selected">${content}</span>
@@ -199,16 +217,16 @@ export class DropDown {
       `;
     }
 
-    // if (styles) {
-    //   this.#customStyles(styles);
+    if (styles) {
+      this.#customStyles(styles);
 
-    //   this.#element.innerHTML = `
-    //         <div class="cg-select" style = "${styles}">
-    //             <span class="selected" style = "${styles}">${content}</span>
-    //             <div class="caret" style = "${styles}"></div>
-    //         </div>
-    // `;
-    // }
+      this.#element.innerHTML = `
+            <div class="cg-select" style = "${styles}">
+                <span class="selected" style = "${styles}">${content}</span>
+                <div class="caret" style = "${styles}"></div>
+            </div>
+    `;
+    }
   }
 
   addItem(item) {
@@ -217,6 +235,7 @@ export class DropDown {
     items.push(item);
 
     console.log(items);
+
     this.#render();
   }
 }
