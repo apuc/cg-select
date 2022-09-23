@@ -10,7 +10,7 @@ export class DropDown {
     this.#init(options);
     this.#initAmount();
     this.#render();
-    // this.#initEvent();
+    this.#initEvent();
   }
 
   #init(options) {
@@ -72,8 +72,6 @@ export class DropDown {
   #render() {
     const { items, styles } = this.#options;
 
-    console.log(styles);
-
     this.#initSelected();
     this.#element.querySelector(this.#options.selector);
 
@@ -82,6 +80,7 @@ export class DropDown {
     if (styles) {
       const { list } = styles;
 
+      console.log(styles);
       ul.classList.add('list');
 
       if (ul) {
@@ -115,6 +114,11 @@ export class DropDown {
     this.#caret.classList.toggle('caret_rotate');
   }
 
+  #close() {
+    this.#list.classList.remove('open');
+    this.#caret.classList.remove('caret_rotate');
+  }
+
   #selectItem() {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
@@ -131,49 +135,30 @@ export class DropDown {
     });
   }
 
-  //TODO: Fix problems in mouseenter
-  // #initEvent() {
-  //   const { event } = this.#options;
-  //   if (!event) {
-  //     return;
-  //   }
+  #initEvent() {
+    const { event } = this.#options;
+    if (!event) {
+      return;
+    }
 
-  //   this.#list = this.#element.querySelectorAll('.list');
-  //   this.#caret = this.#element.querySelector('.caret');
-  //   // let list = this.#element.querySelectorAll('.list');
-  //   if (event) {
-  //     let list = this.#element.querySelectorAll('.list');
-  //     console.log(list);
-  //     // list.classList.add('open');
-  //     if (event === 'mouseenter') {
-  //       this.#element.addEventListener(event, () => {
-  //         // this.#open();
-  //         this.#list.classList.add('open');
-  //       });
+    this.#list = this.#element.querySelectorAll('.list');
+    this.#caret = this.#element.querySelector('.caret');
 
-  //       this.#element.addEventListener('mouseleave', () => {
-  //         // this.#list.classList.remove('open');
-  //         // this.#caret.classList.remove('caret_rotate');
-  //         // this.#open();
-  //         console.log('bbb');
-  //       });
-  //     }
-  //   }
+    if (event) {
+      let list = this.#element.querySelectorAll('.list');
+      console.log(list);
 
-  //   if (event === 'mouseenter') {
-  //     this.#element.addEventListener(event, () => {
-  //       // this.#open();
-  //       console.log('aaa');
-  //     });
+      if (event === 'mouseenter') {
+        this.#element.addEventListener(event, () => {
+          this.#open();
+        });
 
-  //     this.#element.addEventListener('mouseleave', () => {
-  //       // this.#list.classList.remove('open');
-  //       // this.#caret.classList.remove('caret_rotate');
-  //       // this.#open();
-  //       console.log('bbb');
-  //     });
-  //   }
-  // }
+        this.#element.addEventListener('mouseleave', () => {
+          this.#close();
+        });
+      }
+    }
+  }
 
   #customStyles(styles) {
     if (!styles) {
@@ -233,9 +218,6 @@ export class DropDown {
     const { items } = this.#options;
 
     items.push(item);
-
-    console.log(items);
-
     this.#render();
   }
 }
