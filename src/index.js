@@ -10,7 +10,7 @@ dropdown.addItem('ZAZ');
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
-  placeholder: 'Выберите авто',
+  selected: '...',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'Kamaz'],
   event: 'mouseenter',
   styles: {
@@ -34,6 +34,11 @@ const dropdown2 = new DropDown({
 });
 
 dropdown2.addItem('LADA');
+dropdown2.selectIndex(3);
+
+// dropdown2.deleteItemAll();
+
+// dropdown2.deleteItem('MAN');
 
 // const dropdown3 = new DropDown({
 //   selector: '.cg-dropdown3',

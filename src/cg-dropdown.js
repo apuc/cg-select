@@ -32,7 +32,7 @@ export class DropDown {
     this.#caret = this.#element.querySelector('.caret');
   }
 
-  #initSelected() {
+  #initSelected(select) {
     const { styles } = this.#options;
 
     if (this.#options.selected) {
@@ -52,6 +52,10 @@ export class DropDown {
       this.#createSelected('Select...');
       this.#customStyles(styles);
     }
+
+    if (select) {
+      this.#createSelected(select);
+    }
   }
 
   #initAmount() {
@@ -69,18 +73,22 @@ export class DropDown {
     this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
   }
 
-  #render() {
+  #render(select) {
     const { items, styles } = this.#options;
 
-    this.#initSelected();
-    this.#element.querySelector(this.#options.selector);
+    if (select || (select && styles)) {
+      this.#initSelected(select);
+      this.#customStyles(styles);
+    } else {
+      this.#initSelected();
+    }
 
+    this.#element.querySelector(this.#options.selector);
     let ul = document.createElement('ul');
 
     if (styles) {
       const { list } = styles;
 
-      console.log(styles);
       ul.classList.add('list');
 
       if (ul) {
@@ -141,12 +149,8 @@ export class DropDown {
       return;
     }
 
-    this.#list = this.#element.querySelectorAll('.list');
-    this.#caret = this.#element.querySelector('.caret');
-
     if (event) {
       let list = this.#element.querySelectorAll('.list');
-      console.log(list);
 
       if (event === 'mouseenter') {
         this.#element.addEventListener(event, () => {
@@ -219,5 +223,32 @@ export class DropDown {
 
     items.push(item);
     this.#render();
+  }
+
+  deleteItem(item) {
+    const { items } = this.#options;
+
+    let index = items.indexOf(item);
+
+    items.splice(index, 1);
+
+    this.#render();
+  }
+
+  deleteItemAll() {
+    const { items } = this.#options;
+
+    items.splice(0, items.length);
+
+    console.log(items);
+    this.#render();
+  }
+
+  selectIndex(index) {
+    const options = this.#element.querySelectorAll('.list__item');
+
+    let select = options[index].innerText;
+
+    this.#render(select);
   }
 }
