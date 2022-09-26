@@ -7,6 +7,7 @@ const dropdown = new DropDown({
 });
 
 dropdown.addItem('ZAZ');
+dropdown.addItem('LADA');
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
@@ -34,6 +35,9 @@ const dropdown2 = new DropDown({
 });
 
 dropdown2.addItem('LADA');
+// dropdown.deleteItemAll();
+
+// dropdown2.deleteItem('MAN');
 // dropdown2.selectIndex(3);
 
 const dropdown3 = new DropDown({

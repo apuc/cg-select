@@ -3,6 +3,7 @@ export class DropDown {
   #list;
   #options;
   #caret;
+  #items;
 
   constructor(options = {}) {
     this.#init(options);
@@ -28,6 +29,9 @@ export class DropDown {
 
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
+
+    const { items } = this.#options;
+    this.#items = items;
   }
 
   #initSelected(select) {
@@ -224,28 +228,22 @@ export class DropDown {
   }
 
   addItem(item) {
-    const { items } = this.#options;
-
-    items.push(item);
+    this.#items.push(item);
     this.#render();
   }
 
   deleteItem(item) {
-    const { items } = this.#options;
+    let index = this.#items.indexOf(item);
 
-    let index = items.indexOf(item);
-
-    items.splice(index, 1);
+    this.#items.splice(index, 1);
 
     this.#render();
   }
 
   deleteItemAll() {
-    const { items } = this.#options;
+    this.#items.splice(0, this.#items.length);
 
-    items.splice(0, items.length);
-
-    console.log(items);
+    console.log(this.#items);
     this.#render();
   }
 
@@ -258,8 +256,6 @@ export class DropDown {
   }
 
   getElement(number) {
-    const { items } = this.#options;
-
-    return items[number];
+    return this.#items[number];
   }
 }
