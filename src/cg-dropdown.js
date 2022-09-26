@@ -4,8 +4,6 @@ export class DropDown {
   #options;
   #caret;
 
-  //ToDo: Added  url
-
   constructor(options = {}) {
     this.#init(options);
     this.#initAmount();
@@ -49,7 +47,6 @@ export class DropDown {
       this.#createSelected(this.#options.placeholder);
       this.#customStyles(styles);
     } else {
-      this.#createSelected('Select...');
       this.#customStyles(styles);
     }
 
@@ -106,10 +103,18 @@ export class DropDown {
 
     items.map((item) => {
       let li = document.createElement('li');
-      const text = document.createTextNode(item);
-      li.classList.add('list__item');
 
-      li.appendChild(text);
+      if (typeof item == 'object') {
+        const text = document.createTextNode(item.value);
+        li.classList.add('list__item');
+        li.appendChild(text);
+      } else {
+        const text = document.createTextNode(item);
+
+        li.classList.add('list__item');
+        li.appendChild(text);
+      }
+
       ul.appendChild(li);
     });
   }
@@ -250,5 +255,11 @@ export class DropDown {
     let select = options[index].innerText;
 
     this.#render(select);
+  }
+
+  getElement(number) {
+    const { items } = this.#options;
+
+    return items[number];
   }
 }
