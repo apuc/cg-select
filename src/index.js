@@ -1,4 +1,5 @@
 import { DropDown } from './cg-dropdown';
+import {} from './data-request';
 
 const dropdown = new DropDown({
   selector: '.cg-dropdown',
@@ -58,11 +59,8 @@ const dropdown3 = new DropDown({
   ],
 });
 
-let a = dropdown3.getElement(0);
-console.log(a);
-
-let b = dropdown.getElement(0);
-console.log(b);
+// let a = dropdown3.getElement(0);
+// let b = dropdown.getElement(0);
 
 // dropdown2.deleteItemAll();
 
