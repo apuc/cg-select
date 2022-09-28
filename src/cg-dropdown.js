@@ -12,6 +12,36 @@ export class DropDown {
     this.#initEvent();
   }
 
+  addItem(item) {
+    this.#items.push(item);
+    this.#render();
+  }
+
+  deleteItem(item) {
+    let index = this.#items.indexOf(item);
+
+    this.#items.splice(index, 1);
+
+    this.#render();
+  }
+
+  deleteItemAll() {
+    this.#items.splice(0, this.#items.length);
+    this.#render();
+  }
+
+  selectIndex(index) {
+    const options = this.#element.querySelectorAll('.list__item');
+
+    let select = options[index].innerText;
+
+    this.#render(select);
+  }
+
+  getElement(number) {
+    return this.#items[number];
+  }
+
   #init(options) {
     this.#options = options;
     const elem = document.querySelector(options.selector);
@@ -75,7 +105,7 @@ export class DropDown {
   }
 
   #render(select) {
-    const { items, styles } = this.#options;
+    const { items, styles, url } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -85,7 +115,7 @@ export class DropDown {
     }
 
     this.#element.querySelector(this.#options.selector);
-    let ul = document.createElement('ul');
+    const ul = document.createElement('ul');
 
     if (styles) {
       const { list } = styles;
@@ -105,20 +135,60 @@ export class DropDown {
       this.#element.appendChild(ul);
     }
 
-    items.map((item) => {
-      let li = document.createElement('li');
-
-      if (typeof item == 'object') {
-        const text = document.createTextNode(item.value);
-        li.classList.add('list__item');
-        li.appendChild(text);
-      } else {
-        const text = document.createTextNode(item);
-
-        li.classList.add('list__item');
-        li.appendChild(text);
+    if (!items) {
+      if (url) {
+        this.#renderUrl();
       }
+    } else {
+      items.map((item) => {
+        let li = document.createElement('li');
 
+        if (typeof item == 'object') {
+          const text = document.createTextNode(item.title);
+
+          li.classList.add('list__item');
+          li.appendChild(text);
+        } else {
+          const text = document.createTextNode(item);
+
+          li.classList.add('list__item');
+          li.appendChild(text);
+        }
+
+        ul.appendChild(li);
+      });
+    }
+  }
+
+  async #renderUrl() {
+    const { url } = this.#options;
+
+    if (this.#items) {
+      return;
+    }
+
+    if (!url) {
+      return;
+    }
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    //ToDO: fix title(item.title!)
+    data.forEach((item, index) => {
+      const items = {
+        id: item.id,
+        title: item.name,
+        value: index,
+      };
+
+      const ul = this.#element.querySelector('.list');
+
+      const li = document.createElement('li');
+      const text = document.createTextNode(items.title);
+      li.classList.add('list__item');
+      li.appendChild(text);
       ul.appendChild(li);
     });
   }
@@ -225,37 +295,5 @@ export class DropDown {
             </div>
     `;
     }
-  }
-
-  addItem(item) {
-    this.#items.push(item);
-    this.#render();
-  }
-
-  deleteItem(item) {
-    let index = this.#items.indexOf(item);
-
-    this.#items.splice(index, 1);
-
-    this.#render();
-  }
-
-  deleteItemAll() {
-    this.#items.splice(0, this.#items.length);
-
-    console.log(this.#items);
-    this.#render();
-  }
-
-  selectIndex(index) {
-    const options = this.#element.querySelectorAll('.list__item');
-
-    let select = options[index].innerText;
-
-    this.#render(select);
-  }
-
-  getElement(number) {
-    return this.#items[number];
   }
 }

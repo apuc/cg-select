@@ -35,38 +35,13 @@ const dropdown2 = new DropDown({
 });
 
 dropdown2.addItem('LADA');
-// dropdown.deleteItemAll();
 
-// dropdown2.deleteItem('MAN');
-// dropdown2.selectIndex(3);
-
+//ToDo: paste the desired url;
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown3',
-  items: [
-    {
-      id: '186',
-      value: 'A008',
-    },
-    {
-      id: '288',
-      value: 'BMW',
-    },
-    {
-      id: '355',
-      value: 'MAN',
-    },
-  ],
+  placeholder: 'URL',
+  url: 'http://jsonplaceholder.typicode.com/users',
 });
-
-let a = dropdown3.getElement(0);
-console.log(a);
-
-let b = dropdown.getElement(0);
-console.log(b);
-
-// dropdown2.deleteItemAll();
-
-// dropdown2.deleteItem('MAN');
 
 // const dropdown3 = new DropDown({
 //   selector: '.cg-dropdown3',
