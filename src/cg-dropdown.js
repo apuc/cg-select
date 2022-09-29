@@ -105,7 +105,7 @@ export class DropDown {
   }
 
   #render(select) {
-    const { items, styles, url } = this.#options;
+    const { items, styles, url, multiselect } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -122,42 +122,51 @@ export class DropDown {
 
       ul.classList.add('list');
 
-      if (ul) {
-        if (list) {
-          Object.entries(list).forEach(([key, value]) => {
-            ul.style[key] = value;
-          });
-        }
+      if (ul && list) {
+        Object.entries(list).forEach(([key, value]) => {
+          ul.style[key] = value;
+        });
       }
+
       this.#element.appendChild(ul);
     } else {
       ul.classList.add('list');
       this.#element.appendChild(ul);
     }
 
-    if (!items) {
-      if (url) {
-        this.#renderUrl();
-      }
-    } else {
-      items.map((item) => {
-        let li = document.createElement('li');
-
-        if (typeof item == 'object') {
-          const text = document.createTextNode(item.title);
-
-          li.classList.add('list__item');
-          li.appendChild(text);
-        } else {
-          const text = document.createTextNode(item);
-
-          li.classList.add('list__item');
-          li.appendChild(text);
-        }
-
-        ul.appendChild(li);
-      });
+    if (!items && url) {
+      this.#renderUrl();
+      return;
     }
+
+    items.forEach((item) => {
+      const li = document.createElement('li');
+      let text = '';
+
+      li.classList.add('list__item');
+
+      if (item && typeof item === 'object' && item.title) {
+        text = item.title;
+      } else {
+        text = item;
+      }
+
+      if (multiselect) {
+        const checkBox = document.createElement('input');
+
+        checkBox.type = 'checkbox';
+        checkBox.addEventListener('click', (event) => {
+          event.stopPropagation();
+        });
+
+        li.appendChild(checkBox);
+      }
+
+      let textNode = document.createTextNode(text);
+
+      li.appendChild(textNode);
+      ul.appendChild(li);
+    });
   }
 
   async #renderUrl() {
@@ -172,7 +181,6 @@ export class DropDown {
     }
 
     const response = await fetch(url);
-
     const data = await response.json();
 
     //ToDO: fix title(item.title!)
@@ -182,11 +190,10 @@ export class DropDown {
         title: item.name,
         value: index,
       };
-
       const ul = this.#element.querySelector('.list');
-
       const li = document.createElement('li');
       const text = document.createTextNode(items.title);
+
       li.classList.add('list__item');
       li.appendChild(text);
       ul.appendChild(li);
@@ -207,17 +214,30 @@ export class DropDown {
   }
 
   #selectItem() {
+    const { multiselect } = this.#options;
+
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
     options.forEach((option) => {
-      option.addEventListener('click', () => {
-        selected.innerText = option.innerText;
+      option.addEventListener('click', (event) => {
+        if (multiselect) {
+          event.stopPropagation();
+          option.classList.toggle('active');
 
-        options.forEach((option) => {
-          option.classList.remove('active');
-        });
-        option.classList.add('active');
+          const checkBox = option.querySelector('input[type="checkbox"]');
+
+          if (checkBox) {
+            checkBox.checked = !checkBox.checked;
+          }
+        } else {
+          selected.innerText = option.innerText;
+          options.forEach((option) => {
+            option.classList.remove('active');
+          });
+          option.classList.add('active');
+          // this.getValue();
+        }
       });
     });
   }
@@ -296,4 +316,11 @@ export class DropDown {
     `;
     }
   }
+
+  // getValue() {
+  //   const selected = this.#element.querySelector('.selected');
+  //   const value = selected.innerText;
+  //   console.log(value);
+  //   return value;
+  // }
 }
