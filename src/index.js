@@ -13,8 +13,28 @@ dropdown.addItem('LADA');
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
   placeholder: 'SELECT CAR',
-  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'Kamaz'],
+  items: [
+    {
+      id: 'addaw21',
+      title: 'BMW',
+      value: '1',
+    },
+    {
+      id: '2414q',
+      title: 'Opel',
+      value: '2',
+    },
+    {
+      id: '24qwds',
+      title: 'Kamaz',
+      value: '3',
+    },
+  ],
 });
+
+setTimeout(() => {
+  console.log(dropdown.value);
+}, 10000);
 // let a = dropdown2.getValue();
 // console.log(a);
 //ToDo: paste the desired url;

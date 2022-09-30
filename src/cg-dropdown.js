@@ -4,6 +4,19 @@ export class DropDown {
   #options;
   #caret;
   #items;
+  #value;
+
+  get value() {
+    const { multiselect } = this.#options;
+
+    if (multiselect) {
+      return this.#items.filter((item, index) => {
+        return this.#value.indexOf(index) !== -1;
+      });
+    }
+
+    return this.#value;
+  }
 
   constructor(options = {}) {
     this.#init(options);
@@ -60,8 +73,12 @@ export class DropDown {
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
 
-    const { items } = this.#options;
+    const { items, multiselect } = this.#options;
     this.#items = items;
+
+    if (multiselect) {
+      this.#value = [];
+    }
   }
 
   #initSelected(select) {
@@ -145,7 +162,7 @@ export class DropDown {
 
       li.classList.add('list__item');
 
-      if (item && typeof item === 'object' && item.title) {
+      if (this.#checkItemStruct(item)) {
         text = item.title;
       } else {
         text = item;
@@ -219,8 +236,10 @@ export class DropDown {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
-    options.forEach((option) => {
+    options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
+        const item = this.#items[index];
+
         if (multiselect) {
           event.stopPropagation();
           option.classList.toggle('active');
@@ -229,14 +248,27 @@ export class DropDown {
 
           if (checkBox) {
             checkBox.checked = !checkBox.checked;
+
+            const indexValue = this.#value.indexOf(index);
+            if (indexValue === -1) {
+              this.#value.push(index);
+            } else {
+              this.#value.splice(indexValue, 1);
+            }
           }
         } else {
-          selected.innerText = option.innerText;
+          if (this.#checkItemStruct(item)) {
+            selected.innerText = item.title;
+          } else {
+            selected.innerText = item;
+          }
+
+          this.#value = item;
+
           options.forEach((option) => {
             option.classList.remove('active');
           });
           option.classList.add('active');
-          // this.getValue();
         }
       });
     });
@@ -317,10 +349,13 @@ export class DropDown {
     }
   }
 
-  // getValue() {
-  //   const selected = this.#element.querySelector('.selected');
-  //   const value = selected.innerText;
-  //   console.log(value);
-  //   return value;
-  // }
+  #checkItemStruct(item) {
+    if (item && typeof item !== 'object') {
+      return false;
+    }
+
+    return (
+      item.hasOwnProperty('id') && item.hasOwnProperty('title') && item.hasOwnProperty('value')
+    );
+  }
 }
