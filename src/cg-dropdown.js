@@ -5,17 +5,14 @@ export class DropDown {
   #caret;
   #items;
   #value;
+  #indexes = [];
 
   get value() {
-    const { multiselect } = this.#options;
+    return this.#value ?? null;
+  }
 
-    if (multiselect) {
-      return this.#items.filter((item, index) => {
-        return this.#value.indexOf(index) !== -1;
-      });
-    }
-
-    return this.#value;
+  get indexes() {
+    return this.#indexes ?? [];
   }
 
   constructor(options = {}) {
@@ -66,7 +63,6 @@ export class DropDown {
     this.#element = elem;
 
     this.#element.addEventListener('click', () => {
-      this.#selectItem();
       this.#open();
     });
 
@@ -153,6 +149,7 @@ export class DropDown {
 
     if (!items && url) {
       this.#renderUrl();
+
       return;
     }
 
@@ -170,12 +167,7 @@ export class DropDown {
 
       if (multiselect) {
         const checkBox = document.createElement('input');
-
         checkBox.type = 'checkbox';
-        checkBox.addEventListener('click', (event) => {
-          event.stopPropagation();
-        });
-
         li.appendChild(checkBox);
       }
 
@@ -184,6 +176,8 @@ export class DropDown {
       li.appendChild(textNode);
       ul.appendChild(li);
     });
+
+    this.#addOptionsBehaviour();
   }
 
   async #renderUrl() {
@@ -201,20 +195,26 @@ export class DropDown {
     const data = await response.json();
 
     //ToDO: fix title(item.title!)
-    data.forEach((item, index) => {
-      const items = {
-        id: item.id,
-        title: item.name,
+    this.#items = [];
+
+    data.forEach((dataItem, index) => {
+      const item = {
+        id: dataItem.id,
+        title: dataItem.name,
         value: index,
       };
       const ul = this.#element.querySelector('.list');
       const li = document.createElement('li');
-      const text = document.createTextNode(items.title);
+      const text = document.createTextNode(item.title);
 
       li.classList.add('list__item');
       li.appendChild(text);
       ul.appendChild(li);
+
+      this.#items.push(item);
     });
+
+    this.#addOptionsBehaviour();
   }
 
   #open() {
@@ -230,8 +230,8 @@ export class DropDown {
     this.#caret.classList.remove('caret_rotate');
   }
 
-  #selectItem() {
-    const { multiselect } = this.#options;
+  #addOptionsBehaviour() {
+    const { multiselect, placeholder } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
@@ -247,13 +247,26 @@ export class DropDown {
           const checkBox = option.querySelector('input[type="checkbox"]');
 
           if (checkBox) {
-            checkBox.checked = !checkBox.checked;
+            if (!(event.target instanceof HTMLInputElement)) {
+              checkBox.checked = !checkBox.checked;
+            }
 
-            const indexValue = this.#value.indexOf(index);
-            if (indexValue === -1) {
-              this.#value.push(index);
+            const checkIndex = this.#indexes.indexOf(index);
+
+            if (checkIndex === -1) {
+              this.#indexes.push(index);
+              this.#value.push(item);
+              selected.innerText = this.#value;
+              return;
+            }
+
+            this.#indexes.splice(checkIndex, 1);
+            this.#value.splice(checkIndex, 1);
+
+            if (!this.#value.length) {
+              selected.innerText = placeholder;
             } else {
-              this.#value.splice(indexValue, 1);
+              selected.innerText = this.#value;
             }
           }
         } else {

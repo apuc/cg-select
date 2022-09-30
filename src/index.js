@@ -5,6 +5,8 @@ const dropdown = new DropDown({
   placeholder: 'Выберите авто',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
   multiselect: true,
+  itemSelected: (item, index) => {},
+  itemRemoved: (item, index) => {},
 });
 
 dropdown.addItem('ZAZ');
@@ -34,6 +36,9 @@ const dropdown2 = new DropDown({
 
 setTimeout(() => {
   console.log(dropdown.value);
+}, 10000);
+setTimeout(() => {
+  console.log(dropdown.indexes);
 }, 10000);
 // let a = dropdown2.getValue();
 // console.log(a);
