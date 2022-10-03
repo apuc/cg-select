@@ -5,8 +5,7 @@ const dropdown = new DropDown({
   placeholder: 'Выберите авто',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
   multiselect: true,
-  itemSelected: (item, index) => {},
-  itemRemoved: (item, index) => {},
+  multiselectTag: true,
 });
 
 dropdown.addItem('ZAZ');
@@ -28,26 +27,37 @@ const dropdown2 = new DropDown({
     },
     {
       id: '24qwds',
-      title: 'Kamaz',
+      title: 'Kamaz 258',
       value: '3',
     },
+    {
+      id: '28wds',
+      title: 'MAN',
+      value: '4',
+    },
+    {
+      id: '28qwds',
+      title: 'BOOT',
+      value: '5',
+    },
   ],
+  multiselect: true,
 });
 
 setTimeout(() => {
-  console.log(dropdown.value);
+  console.log(dropdown2.value);
 }, 10000);
 setTimeout(() => {
-  console.log(dropdown.indexes);
+  console.log(dropdown2.indexes);
 }, 10000);
-// let a = dropdown2.getValue();
-// console.log(a);
+
 //ToDo: paste the desired url;
 
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown3',
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
+  multiselect: true,
 });
 
 // const dropdown3 = new DropDown({

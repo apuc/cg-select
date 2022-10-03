@@ -207,6 +207,10 @@ export class DropDown {
       const li = document.createElement('li');
       const text = document.createTextNode(item.title);
 
+      const checkBox = document.createElement('input');
+      checkBox.type = 'checkbox';
+      li.appendChild(checkBox);
+
       li.classList.add('list__item');
       li.appendChild(text);
       ul.appendChild(li);
@@ -231,14 +235,33 @@ export class DropDown {
   }
 
   #addOptionsBehaviour() {
-    const { multiselect, placeholder } = this.#options;
+    const { multiselect, placeholder, multiselectTag } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
+    const ul = document.createElement('ul');
+
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
+
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        const text = document.createTextNode('X');
+
+        // let textLi = document.createTextNode(item);
+        // t.toString();
+        // console.log(textLi);
+
+        btn.appendChild(text);
+        btn.addEventListener('click', () => {
+          console.log('aaaa');
+          ul.removeChild(li);
+        });
+
+        ul.classList.add('multiselectTag');
+        console.log(ul);
 
         if (multiselect) {
           event.stopPropagation();
@@ -255,8 +278,23 @@ export class DropDown {
 
             if (checkIndex === -1) {
               this.#indexes.push(index);
-              this.#value.push(item);
-              selected.innerText = this.#value;
+
+              if (this.#checkItemStruct(item)) {
+                this.#value.push(item.title);
+              } else {
+                let textLi = document.createTextNode(item);
+                li.appendChild(textLi);
+                li.appendChild(btn);
+                ul.appendChild(li);
+
+                this.#value.push(item);
+              }
+
+              // selected.innerText = this.#value;
+
+              selected.innerText = '';
+              selected.appendChild(ul);
+
               return;
             }
 
