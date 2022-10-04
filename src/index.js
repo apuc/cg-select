@@ -45,10 +45,10 @@ const dropdown2 = new DropDown({
 });
 
 setTimeout(() => {
-  console.log(dropdown2.value);
+  console.log(dropdown.value);
 }, 10000);
 setTimeout(() => {
-  console.log(dropdown2.indexes);
+  console.log(dropdown.indexes);
 }, 10000);
 
 //ToDo: paste the desired url;

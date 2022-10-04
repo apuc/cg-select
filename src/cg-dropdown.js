@@ -240,28 +240,13 @@ export class DropDown {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
-    const ul = document.createElement('ul');
+    // const ul = document.createElement('ul');
+
+    // ul.classList.add('multiselectTag');
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
-
-        const li = document.createElement('li');
-        const btn = document.createElement('button');
-        const text = document.createTextNode('X');
-
-        // let textLi = document.createTextNode(item);
-        // t.toString();
-        // console.log(textLi);
-
-        btn.appendChild(text);
-        btn.addEventListener('click', () => {
-          console.log('aaaa');
-          ul.removeChild(li);
-        });
-
-        ul.classList.add('multiselectTag');
-        console.log(ul);
 
         if (multiselect) {
           event.stopPropagation();
@@ -276,24 +261,26 @@ export class DropDown {
 
             const checkIndex = this.#indexes.indexOf(index);
 
+            let templete = '';
             if (checkIndex === -1) {
               this.#indexes.push(index);
 
               if (this.#checkItemStruct(item)) {
                 this.#value.push(item.title);
               } else {
-                let textLi = document.createTextNode(item);
-                li.appendChild(textLi);
-                li.appendChild(btn);
-                ul.appendChild(li);
-
                 this.#value.push(item);
               }
 
-              // selected.innerText = this.#value;
+              //TODO refactoring code!!!!
+              if (multiselectTag) {
+                for (let i = 0; i < this.#value.length; i++) {
+                  templete += `<li>${this.#value[i]}<button>X</button></li>`;
+                }
 
-              selected.innerText = '';
-              selected.appendChild(ul);
+                selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
+              } else {
+                selected.innerText = this.#value;
+              }
 
               return;
             }
@@ -301,10 +288,22 @@ export class DropDown {
             this.#indexes.splice(checkIndex, 1);
             this.#value.splice(checkIndex, 1);
 
+            if (multiselectTag) {
+              for (let i = 0; i < this.#value.length; i++) {
+                templete += `<li>${this.#value[i]} <button>X</button></li>`;
+              }
+
+              selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
+            }
+
             if (!this.#value.length) {
               selected.innerText = placeholder;
             } else {
-              selected.innerText = this.#value;
+              if (multiselectTag) {
+                selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
+              } else {
+                selected.innerText = this.#value;
+              }
             }
           }
         } else {
