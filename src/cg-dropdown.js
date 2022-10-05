@@ -240,10 +240,6 @@ export class DropDown {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
-    // const ul = document.createElement('ul');
-
-    // ul.classList.add('multiselectTag');
-
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
@@ -260,8 +256,8 @@ export class DropDown {
             }
 
             const checkIndex = this.#indexes.indexOf(index);
-
             let templete = '';
+
             if (checkIndex === -1) {
               this.#indexes.push(index);
 
@@ -271,10 +267,9 @@ export class DropDown {
                 this.#value.push(item);
               }
 
-              //TODO refactoring code!!!!
               if (multiselectTag) {
                 for (let i = 0; i < this.#value.length; i++) {
-                  templete += `<li>${this.#value[i]}<button>X</button></li>`;
+                  templete += this.itemMultiTag(this.#value[i]);
                 }
 
                 selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
@@ -283,14 +278,14 @@ export class DropDown {
               }
 
               return;
+            } else {
+              this.#indexes.splice(checkIndex, 1);
+              this.#value.splice(checkIndex, 1);
             }
-
-            this.#indexes.splice(checkIndex, 1);
-            this.#value.splice(checkIndex, 1);
 
             if (multiselectTag) {
               for (let i = 0; i < this.#value.length; i++) {
-                templete += `<li>${this.#value[i]} <button>X</button></li>`;
+                templete += this.itemMultiTag(this.#value[i]);
               }
 
               selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
@@ -322,6 +317,15 @@ export class DropDown {
         }
       });
     });
+  }
+
+  itemMultiTag(value) {
+    return `<li >${value} 
+      <svg viewBox="0 0 10 10" class="svgIcon">
+          <path d="M3,7 L7,3" class="p1"/>
+          <path d="M3,3 L7,7" class="p3"/>
+      </svg>
+    </li>`;
   }
 
   #initEvent() {
@@ -381,7 +385,7 @@ export class DropDown {
     if (content) {
       this.#element.innerHTML = `
       <div class="cg-select">
-          <span class="selected">${content}</span>
+          <p class="selected">${content}</p>
           <div class="caret"></div>
       </div>
       `;
