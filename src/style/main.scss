@@ -21,16 +21,25 @@ body {
 .cg-select {
   padding: 14px;
   min-width: 200px;
+  max-width: 200px;
   height: 30px;
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
   background: #2a2f3b;
   cursor: pointer;
   border-radius: 5px;
   transition: 0.5s;
+
+  .selected {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   &:hover {
     transition: 0.5s;
@@ -104,4 +113,29 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4d4d4d;
+}
+
+.multiselect {
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+
+  li {
+    color: red;
+    border: 1px solid #4d4d4d;
+  }
+  z-index: 999;
+}
+
+.multiselectTag {
+  display: flex;
+  text-decoration: none;
+  flex-direction: row;
+  height: 15px;
+  list-style-type: none;
+}
+
+input[type='checkbox'] {
+  cursor: pointer;
 }

@@ -4,6 +4,8 @@ const dropdown = new DropDown({
   selector: '.cg-dropdown',
   placeholder: 'Выберите авто',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
+  multiselect: true,
+  multiselectTag: true,
 });
 
 dropdown.addItem('ZAZ');
@@ -11,36 +13,51 @@ dropdown.addItem('LADA');
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
-  placeholder: 'Выберите авто',
-  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'Kamaz'],
-  event: 'mouseenter',
-  styles: {
-    head: {
-      background: 'red',
-      color: 'black',
-      width: '400px',
+  placeholder: 'SELECT CAR',
+  items: [
+    {
+      id: 'addaw21',
+      title: 'BMW',
+      value: '1',
     },
-    placeholder: {
-      color: 'grey',
+    {
+      id: '2414q',
+      title: 'Opel',
+      value: '2',
     },
-    caret: {
-      'border-top': '6px solid black',
+    {
+      id: '24qwds',
+      title: 'Kamaz 258',
+      value: '3',
     },
-    list: {
-      background: 'red',
-      color: 'black',
-      width: '412px',
+    {
+      id: '28wds',
+      title: 'MAN',
+      value: '4',
     },
-  },
+    {
+      id: '28qwds',
+      title: 'BOOT',
+      value: '5',
+    },
+  ],
+  multiselect: true,
 });
 
-dropdown2.addItem('LADA');
+setTimeout(() => {
+  console.log(dropdown.value);
+}, 10000);
+setTimeout(() => {
+  console.log(dropdown.indexes);
+}, 10000);
 
 //ToDo: paste the desired url;
+
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown3',
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
+  multiselect: true,
 });
 
 // const dropdown3 = new DropDown({
