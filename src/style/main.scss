@@ -118,19 +118,6 @@ body {
   background-color: #4d4d4d;
 }
 
-.multiselect {
-  height: 20px;
-
-  display: flex;
-  align-items: center;
-
-  li {
-    color: red;
-    border: 1px solid #4d4d4d;
-  }
-  z-index: 999;
-}
-
 .multiselectTag {
   display: flex;
   flex-wrap: wrap;
@@ -164,7 +151,7 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 
-.svgIcon {
+.svg-icon {
   width: 16px;
   margin-left: 3px;
   background-color: #bebebc;
@@ -177,7 +164,7 @@ input[type='checkbox'] {
     background-color: #ffffff;
   }
 }
-.svgIcon path {
+.svg-icon path {
   color: black;
   stroke: currentcolor;
   transition: 0.2s;

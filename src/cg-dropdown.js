@@ -4,11 +4,11 @@ export class DropDown {
   #options;
   #caret;
   #items;
-  #value;
+  #selectedItems;
   #indexes = [];
 
   get value() {
-    return this.#value ?? null;
+    return this.#selectedItems ?? null;
   }
 
   get indexes() {
@@ -17,7 +17,6 @@ export class DropDown {
 
   constructor(options = {}) {
     this.#init(options);
-    this.#initAmount();
     this.#render();
     this.#initEvent();
   }
@@ -73,7 +72,7 @@ export class DropDown {
     this.#items = items;
 
     if (multiselect) {
-      this.#value = [];
+      this.#selectedItems = [];
     }
   }
 
@@ -102,21 +101,6 @@ export class DropDown {
     }
   }
 
-  #initAmount() {
-    const { amount } = this.#options;
-
-    if (!amount) {
-      return;
-    }
-
-    let templete = '';
-
-    for (let i = 0; i < amount; i++) {
-      templete += `<li class="list__item">${i + 1}</li>`;
-    }
-    this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
-  }
-
   #render(select) {
     const { items, styles, url, multiselect } = this.#options;
 
@@ -127,7 +111,7 @@ export class DropDown {
       this.#initSelected();
     }
 
-    this.#element.querySelector(this.#options.selector);
+    // this.#element.querySelector(this.#options.selector);
     const ul = document.createElement('ul');
 
     if (styles) {
@@ -240,6 +224,9 @@ export class DropDown {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
+    const ul = document.createElement('ul');
+    ul.classList.add('multiselectTag');
+
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
@@ -256,49 +243,39 @@ export class DropDown {
             }
 
             const checkIndex = this.#indexes.indexOf(index);
-            let templete = '';
+            let value = '';
 
             if (checkIndex === -1) {
               this.#indexes.push(index);
 
               if (this.#checkItemStruct(item)) {
-                this.#value.push(item.title);
+                this.#selectedItems.push(item.title);
+                value = item.title;
               } else {
-                this.#value.push(item);
+                this.#selectedItems.push(item);
+                value = item;
               }
 
-              if (multiselectTag) {
-                for (let i = 0; i < this.#value.length; i++) {
-                  templete += this.itemMultiTag(this.#value[i]);
-                }
+              selected.innerText = '';
 
-                selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
+              if (multiselectTag) {
+                selected.appendChild(ul);
+
+                ul.appendChild(this.#createBreadcrumb(value));
               } else {
-                selected.innerText = this.#value;
+                selected.innerText = this.#selectedItems;
               }
 
               return;
-            } else {
-              this.#indexes.splice(checkIndex, 1);
-              this.#value.splice(checkIndex, 1);
             }
 
-            if (multiselectTag) {
-              for (let i = 0; i < this.#value.length; i++) {
-                templete += this.itemMultiTag(this.#value[i]);
-              }
+            this.#indexes.splice(checkIndex, 1);
+            this.#selectedItems.splice(checkIndex, 1);
 
-              selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
-            }
-
-            if (!this.#value.length) {
+            if (!this.#selectedItems.length) {
               selected.innerText = placeholder;
             } else {
-              if (multiselectTag) {
-                selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
-              } else {
-                selected.innerText = this.#value;
-              }
+              selected.innerText = this.#selectedItems;
             }
           }
         } else {
@@ -308,7 +285,7 @@ export class DropDown {
             selected.innerText = item;
           }
 
-          this.#value = item;
+          this.#selectedItems = item;
 
           options.forEach((option) => {
             option.classList.remove('active');
@@ -319,13 +296,45 @@ export class DropDown {
     });
   }
 
-  itemMultiTag(value) {
-    return `<li >${value} 
-      <svg viewBox="0 0 10 10" class="svgIcon">
-          <path d="M3,7 L7,3" class="p1"/>
-          <path d="M3,3 L7,7" class="p3"/>
-      </svg>
-    </li>`;
+  #createBreadcrumb(value) {
+    const { placeholder } = this.#options;
+
+    const selected = this.#element.querySelector('.selected');
+
+    const li = document.createElement('li');
+    const text = document.createTextNode(value);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+    svg.setAttribute('viewBox', '0 0 10 10');
+    path1.setAttribute('d', 'M3,7 L7,3');
+    path2.setAttribute('d', 'M3,3 L7,7');
+
+    svg.classList.add('svg-icon');
+
+    svg.appendChild(path1);
+    svg.appendChild(path2);
+    li.appendChild(text);
+    li.appendChild(svg);
+
+    svg.addEventListener('click', (event) => {
+      event.stopPropagation();
+
+      let index = this.#selectedItems.indexOf(value);
+
+      if (index !== -1) {
+        this.#selectedItems.splice(index, 1);
+      }
+      if (!this.#selectedItems.length) {
+        selected.innerText = placeholder;
+      }
+
+      console.log(this.#selectedItems);
+      li.parentElement.removeChild(li);
+    });
+
+    return li;
   }
 
   #initEvent() {
