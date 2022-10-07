@@ -111,7 +111,6 @@ export class DropDown {
       this.#initSelected();
     }
 
-    // this.#element.querySelector(this.#options.selector);
     const ul = document.createElement('ul');
 
     if (styles) {
@@ -237,6 +236,8 @@ export class DropDown {
 
           const checkBox = option.querySelector('input[type="checkbox"]');
 
+          this.checkBox = checkBox;
+
           if (checkBox) {
             if (!(event.target instanceof HTMLInputElement)) {
               checkBox.checked = !checkBox.checked;
@@ -261,16 +262,25 @@ export class DropDown {
               if (multiselectTag) {
                 selected.appendChild(ul);
 
-                ul.appendChild(this.#createBreadcrumb(value));
+                ul.appendChild(this.#createBreadcrumb(value, index));
               } else {
                 selected.innerText = this.#selectedItems;
               }
 
+              this.finalResult = value;
+
               return;
             }
 
+            // console.log(this.finalResult);
+
+            let a = this.#createBreadcrumb(this.finalResult, index);
+            // console.log(a);
+            // a.parentElement.removeChild(a);
+
             this.#indexes.splice(checkIndex, 1);
             this.#selectedItems.splice(checkIndex, 1);
+            // console.log(this.#selectedItems);
 
             if (!this.#selectedItems.length) {
               selected.innerText = placeholder;
@@ -296,7 +306,7 @@ export class DropDown {
     });
   }
 
-  #createBreadcrumb(value) {
+  #createBreadcrumb(value, index) {
     const { placeholder } = this.#options;
 
     const selected = this.#element.querySelector('.selected');
@@ -321,16 +331,21 @@ export class DropDown {
     svg.addEventListener('click', (event) => {
       event.stopPropagation();
 
-      let index = this.#selectedItems.indexOf(value);
+      let deleteIcon = this.#indexes.indexOf(index);
 
-      if (index !== -1) {
-        this.#selectedItems.splice(index, 1);
-      }
+      this.#indexes.splice(deleteIcon, 1);
+      this.#selectedItems.splice(deleteIcon, 1);
+
+      // console.log('selectedItems index', deleteIcon);
+
+      // console.log('Indexes', this.#indexes);
+
+      // console.log('Value ', this.#selectedItems);
+
       if (!this.#selectedItems.length) {
         selected.innerText = placeholder;
       }
 
-      console.log(this.#selectedItems);
       li.parentElement.removeChild(li);
     });
 

@@ -10,6 +10,11 @@ const dropdown = new DropDown({
 
 dropdown.addItem('ZAZ');
 dropdown.addItem('LADA');
+dropdown.addItem('BMW');
+
+// setTimeout(() => {
+//   console.log(dropdown.value);
+// }, 6000);
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
@@ -42,6 +47,7 @@ const dropdown2 = new DropDown({
     },
   ],
   multiselect: true,
+  multiselectTag: true,
 });
 
 //ToDo: paste the desired url;
