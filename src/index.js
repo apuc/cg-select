@@ -53,4 +53,5 @@ const dropdown3 = new DropDown({
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
   multiselect: true,
+  multiselectTag: true,
 });
