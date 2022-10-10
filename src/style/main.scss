@@ -28,7 +28,6 @@ body {
   justify-content: space-between;
   align-items: center;
 
-  // overflow: hidden;
   text-overflow: ellipsis;
   background: #2a2f3b;
   cursor: pointer;
@@ -38,15 +37,18 @@ body {
   .selected {
     max-width: 200px;
     margin: 5px;
-    // overflow: hidden;
-    // text-overflow: ellipsis;
-    // white-space: nowrap;
   }
 
   &:hover {
     transition: 0.5s;
     background: #394050;
   }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .caret {
@@ -96,29 +98,7 @@ body {
   }
 }
 
-.active {
-  background: #8282822c;
-}
-
-.open {
-  transition: 0.5s;
-  display: block;
-  opacity: 1;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #d1d1d19d;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #4d4d4d;
-}
-
-.multiselectTag {
+.multiselect-tag {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -169,4 +149,26 @@ input[type='checkbox'] {
   stroke: currentcolor;
   transition: 0.2s;
   stroke-width: 0.5;
+}
+
+.active {
+  background: #8282822c;
+}
+
+.open {
+  transition: 0.5s;
+  display: block;
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #d1d1d19d;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4d4d4d;
 }

@@ -10,11 +10,7 @@ const dropdown = new DropDown({
 
 dropdown.addItem('ZAZ');
 dropdown.addItem('LADA');
-dropdown.addItem('BMW');
-
-// setTimeout(() => {
-//   console.log(dropdown.value);
-// }, 6000);
+// dropdown.addItem('BMW');
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',

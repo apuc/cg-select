@@ -102,7 +102,7 @@ export class DropDown {
   }
 
   #render(select) {
-    const { items, styles, url, multiselect } = this.#options;
+    const { items, styles, url, multiselect, multiselectTag } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -136,7 +136,7 @@ export class DropDown {
       return;
     }
 
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       const li = document.createElement('li');
       let text = '';
 
@@ -151,6 +151,10 @@ export class DropDown {
       if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
+        if (multiselectTag) {
+          checkBox.setAttribute('id', `chbox-${index}`);
+        }
+
         li.appendChild(checkBox);
       }
 
@@ -224,7 +228,8 @@ export class DropDown {
     const selected = this.#element.querySelector('.selected');
 
     const ul = document.createElement('ul');
-    ul.classList.add('multiselectTag');
+
+    ul.classList.add('multiselect-tag');
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
@@ -235,8 +240,6 @@ export class DropDown {
           option.classList.toggle('active');
 
           const checkBox = option.querySelector('input[type="checkbox"]');
-
-          this.checkBox = checkBox;
 
           if (checkBox) {
             if (!(event.target instanceof HTMLInputElement)) {
@@ -266,26 +269,23 @@ export class DropDown {
               } else {
                 selected.innerText = this.#selectedItems;
               }
+            } else {
+              const tagItem = document.getElementById(`tag-${index}`);
 
-              this.finalResult = value;
+              ul.removeChild(tagItem);
 
-              return;
+              this.#indexes.splice(checkIndex, 1);
+              this.#selectedItems.splice(checkIndex, 1);
             }
-
-            // console.log(this.finalResult);
-
-            let a = this.#createBreadcrumb(this.finalResult, index);
-            // console.log(a);
-            // a.parentElement.removeChild(a);
-
-            this.#indexes.splice(checkIndex, 1);
-            this.#selectedItems.splice(checkIndex, 1);
-            // console.log(this.#selectedItems);
 
             if (!this.#selectedItems.length) {
               selected.innerText = placeholder;
             } else {
-              selected.innerText = this.#selectedItems;
+              if (multiselectTag) {
+                selected.appendChild(ul);
+              } else {
+                selected.innerText = this.#selectedItems;
+              }
             }
           }
         } else {
@@ -320,6 +320,7 @@ export class DropDown {
     svg.setAttribute('viewBox', '0 0 10 10');
     path1.setAttribute('d', 'M3,7 L7,3');
     path2.setAttribute('d', 'M3,3 L7,7');
+    li.setAttribute('id', `tag-${index}`);
 
     svg.classList.add('svg-icon');
 
@@ -331,16 +332,16 @@ export class DropDown {
     svg.addEventListener('click', (event) => {
       event.stopPropagation();
 
-      let deleteIcon = this.#indexes.indexOf(index);
+      const deleteIcon = this.#indexes.indexOf(index);
 
       this.#indexes.splice(deleteIcon, 1);
       this.#selectedItems.splice(deleteIcon, 1);
 
-      // console.log('selectedItems index', deleteIcon);
+      const checkBox = document.getElementById(`chbox-${index}`);
+      // const checkBox = document.getElementById(`chbox-${index}`);
 
-      // console.log('Indexes', this.#indexes);
-
-      // console.log('Value ', this.#selectedItems);
+      checkBox.checked = false;
+      checkBox.parentElement.classList.remove('active');
 
       if (!this.#selectedItems.length) {
         selected.innerText = placeholder;
