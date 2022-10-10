@@ -4,11 +4,12 @@ export class DropDown {
   #options;
   #caret;
   #items;
-  #value;
+  #selectedItems;
+  #id = [];
   #indexes = [];
 
   get value() {
-    return this.#value ?? null;
+    return this.#selectedItems ?? null;
   }
 
   get indexes() {
@@ -17,7 +18,6 @@ export class DropDown {
 
   constructor(options = {}) {
     this.#init(options);
-    this.#initAmount();
     this.#render();
     this.#initEvent();
   }
@@ -73,7 +73,7 @@ export class DropDown {
     this.#items = items;
 
     if (multiselect) {
-      this.#value = [];
+      this.#selectedItems = [];
     }
   }
 
@@ -102,23 +102,8 @@ export class DropDown {
     }
   }
 
-  #initAmount() {
-    const { amount } = this.#options;
-
-    if (!amount) {
-      return;
-    }
-
-    let templete = '';
-
-    for (let i = 0; i < amount; i++) {
-      templete += `<li class="list__item">${i + 1}</li>`;
-    }
-    this.#element.innerHTML += `<ul class="list">${templete}</ul>`;
-  }
-
   #render(select) {
-    const { items, styles, url, multiselect } = this.#options;
+    const { items, styles, url, multiselect, multiselectTag } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -127,7 +112,6 @@ export class DropDown {
       this.#initSelected();
     }
 
-    this.#element.querySelector(this.#options.selector);
     const ul = document.createElement('ul');
 
     if (styles) {
@@ -153,14 +137,16 @@ export class DropDown {
       return;
     }
 
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       const li = document.createElement('li');
       let text = '';
+      let id = '';
 
       li.classList.add('list__item');
 
       if (this.#checkItemStruct(item)) {
         text = item.title;
+        id = item.id;
       } else {
         text = item;
       }
@@ -168,6 +154,15 @@ export class DropDown {
       if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
+
+        if (multiselectTag) {
+          if (this.#checkItemStruct(item)) {
+            checkBox.setAttribute('id', `chbox-${item.id}`);
+          } else {
+            checkBox.setAttribute('id', `chbox-${index}`);
+          }
+        }
+
         li.appendChild(checkBox);
       }
 
@@ -194,12 +189,11 @@ export class DropDown {
     const response = await fetch(url);
     const data = await response.json();
 
-    //ToDO: fix title(item.title!)
     this.#items = [];
 
     data.forEach((dataItem, index) => {
       const item = {
-        id: dataItem.id,
+        id: dataItem.phone,
         title: dataItem.name,
         value: index,
       };
@@ -209,6 +203,9 @@ export class DropDown {
 
       const checkBox = document.createElement('input');
       checkBox.type = 'checkbox';
+
+      checkBox.setAttribute('id', `chbox-${item.id}`);
+
       li.appendChild(checkBox);
 
       li.classList.add('list__item');
@@ -240,9 +237,12 @@ export class DropDown {
     const options = this.#element.querySelectorAll('.list__item');
     const selected = this.#element.querySelector('.selected');
 
-    // const ul = document.createElement('ul');
+    const ul = document.createElement('ul');
 
-    // ul.classList.add('multiselectTag');
+    if (multiselect) {
+      ul.classList.add('multiselect-tag');
+      selected.classList.add('overflow-hidden');
+    }
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
@@ -260,49 +260,55 @@ export class DropDown {
             }
 
             const checkIndex = this.#indexes.indexOf(index);
+            let value = '';
+            let id = '';
 
-            let templete = '';
             if (checkIndex === -1) {
               this.#indexes.push(index);
 
               if (this.#checkItemStruct(item)) {
-                this.#value.push(item.title);
+                this.#selectedItems.push(item.title);
+                value = item.title;
+                id = item.id;
               } else {
-                this.#value.push(item);
+                this.#selectedItems.push(item);
+                value = item;
               }
 
-              //TODO refactoring code!!!!
+              selected.innerText = '';
+
               if (multiselectTag) {
-                for (let i = 0; i < this.#value.length; i++) {
-                  templete += `<li>${this.#value[i]}<button>X</button></li>`;
+                selected.appendChild(ul);
+
+                if (this.#checkItemStruct(item)) {
+                  ul.appendChild(this.#createBreadcrumb(value, index, id));
+                } else {
+                  ul.appendChild(this.#createBreadcrumb(value, index));
                 }
-
-                selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
               } else {
-                selected.innerText = this.#value;
+                selected.innerText = this.#selectedItems;
               }
+            } else {
+              if (multiselectTag) {
+                const tagItem = document.getElementById(`tag-${index}`);
 
-              return;
+                ul.removeChild(tagItem);
+
+                this.#indexes.splice(checkIndex, 1);
+                this.#selectedItems.splice(checkIndex, 1);
+              } else {
+                this.#indexes.splice(checkIndex, 1);
+                this.#selectedItems.splice(checkIndex, 1);
+              }
             }
 
-            this.#indexes.splice(checkIndex, 1);
-            this.#value.splice(checkIndex, 1);
-
-            if (multiselectTag) {
-              for (let i = 0; i < this.#value.length; i++) {
-                templete += `<li>${this.#value[i]} <button>X</button></li>`;
-              }
-
-              selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
-            }
-
-            if (!this.#value.length) {
+            if (!this.#selectedItems.length) {
               selected.innerText = placeholder;
             } else {
               if (multiselectTag) {
-                selected.innerHTML = `<ul class="multiselectTag">${templete}</ul>`;
+                selected.appendChild(ul);
               } else {
-                selected.innerText = this.#value;
+                selected.innerText = this.#selectedItems;
               }
             }
           }
@@ -312,8 +318,7 @@ export class DropDown {
           } else {
             selected.innerText = item;
           }
-
-          this.#value = item;
+          this.#selectedItems = item;
 
           options.forEach((option) => {
             option.classList.remove('active');
@@ -322,6 +327,57 @@ export class DropDown {
         }
       });
     });
+  }
+
+  #createBreadcrumb(value, index, id) {
+    const { placeholder } = this.#options;
+
+    const selected = this.#element.querySelector('.selected');
+
+    const li = document.createElement('li');
+    const text = document.createTextNode(value);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+    svg.setAttribute('viewBox', '0 0 10 10');
+    path1.setAttribute('d', 'M3,7 L7,3');
+    path2.setAttribute('d', 'M3,3 L7,7');
+    li.setAttribute('id', `tag-${index}`);
+
+    svg.classList.add('svg-icon');
+
+    svg.appendChild(path1);
+    svg.appendChild(path2);
+    li.appendChild(text);
+    li.appendChild(svg);
+
+    svg.addEventListener('click', (event) => {
+      event.stopPropagation();
+
+      const deleteIcon = this.#indexes.indexOf(index);
+
+      this.#indexes.splice(deleteIcon, 1);
+      this.#selectedItems.splice(deleteIcon, 1);
+
+      let checkBox = '';
+      if (id) {
+        checkBox = document.getElementById(`chbox-${id}`);
+      } else {
+        checkBox = document.getElementById(`chbox-${index}`);
+      }
+
+      checkBox.checked = false;
+      checkBox.parentElement.classList.remove('active');
+
+      if (!this.#selectedItems.length) {
+        selected.innerText = placeholder;
+      }
+
+      li.parentElement.removeChild(li);
+    });
+
+    return li;
   }
 
   #initEvent() {
@@ -381,7 +437,7 @@ export class DropDown {
     if (content) {
       this.#element.innerHTML = `
       <div class="cg-select">
-          <span class="selected">${content}</span>
+          <p class="selected">${content}</p>
           <div class="caret"></div>
       </div>
       `;

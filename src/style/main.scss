@@ -19,16 +19,15 @@ body {
 }
 
 .cg-select {
-  padding: 14px;
-  min-width: 200px;
-  max-width: 200px;
-  height: 30px;
+  padding: 5px;
+  min-width: 225px;
+  max-width: 225px;
+  min-height: 50px;
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  overflow: hidden;
   text-overflow: ellipsis;
   background: #2a2f3b;
   cursor: pointer;
@@ -36,9 +35,8 @@ body {
   transition: 0.5s;
 
   .selected {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-width: 200px;
+    margin: 5px;
   }
 
   &:hover {
@@ -47,9 +45,16 @@ body {
   }
 }
 
+.overflow-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .caret {
   width: 0;
   height: 0;
+  margin-right: 10px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid #fff;
@@ -65,7 +70,7 @@ body {
   max-height: 230px;
   overflow-y: auto;
   position: absolute;
-  width: 212px;
+  width: 220px;
   padding: 7px;
   margin-top: -0.2px;
   list-style: none;
@@ -93,6 +98,59 @@ body {
   }
 }
 
+.multiselect-tag {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    padding: 2px 4px 2px 4px;
+    background: #76767659;
+    height: 20px;
+    margin: 0 5px 5px 0;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+    border-radius: 5px;
+  }
+  &__button {
+    width: 15px;
+    height: 16px;
+    border: none;
+  }
+}
+
+input[type='checkbox'] {
+  cursor: pointer;
+}
+
+.svg-icon {
+  width: 16px;
+  margin-left: 3px;
+  background-color: #bebebc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 1s;
+
+  &:hover {
+    transition: 1s;
+    background-color: #ffffff;
+  }
+}
+.svg-icon path {
+  color: black;
+  stroke: currentcolor;
+  transition: 0.2s;
+  stroke-width: 0.5;
+}
+
 .active {
   background: #8282822c;
 }
@@ -113,29 +171,4 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4d4d4d;
-}
-
-.multiselect {
-  height: 20px;
-
-  display: flex;
-  align-items: center;
-
-  li {
-    color: red;
-    border: 1px solid #4d4d4d;
-  }
-  z-index: 999;
-}
-
-.multiselectTag {
-  display: flex;
-  text-decoration: none;
-  flex-direction: row;
-  height: 15px;
-  list-style-type: none;
-}
-
-input[type='checkbox'] {
-  cursor: pointer;
 }

@@ -10,6 +10,7 @@ const dropdown = new DropDown({
 
 dropdown.addItem('ZAZ');
 dropdown.addItem('LADA');
+// dropdown.addItem('BMW');
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
@@ -42,14 +43,8 @@ const dropdown2 = new DropDown({
     },
   ],
   multiselect: true,
+  multiselectTag: true,
 });
-
-setTimeout(() => {
-  console.log(dropdown.value);
-}, 10000);
-setTimeout(() => {
-  console.log(dropdown.indexes);
-}, 10000);
 
 //ToDo: paste the desired url;
 
@@ -58,19 +53,5 @@ const dropdown3 = new DropDown({
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
   multiselect: true,
+  multiselectTag: true,
 });
-
-// const dropdown3 = new DropDown({
-//   selector: '.cg-dropdown3',
-//   selected: '',
-//   items: [
-//     {
-//       title: 'Russia',
-//       item: ['Rostov', 'Moskow'],
-//     },
-//     {
-//       title: 'Germany',
-//       item: ['Germany', 'Berlin'],
-//     },
-//   ],
-// });
