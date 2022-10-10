@@ -4,6 +4,11 @@ const dropdown = new DropDown({
   selector: '.cg-dropdown',
   placeholder: 'Выберите авто',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
+  styles: {
+    head: {
+      background: 'red',
+    },
+  },
   multiselect: true,
   multiselectTag: true,
 });
@@ -42,6 +47,7 @@ const dropdown2 = new DropDown({
       value: '5',
     },
   ],
+
   multiselect: true,
   multiselectTag: true,
 });
