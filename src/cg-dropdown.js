@@ -25,6 +25,27 @@ export class DropDown {
   }
 
   addItem(item) {
+    if (!item) {
+      return false;
+    }
+
+    const random = Math.random().toString(36).substring(2, 10);
+    const index = this.#items.length;
+
+    if (typeof item === 'object') {
+      item = {
+        id: item.id,
+        title: item.title,
+        value: item.value,
+      };
+    } else {
+      item = {
+        id: random,
+        title: item,
+        value: index,
+      };
+    }
+
     this.#items.push(item);
     this.#render();
   }
@@ -71,12 +92,38 @@ export class DropDown {
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
 
-    const { items, multiselect } = this.#options;
-    this.#items = items;
+    const { items, multiselect, url } = this.#options;
+    this.#items = [];
 
     if (multiselect) {
       this.#selectedItems = [];
     }
+
+    if (!items && url) {
+      this.#renderUrl();
+      return;
+    }
+
+    items.forEach((dataItem, index) => {
+      const random = Math.random().toString(36).substring(2, 10);
+      let item = {};
+
+      if (this.#checkItemStruct(dataItem)) {
+        item = {
+          id: dataItem.id,
+          title: dataItem.title,
+          value: index,
+        };
+      } else {
+        item = {
+          id: random,
+          title: dataItem,
+          value: index,
+        };
+      }
+
+      this.#items.push(item);
+    });
   }
 
   #initSelected(select) {
@@ -137,44 +184,30 @@ export class DropDown {
 
     if (!items && url) {
       this.#renderUrl();
-
       return;
     }
 
-    items.forEach((item, index) => {
+    this.#items.forEach((dataItem) => {
       const li = document.createElement('li');
-      let text = '';
-      let id = '';
 
       li.classList.add('list__item');
-
-      if (this.#checkItemStruct(item)) {
-        text = item.title;
-        id = item.id;
-      } else {
-        text = item;
-      }
 
       if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
 
         if (multiselectTag) {
-          if (this.#checkItemStruct(item)) {
-            checkBox.setAttribute('id', `chbox-${item.id}`);
-          } else {
-            checkBox.setAttribute('id', `chbox-${index}`);
-          }
+          checkBox.setAttribute('id', `chbox-${dataItem.id}`);
         }
-
         li.appendChild(checkBox);
       }
 
-      let textNode = document.createTextNode(text);
+      let textNode = document.createTextNode(dataItem.title);
 
       li.appendChild(textNode);
       ul.appendChild(li);
     });
+    console.log(this.#items);
 
     this.#addOptionsBehaviour();
   }
@@ -192,8 +225,7 @@ export class DropDown {
 
     const response = await fetch(url);
     const data = await response.json();
-
-    this.#items = [];
+    console.log(response);
 
     data.forEach((dataItem, index) => {
       const item = {

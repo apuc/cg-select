@@ -15,7 +15,8 @@ const dropdown = new DropDown({
 
 dropdown.addItem('ZAZ');
 dropdown.addItem('LADA');
-// dropdown.addItem('BMW');
+dropdown.addItem('Kamaz 258');
+dropdown.addItem('BMW');
 
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
@@ -24,33 +25,35 @@ const dropdown2 = new DropDown({
     {
       id: 'addaw21',
       title: 'BMW',
-      value: '1',
+      value: 1,
     },
     {
       id: '2414q',
       title: 'Opel',
-      value: '2',
+      value: 2,
     },
     {
       id: '24qwds',
       title: 'Kamaz 258',
-      value: '3',
+      value: 3,
     },
     {
       id: '28wds',
       title: 'MAN',
-      value: '4',
+      value: 4,
     },
     {
       id: '28qwds',
       title: 'BOOT',
-      value: '5',
+      value: 5,
     },
   ],
 
   multiselect: true,
-  multiselectTag: true,
+  // multiselectTag: true,
 });
+
+dropdown2.addItem('LADA');
 
 //ToDo: paste the desired url;
 
