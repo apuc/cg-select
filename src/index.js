@@ -21,6 +21,7 @@ dropdown.addItem('BMW');
 const dropdown2 = new DropDown({
   selector: '.cg-dropdown2',
   placeholder: 'SELECT CAR',
+
   items: [
     {
       id: 'addaw21',
@@ -48,7 +49,11 @@ const dropdown2 = new DropDown({
       value: 5,
     },
   ],
-
+  styles: {
+    head: {
+      background: 'red',
+    },
+  },
   multiselect: true,
   // multiselectTag: true,
 });
@@ -61,6 +66,11 @@ const dropdown3 = new DropDown({
   selector: '.cg-dropdown3',
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
+  styles: {
+    head: {
+      background: 'red',
+    },
+  },
   multiselect: true,
   multiselectTag: true,
 });

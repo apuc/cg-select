@@ -66,7 +66,11 @@ export class DropDown {
   selectIndex(index) {
     const options = this.#element.querySelectorAll('.list__item');
 
-    let select = options[index].innerText;
+    if (index > options.length) {
+      return;
+    }
+
+    const select = options[index].innerText;
 
     this.#render(select);
   }
@@ -77,6 +81,8 @@ export class DropDown {
 
   #init(options) {
     this.#options = options;
+    const { items, multiselect, url } = this.#options;
+
     const elem = document.querySelector(options.selector);
 
     if (!elem) {
@@ -92,7 +98,6 @@ export class DropDown {
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
 
-    const { items, multiselect, url } = this.#options;
     this.#items = [];
 
     if (multiselect) {
@@ -127,24 +132,17 @@ export class DropDown {
   }
 
   #initSelected(select) {
-    const { styles } = this.#options;
+    const { styles, selected, placeholder } = this.#options;
 
-    if (this.#options.selected) {
-      createSelected(this.#element, this.#options.selected);
+    if (selected) {
+      createSelected(this.#element, selected);
+    } else if (placeholder) {
+      createSelected(this.#element, placeholder);
     } else {
       createSelected(this.#element, 'Select...');
     }
 
-    if (!this.#options.selected && this.#options.placeholder) {
-      createSelected(this.#element, this.#options.placeholder);
-    }
-
     if (styles) {
-      if (this.#options.placeholder) {
-        createSelected(this.#element, this.#options.placeholder, styles);
-      } else if (this.#options.selected) {
-        createSelected(this.#element, this.#options.selected, styles);
-      }
       customStyles(this.#element, styles);
     }
 
@@ -154,7 +152,7 @@ export class DropDown {
   }
 
   #render(select) {
-    const { items, styles, url, multiselect, multiselectTag } = this.#options;
+    const { styles, multiselect, multiselectTag } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -168,24 +166,15 @@ export class DropDown {
     if (styles) {
       const { list } = styles;
 
-      ul.classList.add('list');
-
       if (ul && list) {
         Object.entries(list).forEach(([key, value]) => {
           ul.style[key] = value;
         });
       }
-
-      this.#element.appendChild(ul);
-    } else {
-      ul.classList.add('list');
-      this.#element.appendChild(ul);
     }
 
-    if (!items && url) {
-      this.#renderUrl();
-      return;
-    }
+    ul.classList.add('list');
+    this.#element.appendChild(ul);
 
     this.#items.forEach((dataItem) => {
       const li = document.createElement('li');
@@ -195,10 +184,8 @@ export class DropDown {
       if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
+        checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
-        if (multiselectTag) {
-          checkBox.setAttribute('id', `chbox-${dataItem.id}`);
-        }
         li.appendChild(checkBox);
       }
 
@@ -207,15 +194,14 @@ export class DropDown {
       li.appendChild(textNode);
       ul.appendChild(li);
     });
-    console.log(this.#items);
 
     this.#addOptionsBehaviour();
   }
 
   async #renderUrl() {
-    const { url } = this.#options;
+    const { url, items, multiselect } = this.#options;
 
-    if (this.#items) {
+    if (items) {
       return;
     }
 
@@ -224,8 +210,8 @@ export class DropDown {
     }
 
     const response = await fetch(url);
+
     const data = await response.json();
-    console.log(response);
 
     data.forEach((dataItem, index) => {
       const item = {
@@ -237,12 +223,13 @@ export class DropDown {
       const li = document.createElement('li');
       const text = document.createTextNode(item.title);
 
-      const checkBox = document.createElement('input');
-      checkBox.type = 'checkbox';
+      if (multiselect) {
+        const checkBox = document.createElement('input');
+        checkBox.type = 'checkbox';
 
-      checkBox.setAttribute('id', `chbox-${item.id}`);
-
-      li.appendChild(checkBox);
+        checkBox.setAttribute('id', `chbox-${item.id}`);
+        li.appendChild(checkBox);
+      }
 
       li.classList.add('list__item');
       li.appendChild(text);
@@ -268,16 +255,16 @@ export class DropDown {
   }
 
   #addOptionsBehaviour() {
-    const { multiselect, placeholder, multiselectTag } = this.#options;
+    const { multiselect, placeholder, selected, multiselectTag } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
-    const selected = this.#element.querySelector('.selected');
+    const select = this.#element.querySelector('.selected');
 
     const ul = document.createElement('ul');
 
     if (multiselect) {
       ul.classList.add('multiselect-tag');
-      selected.classList.add('overflow-hidden');
+      select.classList.add('overflow-hidden');
     }
 
     options.forEach((option, index) => {
@@ -296,83 +283,59 @@ export class DropDown {
             }
 
             const checkIndex = this.#indexes.indexOf(index);
-            let value = '';
-            let id = '';
 
             if (checkIndex === -1) {
               this.#indexes.push(index);
 
-              if (this.#checkItemStruct(item)) {
-                this.#selectedItems.push(item.title);
-                value = item.title;
-                id = item.id;
-              } else {
-                this.#selectedItems.push(item);
-                value = item;
-              }
+              this.#selectedItems.push(item.title);
 
-              selected.innerText = '';
+              select.innerText = '';
 
               if (multiselectTag) {
-                selected.appendChild(ul);
+                select.appendChild(ul);
 
-                if (this.#checkItemStruct(item)) {
-                  ul.appendChild(
-                    createBreadcrumb(
-                      this.#options,
-                      this.#element,
-                      this.#indexes,
-                      this.#selectedItems,
-                      value,
-                      index,
-                      id,
-                    ),
-                  );
-                } else {
-                  ul.appendChild(
-                    createBreadcrumb(
-                      this.#options,
-                      this.#element,
-                      this.#indexes,
-                      this.#selectedItems,
-                      value,
-                      index,
-                    ),
-                  );
-                }
+                ul.appendChild(
+                  createBreadcrumb(
+                    this.#options,
+                    this.#element,
+                    this.#indexes,
+                    this.#selectedItems,
+                    item.title,
+                    index,
+                    item.id,
+                  ),
+                );
               } else {
-                selected.innerText = this.#selectedItems;
+                select.innerText = this.#selectedItems;
               }
             } else {
               if (multiselectTag) {
                 const tagItem = document.getElementById(`tag-${index}`);
 
                 ul.removeChild(tagItem);
-
-                this.#indexes.splice(checkIndex, 1);
-                this.#selectedItems.splice(checkIndex, 1);
-              } else {
-                this.#indexes.splice(checkIndex, 1);
-                this.#selectedItems.splice(checkIndex, 1);
               }
+              this.#indexes.splice(checkIndex, 1);
+              this.#selectedItems.splice(checkIndex, 1);
             }
 
             if (!this.#selectedItems.length) {
-              selected.innerText = placeholder;
+              if (placeholder) {
+                select.innerText = placeholder;
+              } else if (selected) {
+                select.innerText = selected;
+              } else {
+                select.innerText = 'Select...';
+              }
             } else {
               if (multiselectTag) {
-                selected.appendChild(ul);
+                select.appendChild(ul);
               } else {
-                selected.innerText = this.#selectedItems;
+                select.innerText = this.#selectedItems;
               }
             }
           }
         } else {
-          if (this.#checkItemStruct(item)) {
-            selected.innerText = item.title;
-          } else {
-            selected.innerText = item;
-          }
+          select.innerText = item.title;
           this.#selectedItems = item;
 
           options.forEach((option) => {
