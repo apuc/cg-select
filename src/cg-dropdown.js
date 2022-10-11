@@ -354,8 +354,6 @@ export class DropDown {
     }
 
     if (event) {
-      let list = this.#element.querySelectorAll('.list');
-
       if (event === 'mouseenter') {
         this.#element.addEventListener(event, () => {
           this.#open();

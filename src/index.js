@@ -49,12 +49,9 @@ const dropdown2 = new DropDown({
       value: 5,
     },
   ],
-  styles: {
-    head: {
-      background: 'red',
-    },
-  },
+
   multiselect: true,
+  event: 'mouseenter',
   // multiselectTag: true,
 });
 
