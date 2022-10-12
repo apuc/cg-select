@@ -1,3 +1,6 @@
+import { customStyles, createSelected } from './components/utils';
+import { createBreadcrumb } from './components/create-element';
+
 export class DropDown {
   #element;
   #list;
@@ -5,7 +8,6 @@ export class DropDown {
   #caret;
   #items;
   #selectedItems;
-  #id = [];
   #indexes = [];
 
   get value() {
@@ -23,6 +25,27 @@ export class DropDown {
   }
 
   addItem(item) {
+    if (!item) {
+      return false;
+    }
+
+    const random = Math.random().toString(36).substring(2, 10);
+    const index = this.#items.length;
+
+    if (typeof item === 'object') {
+      item = {
+        id: item.id,
+        title: item.title,
+        value: item.value,
+      };
+    } else {
+      item = {
+        id: random,
+        title: item,
+        value: index,
+      };
+    }
+
     this.#items.push(item);
     this.#render();
   }
@@ -43,7 +66,11 @@ export class DropDown {
   selectIndex(index) {
     const options = this.#element.querySelectorAll('.list__item');
 
-    let select = options[index].innerText;
+    if (index > options.length) {
+      return;
+    }
+
+    const select = options[index].innerText;
 
     this.#render(select);
   }
@@ -54,6 +81,8 @@ export class DropDown {
 
   #init(options) {
     this.#options = options;
+    const { items, multiselect, url } = this.#options;
+
     const elem = document.querySelector(options.selector);
 
     if (!elem) {
@@ -66,119 +95,110 @@ export class DropDown {
       this.#open();
     });
 
-    this.#list = this.#element.querySelector('.list');
-    this.#caret = this.#element.querySelector('.caret');
-
-    const { items, multiselect } = this.#options;
-    this.#items = items;
+    this.#items = [];
 
     if (multiselect) {
       this.#selectedItems = [];
     }
+
+    if (!items && url) {
+      this.#renderUrl();
+      return;
+    }
+
+    items.forEach((dataItem, index) => {
+      const random = Math.random().toString(36).substring(2, 10);
+      let item = {};
+
+      if (this.#checkItemStruct(dataItem)) {
+        item = {
+          id: dataItem.id,
+          title: dataItem.title,
+          value: index,
+        };
+      } else {
+        item = {
+          id: random,
+          title: dataItem,
+          value: index,
+        };
+      }
+
+      this.#items.push(item);
+    });
   }
 
   #initSelected(select) {
-    const { styles } = this.#options;
+    const { styles, selected, placeholder } = this.#options;
 
-    if (this.#options.selected) {
-      this.#createSelected(this.#options.selected);
+    if (selected) {
+      createSelected(this.#element, selected);
+    } else if (placeholder) {
+      createSelected(this.#element, placeholder);
     } else {
-      this.#createSelected('Select...');
+      createSelected(this.#element, 'Select...');
     }
 
-    if (!this.#options.selected && this.#options.placeholder) {
-      this.#createSelected(this.#options.placeholder);
-    }
-
-    if ((styles && this.#options.placeholder) || (styles && this.#options.selected)) {
-      this.#createSelected(this.#options.placeholder);
-      this.#customStyles(styles);
-    } else {
-      this.#customStyles(styles);
+    if (styles) {
+      customStyles(this.#element, styles);
     }
 
     if (select) {
-      this.#createSelected(select);
+      createSelected(this.#element, select, styles);
     }
   }
 
   #render(select) {
-    const { items, styles, url, multiselect, multiselectTag } = this.#options;
+    const { styles, multiselect } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
-      this.#customStyles(styles);
+      customStyles(this.#element, styles);
     } else {
       this.#initSelected();
     }
 
-    const ul = document.createElement('ul');
+    const ulList = document.createElement('ul');
 
     if (styles) {
       const { list } = styles;
 
-      ul.classList.add('list');
-
-      if (ul && list) {
+      if (ulList && list) {
         Object.entries(list).forEach(([key, value]) => {
-          ul.style[key] = value;
+          ulList.style[key] = value;
         });
       }
-
-      this.#element.appendChild(ul);
-    } else {
-      ul.classList.add('list');
-      this.#element.appendChild(ul);
     }
 
-    if (!items && url) {
-      this.#renderUrl();
+    ulList.classList.add('list');
+    this.#element.appendChild(ulList);
 
-      return;
-    }
+    this.#items.forEach((dataItem) => {
+      const liItem = document.createElement('li');
 
-    items.forEach((item, index) => {
-      const li = document.createElement('li');
-      let text = '';
-      let id = '';
-
-      li.classList.add('list__item');
-
-      if (this.#checkItemStruct(item)) {
-        text = item.title;
-        id = item.id;
-      } else {
-        text = item;
-      }
+      liItem.classList.add('list__item');
 
       if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
+        checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
-        if (multiselectTag) {
-          if (this.#checkItemStruct(item)) {
-            checkBox.setAttribute('id', `chbox-${item.id}`);
-          } else {
-            checkBox.setAttribute('id', `chbox-${index}`);
-          }
-        }
-
-        li.appendChild(checkBox);
+        liItem.appendChild(checkBox);
       }
 
-      let textNode = document.createTextNode(text);
+      let textNode = document.createTextNode(dataItem.title);
 
-      li.appendChild(textNode);
-      ul.appendChild(li);
+      liItem.appendChild(textNode);
+      ulList.appendChild(liItem);
     });
 
     this.#addOptionsBehaviour();
   }
 
   async #renderUrl() {
-    const { url } = this.#options;
+    const { url, items, multiselect } = this.#options;
 
-    if (this.#items) {
+    if (items) {
       return;
     }
 
@@ -187,30 +207,30 @@ export class DropDown {
     }
 
     const response = await fetch(url);
-    const data = await response.json();
 
-    this.#items = [];
+    const dataUrl = await response.json();
 
-    data.forEach((dataItem, index) => {
+    dataUrl.forEach((dataItem, index) => {
       const item = {
         id: dataItem.phone,
         title: dataItem.name,
         value: index,
       };
-      const ul = this.#element.querySelector('.list');
-      const li = document.createElement('li');
-      const text = document.createTextNode(item.title);
+      const ulUrl = this.#element.querySelector('.list');
+      const liUrl = document.createElement('li');
+      const textUrl = document.createTextNode(item.title);
 
-      const checkBox = document.createElement('input');
-      checkBox.type = 'checkbox';
+      if (multiselect) {
+        const checkBox = document.createElement('input');
+        checkBox.type = 'checkbox';
 
-      checkBox.setAttribute('id', `chbox-${item.id}`);
+        checkBox.setAttribute('id', `chbox-${item.id}`);
+        liUrl.appendChild(checkBox);
+      }
 
-      li.appendChild(checkBox);
-
-      li.classList.add('list__item');
-      li.appendChild(text);
-      ul.appendChild(li);
+      liUrl.classList.add('list__item');
+      liUrl.appendChild(textUrl);
+      ulUrl.appendChild(liUrl);
 
       this.#items.push(item);
     });
@@ -232,16 +252,16 @@ export class DropDown {
   }
 
   #addOptionsBehaviour() {
-    const { multiselect, placeholder, multiselectTag } = this.#options;
+    const { multiselect, placeholder, selected, multiselectTag } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
-    const selected = this.#element.querySelector('.selected');
+    const select = this.#element.querySelector('.selected');
 
     const ul = document.createElement('ul');
 
     if (multiselect) {
       ul.classList.add('multiselect-tag');
-      selected.classList.add('overflow-hidden');
+      select.classList.add('overflow-hidden');
     }
 
     options.forEach((option, index) => {
@@ -260,64 +280,56 @@ export class DropDown {
             }
 
             const checkIndex = this.#indexes.indexOf(index);
-            let value = '';
-            let id = '';
 
             if (checkIndex === -1) {
               this.#indexes.push(index);
 
-              if (this.#checkItemStruct(item)) {
-                this.#selectedItems.push(item.title);
-                value = item.title;
-                id = item.id;
-              } else {
-                this.#selectedItems.push(item);
-                value = item;
-              }
-
-              selected.innerText = '';
+              select.innerText = '';
 
               if (multiselectTag) {
-                selected.appendChild(ul);
+                this.#selectedItems.push(item);
+                select.appendChild(ul);
 
-                if (this.#checkItemStruct(item)) {
-                  ul.appendChild(this.#createBreadcrumb(value, index, id));
-                } else {
-                  ul.appendChild(this.#createBreadcrumb(value, index));
-                }
+                const data = {
+                  option: this.#options,
+                  element: this.#element,
+                  indexes: this.#indexes,
+                  selectedItems: this.#selectedItems,
+                };
+
+                ul.appendChild(createBreadcrumb(data, item.title, index, item.id));
               } else {
-                selected.innerText = this.#selectedItems;
+                this.#selectedItems.push(item.title);
+                select.innerText = this.#selectedItems;
               }
             } else {
               if (multiselectTag) {
                 const tagItem = document.getElementById(`tag-${index}`);
 
                 ul.removeChild(tagItem);
-
-                this.#indexes.splice(checkIndex, 1);
-                this.#selectedItems.splice(checkIndex, 1);
-              } else {
-                this.#indexes.splice(checkIndex, 1);
-                this.#selectedItems.splice(checkIndex, 1);
               }
+              this.#indexes.splice(checkIndex, 1);
+              this.#selectedItems.splice(checkIndex, 1);
             }
 
             if (!this.#selectedItems.length) {
-              selected.innerText = placeholder;
+              if (placeholder) {
+                select.innerText = placeholder;
+              } else if (selected) {
+                select.innerText = selected;
+              } else {
+                select.innerText = 'Select...';
+              }
             } else {
               if (multiselectTag) {
-                selected.appendChild(ul);
+                select.appendChild(ul);
               } else {
-                selected.innerText = this.#selectedItems;
+                select.innerText = this.#selectedItems;
               }
             }
           }
         } else {
-          if (this.#checkItemStruct(item)) {
-            selected.innerText = item.title;
-          } else {
-            selected.innerText = item;
-          }
+          select.innerText = item.title;
           this.#selectedItems = item;
 
           options.forEach((option) => {
@@ -329,57 +341,6 @@ export class DropDown {
     });
   }
 
-  #createBreadcrumb(value, index, id) {
-    const { placeholder } = this.#options;
-
-    const selected = this.#element.querySelector('.selected');
-
-    const li = document.createElement('li');
-    const text = document.createTextNode(value);
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-
-    svg.setAttribute('viewBox', '0 0 10 10');
-    path1.setAttribute('d', 'M3,7 L7,3');
-    path2.setAttribute('d', 'M3,3 L7,7');
-    li.setAttribute('id', `tag-${index}`);
-
-    svg.classList.add('svg-icon');
-
-    svg.appendChild(path1);
-    svg.appendChild(path2);
-    li.appendChild(text);
-    li.appendChild(svg);
-
-    svg.addEventListener('click', (event) => {
-      event.stopPropagation();
-
-      const deleteIcon = this.#indexes.indexOf(index);
-
-      this.#indexes.splice(deleteIcon, 1);
-      this.#selectedItems.splice(deleteIcon, 1);
-
-      let checkBox = '';
-      if (id) {
-        checkBox = document.getElementById(`chbox-${id}`);
-      } else {
-        checkBox = document.getElementById(`chbox-${index}`);
-      }
-
-      checkBox.checked = false;
-      checkBox.parentElement.classList.remove('active');
-
-      if (!this.#selectedItems.length) {
-        selected.innerText = placeholder;
-      }
-
-      li.parentElement.removeChild(li);
-    });
-
-    return li;
-  }
-
   #initEvent() {
     const { event } = this.#options;
     if (!event) {
@@ -387,8 +348,6 @@ export class DropDown {
     }
 
     if (event) {
-      let list = this.#element.querySelectorAll('.list');
-
       if (event === 'mouseenter') {
         this.#element.addEventListener(event, () => {
           this.#open();
@@ -398,60 +357,6 @@ export class DropDown {
           this.#close();
         });
       }
-    }
-  }
-
-  #customStyles(styles) {
-    if (!styles) {
-      return;
-    }
-
-    const { head, caret, placeholder } = styles;
-    const select = this.#element.querySelector('.cg-select');
-    const crt = this.#element.querySelector('.caret');
-
-    const placeh = this.#element.querySelector('.selected');
-
-    if (head) {
-      Object.entries(head).forEach(([key, value]) => {
-        select.style[key] = value;
-      });
-    }
-
-    if (caret) {
-      Object.entries(caret).forEach(([key, value]) => {
-        crt.style[key] = value;
-      });
-    }
-
-    if (placeh) {
-      if (placeholder) {
-        Object.entries(placeholder).forEach(([key, value]) => {
-          placeh.style[key] = value;
-        });
-      }
-    }
-  }
-
-  #createSelected(content, styles) {
-    if (content) {
-      this.#element.innerHTML = `
-      <div class="cg-select">
-          <p class="selected">${content}</p>
-          <div class="caret"></div>
-      </div>
-      `;
-    }
-
-    if (styles) {
-      this.#customStyles(styles);
-
-      this.#element.innerHTML = `
-            <div class="cg-select" style = "${styles}">
-                <span class="selected" style = "${styles}">${content}</span>
-                <div class="caret" style = "${styles}"></div>
-            </div>
-    `;
     }
   }
 
