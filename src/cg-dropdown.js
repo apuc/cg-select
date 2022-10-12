@@ -95,9 +95,6 @@ export class DropDown {
       this.#open();
     });
 
-    this.#list = this.#element.querySelector('.list');
-    this.#caret = this.#element.querySelector('.caret');
-
     this.#items = [];
 
     if (multiselect) {
@@ -152,7 +149,7 @@ export class DropDown {
   }
 
   #render(select) {
-    const { styles, multiselect, multiselectTag } = this.#options;
+    const { styles, multiselect } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -161,38 +158,38 @@ export class DropDown {
       this.#initSelected();
     }
 
-    const ul = document.createElement('ul');
+    const ulList = document.createElement('ul');
 
     if (styles) {
       const { list } = styles;
 
-      if (ul && list) {
+      if (ulList && list) {
         Object.entries(list).forEach(([key, value]) => {
-          ul.style[key] = value;
+          ulList.style[key] = value;
         });
       }
     }
 
-    ul.classList.add('list');
-    this.#element.appendChild(ul);
+    ulList.classList.add('list');
+    this.#element.appendChild(ulList);
 
     this.#items.forEach((dataItem) => {
-      const li = document.createElement('li');
+      const liItem = document.createElement('li');
 
-      li.classList.add('list__item');
+      liItem.classList.add('list__item');
 
       if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
-        li.appendChild(checkBox);
+        liItem.appendChild(checkBox);
       }
 
       let textNode = document.createTextNode(dataItem.title);
 
-      li.appendChild(textNode);
-      ul.appendChild(li);
+      liItem.appendChild(textNode);
+      ulList.appendChild(liItem);
     });
 
     this.#addOptionsBehaviour();
@@ -211,29 +208,29 @@ export class DropDown {
 
     const response = await fetch(url);
 
-    const data = await response.json();
+    const dataUrl = await response.json();
 
-    data.forEach((dataItem, index) => {
+    dataUrl.forEach((dataItem, index) => {
       const item = {
         id: dataItem.phone,
         title: dataItem.name,
         value: index,
       };
-      const ul = this.#element.querySelector('.list');
-      const li = document.createElement('li');
-      const text = document.createTextNode(item.title);
+      const ulUrl = this.#element.querySelector('.list');
+      const liUrl = document.createElement('li');
+      const textUrl = document.createTextNode(item.title);
 
       if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
 
         checkBox.setAttribute('id', `chbox-${item.id}`);
-        li.appendChild(checkBox);
+        liUrl.appendChild(checkBox);
       }
 
-      li.classList.add('list__item');
-      li.appendChild(text);
-      ul.appendChild(li);
+      liUrl.classList.add('list__item');
+      liUrl.appendChild(textUrl);
+      ulUrl.appendChild(liUrl);
 
       this.#items.push(item);
     });
@@ -287,25 +284,22 @@ export class DropDown {
             if (checkIndex === -1) {
               this.#indexes.push(index);
 
-              this.#selectedItems.push(item.title);
-
               select.innerText = '';
 
               if (multiselectTag) {
+                this.#selectedItems.push(item);
                 select.appendChild(ul);
 
-                ul.appendChild(
-                  createBreadcrumb(
-                    this.#options,
-                    this.#element,
-                    this.#indexes,
-                    this.#selectedItems,
-                    item.title,
-                    index,
-                    item.id,
-                  ),
-                );
+                const data = {
+                  option: this.#options,
+                  element: this.#element,
+                  indexes: this.#indexes,
+                  selectedItems: this.#selectedItems,
+                };
+
+                ul.appendChild(createBreadcrumb(data, item.title, index, item.id));
               } else {
+                this.#selectedItems.push(item.title);
                 select.innerText = this.#selectedItems;
               }
             } else {

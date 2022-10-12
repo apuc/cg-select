@@ -1,10 +1,11 @@
-export function createBreadcrumb(options, element, indexes, selectedItems, value, index, id) {
-  const { placeholder } = options;
+export function createBreadcrumb(data, title, index, id) {
+  const { element, option, indexes, selectedItems } = data;
+  const { placeholder } = option;
 
   const selected = element.querySelector('.selected');
 
   const li = document.createElement('li');
-  const text = document.createTextNode(value);
+  const text = document.createTextNode(title);
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
