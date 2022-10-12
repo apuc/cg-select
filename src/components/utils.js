@@ -1,10 +1,10 @@
 export function createSelected(element, content, styles) {
   if (content) {
     element.innerHTML = `
-      <button class="cg-select">
+      <div class="cg-select">
           <p class="selected">${content}</p>
           <div class="caret"></div>
-      </button>
+      </div>
       `;
   }
 
@@ -12,10 +12,10 @@ export function createSelected(element, content, styles) {
     customStyles(element, styles);
 
     element.innerHTML = `
-            <button class="cg-select" style = "${styles}">
-                <span class="selected" style = "${styles}">${content}</span>
-                <div class="caret" style = "${styles}"></div>
-            </button>
+      <div class="cg-select" style = "${styles}">
+          <span class="selected" style = "${styles}">${content}</span>
+          <div class="caret" style = "${styles}"></div>
+      </div>
     `;
   }
 }
@@ -50,4 +50,12 @@ export function customStyles(element, styles) {
       });
     }
   }
+}
+
+export function checkItemStruct(item) {
+  if (item && typeof item !== 'object') {
+    return false;
+  }
+
+  return item.hasOwnProperty('id') && item.hasOwnProperty('title') && item.hasOwnProperty('value');
 }

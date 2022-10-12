@@ -1,9 +1,8 @@
-import { customStyles, createSelected } from './components/utils';
+import { customStyles, createSelected, checkItemStruct } from './components/utils';
 import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
   #element;
-  #selector;
   #list;
   #options;
   #caret;
@@ -80,6 +79,18 @@ export class DropDown {
     return this.#items[number];
   }
 
+  disabled(value) {
+    if (typeof value !== 'boolean') {
+      return;
+    }
+
+    if (value === true) {
+      this.#element.setAttribute('disabled', true);
+    } else {
+      this.#element.removeAttribute('disabled');
+    }
+  }
+
   #init(options) {
     this.#options = options;
     const { items, multiselect, url } = this.#options;
@@ -111,7 +122,7 @@ export class DropDown {
       const random = Math.random().toString(36).substring(2, 10);
       let item = {};
 
-      if (this.#checkItemStruct(dataItem)) {
+      if (checkItemStruct(dataItem)) {
         item = {
           id: dataItem.id,
           title: dataItem.title,
@@ -147,9 +158,6 @@ export class DropDown {
     if (select) {
       createSelected(this.#element, select, styles);
     }
-
-    const selector = this.#element.querySelector('.cg-select');
-    this.#selector = selector;
   }
 
   #render(select) {
@@ -161,10 +169,6 @@ export class DropDown {
     } else {
       this.#initSelected();
     }
-
-    // if (event) {
-    //   this.#initEvent();
-    // }
 
     const ulList = document.createElement('ul');
 
@@ -215,12 +219,11 @@ export class DropDown {
     }
 
     const response = await fetch(url);
-
     const dataUrl = await response.json();
 
     dataUrl.forEach((dataItem, index) => {
       const item = {
-        id: dataItem.phone,
+        id: dataItem.id,
         title: dataItem.name,
         value: index,
       };
@@ -313,7 +316,7 @@ export class DropDown {
             } else {
               if (multiselectTag) {
                 const tagItem = document.getElementById(`tag-${index}`);
-
+                // TODO: bug error! in url
                 ul.removeChild(tagItem);
               }
               this.#indexes.splice(checkIndex, 1);
@@ -364,28 +367,6 @@ export class DropDown {
           this.#close();
         });
       }
-    }
-  }
-
-  #checkItemStruct(item) {
-    if (item && typeof item !== 'object') {
-      return false;
-    }
-
-    return (
-      item.hasOwnProperty('id') && item.hasOwnProperty('title') && item.hasOwnProperty('value')
-    );
-  }
-
-  disabled(value) {
-    // if (typeof value !== 'boolean') {
-    //   return;
-    // }
-
-    if (value == true) {
-      const select = this.#element.querySelector('.cg-select');
-      // return console.log('Work');
-    } else {
     }
   }
 }

@@ -6,7 +6,7 @@ const dropdown = new DropDown({
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
   styles: {
     head: {
-      background: 'red',
+      background: '#4d629f',
     },
   },
   multiselect: true,
@@ -55,7 +55,7 @@ const dropdown2 = new DropDown({
 });
 
 dropdown2.addItem('LADA');
-dropdown.disabled(true);
+dropdown.disabled(false);
 
 //ToDo: paste the desired url;
 
@@ -65,7 +65,8 @@ const dropdown3 = new DropDown({
   url: 'http://jsonplaceholder.typicode.com/users',
   styles: {
     head: {
-      background: 'red',
+      background: 'black',
+      width: '350px',
     },
   },
   multiselect: true,
