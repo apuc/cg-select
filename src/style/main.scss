@@ -10,19 +10,23 @@ body {
 .container {
   display: flex;
   margin: 50px auto;
+  justify-content: space-between;
   width: 800px;
 }
 
 .cg-dropdown {
-  position: relative;
-  margin-right: 10px;
+  * {
+    position: relative;
+
+    // max-height: 60px;
+  }
 }
 
 .cg-select {
   padding: 5px;
-  min-width: 225px;
+  min-width: 235px;
   max-width: 225px;
-  min-height: 50px;
+  min-height: 60px;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -30,6 +34,7 @@ body {
 
   text-overflow: ellipsis;
   background: #2a2f3b;
+  border: none;
   cursor: pointer;
   border-radius: 5px;
   transition: 0.5s;

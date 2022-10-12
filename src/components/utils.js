@@ -1,10 +1,10 @@
 export function createSelected(element, content, styles) {
   if (content) {
     element.innerHTML = `
-      <div class="cg-select">
+      <button class="cg-select">
           <p class="selected">${content}</p>
           <div class="caret"></div>
-      </div>
+      </button>
       `;
   }
 
@@ -12,10 +12,10 @@ export function createSelected(element, content, styles) {
     customStyles(element, styles);
 
     element.innerHTML = `
-            <div class="cg-select" style = "${styles}">
+            <button class="cg-select" style = "${styles}">
                 <span class="selected" style = "${styles}">${content}</span>
                 <div class="caret" style = "${styles}"></div>
-            </div>
+            </button>
     `;
   }
 }
@@ -26,14 +26,14 @@ export function customStyles(element, styles) {
   }
 
   const { head, caret, placeholder } = styles;
-  const select = element.querySelector('.cg-select');
+  const cgSelect = element.querySelector('.cg-select');
   const crt = element.querySelector('.caret');
 
   const placeh = element.querySelector('.selected');
 
   if (head) {
     Object.entries(head).forEach(([key, value]) => {
-      select.style[key] = value;
+      cgSelect.style[key] = value;
     });
   }
 

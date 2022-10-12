@@ -3,6 +3,7 @@ import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
   #element;
+  #selector;
   #list;
   #options;
   #caret;
@@ -146,10 +147,13 @@ export class DropDown {
     if (select) {
       createSelected(this.#element, select, styles);
     }
+
+    const selector = this.#element.querySelector('.cg-select');
+    this.#selector = selector;
   }
 
   #render(select) {
-    const { styles, multiselect } = this.#options;
+    const { styles, multiselect, event } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -157,6 +161,10 @@ export class DropDown {
     } else {
       this.#initSelected();
     }
+
+    // if (event) {
+    //   this.#initEvent();
+    // }
 
     const ulList = document.createElement('ul');
 
@@ -352,7 +360,6 @@ export class DropDown {
         this.#element.addEventListener(event, () => {
           this.#open();
         });
-
         this.#element.addEventListener('mouseleave', () => {
           this.#close();
         });
@@ -368,5 +375,17 @@ export class DropDown {
     return (
       item.hasOwnProperty('id') && item.hasOwnProperty('title') && item.hasOwnProperty('value')
     );
+  }
+
+  disabled(value) {
+    // if (typeof value !== 'boolean') {
+    //   return;
+    // }
+
+    if (value == true) {
+      const select = this.#element.querySelector('.cg-select');
+      // return console.log('Work');
+    } else {
+    }
   }
 }
