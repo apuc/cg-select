@@ -69,3 +69,19 @@ const dropdown3 = new DropDown({
   multiselect: true,
   multiselectTag: true,
 });
+
+const dropdown4 = new DropDown({
+  selector: '.cg-dropdown_button',
+  placeholder: 'Выберите авто',
+  items: ['Russia', 'USA', 'England', 'Turkey', 'France'],
+
+  multiselect: true,
+  multiselectTag: true,
+});
+// dropdown4.disabled(true);
+
+const buttonOpen = document.querySelector('.button__open');
+const buttonClose = document.querySelector('.button__close');
+
+dropdown4.buttonControl(buttonOpen, 'open');
+dropdown4.buttonControl(buttonClose, 'close');

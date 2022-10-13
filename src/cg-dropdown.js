@@ -94,6 +94,18 @@ export class DropDown {
     }
   }
 
+  buttonControl(button, method) {
+    button.addEventListener('click', () => {
+      if (method === 'open') {
+        this.#open(true);
+      } else if (method === 'close') {
+        this.#close();
+      } else {
+        return;
+      }
+    });
+  }
+
   #init(options) {
     this.#options = options;
     const { items, multiselect, url } = this.#options;
@@ -252,12 +264,17 @@ export class DropDown {
     this.#addOptionsBehaviour();
   }
 
-  #open() {
+  #open(oneClick) {
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
 
-    this.#list.classList.toggle('open');
-    this.#caret.classList.toggle('caret_rotate');
+    if (oneClick === true) {
+      this.#list.classList.add('open');
+      this.#caret.classList.add('caret_rotate');
+    } else {
+      this.#list.classList.toggle('open');
+      this.#caret.classList.toggle('caret_rotate');
+    }
   }
 
   #close() {
