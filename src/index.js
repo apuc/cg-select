@@ -4,11 +4,7 @@ const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
-  styles: {
-    head: {
-      background: '#4d629f',
-    },
-  },
+
   multiselect: true,
   multiselectTag: true,
 });
@@ -54,8 +50,9 @@ const dropdown2 = new DropDown({
   // multiselectTag: true,
 });
 
-dropdown2.addItem('LADA');
 dropdown.disabled(false);
+
+dropdown2.addItem('LADA');
 
 //ToDo: paste the desired url;
 

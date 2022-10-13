@@ -84,10 +84,13 @@ export class DropDown {
       return;
     }
 
+    const select = this.#element.querySelector('.cg-select');
     if (value === true) {
       this.#element.setAttribute('disabled', true);
+      select.classList.add('disabled');
     } else {
       this.#element.removeAttribute('disabled');
+      select.classList.remove('disabled');
     }
   }
 
