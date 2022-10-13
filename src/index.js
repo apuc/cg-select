@@ -1,14 +1,10 @@
 import { DropDown } from './cg-dropdown';
 
 const dropdown = new DropDown({
-  selector: '.cg-dropdown',
+  selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
   items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
-  styles: {
-    head: {
-      background: 'red',
-    },
-  },
+
   multiselect: true,
   multiselectTag: true,
 });
@@ -19,9 +15,8 @@ dropdown.addItem('Kamaz 258');
 dropdown.addItem('BMW');
 
 const dropdown2 = new DropDown({
-  selector: '.cg-dropdown2',
+  selector: '.cg-dropdown_two',
   placeholder: 'SELECT CAR',
-
   items: [
     {
       id: 'addaw21',
@@ -55,17 +50,20 @@ const dropdown2 = new DropDown({
   // multiselectTag: true,
 });
 
+dropdown.disabled(false);
+
 dropdown2.addItem('LADA');
 
 //ToDo: paste the desired url;
 
 const dropdown3 = new DropDown({
-  selector: '.cg-dropdown3',
+  selector: '.cg-dropdown_three',
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
   styles: {
     head: {
-      background: 'red',
+      background: 'black',
+      width: '350px',
     },
   },
   multiselect: true,

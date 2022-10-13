@@ -4,24 +4,35 @@
 }
 
 body {
-  background: #1b1e25;
+  background: #4a4a4a;
 }
 
 .container {
+  margin: 0 auto;
   display: flex;
-  margin: 50px auto;
-  width: 800px;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 900px;
+}
+
+.content {
+  border: 1px solid #616161;
+  height: 500px;
 }
 
 .cg-dropdown {
+  min-width: 235px;
+  margin-left: 0;
   position: relative;
-  margin-right: 10px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
 }
 
 .cg-select {
   padding: 5px;
-  min-width: 225px;
-  max-width: 225px;
+
   min-height: 50px;
   color: #fff;
   display: flex;
@@ -30,12 +41,14 @@ body {
 
   text-overflow: ellipsis;
   background: #2a2f3b;
+  border: none;
   cursor: pointer;
   border-radius: 5px;
   transition: 0.5s;
 
   .selected {
-    max-width: 200px;
+    max-width: 195px;
+
     margin: 5px;
   }
 
@@ -70,6 +83,7 @@ body {
   max-height: 230px;
   overflow-y: auto;
   position: absolute;
+
   width: 220px;
   padding: 7px;
   margin-top: -0.2px;
@@ -87,6 +101,10 @@ body {
   z-index: 1;
 
   &__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     transition: 0.5s;
     padding: 15px;
 
@@ -129,6 +147,7 @@ body {
 
 input[type='checkbox'] {
   cursor: pointer;
+  margin: 0 5px 0 0;
 }
 
 .svg-icon {
@@ -171,4 +190,8 @@ input[type='checkbox'] {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4d4d4d;
+}
+
+.disabled {
+  background-color: #8f9195 !important;
 }

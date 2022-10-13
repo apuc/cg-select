@@ -12,10 +12,10 @@ export function createSelected(element, content, styles) {
     customStyles(element, styles);
 
     element.innerHTML = `
-            <div class="cg-select" style = "${styles}">
-                <span class="selected" style = "${styles}">${content}</span>
-                <div class="caret" style = "${styles}"></div>
-            </div>
+      <div class="cg-select" style = "${styles}">
+          <span class="selected" style = "${styles}">${content}</span>
+          <div class="caret" style = "${styles}"></div>
+      </div>
     `;
   }
 }
@@ -26,14 +26,14 @@ export function customStyles(element, styles) {
   }
 
   const { head, caret, placeholder } = styles;
-  const select = element.querySelector('.cg-select');
+  const cgSelect = element.querySelector('.cg-select');
   const crt = element.querySelector('.caret');
 
   const placeh = element.querySelector('.selected');
 
   if (head) {
     Object.entries(head).forEach(([key, value]) => {
-      select.style[key] = value;
+      cgSelect.style[key] = value;
     });
   }
 
@@ -50,4 +50,12 @@ export function customStyles(element, styles) {
       });
     }
   }
+}
+
+export function checkItemStruct(item) {
+  if (item && typeof item !== 'object') {
+    return false;
+  }
+
+  return item.hasOwnProperty('id') && item.hasOwnProperty('title') && item.hasOwnProperty('value');
 }
