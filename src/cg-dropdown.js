@@ -136,6 +136,7 @@ export class DropDown {
     items.forEach((dataItem, index) => {
       const random = Math.random().toString(36).substring(2, 10);
       let item = {};
+      let category = '';
 
       if (checkItemStruct(dataItem)) {
         item = {
@@ -151,7 +152,20 @@ export class DropDown {
         };
       }
 
-      this.#items.push(item);
+      if (dataItem.category && dataItem.categoryItem) {
+        category = dataItem.category;
+        this.#items.push(category);
+        dataItem.categoryItem.forEach((i) => {
+          item = {
+            id: random,
+            title: i,
+            value: index,
+          };
+          this.#items.push(item);
+        });
+      } else {
+        this.#items.push(item);
+      }
     });
   }
 
@@ -176,7 +190,7 @@ export class DropDown {
   }
 
   #render(select) {
-    const { styles, multiselect, event } = this.#options;
+    const { styles, multiselect } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -200,8 +214,11 @@ export class DropDown {
     ulList.classList.add('list');
     this.#element.appendChild(ulList);
 
+    const arr = [];
+
     this.#items.forEach((dataItem) => {
       const liItem = document.createElement('li');
+      const strongItem = document.createElement('strong');
 
       liItem.classList.add('list__item');
 
@@ -210,14 +227,41 @@ export class DropDown {
         checkBox.type = 'checkbox';
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
-        liItem.appendChild(checkBox);
+        if (checkBox.innerHTML !== '') {
+          liItem.appendChild(checkBox);
+          // return;
+        } else {
+          liItem.removeChild(checkBox);
+        }
       }
+      let textNode = '';
 
-      let textNode = document.createTextNode(dataItem.title);
+      if (dataItem.title) {
+        // console.log('data title', dataItem.title);
+        textNode = document.createTextNode(dataItem.title);
+        // console.log(textNode);
+        liItem.appendChild(textNode);
+      } else if (!dataItem.title) {
+        // console.log('aa');
+        // debugger;
+        textNode = document.createTextNode(dataItem);
+        strongItem.appendChild(textNode);
+        ulList.appendChild(strongItem);
+        // let position = this.#items.indexOf(dataItem);
+        // console.log(position);
 
-      liItem.appendChild(textNode);
+        // this.#items.splice(position, 1);
+        console.log(this.#items);
+      }
+      // console.log(this.#items);
       ulList.appendChild(liItem);
+
+      if (liItem.innerHTML === '') {
+        ulList.removeChild(liItem);
+      }
     });
+
+    console.log(this.#items);
 
     this.#addOptionsBehaviour();
   }
@@ -287,6 +331,7 @@ export class DropDown {
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
+    const category = this.#element.querySelector('strong');
 
     const ul = document.createElement('ul');
 
@@ -295,10 +340,17 @@ export class DropDown {
       select.classList.add('overflow-hidden');
     }
 
+    console.log(this.#items);
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
-        const item = this.#items[index];
+        let item = '';
+        if (category) {
+          item = this.#items[index + 1];
+        } else {
+          item = this.#items[index];
+        }
 
+        // console.log(item);
         if (multiselect) {
           event.stopPropagation();
           option.classList.toggle('active');
