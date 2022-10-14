@@ -50,12 +50,14 @@ export class DropDown {
 
   selectIndex(index) {
     const options = this.#element.querySelectorAll('.list__item');
+    // const selected = this.#element.querySelector('.selected');
 
     if (index > options.length) {
       return;
     }
 
     const select = options[index].innerText;
+    // selected.innerText = select;
 
     this.#render(select);
   }
@@ -164,7 +166,6 @@ export class DropDown {
     } else {
       this.#initSelected();
     }
-
     const ulList = document.createElement('ul');
 
     if (styles) {
@@ -178,6 +179,7 @@ export class DropDown {
     }
 
     ulList.classList.add('list');
+
     this.#element.appendChild(ulList);
 
     this.#items.forEach((dataItem) => {
@@ -185,6 +187,7 @@ export class DropDown {
       const strongItem = document.createElement('strong');
 
       liItem.classList.add('list__item');
+      strongItem.classList.add('category');
 
       if (multiselect) {
         const checkBox = document.createElement('input');

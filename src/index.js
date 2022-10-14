@@ -101,10 +101,10 @@ const dropdown4 = new DropDown({
   multiselect: true,
   multiselectTag: true,
 });
-// dropdown4.selectIndex(5);
 
 // dropdown4.addItem('Харьков');
-// dropdown4.disabled(true);
+// dropdown4.deleteItemAll();
+// dropdown4.selectIndex(5);
 
 // const buttonOpen = document.querySelector('.button__open');
 // const buttonClose = document.querySelector('.button__close');
