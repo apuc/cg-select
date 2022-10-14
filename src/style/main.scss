@@ -16,11 +16,7 @@ body {
   width: 900px;
 }
 
-.content {
-  border: 1px solid #616161;
-  height: 500px;
-}
-
+// ----Layout----
 .cg-dropdown {
   min-width: 235px;
   margin-left: 0;
@@ -57,12 +53,6 @@ body {
     transition: 0.5s;
     background: #394050;
   }
-}
-
-.overflow-hidden {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .caret {
@@ -161,6 +151,7 @@ input[type='checkbox'] {
   margin: 0 5px 0 0;
 }
 
+// --------SVG--------
 .svg-icon {
   width: 16px;
   margin-left: 3px;
@@ -182,6 +173,7 @@ input[type='checkbox'] {
   stroke-width: 0.5;
 }
 
+//-------Behavior--------
 .active {
   background: #8282822c;
 }
@@ -196,6 +188,17 @@ input[type='checkbox'] {
   }
 }
 
+.disabled {
+  background-color: #8f9195 !important;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ------SCROLLBAR------
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -206,13 +209,4 @@ input[type='checkbox'] {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4d4d4d;
-}
-
-.disabled {
-  background-color: #8f9195 !important;
-}
-
-.buttonControlBox {
-  margin: -25px auto 0 auto;
-  width: 300px;
 }
