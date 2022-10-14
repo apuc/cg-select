@@ -1,4 +1,4 @@
-import { customStyles, createSelected, checkItemStruct } from './components/utils';
+import { customStyles, createSelected, getFormatItem } from './components/utils';
 import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
@@ -29,24 +29,9 @@ export class DropDown {
       return false;
     }
 
-    const random = Math.random().toString(36).substring(2, 10);
     const index = this.#items.length;
 
-    if (typeof item === 'object') {
-      item = {
-        id: item.id,
-        title: item.title,
-        value: item.value,
-      };
-    } else {
-      item = {
-        id: random,
-        title: item,
-        value: index,
-      };
-    }
-
-    this.#items.push(item);
+    this.#items.push(getFormatItem(item, index));
     this.#render();
   }
 
@@ -65,12 +50,14 @@ export class DropDown {
 
   selectIndex(index) {
     const options = this.#element.querySelectorAll('.list__item');
+    // const selected = this.#element.querySelector('.selected');
 
     if (index > options.length) {
       return;
     }
 
     const select = options[index].innerText;
+    // selected.innerText = select;
 
     this.#render(select);
   }
@@ -134,24 +121,18 @@ export class DropDown {
     }
 
     items.forEach((dataItem, index) => {
-      const random = Math.random().toString(36).substring(2, 10);
-      let item = {};
+      let category = '';
 
-      if (checkItemStruct(dataItem)) {
-        item = {
-          id: dataItem.id,
-          title: dataItem.title,
-          value: index,
-        };
+      if (dataItem.category && dataItem.categoryItems) {
+        category = dataItem.category;
+
+        this.#items.push(category);
+        dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
+          this.#items.push(getFormatItem(categoryItem, indexCategory));
+        });
       } else {
-        item = {
-          id: random,
-          title: dataItem,
-          value: index,
-        };
+        this.#items.push(getFormatItem(dataItem, index));
       }
-
-      this.#items.push(item);
     });
   }
 
@@ -176,7 +157,8 @@ export class DropDown {
   }
 
   #render(select) {
-    const { styles, multiselect, event } = this.#options;
+    const { styles, multiselect } = this.#options;
+    // const { category } = this.#items;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -184,7 +166,6 @@ export class DropDown {
     } else {
       this.#initSelected();
     }
-
     const ulList = document.createElement('ul');
 
     if (styles) {
@@ -198,12 +179,15 @@ export class DropDown {
     }
 
     ulList.classList.add('list');
+
     this.#element.appendChild(ulList);
 
     this.#items.forEach((dataItem) => {
       const liItem = document.createElement('li');
+      const strongItem = document.createElement('strong');
 
       liItem.classList.add('list__item');
+      strongItem.classList.add('category');
 
       if (multiselect) {
         const checkBox = document.createElement('input');
@@ -213,10 +197,24 @@ export class DropDown {
         liItem.appendChild(checkBox);
       }
 
-      let textNode = document.createTextNode(dataItem.title);
+      let textNode = '';
 
-      liItem.appendChild(textNode);
-      ulList.appendChild(liItem);
+      if (dataItem.title) {
+        textNode = document.createTextNode(dataItem.title);
+        liItem.appendChild(textNode);
+        ulList.appendChild(liItem);
+      } else {
+        textNode = document.createTextNode(dataItem);
+        strongItem.appendChild(textNode);
+        ulList.appendChild(strongItem);
+      }
+    });
+
+    this.#items.filter((item, index) => {
+      if (typeof item !== 'object') {
+        this.#items.splice(index, 1);
+      }
+      return item;
     });
 
     this.#addOptionsBehaviour();
@@ -287,6 +285,7 @@ export class DropDown {
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
+    const category = this.#element.querySelector('strong');
 
     const ul = document.createElement('ul');
 
@@ -298,7 +297,6 @@ export class DropDown {
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
-
         if (multiselect) {
           event.stopPropagation();
           option.classList.toggle('active');

@@ -16,11 +16,7 @@ body {
   width: 900px;
 }
 
-.content {
-  border: 1px solid #616161;
-  height: 500px;
-}
-
+// ----Layout----
 .cg-dropdown {
   min-width: 235px;
   margin-left: 0;
@@ -57,12 +53,6 @@ body {
     transition: 0.5s;
     background: #394050;
   }
-}
-
-.overflow-hidden {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .caret {
@@ -146,11 +136,22 @@ body {
   }
 }
 
+.category {
+  height: 20px;
+  margin: 6px 5px 0 7px;
+  font-size: 17px;
+  border-bottom: 1px solid;
+
+  display: flex;
+  align-items: center;
+}
+
 input[type='checkbox'] {
   cursor: pointer;
   margin: 0 5px 0 0;
 }
 
+// --------SVG--------
 .svg-icon {
   width: 16px;
   margin-left: 3px;
@@ -164,6 +165,7 @@ input[type='checkbox'] {
     background-color: #ffffff;
   }
 }
+
 .svg-icon path {
   color: black;
   stroke: currentcolor;
@@ -171,6 +173,7 @@ input[type='checkbox'] {
   stroke-width: 0.5;
 }
 
+//-------Behavior--------
 .active {
   background: #8282822c;
 }
@@ -179,8 +182,23 @@ input[type='checkbox'] {
   transition: 0.5s;
   display: block;
   opacity: 1;
+
+  &_none {
+    opacity: 0 !important;
+  }
 }
 
+.disabled {
+  background-color: #8f9195 !important;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ------SCROLLBAR------
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -191,13 +209,4 @@ input[type='checkbox'] {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4d4d4d;
-}
-
-.disabled {
-  background-color: #8f9195 !important;
-}
-
-.buttonControlBox {
-  margin: -25px auto 0 auto;
-  width: 300px;
 }
