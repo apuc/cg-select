@@ -1,4 +1,4 @@
-import { customStyles, createSelected, checkItemStruct } from './components/utils';
+import { customStyles, createSelected, getFormatItem } from './components/utils';
 import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
@@ -29,24 +29,9 @@ export class DropDown {
       return false;
     }
 
-    const random = Math.random().toString(36).substring(2, 10);
     const index = this.#items.length;
 
-    if (typeof item === 'object') {
-      item = {
-        id: item.id,
-        title: item.title,
-        value: item.value,
-      };
-    } else {
-      item = {
-        id: random,
-        title: item,
-        value: index,
-      };
-    }
-
-    this.#items.push(item);
+    this.#items.push(getFormatItem(item, index));
     this.#render();
   }
 
@@ -134,37 +119,17 @@ export class DropDown {
     }
 
     items.forEach((dataItem, index) => {
-      const random = Math.random().toString(36).substring(2, 10);
-      let item = {};
       let category = '';
 
-      if (checkItemStruct(dataItem)) {
-        item = {
-          id: dataItem.id,
-          title: dataItem.title,
-          value: index,
-        };
-      } else {
-        item = {
-          id: random,
-          title: dataItem,
-          value: index,
-        };
-      }
-
-      if (dataItem.category && dataItem.categoryItem) {
+      if (dataItem.category && dataItem.categoryItems) {
         category = dataItem.category;
+
         this.#items.push(category);
-        dataItem.categoryItem.forEach((i) => {
-          item = {
-            id: random,
-            title: i,
-            value: index,
-          };
-          this.#items.push(item);
+        dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
+          this.#items.push(getFormatItem(categoryItem, indexCategory));
         });
       } else {
-        this.#items.push(item);
+        this.#items.push(getFormatItem(dataItem, index));
       }
     });
   }
@@ -191,6 +156,7 @@ export class DropDown {
 
   #render(select) {
     const { styles, multiselect } = this.#options;
+    // const { category } = this.#items;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -214,8 +180,6 @@ export class DropDown {
     ulList.classList.add('list');
     this.#element.appendChild(ulList);
 
-    const arr = [];
-
     this.#items.forEach((dataItem) => {
       const liItem = document.createElement('li');
       const strongItem = document.createElement('strong');
@@ -227,41 +191,28 @@ export class DropDown {
         checkBox.type = 'checkbox';
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
-        if (checkBox.innerHTML !== '') {
-          liItem.appendChild(checkBox);
-          // return;
-        } else {
-          liItem.removeChild(checkBox);
-        }
+        liItem.appendChild(checkBox);
       }
+
       let textNode = '';
 
       if (dataItem.title) {
-        // console.log('data title', dataItem.title);
         textNode = document.createTextNode(dataItem.title);
-        // console.log(textNode);
         liItem.appendChild(textNode);
-      } else if (!dataItem.title) {
-        // console.log('aa');
-        // debugger;
+        ulList.appendChild(liItem);
+      } else {
         textNode = document.createTextNode(dataItem);
         strongItem.appendChild(textNode);
         ulList.appendChild(strongItem);
-        // let position = this.#items.indexOf(dataItem);
-        // console.log(position);
-
-        // this.#items.splice(position, 1);
-        console.log(this.#items);
-      }
-      // console.log(this.#items);
-      ulList.appendChild(liItem);
-
-      if (liItem.innerHTML === '') {
-        ulList.removeChild(liItem);
       }
     });
 
-    console.log(this.#items);
+    this.#items.filter((item, index) => {
+      if (typeof item !== 'object') {
+        this.#items.splice(index, 1);
+      }
+      return item;
+    });
 
     this.#addOptionsBehaviour();
   }
@@ -340,17 +291,9 @@ export class DropDown {
       select.classList.add('overflow-hidden');
     }
 
-    console.log(this.#items);
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
-        let item = '';
-        if (category) {
-          item = this.#items[index + 1];
-        } else {
-          item = this.#items[index];
-        }
-
-        // console.log(item);
+        const item = this.#items[index];
         if (multiselect) {
           event.stopPropagation();
           option.classList.toggle('active');

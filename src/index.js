@@ -9,46 +9,45 @@ import { DropDown } from './cg-dropdown';
 //   multiselectTag: true,
 // });
 
-// dropdown.addItem('ZAZ');
+// // dropdown.addItem('ZAZ');
 // dropdown.addItem('LADA');
 // dropdown.addItem('Kamaz 258');
-// dropdown.addItem('BMW');
+// // dropdown.addItem('BMW');
+// // const dropdown2 = new DropDown({
+// //   selector: '.cg-dropdown_two',
+// //   placeholder: 'SELECT CAR',
+// //   items: [
+// //     {
+// //       id: 'addaw21',
+// //       title: 'BMW',
+// //       value: 1,
+// //     },
+// //     {
+// //       id: '2414q',
+// //       title: 'Opel',
+// //       value: 2,
+// //     },
+// //     {
+// //       id: '24qwds',
+// //       title: 'Kamaz 258',
+// //       value: 3,
+// //     },
+// //     {
+// //       id: '28wds',
+// //       title: 'MAN',
+// //       value: 4,
+// //     },
+// //     {
+// //       id: '28qwds',
+// //       title: 'BOOT',
+// //       value: 5,
+// //     },
+// //   ],
 
-// const dropdown2 = new DropDown({
-//   selector: '.cg-dropdown_two',
-//   placeholder: 'SELECT CAR',
-//   items: [
-//     {
-//       id: 'addaw21',
-//       title: 'BMW',
-//       value: 1,
-//     },
-//     {
-//       id: '2414q',
-//       title: 'Opel',
-//       value: 2,
-//     },
-//     {
-//       id: '24qwds',
-//       title: 'Kamaz 258',
-//       value: 3,
-//     },
-//     {
-//       id: '28wds',
-//       title: 'MAN',
-//       value: 4,
-//     },
-//     {
-//       id: '28qwds',
-//       title: 'BOOT',
-//       value: 5,
-//     },
-//   ],
-
-//   multiselect: true,
-//   event: 'mouseenter',
-//   // multiselectTag: true,
-// });
+// //   multiselect: true,
+// //   event: 'mouseenter',
+// //   // multiselectTag: true,
+// // });
 
 // dropdown.disabled(false);
 
@@ -73,15 +72,38 @@ import { DropDown } from './cg-dropdown';
 const dropdown4 = new DropDown({
   selector: '.cg-dropdown_button',
   placeholder: 'Выберите регион',
-  // items: ['Russia', 'USA', 'England', 'Turkey', 'France'],
   items: [
-    { category: 'Russia', categoryItem: ['Москва', 'Ростов-на-дону'] },
-    { category: 'USA', categoryItem: ['Alabama', 'Texas'] },
+    {
+      category: 'Russia',
+      categoryItems: [
+        {
+          id: '28qwds',
+          title: 'Москва',
+          value: 0,
+        },
+        ,
+        'Ростов-на-дону',
+        'Саратов',
+        'Волгоград',
+        'Донецк',
+      ],
+    },
+    {
+      category: 'USA',
+      categoryItems: ['Alabama', 'Texas', 'Colorado', 'Klirens', 'Los-Angeles'],
+    },
+    {
+      category: 'France',
+      categoryItems: ['Paris'],
+    },
   ],
 
-  // multiselect: true,
-  // multiselectTag: true,
+  multiselect: true,
+  multiselectTag: true,
 });
+// dropdown4.selectIndex(5);
+
+// dropdown4.addItem('Харьков');
 // dropdown4.disabled(true);
 
 // const buttonOpen = document.querySelector('.button__open');
