@@ -1,5 +1,6 @@
 import { customStylesFormat } from './utils';
 
+// Метод который создает и отвечает за поведение chips
 export function createBreadcrumb(data, title, index, id) {
   const { element, option, indexes, selectedItems } = data;
   const { placeholder, styles } = option;

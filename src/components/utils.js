@@ -1,3 +1,4 @@
+// Создание селектора
 export function createSelected(element, content, styles) {
   if (content) {
     element.innerHTML = `
@@ -20,6 +21,7 @@ export function createSelected(element, content, styles) {
   }
 }
 
+// Метод ищет и стилизует полученные елементы из styles
 export function customStyles(element, styles) {
   if (!styles) {
     return;
@@ -40,6 +42,7 @@ export function customStyles(element, styles) {
   }
 }
 
+// Метод checkItemStruct возвращает true/false если item содержит указанные свойства,
 export function checkItemStruct(item) {
   if (item && typeof item !== 'object') {
     return false;
@@ -48,6 +51,7 @@ export function checkItemStruct(item) {
   return item.hasOwnProperty('id') && item.hasOwnProperty('title') && item.hasOwnProperty('value');
 }
 
+// Метод getFormatItem преобразовывает каждый елемент полученный из поля Items;
 export function getFormatItem(dataItem, index) {
   const random = Math.random().toString(36).substring(2, 10);
   let item = {};
@@ -69,6 +73,7 @@ export function getFormatItem(dataItem, index) {
   return item;
 }
 
+// Универсальный метод для стилизации селекта
 export function customStylesFormat(elemOption, selector) {
   if (elemOption) {
     Object.entries(elemOption).forEach(([key, value]) => {

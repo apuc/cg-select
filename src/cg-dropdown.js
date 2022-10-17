@@ -7,6 +7,7 @@ import {
 import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
+  // Глобальные переменные класса
   #element;
   #list;
   #options;
@@ -16,20 +17,24 @@ export class DropDown {
   #selectedItems;
   #indexes = [];
 
+  // Геттер возвращающий выбранные элементы
   get value() {
     return this.#selectedItems ?? null;
   }
 
+  // Геттер возвращающий индексы выбранных элементов
   get indexes() {
     return this.#indexes ?? [];
   }
 
+  // Конструктор принимающий настройки селекта
   constructor(options = {}) {
     this.#init(options);
     this.#render();
     this.#initEvent();
   }
 
+  // Метод добавления елемента в список index == string/object
   addItem(item) {
     if (this.#category) {
       console.log('can`t add item to category');
@@ -46,6 +51,7 @@ export class DropDown {
     this.#render();
   }
 
+  // Метод удаления елемента из спискаindex == number
   deleteItem(index) {
     if (this.#category) {
       console.log('can`t add item to category');
@@ -58,11 +64,13 @@ export class DropDown {
     this.#render();
   }
 
+  // Метод удаляющий все элементы списка.
   deleteItemAll() {
     this.#items.splice(0, this.#items.length);
     this.#render();
   }
 
+  // Метод позволяющий в селекте выбрать элемент который будет изначально отрисовывать, index == number
   selectIndex(index) {
     if (this.#category) {
       console.log('can`t add item to category');
@@ -79,10 +87,12 @@ export class DropDown {
     this.#render(select);
   }
 
+  // Метод возвращающий елемент по номеру, number == number
   getElement(number) {
     return this.#items[number];
   }
 
+  // Метод позволяющий сделать селект disabled, value == boolean;
   disabled(value) {
     if (typeof value !== 'boolean') {
       return;
@@ -98,6 +108,7 @@ export class DropDown {
     }
   }
 
+  // Метод позволяющий открывать/закрывать селект с помощью кнопок, button == внешняя кнопка(HTMLElement); method == string;
   buttonControl(button, method) {
     button.addEventListener('click', () => {
       if (method === 'open') {
@@ -110,6 +121,7 @@ export class DropDown {
     });
   }
 
+  // Общая инициализация селекта и формирование элементов
   #init(options) {
     this.#options = options;
     const { items, multiselect, url } = this.#options;
@@ -151,6 +163,7 @@ export class DropDown {
     });
   }
 
+  // Метод отрисовывающий кнопку селекта и каретку
   #initSelected(select) {
     const { styles, selected, placeholder } = this.#options;
 
@@ -171,6 +184,7 @@ export class DropDown {
     }
   }
 
+  // Общий рендер элементов в список и их настойка
   #render(select) {
     const { styles, multiselect } = this.#options;
 
@@ -230,6 +244,7 @@ export class DropDown {
     this.#addOptionsBehaviour();
   }
 
+  // Общий рендер элементов в список и их настойка с получением данных с URL
   async #renderUrl() {
     const { url, items, multiselect } = this.#options;
 
@@ -280,6 +295,7 @@ export class DropDown {
     this.#addOptionsBehaviour();
   }
 
+  // Метод открывающий список
   #open(oneClick) {
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
@@ -293,11 +309,13 @@ export class DropDown {
     }
   }
 
+  // Метод закрывающий список
   #close() {
     this.#list.classList.remove('open');
     this.#caret.classList.remove('caret_rotate');
   }
 
+  // Метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + мультиселект таг.
   #addOptionsBehaviour() {
     const { multiselect, placeholder, selected, multiselectTag } = this.#options;
 
@@ -387,6 +405,7 @@ export class DropDown {
     });
   }
 
+  // Метод позволяющий открывать/закрывать список по переданному эвенту.
   #initEvent() {
     const { event } = this.#options;
     if (!event) {
