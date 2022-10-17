@@ -1,4 +1,9 @@
-import { customStyles, createSelected, getFormatItem } from './components/utils';
+import {
+  customStyles,
+  createSelected,
+  getFormatItem,
+  customStylesFormat,
+} from './components/utils';
 import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
@@ -7,6 +12,7 @@ export class DropDown {
   #options;
   #caret;
   #items;
+  #category;
   #selectedItems;
   #indexes = [];
 
@@ -25,6 +31,11 @@ export class DropDown {
   }
 
   addItem(item) {
+    if (this.#category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
     if (!item) {
       return false;
     }
@@ -35,11 +46,15 @@ export class DropDown {
     this.#render();
   }
 
-  deleteItem(item) {
-    let index = this.#items.indexOf(item);
+  deleteItem(index) {
+    if (this.#category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
+    const item = this.#items[index];
 
     this.#items.splice(index, 1);
-
     this.#render();
   }
 
@@ -49,16 +64,18 @@ export class DropDown {
   }
 
   selectIndex(index) {
+    if (this.#category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
     const options = this.#element.querySelectorAll('.list__item');
-    // const selected = this.#element.querySelector('.selected');
 
     if (index > options.length) {
       return;
     }
 
     const select = options[index].innerText;
-    // selected.innerText = select;
-
     this.#render(select);
   }
 
@@ -121,12 +138,10 @@ export class DropDown {
     }
 
     items.forEach((dataItem, index) => {
-      let category = '';
-
       if (dataItem.category && dataItem.categoryItems) {
-        category = dataItem.category;
+        this.#category = dataItem.category;
 
-        this.#items.push(category);
+        this.#items.push(this.#category);
         dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
           this.#items.push(getFormatItem(categoryItem, indexCategory));
         });
@@ -158,7 +173,6 @@ export class DropDown {
 
   #render(select) {
     const { styles, multiselect } = this.#options;
-    // const { category } = this.#items;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -166,19 +180,15 @@ export class DropDown {
     } else {
       this.#initSelected();
     }
+
     const ulList = document.createElement('ul');
+
+    ulList.classList.add('list');
 
     if (styles) {
       const { list } = styles;
-
-      if (ulList && list) {
-        Object.entries(list).forEach(([key, value]) => {
-          ulList.style[key] = value;
-        });
-      }
+      customStylesFormat(list, ulList);
     }
-
-    ulList.classList.add('list');
 
     this.#element.appendChild(ulList);
 
@@ -253,10 +263,18 @@ export class DropDown {
       }
 
       liUrl.classList.add('list__item');
+
       liUrl.appendChild(textUrl);
       ulUrl.appendChild(liUrl);
 
       this.#items.push(item);
+    });
+
+    this.#items.filter((item, index) => {
+      if (typeof item !== 'object') {
+        this.#items.splice(index, 1);
+      }
+      return item;
     });
 
     this.#addOptionsBehaviour();
@@ -285,7 +303,6 @@ export class DropDown {
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
-    const category = this.#element.querySelector('strong');
 
     const ul = document.createElement('ul');
 
