@@ -9,6 +9,8 @@ const dropdown = new DropDown({
   multiselectTag: true,
 });
 
+dropdown.deleteItem(2);
+
 // ------------------------------URL--------------------
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown_three',
@@ -53,7 +55,17 @@ const dropdown4 = new DropDown({
       categoryItems: ['Paris'],
     },
   ],
-
+  styles: {
+    head: {
+      background: 'red',
+    },
+    list: {
+      background: 'green',
+    },
+    chips: {
+      background: 'blue',
+    },
+  },
   multiselect: true,
   multiselectTag: true,
 });

@@ -1,30 +1,46 @@
-import { customStyles, createSelected, getFormatItem } from './components/utils';
+import {
+  customStyles,
+  createSelected,
+  getFormatItem,
+  customStylesFormat,
+} from './components/utils';
 import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
+  // Глобальные переменные класса
   #element;
   #list;
   #options;
   #caret;
   #items;
+  #category;
   #selectedItems;
   #indexes = [];
 
+  // Геттер возвращающий выбранные элементы
   get value() {
     return this.#selectedItems ?? null;
   }
 
+  // Геттер возвращающий индексы выбранных элементов
   get indexes() {
     return this.#indexes ?? [];
   }
 
+  // Конструктор принимающий настройки селекта
   constructor(options = {}) {
     this.#init(options);
     this.#render();
     this.#initEvent();
   }
 
+  // Метод добавления елемента в список index == string/object
   addItem(item) {
+    if (this.#category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
     if (!item) {
       return false;
     }
@@ -35,37 +51,48 @@ export class DropDown {
     this.#render();
   }
 
-  deleteItem(item) {
-    let index = this.#items.indexOf(item);
+  // Метод удаления елемента из спискаindex == number
+  deleteItem(index) {
+    if (this.#category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
+    const item = this.#items[index];
 
     this.#items.splice(index, 1);
-
     this.#render();
   }
 
+  // Метод удаляющий все элементы списка.
   deleteItemAll() {
     this.#items.splice(0, this.#items.length);
     this.#render();
   }
 
+  // Метод позволяющий в селекте выбрать элемент который будет изначально отрисовывать, index == number
   selectIndex(index) {
+    if (this.#category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
     const options = this.#element.querySelectorAll('.list__item');
-    // const selected = this.#element.querySelector('.selected');
 
     if (index > options.length) {
       return;
     }
 
     const select = options[index].innerText;
-    // selected.innerText = select;
-
     this.#render(select);
   }
 
+  // Метод возвращающий елемент по номеру, number == number
   getElement(number) {
     return this.#items[number];
   }
 
+  // Метод позволяющий сделать селект disabled, value == boolean;
   disabled(value) {
     if (typeof value !== 'boolean') {
       return;
@@ -81,6 +108,7 @@ export class DropDown {
     }
   }
 
+  // Метод позволяющий открывать/закрывать селект с помощью кнопок, button == внешняя кнопка(HTMLElement); method == string;
   buttonControl(button, method) {
     button.addEventListener('click', () => {
       if (method === 'open') {
@@ -93,6 +121,7 @@ export class DropDown {
     });
   }
 
+  // Общая инициализация селекта и формирование элементов
   #init(options) {
     this.#options = options;
     const { items, multiselect, url } = this.#options;
@@ -121,12 +150,10 @@ export class DropDown {
     }
 
     items.forEach((dataItem, index) => {
-      let category = '';
-
       if (dataItem.category && dataItem.categoryItems) {
-        category = dataItem.category;
+        this.#category = dataItem.category;
 
-        this.#items.push(category);
+        this.#items.push(this.#category);
         dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
           this.#items.push(getFormatItem(categoryItem, indexCategory));
         });
@@ -136,6 +163,7 @@ export class DropDown {
     });
   }
 
+  // Метод отрисовывающий кнопку селекта и каретку
   #initSelected(select) {
     const { styles, selected, placeholder } = this.#options;
 
@@ -156,9 +184,9 @@ export class DropDown {
     }
   }
 
+  // Общий рендер элементов в список и их настойка
   #render(select) {
     const { styles, multiselect } = this.#options;
-    // const { category } = this.#items;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -166,19 +194,15 @@ export class DropDown {
     } else {
       this.#initSelected();
     }
+
     const ulList = document.createElement('ul');
+
+    ulList.classList.add('list');
 
     if (styles) {
       const { list } = styles;
-
-      if (ulList && list) {
-        Object.entries(list).forEach(([key, value]) => {
-          ulList.style[key] = value;
-        });
-      }
+      customStylesFormat(list, ulList);
     }
-
-    ulList.classList.add('list');
 
     this.#element.appendChild(ulList);
 
@@ -220,6 +244,7 @@ export class DropDown {
     this.#addOptionsBehaviour();
   }
 
+  // Общий рендер элементов в список и их настойка с получением данных с URL
   async #renderUrl() {
     const { url, items, multiselect } = this.#options;
 
@@ -253,15 +278,24 @@ export class DropDown {
       }
 
       liUrl.classList.add('list__item');
+
       liUrl.appendChild(textUrl);
       ulUrl.appendChild(liUrl);
 
       this.#items.push(item);
     });
 
+    this.#items.filter((item, index) => {
+      if (typeof item !== 'object') {
+        this.#items.splice(index, 1);
+      }
+      return item;
+    });
+
     this.#addOptionsBehaviour();
   }
 
+  // Метод открывающий список
   #open(oneClick) {
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
@@ -275,17 +309,18 @@ export class DropDown {
     }
   }
 
+  // Метод закрывающий список
   #close() {
     this.#list.classList.remove('open');
     this.#caret.classList.remove('caret_rotate');
   }
 
+  // Метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + мультиселект таг.
   #addOptionsBehaviour() {
     const { multiselect, placeholder, selected, multiselectTag } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
-    const category = this.#element.querySelector('strong');
 
     const ul = document.createElement('ul');
 
@@ -370,6 +405,7 @@ export class DropDown {
     });
   }
 
+  // Метод позволяющий открывать/закрывать список по переданному эвенту.
   #initEvent() {
     const { event } = this.#options;
     if (!event) {
