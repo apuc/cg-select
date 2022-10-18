@@ -4,7 +4,6 @@ import { customStylesFormat } from './utils';
 export function createBreadcrumb(data, title, index, id) {
   const { element, option, indexes, selectedItems } = data;
   const { placeholder, styles } = option;
-  const { chips } = styles;
 
   const selected = element.querySelector('.selected');
   const liChip = document.createElement('li');
@@ -16,7 +15,7 @@ export function createBreadcrumb(data, title, index, id) {
   svgIcon.setAttribute('viewBox', '0 0 10 10');
   path1.setAttribute('d', 'M3,7 L7,3');
   path2.setAttribute('d', 'M3,3 L7,7');
-  liChip.setAttribute('id', `tag-${index}`);
+  liChip.setAttribute('id', `tag-${index}-${id}`);
 
   svgIcon.classList.add('svg-icon');
 
@@ -25,7 +24,10 @@ export function createBreadcrumb(data, title, index, id) {
   liChip.appendChild(textNode);
   liChip.appendChild(svgIcon);
 
-  customStylesFormat(chips, liChip);
+  if (styles) {
+    const { chips } = styles;
+    customStylesFormat(chips, liChip);
+  }
 
   svgIcon.addEventListener('click', (event) => {
     event.stopPropagation();

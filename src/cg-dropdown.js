@@ -368,8 +368,8 @@ export class DropDown {
               }
             } else {
               if (multiselectTag) {
-                const tagItem = document.getElementById(`tag-${index}`);
-                // TODO: bug error! in url
+                const tagItem = document.getElementById(`tag-${index}-${item.id}`);
+
                 ul.removeChild(tagItem);
               }
               this.#indexes.splice(checkIndex, 1);
