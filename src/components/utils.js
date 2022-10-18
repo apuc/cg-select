@@ -1,10 +1,15 @@
-// Создание селектора
+/**
+ * Создание кнопки выбора элементов
+ * @param {HTMLElement} element созданный экземпляр класса DropDown
+ * @param {string} content placeholer передаваемый из настроек селекта
+ * @param {object} styles не обязательный параметр. Объект в котором находяться настройки кастомизации частей селекта
+ */
 export function createSelected(element, content, styles) {
   if (content) {
     element.innerHTML = `
       <div class="cg-select">
          <p class="selected">${content}</p>
-           <div class="caret"></div>
+          <div class="caret"></div>
        </div>
       `;
   }
@@ -14,14 +19,18 @@ export function createSelected(element, content, styles) {
 
     element.innerHTML = `
       <div class="cg-select" style = "${styles}">
-          <span class="selected" style = "${styles}">${content}</span>
+          <p class="selected" style = "${styles}">${content}</p>
           <div class="caret" style = "${styles}"></div>
       </div>
     `;
   }
 }
 
-// Метод ищет и стилизует полученные елементы из styles
+/**
+ * Поиск и стилизация елементов полученных из styles экземпляра DropDown
+ * @param {HTMLElement} element созданный экземпляр класса DropDown
+ * @param {object} styles объект в котором находяться настройки кастомизации частей селекта
+ */
 export function customStyles(element, styles) {
   if (!styles) {
     return;
@@ -42,7 +51,24 @@ export function customStyles(element, styles) {
   }
 }
 
-// Метод checkItemStruct возвращает true/false если item содержит указанные свойства,
+/**
+ * Универсальный метод для стилизации селекта
+ * @param {object} elemOption объект полученное из объекта styles у которого мы получаем ключ-значение стилей
+ * @param {HTMLElement} selector  HTMLElement подвергающиеся кастомизации
+ */
+export function customStylesFormat(elemOption, selector) {
+  if (elemOption) {
+    Object.entries(elemOption).forEach(([key, value]) => {
+      selector.style[key] = value;
+    });
+  }
+}
+
+/**
+ * Проверка содержит ли item  указанные свойства,
+ * @param {object} item проверяемый на определенную структуру элемент
+ * @returns возвращает true/false если item содержит указанные свойства
+ */
 export function checkItemStruct(item) {
   if (item && typeof item !== 'object') {
     return false;
@@ -51,7 +77,12 @@ export function checkItemStruct(item) {
   return item.hasOwnProperty('id') && item.hasOwnProperty('title') && item.hasOwnProperty('value');
 }
 
-// Метод getFormatItem преобразовывает каждый елемент полученный из поля Items;
+/**
+ * Преобразование каждого елемента полученного из поля Items;
+ * @param {object} dataItem полученный елемент переданный при создании селекта может быть как object/string
+ * @param {number} index индекс этого элемента
+ * @returns возвращает сформированный объект
+ */
 export function getFormatItem(dataItem, index) {
   const random = Math.random().toString(36).substring(2, 10);
   let item = {};
@@ -71,13 +102,4 @@ export function getFormatItem(dataItem, index) {
   }
 
   return item;
-}
-
-// Универсальный метод для стилизации селекта
-export function customStylesFormat(elemOption, selector) {
-  if (elemOption) {
-    Object.entries(elemOption).forEach(([key, value]) => {
-      selector.style[key] = value;
-    });
-  }
 }

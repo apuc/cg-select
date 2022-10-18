@@ -7,34 +7,75 @@ import {
 import { createBreadcrumb } from './components/create-element';
 
 export class DropDown {
-  // Глобальные переменные класса
+  /**
+   * Созданный HTML елемент
+   */
   #element;
+  /**
+   * Созданный список(ul), с классом list
+   */
   #list;
+  /**
+   * Настройки селекта передаваемые при создании экземпляра класса
+   */
   #options;
+  /**
+   * Переменная для управления каретки
+   */
   #caret;
+  /**
+   * Массив переданных элементов
+   */
   #items;
+  /**
+   * Переданные категории
+   */
   #category;
+  /**
+   * Выбранный или массив выбранных элементов из списка
+   */
   #selectedItems;
+  /**
+   * Массив индексов выбранных элементов
+   */
   #indexes = [];
 
-  // Геттер возвращающий выбранные элементы
+  /**
+   * Метод экземпляра класса DropDown
+   * @returns Возвращает выбранные элемент(ы) в виде массива/элемента/null
+   * @description Геттер возвращающий выбранные элемент(ы) селекта
+   */
   get value() {
     return this.#selectedItems ?? null;
   }
 
-  // Геттер возвращающий индексы выбранных элементов
+  /**
+   * Метод экземпляра класса DropDown
+   * @returns Возвращает индексы выбранных элемента(ов) в виде массива/пустой массив
+   * @description Геттер возвращающий индексы выбранных элемента(ов) селекта
+   */
   get indexes() {
     return this.#indexes ?? [];
   }
 
-  // Конструктор принимающий настройки селекта
+  /**
+   * Конструктор DropDown
+   * @param {object} options - Объект принимающий настройки селекта
+   * @constructor  Жизненный цикл элемента
+   * @description  Конструктор принимает объект и рендерит селект.
+   */
   constructor(options = {}) {
     this.#init(options);
     this.#render();
     this.#initEvent();
   }
 
-  // Метод добавления елемента в список index == string/object
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {string} item может быть как строкой так и объектом
+   * @description добавляет переданный элемент в конец списка и перерисовывает список.
+   * Не может использоваться при передачи элементов с категорями
+   */
   addItem(item) {
     if (this.#category) {
       console.log('can`t add item to category');
@@ -51,7 +92,12 @@ export class DropDown {
     this.#render();
   }
 
-  // Метод удаления елемента из спискаindex == number
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {number} index индекс удаляемого элемента
+   * @description удаляет елемент по индексу из списка и перерисовывает его.
+   * Не может использоваться при передачи элементов с категорями
+   */
   deleteItem(index) {
     if (this.#category) {
       console.log('can`t add item to category');
@@ -64,13 +110,20 @@ export class DropDown {
     this.#render();
   }
 
-  // Метод удаляющий все элементы списка.
+  /**
+   * Метод экземпляра класса DropDown
+   * @description удаляет все елементы из списка и перерисовывает его.
+   */
   deleteItemAll() {
     this.#items.splice(0, this.#items.length);
     this.#render();
   }
 
-  // Метод позволяющий в селекте выбрать элемент который будет изначально отрисовывать, index == number
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {number} index индекс выбранного элемента
+   * @description  выбирает элемент который будет изначально отрисовываться в селекте
+   */
   selectIndex(index) {
     if (this.#category) {
       console.log('can`t add item to category');
@@ -87,12 +140,23 @@ export class DropDown {
     this.#render(select);
   }
 
-  // Метод возвращающий елемент по номеру, number == number
-  getElement(number) {
-    return this.#items[number];
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {number} numberItem номер возвращаемого элемента
+   * @returns возвращает ссылку на выбранный HTML элемент
+   */
+  getElement(numberItem) {
+    if (numberItem > this.#items.length) {
+      return;
+    }
+    return this.#items[numberItem];
   }
 
-  // Метод позволяющий сделать селект disabled, value == boolean;
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {boolean} value - Передаваемый параметр для добавления атрибута disabled;
+   * @description Метод позволяющий переключать состояние селекта disabled,
+   */
   disabled(value) {
     if (typeof value !== 'boolean') {
       return;
@@ -108,7 +172,12 @@ export class DropDown {
     }
   }
 
-  // Метод позволяющий открывать/закрывать селект с помощью кнопок, button == внешняя кнопка(HTMLElement); method == string;
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {HTMLInputElement} button - HTML кнопка
+   * @param {string} method - метод открытия open/close
+   * @description Метод позволяющий открывать/закрывать селект с помощью кнопок
+   */
   buttonControl(button, method) {
     button.addEventListener('click', () => {
       if (method === 'open') {
@@ -121,7 +190,11 @@ export class DropDown {
     });
   }
 
-  // Общая инициализация селекта и формирование элементов
+  /**
+   * Метод инициализации экземпляра класса DropDown
+   * @param {object} options передаваемые настройки селекта
+   * @description общая инициализация селекта. Получение настоек и преобразвание элементов селекта.
+   */
   #init(options) {
     this.#options = options;
     const { items, multiselect, url } = this.#options;
@@ -163,7 +236,11 @@ export class DropDown {
     });
   }
 
-  // Метод отрисовывающий кнопку селекта и каретку
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {string} select необязательный елемент. Используется в методе selectIndex
+   * @description отрисовывает и стилизует селект
+   */
   #initSelected(select) {
     const { styles, selected, placeholder } = this.#options;
 
@@ -184,7 +261,11 @@ export class DropDown {
     }
   }
 
-  // Общий рендер элементов в список и их настойка
+  /**
+   * Метод рендера экземпляра класса DropDown
+   * @param {string} select  необязательный елемент. Передаеться в метод initSelected
+   * @description рендер елементов в селекте.
+   */
   #render(select) {
     const { styles, multiselect } = this.#options;
 
@@ -244,7 +325,10 @@ export class DropDown {
     this.#addOptionsBehaviour();
   }
 
-  // Общий рендер элементов в список и их настойка с получением данных с URL
+  /**
+   * Метод рендера экземпляра класса DropDown
+   * @description рендер елементов в селекте переданных с URL и их настойка
+   */
   async #renderUrl() {
     const { url, items, multiselect } = this.#options;
 
@@ -295,7 +379,11 @@ export class DropDown {
     this.#addOptionsBehaviour();
   }
 
-  // Метод открывающий список
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {boolean} oneClick необязательный параметр передаваемый из функции buttonControl
+   * @description открывает список для выбора элемента
+   */
   #open(oneClick) {
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
@@ -309,13 +397,19 @@ export class DropDown {
     }
   }
 
-  // Метод закрывающий список
+  /**
+   * Метод экземпляра класса DropDown
+   * @description закрывающий список
+   */
   #close() {
     this.#list.classList.remove('open');
     this.#caret.classList.remove('caret_rotate');
   }
 
-  // Метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + мультиселект таг.
+  /**
+   * Метод экземпляра класса DropDown
+   * @description метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + Мультиселект Таг.
+   */
   #addOptionsBehaviour() {
     const { multiselect, placeholder, selected, multiselectTag } = this.#options;
 
@@ -405,7 +499,10 @@ export class DropDown {
     });
   }
 
-  // Метод позволяющий открывать/закрывать список по переданному эвенту.
+  /**
+   * Метод экземпляра класса DropDown
+   * @description открывает и закрывает список по переданному эвенту
+   */
   #initEvent() {
     const { event } = this.#options;
     if (!event) {
