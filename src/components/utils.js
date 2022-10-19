@@ -1,4 +1,9 @@
 /**
+ * Utils module
+ * @module Utils
+ */
+
+/**
  * Создание кнопки выбора элементов
  * @param {HTMLElement} element созданный экземпляр класса DropDown
  * @param {string} content placeholer передаваемый из настроек селекта
@@ -67,7 +72,7 @@ export function customStylesFormat(elemOption, selector) {
 /**
  * Проверка содержит ли item  указанные свойства,
  * @param {object} item проверяемый на определенную структуру элемент
- * @returns возвращает true/false если item содержит указанные свойства
+ * @returns {boolean} возвращает true/false если item содержит указанные свойства
  */
 export function checkItemStruct(item) {
   if (item && typeof item !== 'object') {
@@ -79,9 +84,9 @@ export function checkItemStruct(item) {
 
 /**
  * Преобразование каждого елемента полученного из поля Items;
- * @param {object} dataItem полученный елемент переданный при создании селекта может быть как object/string
+ * @param {object | string} dataItem полученный елемент переданный при создании селекта может быть как object/string
  * @param {number} index индекс этого элемента
- * @returns возвращает сформированный объект
+ * @returns {object} возвращает сформированный объект
  */
 export function getFormatItem(dataItem, index) {
   const random = Math.random().toString(36).substring(2, 10);
