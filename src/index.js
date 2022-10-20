@@ -4,7 +4,17 @@ import { DropDown } from './cg-dropdown';
 const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
-  items: ['BMW', 'Opel', 'Mersedes', 'MAN', 'max'],
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'max',
+  ],
   multiselect: true,
   multiselectTag: true,
 });

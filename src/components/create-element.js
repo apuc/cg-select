@@ -1,6 +1,16 @@
 import { customStylesFormat } from './utils';
+/**
+ * @module createBreadcrumb
+ */
 
-// Метод который создает и отвечает за поведение chips
+/**
+ * Метод который создает и отвечает за поведение chips
+ * @param {object} data объект в котором содержатся настройки и элементы селекта
+ * @param {string} title имя выбранного элемента для отрисовки chips
+ * @param {number} index индекс выбранного элемента для отрисовки chips
+ * @param {string} id уникальное id выбранного элемента
+ * @returns {HTMLElement} возвращает сформированный HTMLElement chips item
+ */
 export function createBreadcrumb(data, title, index, id) {
   const { element, option, indexes, selectedItems } = data;
   const { placeholder, styles } = option;
