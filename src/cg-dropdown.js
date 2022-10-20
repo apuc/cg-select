@@ -342,7 +342,11 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
+    ///
+    const nativSelect = document.createElement('select');
+    nativSelect.setAttribute('form', 'data');
 
+    nativSelect.classList.add('nativSelect');
     ulList.classList.add('list');
 
     if (styles) {
@@ -351,11 +355,15 @@ export class DropDown {
     }
 
     this.#element.appendChild(ulList);
+    ///
+    this.#element.appendChild(nativSelect);
 
     this.#items.forEach((dataItem) => {
       const liItem = document.createElement('li');
+      const nativOption = document.createElement('option');
       const strongItem = document.createElement('strong');
 
+      nativOption.classList.add('nativSelect__nativOption');
       liItem.classList.add('list__item');
       strongItem.classList.add('category');
 
@@ -371,6 +379,13 @@ export class DropDown {
 
       if (dataItem.title) {
         textNode = document.createTextNode(dataItem.title);
+        ///
+        nativOption.text = dataItem.title;
+        nativOption.value = dataItem.title;
+        nativSelect.setAttribute('name', 'dataSelect');
+        nativSelect.appendChild(nativOption);
+
+        ///
         liItem.appendChild(textNode);
         ulList.appendChild(liItem);
       } else {
@@ -488,6 +503,7 @@ export class DropDown {
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
+    const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
 
     const ul = document.createElement('ul');
 
@@ -562,6 +578,11 @@ export class DropDown {
         } else {
           select.innerText = item.title;
           this.#selectedItems = item;
+          nativOption.forEach((op) => {
+            if (op.textContent === item.title) {
+              op.setAttribute('selected', 'selected');
+            }
+          });
 
           options.forEach((option) => {
             option.classList.remove('active');

@@ -1,0 +1,13 @@
+.nativSelect {
+  border: none;
+  cursor: pointer;
+  display: none;
+  color: white;
+  background: #2a2f3b;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+
+  &__nativOption {
+    border: 1px #0a0b0e solid;
+  }
+}
