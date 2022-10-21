@@ -3,8 +3,10 @@ import {
   customStyles,
   getFormatItem,
   customStylesFormat,
+  nativOptionMultiple,
+  nativOptionOrdinary,
 } from './components/utils';
-import { createBreadcrumb } from './components/create-element';
+import { createBreadcrumb, createListSelect } from './components/create-element';
 
 /**
  * @class Описание класса DropDown
@@ -342,7 +344,11 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
+    const nativSelect = document.createElement('select');
 
+    nativSelect.setAttribute('form', 'data');
+
+    nativSelect.classList.add('nativSelect');
     ulList.classList.add('list');
 
     if (styles) {
@@ -351,11 +357,15 @@ export class DropDown {
     }
 
     this.#element.appendChild(ulList);
+    ///
+    this.#element.appendChild(nativSelect);
 
     this.#items.forEach((dataItem) => {
       const liItem = document.createElement('li');
+      const nativOption = document.createElement('option');
       const strongItem = document.createElement('strong');
 
+      nativOption.classList.add('nativSelect__nativOption');
       liItem.classList.add('list__item');
       strongItem.classList.add('category');
 
@@ -365,12 +375,21 @@ export class DropDown {
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
         liItem.appendChild(checkBox);
+
+        nativSelect.setAttribute('multiple', 'multiple');
       }
+      nativSelect.setAttribute('name', 'dataSelect');
 
       let textNode = '';
 
       if (dataItem.title) {
         textNode = document.createTextNode(dataItem.title);
+        ///
+        nativOption.text = dataItem.title;
+        nativOption.value = dataItem.title;
+        nativSelect.appendChild(nativOption);
+
+        ///
         liItem.appendChild(textNode);
         ulList.appendChild(liItem);
       } else {
@@ -488,17 +507,19 @@ export class DropDown {
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
+    const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
 
-    const ul = document.createElement('ul');
+    const ulMultipul = document.createElement('ul');
 
     if (multiselect) {
-      ul.classList.add('multiselect-tag');
+      ulMultipul.classList.add('multiselect-tag');
       select.classList.add('overflow-hidden');
     }
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
+
         if (multiselect) {
           event.stopPropagation();
           option.classList.toggle('active');
@@ -513,13 +534,15 @@ export class DropDown {
             const checkIndex = this.#indexes.indexOf(index);
 
             if (checkIndex === -1) {
+              nativOptionMultiple(nativOption, item.title, true);
+
               this.#indexes.push(index);
 
               select.innerText = '';
 
               if (multiselectTag) {
                 this.#selectedItems.push(item);
-                select.appendChild(ul);
+                select.appendChild(ulMultipul);
 
                 const data = {
                   option: this.#options,
@@ -528,7 +551,7 @@ export class DropDown {
                   selectedItems: this.#selectedItems,
                 };
 
-                ul.appendChild(createBreadcrumb(data, item.title, index, item.id));
+                ulMultipul.appendChild(createBreadcrumb(data, item.title, index, item.id));
               } else {
                 this.#selectedItems.push(item.title);
                 select.innerText = this.#selectedItems;
@@ -536,11 +559,11 @@ export class DropDown {
             } else {
               if (multiselectTag) {
                 const tagItem = document.getElementById(`tag-${index}-${item.id}`);
-
-                ul.removeChild(tagItem);
+                ulMultipul.removeChild(tagItem);
               }
               this.#indexes.splice(checkIndex, 1);
               this.#selectedItems.splice(checkIndex, 1);
+              nativOptionMultiple(nativOption, item.title, false);
             }
 
             if (!this.#selectedItems.length) {
@@ -553,7 +576,7 @@ export class DropDown {
               }
             } else {
               if (multiselectTag) {
-                select.appendChild(ul);
+                select.appendChild(ulMultipul);
               } else {
                 select.innerText = this.#selectedItems;
               }
@@ -562,6 +585,7 @@ export class DropDown {
         } else {
           select.innerText = item.title;
           this.#selectedItems = item;
+          nativOptionOrdinary(nativOption, item.title);
 
           options.forEach((option) => {
             option.classList.remove('active');

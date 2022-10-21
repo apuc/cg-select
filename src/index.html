@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cg-Select</title>
     <link href="./style/main.scss" rel="stylesheet" />
+    <link href="./style/nativSelect.scss" rel="stylesheet" />
   </head>
   <body>
     <div class="container">
+      <form id="data" action="handler.php"></form>
+
       <button class="cg-dropdown cg-dropdown_one"></button>
+      <input type="submit" form="data" value="Отправить" />
+      <!-- <button class="cg-dropdown cg-dropdown_three"></button> -->
 
-      <button class="cg-dropdown cg-dropdown_three"></button>
-
-      <button class="cg-dropdown cg-dropdown_button" style="margin-top: 50px"></button>
+      <!-- <button class="cg-dropdown cg-dropdown_button" style="margin-top: 50px"></button> -->
     </div>
   </body>
   <script type="module" src="index.js"></script>

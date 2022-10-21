@@ -19,66 +19,65 @@ const dropdown = new DropDown({
   multiselectTag: true,
 });
 
-dropdown.deleteItem(2);
-
+dropdown.disabled(false);
 // ------------------------------URL--------------------
-const dropdown3 = new DropDown({
-  selector: '.cg-dropdown_three',
-  placeholder: 'URL',
-  url: 'http://jsonplaceholder.typicode.com/users',
-  styles: {
-    head: {
-      background: 'black',
-      width: '350px',
-    },
-  },
-  multiselect: true,
-  multiselectTag: true,
-});
+// const dropdown3 = new DropDown({
+//   selector: '.cg-dropdown_three',
+//   placeholder: 'URL',
+//   url: 'http://jsonplaceholder.typicode.com/users',
+//   styles: {
+//     head: {
+//       background: 'black',
+//       width: '350px',
+//     },
+//   },
+//   multiselect: true,
+//   multiselectTag: true,
+// });
 
 // --------------------------------Категории--------------------------
-const dropdown4 = new DropDown({
-  selector: '.cg-dropdown_button',
-  placeholder: 'Выберите регион',
-  items: [
-    {
-      category: 'Russia',
-      categoryItems: [
-        {
-          id: '28qwds',
-          title: 'Москва',
-          value: 0,
-        },
-        ,
-        'Ростов-на-дону',
-        'Саратов',
-        'Волгоград',
-        'Донецк',
-      ],
-    },
-    {
-      category: 'USA',
-      categoryItems: ['Alabama', 'Texas', 'Colorado', 'Klirens', 'Los-Angeles'],
-    },
-    {
-      category: 'France',
-      categoryItems: ['Paris'],
-    },
-  ],
-  styles: {
-    head: {
-      background: 'red',
-    },
-    list: {
-      background: 'green',
-    },
-    chips: {
-      background: 'blue',
-    },
-  },
-  multiselect: true,
-  multiselectTag: true,
-});
+// const dropdown4 = new DropDown({
+//   selector: '.cg-dropdown_button',
+//   placeholder: 'Выберите регион',
+//   items: [
+//     {
+//       category: 'Russia',
+//       categoryItems: [
+//         {
+//           id: '28qwds',
+//           title: 'Москва',
+//           value: 0,
+//         },
+//         ,
+//         'Ростов-на-дону',
+//         'Саратов',
+//         'Волгоград',
+//         'Донецк',
+//       ],
+//     },
+//     {
+//       category: 'USA',
+//       categoryItems: ['Alabama', 'Texas', 'Colorado', 'Klirens', 'Los-Angeles'],
+//     },
+//     {
+//       category: 'France',
+//       categoryItems: ['Paris'],
+//     },
+//   ],
+//   styles: {
+//     head: {
+//       background: 'red',
+//     },
+//     list: {
+//       background: 'green',
+//     },
+//     chips: {
+//       background: 'blue',
+//     },
+//   },
+//   multiselect: true,
+//   multiselectTag: true,
+// });
 
 //----------------управление с помощью кнопок----------------------------------
 /* const buttonOpen = document.querySelector('.button__open');

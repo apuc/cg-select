@@ -1,4 +1,4 @@
-import { customStylesFormat } from './utils';
+import { customStylesFormat, nativOptionMultiple } from './utils';
 /**
  * @module createBreadcrumb
  */
@@ -16,6 +16,8 @@ export function createBreadcrumb(data, title, index, id) {
   const { placeholder, styles } = option;
 
   const selected = element.querySelector('.selected');
+  const nativOption = element.querySelectorAll('.nativSelect__nativOption');
+
   const liChip = document.createElement('li');
   const textNode = document.createTextNode(title);
   const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -41,13 +43,13 @@ export function createBreadcrumb(data, title, index, id) {
 
   svgIcon.addEventListener('click', (event) => {
     event.stopPropagation();
+    nativOptionMultiple(nativOption, title, false);
 
     const deleteIcon = indexes.indexOf(index);
+    let checkBox = '';
 
     indexes.splice(deleteIcon, 1);
     selectedItems.splice(deleteIcon, 1);
-
-    let checkBox = '';
 
     if (id) {
       checkBox = document.getElementById(`chbox-${id}`);
