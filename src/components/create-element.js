@@ -69,3 +69,27 @@ export function createBreadcrumb(data, title, index, id) {
 
   return liChip;
 }
+
+/**
+ * Метод который создает нативный селект
+ * @returns {HTMLSelectElement} Возвращает созданный нативный селект
+ */
+export function createNativeSelect() {
+  const nativSelect = document.createElement('select');
+
+  nativSelect.setAttribute('form', 'data');
+  nativSelect.setAttribute('name', 'dataSelect');
+  nativSelect.classList.add('nativSelect');
+  return nativSelect;
+}
+
+/**
+ * Метод который создает Options для нативного селекта
+ * @returns {HTMLOptionElement} Возвращает созданные Options нативного селекта
+ */
+export function createNativSelectOption() {
+  const nativOption = document.createElement('option');
+
+  nativOption.classList.add('nativSelect__nativOption');
+  return nativOption;
+}

@@ -6,7 +6,11 @@ import {
   nativOptionMultiple,
   nativOptionOrdinary,
 } from './components/utils';
-import { createBreadcrumb, createListSelect } from './components/create-element';
+import {
+  createBreadcrumb,
+  createNativSelectOption,
+  createNativeSelect,
+} from './components/create-element';
 
 /**
  * @class Описание класса DropDown
@@ -344,11 +348,8 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
-    const nativSelect = document.createElement('select');
+    const nativSelect = createNativeSelect();
 
-    nativSelect.setAttribute('form', 'data');
-
-    nativSelect.classList.add('nativSelect');
     ulList.classList.add('list');
 
     if (styles) {
@@ -357,15 +358,14 @@ export class DropDown {
     }
 
     this.#element.appendChild(ulList);
-    ///
-    this.#element.appendChild(nativSelect);
 
     this.#items.forEach((dataItem) => {
+      this.#element.appendChild(nativSelect);
+
       const liItem = document.createElement('li');
-      const nativOption = document.createElement('option');
+      const nativOption = createNativSelectOption();
       const strongItem = document.createElement('strong');
 
-      nativOption.classList.add('nativSelect__nativOption');
       liItem.classList.add('list__item');
       strongItem.classList.add('category');
 
@@ -375,21 +375,17 @@ export class DropDown {
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
         liItem.appendChild(checkBox);
-
         nativSelect.setAttribute('multiple', 'multiple');
       }
-      nativSelect.setAttribute('name', 'dataSelect');
 
       let textNode = '';
 
       if (dataItem.title) {
-        textNode = document.createTextNode(dataItem.title);
-        ///
         nativOption.text = dataItem.title;
         nativOption.value = dataItem.title;
-        nativSelect.appendChild(nativOption);
+        textNode = document.createTextNode(dataItem.title);
 
-        ///
+        nativSelect.appendChild(nativOption);
         liItem.appendChild(textNode);
         ulList.appendChild(liItem);
       } else {
@@ -429,6 +425,8 @@ export class DropDown {
     const response = await fetch(url);
     const dataUrl = await response.json();
 
+    const nativSelect = createNativeSelect();
+
     dataUrl.forEach((dataItem, index) => {
       const item = {
         id: dataItem.id,
@@ -436,6 +434,8 @@ export class DropDown {
         value: index,
       };
       const ulUrl = this.#element.querySelector('.list');
+
+      const nativOption = createNativSelectOption();
       const liUrl = document.createElement('li');
       const textUrl = document.createTextNode(item.title);
 
@@ -444,16 +444,23 @@ export class DropDown {
         checkBox.type = 'checkbox';
 
         checkBox.setAttribute('id', `chbox-${item.id}`);
+        nativSelect.setAttribute('multiple', 'multiple');
+
         liUrl.appendChild(checkBox);
       }
 
       liUrl.classList.add('list__item');
+      nativOption.value = item.title;
+      nativOption.text = item.title;
 
+      nativSelect.appendChild(nativOption);
       liUrl.appendChild(textUrl);
       ulUrl.appendChild(liUrl);
 
       this.#items.push(item);
     });
+
+    this.#element.appendChild(nativSelect);
 
     this.#items.filter((item, index) => {
       if (typeof item !== 'object') {
