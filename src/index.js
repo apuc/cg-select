@@ -15,8 +15,11 @@ const dropdown = new DropDown({
     'MAN',
     'max',
   ],
+  multiselect: true,
+  multiselectTag: true,
 });
 
+dropdown.disabled(false);
 // ------------------------------URL--------------------
 // const dropdown3 = new DropDown({
 //   selector: '.cg-dropdown_three',

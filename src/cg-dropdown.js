@@ -3,8 +3,10 @@ import {
   customStyles,
   getFormatItem,
   customStylesFormat,
+  nativOptionMultiple,
+  nativOptionOrdinary,
 } from './components/utils';
-import { createBreadcrumb } from './components/create-element';
+import { createBreadcrumb, createListSelect } from './components/create-element';
 
 /**
  * @class Описание класса DropDown
@@ -342,8 +344,8 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
-    ///
     const nativSelect = document.createElement('select');
+
     nativSelect.setAttribute('form', 'data');
 
     nativSelect.classList.add('nativSelect');
@@ -373,7 +375,10 @@ export class DropDown {
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
 
         liItem.appendChild(checkBox);
+
+        nativSelect.setAttribute('multiple', 'multiple');
       }
+      nativSelect.setAttribute('name', 'dataSelect');
 
       let textNode = '';
 
@@ -382,7 +387,6 @@ export class DropDown {
         ///
         nativOption.text = dataItem.title;
         nativOption.value = dataItem.title;
-        nativSelect.setAttribute('name', 'dataSelect');
         nativSelect.appendChild(nativOption);
 
         ///
@@ -505,16 +509,17 @@ export class DropDown {
     const select = this.#element.querySelector('.selected');
     const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
 
-    const ul = document.createElement('ul');
+    const ulMultipul = document.createElement('ul');
 
     if (multiselect) {
-      ul.classList.add('multiselect-tag');
+      ulMultipul.classList.add('multiselect-tag');
       select.classList.add('overflow-hidden');
     }
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
+
         if (multiselect) {
           event.stopPropagation();
           option.classList.toggle('active');
@@ -529,13 +534,15 @@ export class DropDown {
             const checkIndex = this.#indexes.indexOf(index);
 
             if (checkIndex === -1) {
+              nativOptionMultiple(nativOption, item.title, true);
+
               this.#indexes.push(index);
 
               select.innerText = '';
 
               if (multiselectTag) {
                 this.#selectedItems.push(item);
-                select.appendChild(ul);
+                select.appendChild(ulMultipul);
 
                 const data = {
                   option: this.#options,
@@ -544,7 +551,7 @@ export class DropDown {
                   selectedItems: this.#selectedItems,
                 };
 
-                ul.appendChild(createBreadcrumb(data, item.title, index, item.id));
+                ulMultipul.appendChild(createBreadcrumb(data, item.title, index, item.id));
               } else {
                 this.#selectedItems.push(item.title);
                 select.innerText = this.#selectedItems;
@@ -552,11 +559,11 @@ export class DropDown {
             } else {
               if (multiselectTag) {
                 const tagItem = document.getElementById(`tag-${index}-${item.id}`);
-
-                ul.removeChild(tagItem);
+                ulMultipul.removeChild(tagItem);
               }
               this.#indexes.splice(checkIndex, 1);
               this.#selectedItems.splice(checkIndex, 1);
+              nativOptionMultiple(nativOption, item.title, false);
             }
 
             if (!this.#selectedItems.length) {
@@ -569,7 +576,7 @@ export class DropDown {
               }
             } else {
               if (multiselectTag) {
-                select.appendChild(ul);
+                select.appendChild(ulMultipul);
               } else {
                 select.innerText = this.#selectedItems;
               }
@@ -578,11 +585,7 @@ export class DropDown {
         } else {
           select.innerText = item.title;
           this.#selectedItems = item;
-          nativOption.forEach((op) => {
-            if (op.textContent === item.title) {
-              op.setAttribute('selected', 'selected');
-            }
-          });
+          nativOptionOrdinary(nativOption, item.title);
 
           options.forEach((option) => {
             option.classList.remove('active');

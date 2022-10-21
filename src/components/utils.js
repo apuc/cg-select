@@ -108,3 +108,39 @@ export function getFormatItem(dataItem, index) {
 
   return item;
 }
+
+/**
+ * Поведение нативного(одинарного) селекта при выборе кастомного
+ * @param {NodeList} element NodeList нативного селекта
+ * @param {object} item выбранный элемент в кастомном селекте
+ */
+export function nativOptionOrdinary(element, item) {
+  element.forEach((option) => {
+    option.removeAttribute('selected');
+    if (option.textContent === item) {
+      option.setAttribute('selected', 'selected');
+    }
+  });
+}
+
+/**
+ * Поведение нативного(Multiple) селекта при выборе в кастомном
+ * @param {NodeList} element NodeList нативного селекта
+ * @param {object} item выбранный элемент в кастомном селекте
+ * @param {boolean} condition специальный флаг при котором добавляются/убераются атрибуты у нативного селекта
+ */
+export function nativOptionMultiple(element, item, condition) {
+  element.forEach((option) => {
+    if (condition == true) {
+      if (option.textContent === item) {
+        option.setAttribute('selected', 'selected');
+      }
+    } else if (condition == false) {
+      if (option.textContent === item) {
+        option.removeAttribute('selected');
+      }
+    } else {
+      return;
+    }
+  });
+}
