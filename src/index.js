@@ -3,7 +3,8 @@ import { DropDown } from './cg-dropdown';
 // ------------------------------Обычный селект--------------------
 const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
-  placeholder: 'Выберите авто',
+  // placeholder: 'Выберите авто',
+  searchMode: true,
   items: [
     'BMW',
     {
@@ -19,21 +20,21 @@ const dropdown = new DropDown({
   multiselectTag: true,
 });
 
-dropdown.disabled(false);
+// dropdown.disabled(false);
 // ------------------------------URL--------------------
-const dropdown3 = new DropDown({
-  selector: '.cg-dropdown_three',
-  placeholder: 'URL',
-  url: 'http://jsonplaceholder.typicode.com/users',
-  styles: {
-    head: {
-      background: 'black',
-      width: '350px',
-    },
-  },
-  multiselect: true,
-  multiselectTag: true,
-});
+// const dropdown3 = new DropDown({
+//   selector: '.cg-dropdown_three',
+//   placeholder: 'URL',
+//   url: 'http://jsonplaceholder.typicode.com/users',
+//   styles: {
+//     head: {
+//       background: 'black',
+//       width: '350px',
+//     },
+//   },
+//   multiselect: true,
+//   multiselectTag: true,
+// });
 
 // --------------------------------Категории--------------------------
 // const dropdown4 = new DropDown({

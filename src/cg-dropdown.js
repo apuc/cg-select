@@ -5,6 +5,7 @@ import {
   customStylesFormat,
   nativOptionMultiple,
   nativOptionOrdinary,
+  createSelectedSearch,
 } from './components/utils';
 import {
   createBreadcrumb,
@@ -311,8 +312,9 @@ export class DropDown {
    * @protected
    */
   #initSelected(select) {
-    const { styles, selected, placeholder } = this.#options;
+    const { styles, selected, placeholder, searchMode } = this.#options;
 
+    console.log(searchMode);
     if (selected) {
       createSelected(this.#element, selected);
     } else if (placeholder) {
@@ -321,6 +323,9 @@ export class DropDown {
       createSelected(this.#element, 'Select...');
     }
 
+    if (searchMode) {
+      createSelectedSearch(this.#element);
+    }
     if (styles) {
       customStyles(this.#element, styles);
     }
@@ -515,13 +520,16 @@ export class DropDown {
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
     const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
-
+    const search = this.#element.querySelector('#searchSelect');
     const ulMultipul = document.createElement('ul');
 
     if (multiselect) {
       ulMultipul.classList.add('multiselect-tag');
       select.classList.add('overflow-hidden');
     }
+
+    // console.log(search);
+    this.searchMode();
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
@@ -603,6 +611,27 @@ export class DropDown {
     });
   }
 
+  searchMode() {
+    document.querySelector('#searchSelect').oninput = function () {
+      let val = this.value.trim();
+      let searchSelect = document.querySelectorAll('.list__item');
+      console.log(searchSelect);
+
+      if (val != '') {
+        searchSelect.forEach((elem) => {
+          if (elem.innerText.search(val) == -1) {
+            elem.classList.add('displayHide');
+          } else {
+            elem.classList.remove('displayHide');
+          }
+        });
+      } else {
+        searchSelect.forEach((elem) => {
+          elem.classList.remove('displayHide');
+        });
+      }
+    };
+  }
   /**
    * Приватный метод экземпляра класса DropDown
    * @protected

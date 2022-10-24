@@ -29,7 +29,7 @@ body {
 
 .cg-select {
   padding: 5px;
-
+  flex-grow: 1;
   min-height: 50px;
   color: #fff;
   display: flex;
@@ -209,4 +209,27 @@ input[type='checkbox'] {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4d4d4d;
+}
+
+.displayHide {
+  display: none;
+}
+
+.searchSelect {
+  // border: solid black 1px;
+  // border-radius: 5px;
+  display: flex;
+  align-items: center;
+  // width: 150px;
+  // height: 45px;
+
+  textarea {
+    width: 0.75em;
+    resize: none;
+    height: 18px;
+    background: transparent;
+    border: none;
+    outline: 0;
+    box-shadow: none;
+  }
 }
