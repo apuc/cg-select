@@ -31,23 +31,6 @@ export function createSelected(element, content, styles) {
   }
 }
 
-export function createSelectedSearch(element) {
-  if (element) {
-    element.innerHTML = `
-    <div class="cg-select">
-        <div class="searchSelect">
-            <p class="selected"></p>
-            <textarea autofocus type="text" id="searchSelect" ></textarea>
-            
-        </div>
-        <div class="caret"></div>
-    </div>
-  `;
-  } else {
-    return;
-  }
-}
-
 /**
  * Поиск и стилизация елементов полученных из styles экземпляра DropDown
  * @param {HTMLElement} element созданный экземпляр класса DropDown

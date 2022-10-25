@@ -5,10 +5,10 @@ import {
   customStylesFormat,
   nativOptionMultiple,
   nativOptionOrdinary,
-  createSelectedSearch,
 } from './components/utils';
 import {
   createBreadcrumb,
+  createInputSearch,
   createNativSelectOption,
   createNativeSelect,
 } from './components/create-element';
@@ -312,9 +312,8 @@ export class DropDown {
    * @protected
    */
   #initSelected(select) {
-    const { styles, selected, placeholder, searchMode } = this.#options;
+    const { styles, selected, placeholder } = this.#options;
 
-    console.log(searchMode);
     if (selected) {
       createSelected(this.#element, selected);
     } else if (placeholder) {
@@ -323,9 +322,6 @@ export class DropDown {
       createSelected(this.#element, 'Select...');
     }
 
-    if (searchMode) {
-      createSelectedSearch(this.#element);
-    }
     if (styles) {
       customStyles(this.#element, styles);
     }
@@ -343,7 +339,7 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect } = this.#options;
+    const { styles, multiselect, searchMode } = this.#options;
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -353,9 +349,17 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
+    const intputSearch = createInputSearch();
+    // intputSearch.type = 'text';
+    // intputSearch.setAttribute('id', 'searchSelect');
+    // intputSearch.setAttribute('placeholder', 'Search...');
+
     const nativSelect = createNativeSelect();
 
     ulList.classList.add('list');
+    if (searchMode) {
+      ulList.appendChild(intputSearch);
+    }
 
     if (styles) {
       const { list } = styles;
@@ -515,12 +519,11 @@ export class DropDown {
    * @method #addOptionsBehaviour
    */
   #addOptionsBehaviour() {
-    const { multiselect, placeholder, selected, multiselectTag } = this.#options;
+    const { multiselect, placeholder, selected, multiselectTag, searchMode } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
     const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
-    const search = this.#element.querySelector('#searchSelect');
     const ulMultipul = document.createElement('ul');
 
     if (multiselect) {
@@ -528,8 +531,9 @@ export class DropDown {
       select.classList.add('overflow-hidden');
     }
 
-    // console.log(search);
-    this.searchMode();
+    if (searchMode && searchMode === true) {
+      this.searchMode();
+    }
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
@@ -612,15 +616,27 @@ export class DropDown {
   }
 
   searchMode() {
-    document.querySelector('#searchSelect').oninput = function () {
+    const input = document.querySelector('#searchSelect');
+    const searchSelect = this.#element.querySelectorAll('.list__item');
+    const result = document.createElement('p');
+    const textNode = document.createTextNode('No matches...');
+
+    result.appendChild(textNode);
+    result.classList.add('displayHide');
+    input.parentElement.appendChild(result);
+
+    input.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    input.oninput = function () {
       let val = this.value.trim();
-      let searchSelect = document.querySelectorAll('.list__item');
-      console.log(searchSelect);
 
       if (val != '') {
         searchSelect.forEach((elem) => {
           if (elem.innerText.search(val) == -1) {
             elem.classList.add('displayHide');
+            result.classList.remove('displayHide');
           } else {
             elem.classList.remove('displayHide');
           }
@@ -628,10 +644,12 @@ export class DropDown {
       } else {
         searchSelect.forEach((elem) => {
           elem.classList.remove('displayHide');
+          result.classList.add('displayHide');
         });
       }
     };
   }
+
   /**
    * Приватный метод экземпляра класса DropDown
    * @protected

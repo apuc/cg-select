@@ -93,3 +93,13 @@ export function createNativSelectOption() {
   nativOption.classList.add('nativSelect__nativOption');
   return nativOption;
 }
+
+export function createInputSearch() {
+  const intputSearch = document.createElement('input');
+
+  intputSearch.type = 'text';
+  intputSearch.setAttribute('id', 'searchSelect');
+  intputSearch.setAttribute('placeholder', 'Search...');
+
+  return intputSearch;
+}

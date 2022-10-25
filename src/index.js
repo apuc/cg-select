@@ -3,7 +3,7 @@ import { DropDown } from './cg-dropdown';
 // ------------------------------Обычный селект--------------------
 const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
-  // placeholder: 'Выберите авто',
+  placeholder: 'Выберите авто',
   searchMode: true,
   items: [
     'BMW',
@@ -37,48 +37,48 @@ const dropdown = new DropDown({
 // });
 
 // --------------------------------Категории--------------------------
-// const dropdown4 = new DropDown({
-//   selector: '.cg-dropdown_button',
-//   placeholder: 'Выберите регион',
-//   items: [
-//     {
-//       category: 'Russia',
-//       categoryItems: [
-//         {
-//           id: '28qwds',
-//           title: 'Москва',
-//           value: 0,
-//         },
-//         ,
-//         'Ростов-на-дону',
-//         'Саратов',
-//         'Волгоград',
-//         'Донецк',
-//       ],
-//     },
-//     {
-//       category: 'USA',
-//       categoryItems: ['Alabama', 'Texas', 'Colorado', 'Klirens', 'Los-Angeles'],
-//     },
-//     {
-//       category: 'France',
-//       categoryItems: ['Paris'],
-//     },
-//   ],
-//   styles: {
-//     head: {
-//       background: 'red',
-//     },
-//     list: {
-//       background: 'green',
-//     },
-//     chips: {
-//       background: 'blue',
-//     },
-//   },
-//   multiselect: true,
-//   multiselectTag: true,
-// });
+const dropdown4 = new DropDown({
+  selector: '.cg-dropdown_button',
+  placeholder: 'Выберите регион',
+  items: [
+    {
+      category: 'Russia',
+      categoryItems: [
+        {
+          id: '28qwds',
+          title: 'Москва',
+          value: 0,
+        },
+        ,
+        'Ростов-на-дону',
+        'Саратов',
+        'Волгоград',
+        'Донецк',
+      ],
+    },
+    {
+      category: 'USA',
+      categoryItems: ['Alabama', 'Texas', 'Colorado', 'Klirens', 'Los-Angeles'],
+    },
+    {
+      category: 'France',
+      categoryItems: ['Paris'],
+    },
+  ],
+  styles: {
+    head: {
+      background: 'red',
+    },
+    list: {
+      background: 'green',
+    },
+    chips: {
+      background: 'blue',
+    },
+  },
+  multiselect: true,
+  multiselectTag: true,
+});
 
 //----------------управление с помощью кнопок----------------------------------
 /* const buttonOpen = document.querySelector('.button__open');
