@@ -20,603 +20,686 @@
       <section>
         <article>
           <pre class="prettyprint source linenums"><code>import {
-  createSelected,
-  customStyles,
-  getFormatItem,
-  customStylesFormat,
-} from './components/utils';
-import { createBreadcrumb } from './components/create-element';
-
-/**
- * @class Описание класса DropDown
- * @description Этот класс реализовывает функционал кастомного селекта, с возможностями кастомизации.
- *@author Овсяников Максим
- */
-export class DropDown {
-  /**
-   * Созданный HTML елемент
-   * @type {HTMLElement}
-   */
-  #element;
-  /**
-   * Созданный список(ul), с классом list
-   * @type {HTMLElement}
-   */
-  #list;
-  /**
-   * Настройки селекта передаваемые при создании экземпляра класса
-   * @type {object}
-   */
-  #options;
-  /**
-   * Переменная для управления каретки
-   * @type {HTMLElement}
-   */
-  #caret;
-  /**
-   * Массив переданных элементов
-   * @type {object[]}
-   */
-  #items;
-  /**
-   * Переданные категории
-   * @type {string}
-   */
-  #category;
-  /**
-   * Выбранный или массив выбранных элементов из списка
-   * @type {object[] | object}
-   */
-  #selectedItems;
-  /**
-   * Массив индексов выбранных элементов
-   * @type {number[]}
-   */
-  #indexes = [];
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @returns {string[] | string | null} Возвращает выбранные элемент(ы) в виде массива/элемента/null
-   * @description Геттер возвращающий выбранные элемент(ы) селекта
-   */
-  get value() {
-    return this.#selectedItems ?? null;
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @returns {number | number[]}Возвращает индексы выбранных элемента(ов) в виде массива/пустой массив
-   * @description Геттер возвращающий индексы выбранных элемента(ов) селекта
-   */
-  get indexes() {
-    return this.#indexes ?? [];
-  }
-
-  /**
-   *
-   * @param {object} options Объект принимающий настройки селекта
-   * @constructor Конструктор класса DropDown
-   * @description  Конструктор принимает объект и рендерит селект.
-   * @example
-   * options = {
-   *  selector: 'Уникальный селектор',
-      selected: 'Выбранный элемент',
-      placeholder: '...',
-      items: [string|number|object],
-      styles: {
-        head: {
-          background: '...',
-        },
-        list: {...},
-        chips: {...},
-        caret: {...},
-        placeholder: {...},
-      },
-      event: '...',
-      url: 'http/...',
-      multiselect: true/false,
-      multiselectTag: true/false,
-   * }
-     
-   */
-  constructor(options = {}) {
-    this.#init(options);
-    this.#render();
-    this.#initEvent();
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @param {string | object} item добавляемый елемент
-   * @description добавляет переданный элемент в конец списка и перерисовывает список. Не может использоваться при передачи элементов с категорями
-   * @method addItem
-   */
-  addItem(item) {
-    if (this.#category) {
-      console.log('can`t add item to category');
-      return;
-    }
-
-    if (!item) {
-      return false;
-    }
-
-    const index = this.#items.length;
-
-    this.#items.push(getFormatItem(item, index));
-    this.#render();
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @param {number} index индекс удаляемого элемента
-   * @description удаляет елемент по индексу из списка и перерисовывает его. Не может использоваться при передачи элементов с категорями.
-   * @method deleteItem
-   */
-  deleteItem(index) {
-    if (this.#category) {
-      console.log('can`t add item to category');
-      return;
-    }
-
-    const item = this.#items[index];
-
-    this.#items.splice(index, 1);
-    this.#render();
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @description удаляет все елементы из списка и перерисовывает его.
-   * @method deleteItemAll
-   */
-  deleteItemAll() {
-    this.#items.splice(0, this.#items.length);
-    this.#render();
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @param {number} index индекс выбранного элемента
-   * @description  выбирает элемент который будет изначально отрисовываться в селекте
-   * @method selectIndex
-   */
-  selectIndex(index) {
-    if (this.#category) {
-      console.log('can`t add item to category');
-      return;
-    }
-
-    const options = this.#element.querySelectorAll('.list__item');
-
-    if (index > options.length) {
-      return;
-    }
-
-    const select = options[index].innerText;
-    this.#render(select);
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @param {number} numberItem номер возвращаемого элемента
-   * @returns {HTMLElement} возвращает ссылку на выбранный HTML элемент
-   * @method getElement
-   */
-  getElement(numberItem) {
-    if (numberItem > this.#items.length) {
-      return;
-    }
-    return this.#items[numberItem];
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @param {boolean} value - Передаваемый параметр для добавления атрибута disabled;
-   * @description Метод позволяющий переключать состояние селекта disabled,
-   * @method disabled
-   */
-  disabled(value) {
-    if (typeof value !== 'boolean') {
-      return;
-    }
-
-    const select = this.#element.querySelector('.cg-select');
-    if (value === true) {
-      this.#element.setAttribute('disabled', true);
-      select.classList.add('disabled');
-    } else {
-      this.#element.removeAttribute('disabled');
-      select.classList.remove('disabled');
-    }
-  }
-
-  /**
-   * Метод экземпляра класса DropDown
-   * @param {HTMLInputElement} button - HTML кнопка
-   * @param {string} method - метод открытия open/close
-   * @description Метод позволяющий открывать/закрывать селект с помощью кнопок
-   * @method buttonControl
-   */
-  buttonControl(button, method) {
-    button.addEventListener('click', () => {
-      if (method === 'open') {
-        this.#open(true);
-      } else if (method === 'close') {
-        this.#close();
-      } else {
-        return;
-      }
-    });
-  }
-
-  /**
-   * Приватный метод инициализации экземпляра класса DropDown
-   * @method #init
-   * @member
-   * @protected
-   * @param {object} options передаваемые настройки селекта
-   * @description Приватный метод. Общая инициализация селекта. Получение настоек и преобразвание элементов селекта.
-   * @example
-   *  {
-        selector: '.cg-dropdown_one',
-        placeholder: 'Выберите авто',
-        items: [
-          'BMW',
-          {
-            id: '213sade',
-            title: 'Opel',
-            value: 1,
-          },
-          'Mersedes',
-          'MAN',
-          'max',
-        ],
-        multiselect: true,
-        multiselectTag: true,
-      }
-   */
-  #init(options) {
-    this.#options = options;
-    const { items, multiselect, url } = this.#options;
-
-    const elem = document.querySelector(options.selector);
-
-    if (!elem) {
-      throw new Error(`Element with selector ${options.selector}`);
-    }
-
-    this.#element = elem;
-
-    this.#element.addEventListener('click', () => {
-      this.#open();
-    });
-
-    this.#items = [];
-
-    if (multiselect) {
-      this.#selectedItems = [];
-    }
-
-    if (!items &amp;&amp; url) {
-      this.#renderUrl();
-      return;
-    }
-
-    items.forEach((dataItem, index) => {
-      if (dataItem.category &amp;&amp; dataItem.categoryItems) {
-        this.#category = dataItem.category;
-
-        this.#items.push(this.#category);
-        dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
-          this.#items.push(getFormatItem(categoryItem, indexCategory));
-        });
-      } else {
-        this.#items.push(getFormatItem(dataItem, index));
-      }
-    });
-  }
-
-  /**
-   * Привaтный метод экземпляра класса DropDown
-   *
-   * @method #initSelected
-   * @param {string} select необязательный елемент. Используется в методе selectIndex
-   * @description Отрисовывает и стилизует селект
-   * @protected
-   */
-  #initSelected(select) {
-    const { styles, selected, placeholder } = this.#options;
-
-    if (selected) {
-      createSelected(this.#element, selected);
-    } else if (placeholder) {
-      createSelected(this.#element, placeholder);
-    } else {
-      createSelected(this.#element, 'Select...');
-    }
-
-    if (styles) {
-      customStyles(this.#element, styles);
-    }
-
-    if (select) {
-      createSelected(this.#element, select, styles);
-    }
-  }
-
-  /**
-   * Приватный метод рендера экземпляра класса DropDown
-   *@protected
-   * @method #render
-   * @param {string} select  необязательный елемент. Передаеться в метод initSelected
-   * @description Рендер елементов в селекте.
-   */
-  #render(select) {
-    const { styles, multiselect } = this.#options;
-
-    if (select || (select &amp;&amp; styles)) {
-      this.#initSelected(select);
-      customStyles(this.#element, styles);
-    } else {
-      this.#initSelected();
-    }
-
-    const ulList = document.createElement('ul');
-
-    ulList.classList.add('list');
-
-    if (styles) {
-      const { list } = styles;
-      customStylesFormat(list, ulList);
-    }
-
-    this.#element.appendChild(ulList);
-
-    this.#items.forEach((dataItem) => {
-      const liItem = document.createElement('li');
-      const strongItem = document.createElement('strong');
-
-      liItem.classList.add('list__item');
-      strongItem.classList.add('category');
-
-      if (multiselect) {
-        const checkBox = document.createElement('input');
-        checkBox.type = 'checkbox';
-        checkBox.setAttribute('id', `chbox-${dataItem.id}`);
-
-        liItem.appendChild(checkBox);
-      }
-
-      let textNode = '';
-
-      if (dataItem.title) {
-        textNode = document.createTextNode(dataItem.title);
-        liItem.appendChild(textNode);
-        ulList.appendChild(liItem);
-      } else {
-        textNode = document.createTextNode(dataItem);
-        strongItem.appendChild(textNode);
-        ulList.appendChild(strongItem);
-      }
-    });
-
-    this.#items.filter((item, index) => {
-      if (typeof item !== 'object') {
-        this.#items.splice(index, 1);
-      }
-      return item;
-    });
-
-    this.#addOptionsBehaviour();
-  }
-
-  /**
-   * Приватный метод рендера экземпляра класса DropDown
-   *@protected
-   * @method #renderUrl
-   * @description Рендер елементов в селекте переданных с URL и их настойка
-   */
-  async #renderUrl() {
-    const { url, items, multiselect } = this.#options;
-
-    if (items) {
-      return;
-    }
-
-    if (!url) {
-      return;
-    }
-
-    const response = await fetch(url);
-    const dataUrl = await response.json();
-
-    dataUrl.forEach((dataItem, index) => {
-      const item = {
-        id: dataItem.id,
-        title: dataItem.name,
-        value: index,
-      };
-      const ulUrl = this.#element.querySelector('.list');
-      const liUrl = document.createElement('li');
-      const textUrl = document.createTextNode(item.title);
-
-      if (multiselect) {
-        const checkBox = document.createElement('input');
-        checkBox.type = 'checkbox';
-
-        checkBox.setAttribute('id', `chbox-${item.id}`);
-        liUrl.appendChild(checkBox);
-      }
-
-      liUrl.classList.add('list__item');
-
-      liUrl.appendChild(textUrl);
-      ulUrl.appendChild(liUrl);
-
-      this.#items.push(item);
-    });
-
-    this.#items.filter((item, index) => {
-      if (typeof item !== 'object') {
-        this.#items.splice(index, 1);
-      }
-      return item;
-    });
-
-    this.#addOptionsBehaviour();
-  }
-
-  /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @param {boolean} oneClick необязательный параметр передаваемый из функции buttonControl
-   * @description Открывает список для выбора элемента
-   * @method #open
-   */
-  #open(oneClick) {
-    this.#list = this.#element.querySelector('.list');
-    this.#caret = this.#element.querySelector('.caret');
-
-    if (oneClick === true) {
-      this.#list.classList.add('open');
-      this.#caret.classList.add('caret_rotate');
-    } else {
-      this.#list.classList.toggle('open');
-      this.#caret.classList.toggle('caret_rotate');
-    }
-  }
-
-  /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @description Закрывает список
-   * @method #close
-   */
-  #close() {
-    this.#list.classList.remove('open');
-    this.#caret.classList.remove('caret_rotate');
-  }
-
-  /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @description Метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + Мультиселект Таг.
-   * @method #addOptionsBehaviour
-   */
-  #addOptionsBehaviour() {
-    const { multiselect, placeholder, selected, multiselectTag } = this.#options;
-
-    const options = this.#element.querySelectorAll('.list__item');
-    const select = this.#element.querySelector('.selected');
-
-    const ul = document.createElement('ul');
-
-    if (multiselect) {
-      ul.classList.add('multiselect-tag');
-      select.classList.add('overflow-hidden');
-    }
-
-    options.forEach((option, index) => {
-      option.addEventListener('click', (event) => {
-        const item = this.#items[index];
-        if (multiselect) {
-          event.stopPropagation();
-          option.classList.toggle('active');
-
-          const checkBox = option.querySelector('input[type="checkbox"]');
-
-          if (checkBox) {
-            if (!(event.target instanceof HTMLInputElement)) {
-              checkBox.checked = !checkBox.checked;
+            createSelected,
+            customStyles,
+            getFormatItem,
+            customStylesFormat,
+            nativOptionMultiple,
+            nativOptionOrdinary,
+          } from './components/utils';
+          import {
+            createBreadcrumb,
+            createInputSearch,
+            createNativSelectOption,
+            createNativeSelect,
+          } from './components/create-element';
+          
+          /**
+           * @class Описание класса DropDown
+           * @description Этот класс реализовывает функционал кастомного селекта, с возможностями кастомизации.
+           *@author Овсяников Максим
+           */
+          export class DropDown {
+            /**
+             * Созданный HTML елемент
+             * @type {HTMLElement}
+             */
+            #element;
+            /**
+             * Созданный список(ul), с классом list
+             * @type {HTMLElement}
+             */
+            #list;
+            /**
+             * Настройки селекта передаваемые при создании экземпляра класса
+             * @type {object}
+             */
+            #options;
+            /**
+             * Переменная для управления каретки
+             * @type {HTMLElement}
+             */
+            #caret;
+            /**
+             * Массив переданных элементов
+             * @type {object[]}
+             */
+            #items;
+            /**
+             * Переданные категории
+             * @type {string}
+             */
+            #category;
+            /**
+             * Выбранный или массив выбранных элементов из списка
+             * @type {object[] | object}
+             */
+            #selectedItems;
+            /**
+             * Массив индексов выбранных элементов
+             * @type {number[]}
+             */
+            #indexes = [];
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @returns {string[] | string | null} Возвращает выбранные элемент(ы) в виде массива/элемента/null
+             * @description Геттер возвращающий выбранные элемент(ы) селекта
+             */
+            get value() {
+              return this.#selectedItems ?? null;
             }
-
-            const checkIndex = this.#indexes.indexOf(index);
-
-            if (checkIndex === -1) {
-              this.#indexes.push(index);
-
-              select.innerText = '';
-
-              if (multiselectTag) {
-                this.#selectedItems.push(item);
-                select.appendChild(ul);
-
-                const data = {
-                  option: this.#options,
-                  element: this.#element,
-                  indexes: this.#indexes,
-                  selectedItems: this.#selectedItems,
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @returns {number | number[]}Возвращает индексы выбранных элемента(ов) в виде массива/пустой массив
+             * @description Геттер возвращающий индексы выбранных элемента(ов) селекта
+             */
+            get indexes() {
+              return this.#indexes ?? [];
+            }
+          
+            /**
+             *
+             * @param {object} options Объект принимающий настройки селекта
+             * @constructor Конструктор класса DropDown
+             * @description  Конструктор принимает объект и рендерит селект.
+             * @example
+             * options = {
+             *  selector: 'Уникальный селектор',
+                selected: 'Выбранный элемент',
+                placeholder: '...',
+                items: [string|number|object],
+                styles: {
+                  head: {
+                    background: '...',
+                  },
+                  list: {...},
+                  chips: {...},
+                  caret: {...},
+                  placeholder: {...},
+                },
+                event: '...',
+                url: 'http/...',
+                multiselect: true/false,
+                multiselectTag: true/false,
+             * }
+               
+             */
+            constructor(options = {}) {
+              this.#init(options);
+              this.#render();
+              this.#initEvent();
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @param {string | object} item добавляемый елемент
+             * @description добавляет переданный элемент в конец списка и перерисовывает список. Не может использоваться при передачи элементов с категорями
+             * @method addItem
+             */
+            addItem(item) {
+              if (this.#category) {
+                console.log('can`t add item to category');
+                return;
+              }
+          
+              if (!item) {
+                return false;
+              }
+          
+              const index = this.#items.length;
+          
+              this.#items.push(getFormatItem(item, index));
+              this.#render();
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @param {number} index индекс удаляемого элемента
+             * @description удаляет елемент по индексу из списка и перерисовывает его. Не может использоваться при передачи элементов с категорями.
+             * @method deleteItem
+             */
+            deleteItem(index) {
+              if (this.#category) {
+                console.log('can`t add item to category');
+                return;
+              }
+          
+              const item = this.#items[index];
+          
+              this.#items.splice(index, 1);
+              this.#render();
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @description удаляет все елементы из списка и перерисовывает его.
+             * @method deleteItemAll
+             */
+            deleteItemAll() {
+              this.#items.splice(0, this.#items.length);
+              this.#render();
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @param {number} index индекс выбранного элемента
+             * @description  выбирает элемент который будет изначально отрисовываться в селекте
+             * @method selectIndex
+             */
+            selectIndex(index) {
+              if (this.#category) {
+                console.log('can`t add item to category');
+                return;
+              }
+          
+              const options = this.#element.querySelectorAll('.list__item');
+          
+              if (index > options.length) {
+                return;
+              }
+          
+              const select = options[index].innerText;
+              this.#render(select);
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @param {number} numberItem номер возвращаемого элемента
+             * @returns {HTMLElement} возвращает ссылку на выбранный HTML элемент
+             * @method getElement
+             */
+            getElement(numberItem) {
+              if (numberItem > this.#items.length) {
+                return;
+              }
+              return this.#items[numberItem];
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @param {boolean} value - Передаваемый параметр для добавления атрибута disabled;
+             * @description Метод позволяющий переключать состояние селекта disabled,
+             * @method disabled
+             */
+            disabled(value) {
+              if (typeof value !== 'boolean') {
+                return;
+              }
+          
+              const select = this.#element.querySelector('.cg-select');
+              if (value === true) {
+                this.#element.setAttribute('disabled', true);
+                select.classList.add('disabled');
+              } else {
+                this.#element.removeAttribute('disabled');
+                select.classList.remove('disabled');
+              }
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @param {HTMLInputElement} button - HTML кнопка
+             * @param {string} method - метод открытия open/close
+             * @description Метод позволяющий открывать/закрывать селект с помощью кнопок
+             * @method buttonControl
+             */
+            buttonControl(button, method) {
+              button.addEventListener('click', () => {
+                if (method === 'open') {
+                  this.#open(true);
+                } else if (method === 'close') {
+                  this.#close();
+                } else {
+                  return;
+                }
+              });
+            }
+          
+            /**
+             * Приватный метод инициализации экземпляра класса DropDown
+             * @method #init
+             * @member
+             * @protected
+             * @param {object} options передаваемые настройки селекта
+             * @description Приватный метод. Общая инициализация селекта. Получение настоек и преобразвание элементов селекта.
+             * @example
+             *  {
+                  selector: '.cg-dropdown_one',
+                  placeholder: 'Выберите авто',
+                  items: [
+                    'BMW',
+                    {
+                      id: '213sade',
+                      title: 'Opel',
+                      value: 1,
+                    },
+                    'Mersedes',
+                    'MAN',
+                    'max',
+                  ],
+                  multiselect: true,
+                  multiselectTag: true,
+                }
+             */
+            #init(options) {
+              this.#options = options;
+              const { items, multiselect, url } = this.#options;
+          
+              const elem = document.querySelector(options.selector);
+          
+              if (!elem) {
+                throw new Error(`Element with selector ${options.selector}`);
+              }
+          
+              this.#element = elem;
+          
+              this.#element.addEventListener('click', () => {
+                this.#open();
+              });
+          
+              this.#items = [];
+          
+              if (multiselect) {
+                this.#selectedItems = [];
+              }
+          
+              if (!items &amp;&amp; url) {
+                this.#renderUrl();
+                return;
+              }
+          
+              items.forEach((dataItem, index) => {
+                if (dataItem.category &amp;&amp; dataItem.categoryItems) {
+                  this.#category = dataItem.category;
+          
+                  this.#items.push(this.#category);
+                  dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
+                    this.#items.push(getFormatItem(categoryItem, indexCategory));
+                  });
+                } else {
+                  this.#items.push(getFormatItem(dataItem, index));
+                }
+              });
+            }
+          
+            /**
+             * Привaтный метод экземпляра класса DropDown
+             *
+             * @method #initSelected
+             * @param {string} select необязательный елемент. Используется в методе selectIndex
+             * @description Отрисовывает и стилизует селект
+             * @protected
+             */
+            #initSelected(select) {
+              const { styles, selected, placeholder } = this.#options;
+          
+              if (selected) {
+                createSelected(this.#element, selected);
+              } else if (placeholder) {
+                createSelected(this.#element, placeholder);
+              } else {
+                createSelected(this.#element, 'Select...');
+              }
+          
+              if (styles) {
+                customStyles(this.#element, styles);
+              }
+          
+              if (select) {
+                createSelected(this.#element, select, styles);
+              }
+            }
+          
+            /**
+             * Приватный метод рендера экземпляра класса DropDown
+             *@protected
+             * @method #render
+             * @param {string} select  необязательный елемент. Передаеться в метод initSelected
+             * @description Рендер елементов в селекте.
+             */
+            #render(select) {
+              const { styles, multiselect, searchMode } = this.#options;
+              const random = Math.random().toString(36).substring(2, 10);
+          
+              if (select || (select &amp;&amp; styles)) {
+                this.#initSelected(select);
+                customStyles(this.#element, styles);
+              } else {
+                this.#initSelected();
+              }
+          
+              const ulList = document.createElement('ul');
+              const intputSearch = createInputSearch(random);
+              this.random = random;
+          
+              const nativSelect = createNativeSelect();
+          
+              ulList.classList.add('list');
+              if (searchMode) {
+                ulList.appendChild(intputSearch);
+              }
+          
+              if (styles) {
+                const { list } = styles;
+                customStylesFormat(list, ulList);
+              }
+          
+              this.#element.appendChild(ulList);
+          
+              this.#items.forEach((dataItem) => {
+                this.#element.appendChild(nativSelect);
+          
+                const liItem = document.createElement('li');
+                const nativOption = createNativSelectOption();
+                const strongItem = document.createElement('strong');
+          
+                liItem.classList.add('list__item');
+                strongItem.classList.add('category');
+          
+                if (multiselect) {
+                  const checkBox = document.createElement('input');
+                  checkBox.type = 'checkbox';
+                  checkBox.setAttribute('id', `chbox-${dataItem.id}`);
+          
+                  liItem.appendChild(checkBox);
+                  nativSelect.setAttribute('multiple', 'multiple');
+                }
+          
+                let textNode = '';
+          
+                if (dataItem.title) {
+                  nativOption.text = dataItem.title;
+                  nativOption.value = dataItem.title;
+                  textNode = document.createTextNode(dataItem.title);
+          
+                  nativSelect.appendChild(nativOption);
+                  liItem.appendChild(textNode);
+                  ulList.appendChild(liItem);
+                } else {
+                  textNode = document.createTextNode(dataItem);
+                  strongItem.appendChild(textNode);
+                  ulList.appendChild(strongItem);
+                }
+              });
+          
+              this.#items.filter((item, index) => {
+                if (typeof item !== 'object') {
+                  this.#items.splice(index, 1);
+                }
+                return item;
+              });
+          
+              this.#addOptionsBehaviour();
+            }
+          
+            /**
+             * Приватный метод рендера экземпляра класса DropDown
+             *@protected
+             * @method #renderUrl
+             * @description Рендер елементов в селекте переданных с URL и их настойка
+             */
+            async #renderUrl() {
+              const { url, items, multiselect } = this.#options;
+          
+              if (items) {
+                return;
+              }
+          
+              if (!url) {
+                return;
+              }
+          
+              const response = await fetch(url);
+              const dataUrl = await response.json();
+          
+              const nativSelect = createNativeSelect();
+          
+              dataUrl.forEach((dataItem, index) => {
+                const item = {
+                  id: dataItem.id,
+                  title: dataItem.name,
+                  value: index,
                 };
-
-                ul.appendChild(createBreadcrumb(data, item.title, index, item.id));
-              } else {
-                this.#selectedItems.push(item.title);
-                select.innerText = this.#selectedItems;
-              }
-            } else {
-              if (multiselectTag) {
-                const tagItem = document.getElementById(`tag-${index}-${item.id}`);
-
-                ul.removeChild(tagItem);
-              }
-              this.#indexes.splice(checkIndex, 1);
-              this.#selectedItems.splice(checkIndex, 1);
+                const ulUrl = this.#element.querySelector('.list');
+          
+                const nativOption = createNativSelectOption();
+                const liUrl = document.createElement('li');
+                const textUrl = document.createTextNode(item.title);
+          
+                if (multiselect) {
+                  const checkBox = document.createElement('input');
+                  checkBox.type = 'checkbox';
+          
+                  checkBox.setAttribute('id', `chbox-${item.id}`);
+                  nativSelect.setAttribute('multiple', 'multiple');
+          
+                  liUrl.appendChild(checkBox);
+                }
+          
+                liUrl.classList.add('list__item');
+                nativOption.value = item.title;
+                nativOption.text = item.title;
+          
+                nativSelect.appendChild(nativOption);
+                liUrl.appendChild(textUrl);
+                ulUrl.appendChild(liUrl);
+          
+                this.#items.push(item);
+              });
+          
+              this.#element.appendChild(nativSelect);
+          
+              this.#items.filter((item, index) => {
+                if (typeof item !== 'object') {
+                  this.#items.splice(index, 1);
+                }
+                return item;
+              });
+          
+              this.#addOptionsBehaviour();
             }
-
-            if (!this.#selectedItems.length) {
-              if (placeholder) {
-                select.innerText = placeholder;
-              } else if (selected) {
-                select.innerText = selected;
+          
+            /**
+             * Приватный метод экземпляра класса DropDown
+             * @protected
+             * @param {boolean} oneClick необязательный параметр передаваемый из функции buttonControl
+             * @description Открывает список для выбора элемента
+             * @method #open
+             */
+            #open(oneClick) {
+              this.#list = this.#element.querySelector('.list');
+              this.#caret = this.#element.querySelector('.caret');
+          
+              if (oneClick === true) {
+                this.#list.classList.add('open');
+                this.#caret.classList.add('caret_rotate');
               } else {
-                select.innerText = 'Select...';
+                this.#list.classList.toggle('open');
+                this.#caret.classList.toggle('caret_rotate');
               }
-            } else {
-              if (multiselectTag) {
-                select.appendChild(ul);
-              } else {
-                select.innerText = this.#selectedItems;
+            }
+          
+            /**
+             * Приватный метод экземпляра класса DropDown
+             * @protected
+             * @description Закрывает список
+             * @method #close
+             */
+            #close() {
+              this.#list.classList.remove('open');
+              this.#caret.classList.remove('caret_rotate');
+            }
+          
+            /**
+             * Приватный метод экземпляра класса DropDown
+             * @protected
+             * @description Метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + Мультиселект Таг.
+             * @method #addOptionsBehaviour
+             */
+            #addOptionsBehaviour() {
+              const { multiselect, placeholder, selected, multiselectTag, searchMode } = this.#options;
+          
+              const options = this.#element.querySelectorAll('.list__item');
+              const select = this.#element.querySelector('.selected');
+              const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
+              const ulMultipul = document.createElement('ul');
+          
+              if (multiselect) {
+                ulMultipul.classList.add('multiselect-tag');
+                select.classList.add('overflow-hidden');
+              }
+          
+              if (searchMode &amp;&amp; searchMode === true) {
+                this.#searchMode(this.random);
+              }
+          
+              options.forEach((option, index) => {
+                option.addEventListener('click', (event) => {
+                  const item = this.#items[index];
+          
+                  if (multiselect) {
+                    event.stopPropagation();
+                    option.classList.toggle('active');
+          
+                    const checkBox = option.querySelector('input[type="checkbox"]');
+          
+                    if (checkBox) {
+                      if (!(event.target instanceof HTMLInputElement)) {
+                        checkBox.checked = !checkBox.checked;
+                      }
+          
+                      const checkIndex = this.#indexes.indexOf(index);
+          
+                      if (checkIndex === -1) {
+                        nativOptionMultiple(nativOption, item.title, true);
+          
+                        this.#indexes.push(index);
+          
+                        select.innerText = '';
+          
+                        if (multiselectTag) {
+                          this.#selectedItems.push(item);
+                          select.appendChild(ulMultipul);
+          
+                          const data = {
+                            option: this.#options,
+                            element: this.#element,
+                            indexes: this.#indexes,
+                            selectedItems: this.#selectedItems,
+                          };
+          
+                          ulMultipul.appendChild(createBreadcrumb(data, item.title, index, item.id));
+                        } else {
+                          this.#selectedItems.push(item.title);
+                          select.innerText = this.#selectedItems;
+                        }
+                      } else {
+                        if (multiselectTag) {
+                          const tagItem = document.getElementById(`tag-${index}-${item.id}`);
+                          ulMultipul.removeChild(tagItem);
+                        }
+                        this.#indexes.splice(checkIndex, 1);
+                        this.#selectedItems.splice(checkIndex, 1);
+                        nativOptionMultiple(nativOption, item.title, false);
+                      }
+          
+                      if (!this.#selectedItems.length) {
+                        if (placeholder) {
+                          select.innerText = placeholder;
+                        } else if (selected) {
+                          select.innerText = selected;
+                        } else {
+                          select.innerText = 'Select...';
+                        }
+                      } else {
+                        if (multiselectTag) {
+                          select.appendChild(ulMultipul);
+                        } else {
+                          select.innerText = this.#selectedItems;
+                        }
+                      }
+                    }
+                  } else {
+                    select.innerText = item.title;
+                    this.#selectedItems = item;
+                    nativOptionOrdinary(nativOption, item.title);
+          
+                    options.forEach((option) => {
+                      option.classList.remove('active');
+                    });
+                    option.classList.add('active');
+                  }
+                });
+              });
+            }
+          
+            /**
+             * Метод который реализует поиск элементов в селекте
+             * @protected
+             * @param {string} random уникальное значение для input элемента.
+             * @method #searchMode
+             */
+            #searchMode(random) {
+              const input = this.#element.querySelector(`#searchSelect-${random}`);
+              const searchSelect = this.#element.querySelectorAll('.list__item');
+              const result = document.createElement('p');
+              const textNode = document.createTextNode('No matches...');
+          
+              result.appendChild(textNode);
+              result.classList.add('displayHide');
+              input.parentElement.appendChild(result);
+          
+              input.addEventListener('click', (e) => {
+                e.stopPropagation();
+              });
+          
+              input.oninput = function () {
+                let val = this.value.trim();
+          
+                if (val != '') {
+                  searchSelect.forEach((elem) => {
+                    if (elem.innerText.search(val) == -1) {
+                      elem.classList.add('displayHide');
+                      result.classList.remove('displayHide');
+                    } else {
+                      elem.classList.remove('displayHide');
+                    }
+                  });
+                } else {
+                  searchSelect.forEach((elem) => {
+                    elem.classList.remove('displayHide');
+                    result.classList.add('displayHide');
+                  });
+                }
+              };
+            }
+          
+            /**
+             * Приватный метод экземпляра класса DropDown
+             * @protected
+             * @description Открывает и закрывает список по переданному эвенту
+             * @method #initEvent
+             */
+            #initEvent() {
+              const { event } = this.#options;
+              if (!event) {
+                return;
+              }
+          
+              if (event) {
+                if (event === 'mouseenter') {
+                  this.#element.addEventListener(event, () => {
+                    this.#open();
+                  });
+                  this.#element.addEventListener('mouseleave', () => {
+                    this.#close();
+                  });
+                }
               }
             }
           }
-        } else {
-          select.innerText = item.title;
-          this.#selectedItems = item;
-
-          options.forEach((option) => {
-            option.classList.remove('active');
-          });
-          option.classList.add('active');
-        }
-      });
-    });
-  }
-
-  /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @description Открывает и закрывает список по переданному эвенту
-   * @method #initEvent
-   */
-  #initEvent() {
-    const { event } = this.#options;
-    if (!event) {
-      return;
-    }
-
-    if (event) {
-      if (event === 'mouseenter') {
-        this.#element.addEventListener(event, () => {
-          this.#open();
-        });
-        this.#element.addEventListener('mouseleave', () => {
-          this.#close();
-        });
-      }
-    }
-  }
-}
 </code></pre>
         </article>
       </section>
@@ -649,6 +732,7 @@ export class DropDown {
         <li><a href="global.html#open">#open</a></li>
         <li><a href="global.html#render">#render</a></li>
         <li><a href="global.html#renderUrl">#renderUrl</a></li>
+        <li><a href="global.html#searchMode">#searchMode</a></li>
       </ul>
       <h3>Public methods</h3>
       <ul>

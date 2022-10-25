@@ -93,3 +93,19 @@ export function createNativSelectOption() {
   nativOption.classList.add('nativSelect__nativOption');
   return nativOption;
 }
+
+/**
+ * Метод который создает поиск элементов в селекте
+ * @param {string} random уникальное значение для input элемента.
+ * @returns {HTMLInputElement} Возвращает сформированный input елемент.
+ */
+export function createInputSearch(random) {
+  const intputSearch = document.createElement('input');
+
+  intputSearch.type = 'text';
+  intputSearch.classList.add('inputSearch');
+  intputSearch.setAttribute('id', `searchSelect-${random}`);
+  intputSearch.setAttribute('placeholder', 'Search...');
+
+  return intputSearch;
+}

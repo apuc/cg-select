@@ -8,6 +8,7 @@ import {
 } from './components/utils';
 import {
   createBreadcrumb,
+  createInputSearch,
   createNativSelectOption,
   createNativeSelect,
 } from './components/create-element';
@@ -338,7 +339,8 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect } = this.#options;
+    const { styles, multiselect, searchMode } = this.#options;
+    const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -348,9 +350,15 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
+    const intputSearch = createInputSearch(random);
+    this.random = random;
+
     const nativSelect = createNativeSelect();
 
     ulList.classList.add('list');
+    if (searchMode) {
+      ulList.appendChild(intputSearch);
+    }
 
     if (styles) {
       const { list } = styles;
@@ -510,17 +518,20 @@ export class DropDown {
    * @method #addOptionsBehaviour
    */
   #addOptionsBehaviour() {
-    const { multiselect, placeholder, selected, multiselectTag } = this.#options;
+    const { multiselect, placeholder, selected, multiselectTag, searchMode } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
     const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
-
     const ulMultipul = document.createElement('ul');
 
     if (multiselect) {
       ulMultipul.classList.add('multiselect-tag');
       select.classList.add('overflow-hidden');
+    }
+
+    if (searchMode && searchMode === true) {
+      this.#searchMode(this.random);
     }
 
     options.forEach((option, index) => {
@@ -601,6 +612,47 @@ export class DropDown {
         }
       });
     });
+  }
+
+  /**
+   * Метод который реализует поиск элементов в селекте
+   * @protected
+   * @param {string} random уникальное значение для input элемента.
+   * @method #searchMode
+   */
+  #searchMode(random) {
+    const input = this.#element.querySelector(`#searchSelect-${random}`);
+    const searchSelect = this.#element.querySelectorAll('.list__item');
+    const result = document.createElement('p');
+    const textNode = document.createTextNode('No matches...');
+
+    result.appendChild(textNode);
+    result.classList.add('displayHide');
+    input.parentElement.appendChild(result);
+
+    input.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    input.oninput = function () {
+      let val = this.value.trim();
+
+      if (val != '') {
+        searchSelect.forEach((elem) => {
+          if (elem.innerText.search(val) == -1) {
+            elem.classList.add('displayHide');
+            result.classList.remove('displayHide');
+          } else {
+            elem.classList.remove('displayHide');
+          }
+        });
+      } else {
+        searchSelect.forEach((elem) => {
+          elem.classList.remove('displayHide');
+          result.classList.add('displayHide');
+        });
+      }
+    };
   }
 
   /**
