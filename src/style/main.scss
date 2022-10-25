@@ -105,6 +105,18 @@ body {
       background: #8282822c;
     }
   }
+
+  .inputSearch {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 .multiselect-tag {

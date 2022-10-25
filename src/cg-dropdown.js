@@ -340,6 +340,7 @@ export class DropDown {
    */
   #render(select) {
     const { styles, multiselect, searchMode } = this.#options;
+    const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
       this.#initSelected(select);
@@ -349,10 +350,8 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
-    const intputSearch = createInputSearch();
-    // intputSearch.type = 'text';
-    // intputSearch.setAttribute('id', 'searchSelect');
-    // intputSearch.setAttribute('placeholder', 'Search...');
+    const intputSearch = createInputSearch(random);
+    this.random = random;
 
     const nativSelect = createNativeSelect();
 
@@ -532,7 +531,7 @@ export class DropDown {
     }
 
     if (searchMode && searchMode === true) {
-      this.searchMode();
+      this.#searchMode(this.random);
     }
 
     options.forEach((option, index) => {
@@ -615,8 +614,14 @@ export class DropDown {
     });
   }
 
-  searchMode() {
-    const input = document.querySelector('#searchSelect');
+  /**
+   * Метод который реализует поиск элементов в селекте
+   * @protected
+   * @param {string} random уникальное значение для input элемента.
+   * @method #searchMode
+   */
+  #searchMode(random) {
+    const input = this.#element.querySelector(`#searchSelect-${random}`);
     const searchSelect = this.#element.querySelectorAll('.list__item');
     const result = document.createElement('p');
     const textNode = document.createTextNode('No matches...');

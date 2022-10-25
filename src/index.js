@@ -22,24 +22,26 @@ const dropdown = new DropDown({
 
 // dropdown.disabled(false);
 // ------------------------------URL--------------------
-// const dropdown3 = new DropDown({
-//   selector: '.cg-dropdown_three',
-//   placeholder: 'URL',
-//   url: 'http://jsonplaceholder.typicode.com/users',
-//   styles: {
-//     head: {
-//       background: 'black',
-//       width: '350px',
-//     },
-//   },
-//   multiselect: true,
-//   multiselectTag: true,
-// });
+const dropdown3 = new DropDown({
+  selector: '.cg-dropdown_three',
+  placeholder: 'URL',
+  url: 'http://jsonplaceholder.typicode.com/users',
+  searchMode: true,
+  styles: {
+    head: {
+      background: 'black',
+      width: '350px',
+    },
+  },
+  multiselect: true,
+  multiselectTag: true,
+});
 
 // --------------------------------Категории--------------------------
 const dropdown4 = new DropDown({
   selector: '.cg-dropdown_button',
   placeholder: 'Выберите регион',
+  searchMode: true,
   items: [
     {
       category: 'Russia',
