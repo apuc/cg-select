@@ -339,7 +339,7 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect, searchMode } = this.#options;
+    const { styles, multiselect, searchMode, multiselectTag } = this.#options;
     const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
@@ -381,8 +381,12 @@ export class DropDown {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
-
         liItem.appendChild(checkBox);
+
+        if (multiselectTag) {
+          checkBox.classList.add('displayHide');
+        }
+
         nativSelect.setAttribute('multiple', 'multiple');
       }
 
