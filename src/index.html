@@ -10,13 +10,39 @@
   </head>
   <body>
     <div class="container">
-      <!-- <form id="data" action="handler.php"></form> -->
+      <form method="get" class="form">
+        <div>
+          <h1>Дефолтный селект</h1>
+          <button class="cg-dropdown cg-dropdown_one"></button>
+        </div>
 
-      <button class="cg-dropdown cg-dropdown_one"></button>
-      <!-- <input type="submit" form="data" value="Отправить" /> -->
-      <button class="cg-dropdown cg-dropdown_three"></button>
+        <input type="submit" value="Отправить!" />
+      </form>
 
-      <button class="cg-dropdown cg-dropdown_button" style="margin-top: 50px"></button>
+      <div>
+        <h1>Селект с данными с URL</h1>
+        <button class="cg-dropdown cg-dropdown_three"></button>
+      </div>
+
+      <div>
+        <h1>Селект с категориями</h1>
+        <button class="cg-dropdown cg-dropdown_categories"></button>
+      </div>
+
+      <div>
+        <h1>Cелект управляемый кнопками</h1>
+        <button class="cg-dropdown cg-dropdown_usedBtn"></button>
+        <button class="button__open">Open</button>
+        <button class="button__close">Close</button>
+      </div>
+
+      <div style="width: 300px">
+        <h1>Cелект с функцией disabled</h1>
+
+        <input type="checkbox" name="chbx" id="checkboxDisable" />
+        <label for="checkboxDisable">Вы согласны на обработку данных</label>
+        <button class="cg-dropdown cg-dropdown_checkboxDisable"></button>
+      </div>
     </div>
   </body>
   <script type="module" src="index.js"></script>

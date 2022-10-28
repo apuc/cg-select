@@ -77,7 +77,6 @@ export function createBreadcrumb(data, title, index, id) {
 export function createNativeSelect() {
   const nativSelect = document.createElement('select');
 
-  nativSelect.setAttribute('form', 'data');
   nativSelect.setAttribute('name', 'dataSelect');
   nativSelect.classList.add('nativSelect');
   return nativSelect;

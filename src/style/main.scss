@@ -186,6 +186,9 @@ input[type='checkbox'] {
   stroke-width: 0.5;
 }
 
+.label {
+  color: white;
+}
 //-------Behavior--------
 .active {
   background: #8282822c;
@@ -211,6 +214,10 @@ input[type='checkbox'] {
   white-space: nowrap;
 }
 
+.displayHide {
+  display: none;
+}
+
 // ------SCROLLBAR------
 ::-webkit-scrollbar {
   width: 10px;
@@ -222,8 +229,4 @@ input[type='checkbox'] {
 
 ::-webkit-scrollbar-thumb {
   background-color: #4d4d4d;
-}
-
-.displayHide {
-  display: none;
 }
