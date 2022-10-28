@@ -4,7 +4,7 @@ import { DropDown } from './cg-dropdown';
 const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
-  searchMode: true,
+  lable: 'Выбор лучшего авто!',
   items: [
     'BMW',
     {
@@ -14,13 +14,17 @@ const dropdown = new DropDown({
     },
     'Mersedes',
     'MAN',
-    'max',
+    'Ferari',
   ],
-  multiselect: true,
-  multiselectTag: true,
+  styles: {
+    lable: {
+      fontSize: '14px',
+      border: '1px white solid',
+      borderRadius: '5px',
+    },
+  },
 });
 
-// dropdown.disabled(false);
 // ------------------------------URL--------------------
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown_three',
@@ -39,7 +43,7 @@ const dropdown3 = new DropDown({
 
 // --------------------------------Категории--------------------------
 const dropdown4 = new DropDown({
-  selector: '.cg-dropdown_button',
+  selector: '.cg-dropdown_categories',
   placeholder: 'Выберите регион',
   searchMode: true,
   items: [
@@ -83,9 +87,55 @@ const dropdown4 = new DropDown({
 });
 
 //----------------управление с помощью кнопок----------------------------------
-/* const buttonOpen = document.querySelector('.button__open');
- const buttonClose = document.querySelector('.button__close');
+const dropdownBtn = new DropDown({
+  selector: '.cg-dropdown_usedBtn',
+  placeholder: 'Выберите авто',
+  searchMode: true,
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'max',
+  ],
+  multiselect: true,
+});
 
- dropdown4.buttonControl(buttonOpen, 'open');
- dropdown4.buttonControl(buttonClose, 'close'); 
- */
+const buttonOpen = document.querySelector('.button__open');
+const buttonClose = document.querySelector('.button__close');
+
+dropdownBtn.buttonControl(buttonOpen, 'open');
+dropdownBtn.buttonControl(buttonClose, 'close');
+
+//-------------------------Функция Disabled----------------------------------
+const dropdownDisabled = new DropDown({
+  selector: '.cg-dropdown_checkboxDisable',
+  placeholder: 'Выберите авто',
+  searchMode: true,
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'max',
+  ],
+  multiselect: true,
+});
+dropdownDisabled.disabled(true);
+let chbox = document.getElementById('checkboxDisable');
+
+chbox.addEventListener('click', () => {
+  if (chbox.checked == true) {
+    dropdownDisabled.disabled(false);
+  } else {
+    dropdownDisabled.disabled(true);
+  }
+});

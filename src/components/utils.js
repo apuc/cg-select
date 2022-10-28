@@ -41,15 +41,16 @@ export function customStyles(element, styles) {
     return;
   }
 
-  const { head, caret, placeholder } = styles;
+  const { head, caret, placeholder, lable } = styles;
 
   const cgSelect = element.querySelector('.cg-select');
   const caretSelect = element.querySelector('.caret');
   const placeholderSelect = element.querySelector('.selected');
+  const lableItem = element.parentElement.querySelector('h1.label');
 
   customStylesFormat(head, cgSelect);
-
   customStylesFormat(caret, caretSelect);
+  customStylesFormat(lable, lableItem);
 
   if (placeholderSelect) {
     customStylesFormat(placeholder, placeholderSelect);

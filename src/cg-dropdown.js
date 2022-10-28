@@ -274,13 +274,14 @@ export class DropDown {
 
     this.#element = elem;
 
-    this.#element.addEventListener('click', () => {
+    this.#element.addEventListener('click', (e) => {
+      e.preventDefault();
       this.#open();
     });
 
     this.#items = [];
 
-    if (multiselect) {
+    if (multiselect && multiselect == true) {
       this.#selectedItems = [];
     }
 
@@ -312,7 +313,7 @@ export class DropDown {
    * @protected
    */
   #initSelected(select) {
-    const { styles, selected, placeholder } = this.#options;
+    const { styles, selected, placeholder, lable } = this.#options;
 
     if (selected) {
       createSelected(this.#element, selected);
@@ -322,12 +323,22 @@ export class DropDown {
       createSelected(this.#element, 'Select...');
     }
 
-    if (styles) {
-      customStyles(this.#element, styles);
-    }
-
     if (select) {
       createSelected(this.#element, select, styles);
+    }
+
+    if (lable) {
+      const lableItem = document.createElement('h1');
+      const textLable = document.createTextNode(lable);
+
+      lableItem.appendChild(textLable);
+      lableItem.classList.add('label');
+
+      this.#element.insertAdjacentElement('beforebegin', lableItem);
+    }
+
+    if (styles) {
+      customStyles(this.#element, styles);
     }
   }
 
@@ -356,6 +367,7 @@ export class DropDown {
     const nativSelect = createNativeSelect();
 
     ulList.classList.add('list');
+
     if (searchMode) {
       ulList.appendChild(intputSearch);
     }
@@ -377,13 +389,13 @@ export class DropDown {
       liItem.classList.add('list__item');
       strongItem.classList.add('category');
 
-      if (multiselect) {
+      if (multiselect && multiselect == true) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
         liItem.appendChild(checkBox);
 
-        if (multiselectTag) {
+        if (multiselectTag && multiselectTag == true) {
           checkBox.classList.add('displayHide');
         }
 
@@ -424,7 +436,7 @@ export class DropDown {
    * @description Рендер елементов в селекте переданных с URL и их настойка
    */
   async #renderUrl() {
-    const { url, items, multiselect } = this.#options;
+    const { url, items, multiselect, multiselectTag } = this.#options;
 
     if (items) {
       return;
@@ -451,9 +463,12 @@ export class DropDown {
       const liUrl = document.createElement('li');
       const textUrl = document.createTextNode(item.title);
 
-      if (multiselect) {
+      if (multiselect && multiselect == true) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
+        if (multiselectTag && multiselectTag == true) {
+          checkBox.classList.add('displayHide');
+        }
 
         checkBox.setAttribute('id', `chbox-${item.id}`);
         nativSelect.setAttribute('multiple', 'multiple');
@@ -529,7 +544,7 @@ export class DropDown {
     const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
     const ulMultipul = document.createElement('ul');
 
-    if (multiselect) {
+    if (multiselect && multiselect == true) {
       ulMultipul.classList.add('multiselect-tag');
       select.classList.add('overflow-hidden');
     }
@@ -542,7 +557,8 @@ export class DropDown {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
 
-        if (multiselect) {
+        if (multiselect && multiselect == true) {
+          event.preventDefault();
           event.stopPropagation();
           option.classList.toggle('active');
 
@@ -562,7 +578,7 @@ export class DropDown {
 
               select.innerText = '';
 
-              if (multiselectTag) {
+              if (multiselectTag && multiselectTag == true) {
                 this.#selectedItems.push(item);
                 select.appendChild(ulMultipul);
 
@@ -579,7 +595,7 @@ export class DropDown {
                 select.innerText = this.#selectedItems;
               }
             } else {
-              if (multiselectTag) {
+              if (multiselectTag && multiselectTag == true) {
                 const tagItem = document.getElementById(`tag-${index}-${item.id}`);
                 ulMultipul.removeChild(tagItem);
               }
@@ -597,7 +613,7 @@ export class DropDown {
                 select.innerText = 'Select...';
               }
             } else {
-              if (multiselectTag) {
+              if (multiselectTag && multiselectTag == true) {
                 select.appendChild(ulMultipul);
               } else {
                 select.innerText = this.#selectedItems;
