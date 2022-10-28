@@ -23,6 +23,7 @@ const dropdown = new DropDown({
       borderRadius: '5px',
     },
   },
+  // multiselect: true,
 });
 
 // ------------------------------URL--------------------
