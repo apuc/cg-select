@@ -1,4 +1,7 @@
 @import 'src/style/nativSelect.scss';
+@import './scrolbar.scss';
+@import './whiteTheme.scss';
+@import './svgStyle.scss';
 
 * {
   font-size: 14px;
@@ -166,28 +169,6 @@ input[type='checkbox'] {
   margin: 0 5px 0 0;
 }
 
-// --------SVG--------
-.svg-icon {
-  width: 16px;
-  margin-left: 3px;
-  background-color: #bebebc;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 1s;
-
-  &:hover {
-    transition: 1s;
-    background-color: #ffffff;
-  }
-}
-
-.svg-icon path {
-  color: black;
-  stroke: currentcolor;
-  transition: 0.2s;
-  stroke-width: 0.5;
-}
-
 .label {
   color: white;
 }
@@ -218,19 +199,6 @@ input[type='checkbox'] {
 
 .displayHide {
   display: none;
-}
-
-// ------SCROLLBAR------
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #d1d1d19d;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #4d4d4d;
 }
 
 @media (max-width: 425px) {

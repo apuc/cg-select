@@ -42,6 +42,7 @@ export function createBreadcrumb(data, title, index, id) {
   }
 
   svgIcon.addEventListener('click', (event) => {
+    event.preventDefault();
     event.stopPropagation();
     nativOptionMultiple(nativOption, title, false);
 

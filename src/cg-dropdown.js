@@ -350,7 +350,7 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect, searchMode, multiselectTag } = this.#options;
+    const { styles, multiselect, searchMode, multiselectTag, darkTheme } = this.#options;
     const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
@@ -362,15 +362,14 @@ export class DropDown {
 
     const ulList = document.createElement('ul');
     const intputSearch = createInputSearch(random);
-    this.random = random;
-
     const nativSelect = createNativeSelect();
-
-    ulList.classList.add('list');
+    this.random = random;
 
     if (searchMode) {
       ulList.appendChild(intputSearch);
     }
+
+    ulList.classList.add('list');
 
     if (styles) {
       const { list } = styles;
@@ -426,7 +425,31 @@ export class DropDown {
       return item;
     });
 
+    if (darkTheme == false) {
+      this.checkTheme();
+    }
+
     this.#addOptionsBehaviour();
+  }
+
+  checkTheme() {
+    const { darkTheme } = this.#options;
+
+    const select = this.#element.querySelector('.cg-select');
+    const caret = this.#element.querySelector('.caret');
+    const list = this.#element.querySelector('ul.list');
+    const listItem = this.#element.querySelectorAll('.list__item');
+
+    console.log(list);
+    if (darkTheme == false) {
+      select.classList.add('selectWhite');
+      caret.classList.add('caretWhite');
+      list.classList.add('listWhite');
+    } else if (darkTheme == true || !darkTheme) {
+      return;
+    } else {
+      throw new Error('Styles error or invalid value entered!');
+    }
   }
 
   /**
