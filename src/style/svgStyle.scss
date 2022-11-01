@@ -1,0 +1,21 @@
+// --------SVG--------
+.svg-icon {
+  width: 16px;
+  margin-left: 3px;
+  background-color: #bebebc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 1s;
+
+  &:hover {
+    transition: 1s;
+    background-color: #ffffff;
+  }
+}
+
+.svg-icon path {
+  color: black;
+  stroke: currentcolor;
+  transition: 0.2s;
+  stroke-width: 0.5;
+}

@@ -5,6 +5,7 @@ const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
   lable: 'Выбор лучшего авто!',
+  darkTheme: false,
   items: [
     'BMW',
     {
@@ -15,6 +16,8 @@ const dropdown = new DropDown({
     'Mersedes',
     'MAN',
     'Ferari',
+    'Ferari',
+    'Ferari',
   ],
   styles: {
     lable: {
@@ -23,7 +26,8 @@ const dropdown = new DropDown({
       borderRadius: '5px',
     },
   },
-  // multiselect: true,
+  multiselect: true,
+  multiselectTag: true,
 });
 
 // ------------------------------URL--------------------
@@ -92,6 +96,7 @@ const dropdownBtn = new DropDown({
   selector: '.cg-dropdown_usedBtn',
   placeholder: 'Выберите авто',
   searchMode: true,
+  darkTheme: true,
   items: [
     'BMW',
     {
