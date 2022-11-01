@@ -5,10 +5,18 @@
   background-color: #bebebc;
   border-radius: 5px;
   cursor: pointer;
+  -webkit-transition: 1s;
   transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
 
   &:hover {
+    -webkit-transition: 1s;
     transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
     background-color: #ffffff;
   }
 }
@@ -17,5 +25,6 @@
   color: black;
   stroke: currentcolor;
   transition: 0.2s;
+  -webkit-transition: 0.2s;
   stroke-width: 0.5;
 }
