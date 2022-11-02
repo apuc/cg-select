@@ -2,6 +2,7 @@ import {
   createSelected,
   customStyles,
   getFormatItem,
+  getSelectText,
   customStylesFormat,
   nativOptionMultiple,
   nativOptionOrdinary,
@@ -229,6 +230,7 @@ export class DropDown {
    * @method buttonControl
    */
   buttonControl(button, method) {
+    this.btn = button;
     button.addEventListener('click', () => {
       if (method === 'open') {
         this.#open(true);
@@ -570,6 +572,10 @@ export class DropDown {
   #addOptionsBehaviour() {
     const { multiselect, placeholder, selected, multiselectTag, searchMode, closeOnSelect } =
       this.#options;
+    const dataSelectText = {
+      placeholder: placeholder,
+      selected: selected,
+    };
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
@@ -595,6 +601,8 @@ export class DropDown {
           event.preventDefault();
         }
 
+        const checkIndex = this.#indexes.indexOf(index);
+
         if (multiselect && multiselect == true) {
           option.classList.toggle('active');
           const checkBox = option.querySelector('input[type="checkbox"]');
@@ -604,13 +612,9 @@ export class DropDown {
               checkBox.checked = !checkBox.checked;
             }
 
-            const checkIndex = this.#indexes.indexOf(index);
-
             if (checkIndex === -1) {
               nativOptionMultiple(nativOption, item.title, true);
-
               this.#indexes.push(index);
-
               select.innerText = '';
 
               if (multiselectTag && multiselectTag == true) {
@@ -640,13 +644,7 @@ export class DropDown {
             }
 
             if (!this.#selectedItems.length) {
-              if (placeholder) {
-                select.innerText = placeholder;
-              } else if (selected) {
-                select.innerText = selected;
-              } else {
-                select.innerText = 'Select...';
-              }
+              getSelectText(dataSelectText, select);
             } else {
               if (multiselectTag && multiselectTag == true) {
                 select.appendChild(ulMultipul);
@@ -746,7 +744,11 @@ export class DropDown {
     document.addEventListener('click', (e) => {
       const withinBoundaries = e.composedPath().includes(dropdown);
       if (!withinBoundaries) {
-        this.#close();
+        if (this.btn) {
+          return;
+        } else {
+          this.#close();
+        }
       }
     });
   }

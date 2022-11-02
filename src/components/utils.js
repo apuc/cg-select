@@ -84,6 +84,25 @@ export function checkItemStruct(item) {
 }
 
 /**
+ * Вставка изначального текста селекта(до выбора)
+ * @param {object} data объект в котором находяться title селекта
+ * @param {HTMLElement} select елемент селекта, куда будет вставляться title
+ * @returns {HTMLElement} возвращает сформированный елемент селекта
+ */
+export function getSelectText(data, select) {
+  const { placeholder, selected } = data;
+
+  if (placeholder) {
+    select.innerText = placeholder;
+  } else if (selected) {
+    select.innerText = selected;
+  } else {
+    select.innerText = 'Select...';
+  }
+  return select;
+}
+
+/**
  * Преобразование каждого елемента полученного из поля Items;
  * @param {object | string} dataItem полученный елемент переданный при создании селекта может быть как object/string
  * @param {number} index индекс этого элемента
