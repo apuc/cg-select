@@ -89,6 +89,8 @@ export class DropDown {
       selected: 'Выбранный элемент',
       placeholder: '...',
       items: [string|number|object],
+      darkTheme: true/false,
+      closeOnSelect: true/false,
       styles: {
         head: {
           background: '...',
@@ -97,6 +99,7 @@ export class DropDown {
         chips: {...},
         caret: {...},
         placeholder: {...},
+        lable: {..},
       },
       event: '...',
       url: 'http/...',
@@ -109,6 +112,7 @@ export class DropDown {
     this.#init(options);
     this.#render();
     this.#initEvent();
+    this.#closeSelectClick();
   }
 
   /**
@@ -426,21 +430,28 @@ export class DropDown {
     });
 
     if (darkTheme == false) {
-      this.checkTheme();
+      this.#checkTheme();
     }
+
+    this.#list = this.#element.querySelector('.list');
+    this.#caret = this.#element.querySelector('.caret');
 
     this.#addOptionsBehaviour();
   }
 
-  checkTheme() {
+  /**
+   * Приватный метод рендера экземпляра класса DropDown
+   * @protected
+   * @method #checkTheme
+   * @description Изменяет цветовую схему с темной на светлую.
+   */
+  #checkTheme() {
     const { darkTheme } = this.#options;
 
     const select = this.#element.querySelector('.cg-select');
     const caret = this.#element.querySelector('.caret');
     const list = this.#element.querySelector('ul.list');
-    const listItem = this.#element.querySelectorAll('.list__item');
 
-    console.log(list);
     if (darkTheme == false) {
       select.classList.add('selectWhite');
       caret.classList.add('caretWhite');
@@ -530,9 +541,6 @@ export class DropDown {
    * @method #open
    */
   #open(oneClick) {
-    this.#list = this.#element.querySelector('.list');
-    this.#caret = this.#element.querySelector('.caret');
-
     if (oneClick === true) {
       this.#list.classList.add('open');
       this.#caret.classList.add('caret_rotate');
@@ -560,11 +568,13 @@ export class DropDown {
    * @method #addOptionsBehaviour
    */
   #addOptionsBehaviour() {
-    const { multiselect, placeholder, selected, multiselectTag, searchMode } = this.#options;
+    const { multiselect, placeholder, selected, multiselectTag, searchMode, closeOnSelect } =
+      this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
     const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
+
     const ulMultipul = document.createElement('ul');
 
     if (multiselect && multiselect == true) {
@@ -580,11 +590,13 @@ export class DropDown {
       option.addEventListener('click', (event) => {
         const item = this.#items[index];
 
-        if (multiselect && multiselect == true) {
-          event.preventDefault();
+        if (closeOnSelect == false || (multiselect && multiselect == true)) {
           event.stopPropagation();
-          option.classList.toggle('active');
+          event.preventDefault();
+        }
 
+        if (multiselect && multiselect == true) {
+          option.classList.toggle('active');
           const checkBox = option.querySelector('input[type="checkbox"]');
 
           if (checkBox) {
@@ -720,5 +732,22 @@ export class DropDown {
         });
       }
     }
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @description Закрывает список по клику вне элемента
+   * @method #closeSelectClick
+   */
+  #closeSelectClick() {
+    const dropdown = document.querySelector(`${this.#options.selector}`);
+
+    document.addEventListener('click', (e) => {
+      const withinBoundaries = e.composedPath().includes(dropdown);
+      if (!withinBoundaries) {
+        this.#close();
+      }
+    });
   }
 }

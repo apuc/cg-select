@@ -6,6 +6,7 @@ const dropdown = new DropDown({
   placeholder: 'Выберите авто',
   lable: 'Выбор лучшего авто!',
   darkTheme: false,
+  closeOnSelect: false,
   items: [
     'BMW',
     {
@@ -26,8 +27,8 @@ const dropdown = new DropDown({
       borderRadius: '5px',
     },
   },
-  multiselect: true,
-  multiselectTag: true,
+  // multiselect: true,
+  // multiselectTag: true,
 });
 
 // ------------------------------URL--------------------
@@ -42,8 +43,8 @@ const dropdown3 = new DropDown({
       width: '350px',
     },
   },
-  multiselect: true,
-  multiselectTag: true,
+  // multiselect: true,
+  // multiselectTag: true,
 });
 
 // --------------------------------Категории--------------------------
