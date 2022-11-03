@@ -164,3 +164,36 @@ export function nativOptionMultiple(element, item, condition) {
     }
   });
 }
+
+/**
+ * Создание кнопки отчиски селекта, при единичном выборе.
+ * @param {HTMLElement} select место в селекте которое будет переназначено на ''.
+ * @param {HTMLElement} element экземпляр класса DropDown.
+ * @param {object} dataSelectText текст который отрисовывается в селекте.
+ */
+export function clearSelect(select, element, dataSelectText) {
+  const options = element.querySelectorAll('.list__item');
+  const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+  svgIcon.setAttribute('viewBox', '0 0 10 10');
+  path1.setAttribute('d', 'M2,8 L8,2');
+  path2.setAttribute('d', 'M2,2 L8,8');
+  svgIcon.appendChild(path1);
+  svgIcon.appendChild(path2);
+
+  svgIcon.classList.add('svg-icon');
+  svgIcon.classList.add('svg-clear');
+
+  select.appendChild(svgIcon);
+
+  svgIcon.addEventListener('click', () => {
+    select.innerText = '';
+    getSelectText(dataSelectText, select);
+
+    options.forEach((option) => {
+      option.classList.remove('active');
+    });
+  });
+}
