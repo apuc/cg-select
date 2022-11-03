@@ -6,6 +6,7 @@ import {
   customStylesFormat,
   nativOptionMultiple,
   nativOptionOrdinary,
+  clearSelect,
 } from './components/utils';
 import {
   createBreadcrumb,
@@ -241,6 +242,10 @@ export class DropDown {
       }
     });
   }
+
+  // on(select, callback) {
+  //   console.log('aa');
+  // }
 
   /**
    * Приватный метод инициализации экземпляра класса DropDown
@@ -656,6 +661,7 @@ export class DropDown {
         } else {
           select.innerText = item.title;
           this.#selectedItems = item;
+          clearSelect(select, this.#element, dataSelectText);
           nativOptionOrdinary(nativOption, item.title);
 
           options.forEach((option) => {
