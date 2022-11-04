@@ -575,12 +575,15 @@ export class DropDown {
    * @method #addOptionsBehaviour
    */
   #addOptionsBehaviour() {
-    const { multiselect, placeholder, selected, multiselectTag, searchMode, closeOnSelect } =
-      this.#options;
-    const dataSelectText = {
-      placeholder: placeholder,
-      selected: selected,
-    };
+    const {
+      multiselect,
+      placeholder,
+      selected,
+      multiselectTag,
+      searchMode,
+      closeOnSelect,
+      darkTheme,
+    } = this.#options;
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
@@ -599,6 +602,15 @@ export class DropDown {
 
     options.forEach((option, index) => {
       option.addEventListener('click', (event) => {
+        const dataSelectText = {
+          placeholder,
+          selected,
+          selectedItems: this.#selectedItems,
+          indexes: this.#indexes,
+          darkTheme,
+          multiselectTag,
+        };
+
         const item = this.#items[index];
 
         if (closeOnSelect == false || (multiselect && multiselect == true)) {
@@ -643,6 +655,7 @@ export class DropDown {
                 const tagItem = document.getElementById(`tag-${index}-${item.id}`);
                 ulMultipul.removeChild(tagItem);
               }
+
               this.#indexes.splice(checkIndex, 1);
               this.#selectedItems.splice(checkIndex, 1);
               nativOptionMultiple(nativOption, item.title, false);
@@ -661,7 +674,7 @@ export class DropDown {
         } else {
           select.innerText = item.title;
           this.#selectedItems = item;
-          clearSelect(select, this.#element, dataSelectText);
+
           nativOptionOrdinary(nativOption, item.title);
 
           options.forEach((option) => {
@@ -669,6 +682,8 @@ export class DropDown {
           });
           option.classList.add('active');
         }
+
+        clearSelect(select, this.#element, dataSelectText);
       });
     });
   }
