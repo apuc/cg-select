@@ -77,17 +77,17 @@ const dropdown4 = new DropDown({
       categoryItems: ['Paris'],
     },
   ],
-  styles: {
-    head: {
-      background: 'red',
-    },
-    list: {
-      background: 'green',
-    },
-    chips: {
-      background: 'blue',
-    },
-  },
+  // styles: {
+  //   head: {
+  //     background: 'red',
+  //   },
+  //   list: {
+  //     background: 'green',
+  //   },
+  //   chips: {
+  //     background: 'blue',
+  //   },
+  // },
   multiselect: true,
   multiselectTag: true,
 });
