@@ -97,15 +97,25 @@ export function createNativSelectOption() {
 /**
  * Метод который создает поиск элементов в селекте
  * @param {string} random уникальное значение для input элемента.
+ * @param {string} lenguage текст на определенном языке переданный из файла language.js
  * @returns {HTMLInputElement} Возвращает сформированный input елемент.
  */
-export function createInputSearch(random) {
+export function createInputSearch(random, lenguage) {
   const intputSearch = document.createElement('input');
 
   intputSearch.type = 'text';
   intputSearch.classList.add('inputSearch');
   intputSearch.setAttribute('id', `searchSelect-${random}`);
-  intputSearch.setAttribute('placeholder', 'Search...');
+
+  if (lenguage) {
+    intputSearch.setAttribute('placeholder', `${lenguage}`);
+  } else {
+    intputSearch.setAttribute('placeholder', 'Search...');
+  }
+
+  intputSearch.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
 
   return intputSearch;
 }

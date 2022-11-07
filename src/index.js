@@ -6,6 +6,7 @@ const dropdown = new DropDown({
   placeholder: 'Выберите авто',
   lable: 'Выбор лучшего авто!',
   darkTheme: false,
+  searchMode: true,
   closeOnSelect: false,
   items: [
     'BMW',
@@ -31,12 +32,20 @@ const dropdown = new DropDown({
   // multiselectTag: true,
 });
 
+const ger = {
+  placeholder: 'searcH????',
+  textInListSearch: 'None',
+};
+
+dropdown.addLenguage(ger);
+
 // ------------------------------URL--------------------
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown_three',
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
   searchMode: true,
+  lenguage: 'ru',
   styles: {
     head: {
       background: 'black',
