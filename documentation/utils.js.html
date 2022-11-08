@@ -62,15 +62,16 @@
                return;
              }
            
-             const { head, caret, placeholder } = styles;
+             const { head, caret, placeholder, lable } = styles;
            
              const cgSelect = element.querySelector('.cg-select');
              const caretSelect = element.querySelector('.caret');
              const placeholderSelect = element.querySelector('.selected');
+             const lableItem = element.parentElement.querySelector('h1.label');
            
              customStylesFormat(head, cgSelect);
-           
              customStylesFormat(caret, caretSelect);
+             customStylesFormat(lable, lableItem);
            
              if (placeholderSelect) {
                customStylesFormat(placeholder, placeholderSelect);
@@ -101,6 +102,25 @@
              }
            
              return item.hasOwnProperty('id') &amp;&amp; item.hasOwnProperty('title') &amp;&amp; item.hasOwnProperty('value');
+           }
+           
+           /**
+            * Вставка изначального текста селекта(до выбора)
+            * @param {object} data объект в котором находяться title селекта
+            * @param {HTMLElement} select елемент селекта, куда будет вставляться title
+            * @returns {HTMLElement} возвращает сформированный елемент селекта
+            */
+           export function getSelectText(data, select) {
+             const { placeholder, selected } = data;
+           
+             if (placeholder) {
+               select.innerText = placeholder;
+             } else if (selected) {
+               select.innerText = selected;
+             } else {
+               select.innerText = 'Select...';
+             }
+             return select;
            }
            
            /**
@@ -165,6 +185,67 @@
                }
              });
            }
+           
+           /**
+            * Создание кнопки отчиски селекта, при единичном выборе.
+            * @param {HTMLElement} select место в селекте которое будет переназначено на ''.
+            * @param {HTMLElement} element экземпляр класса DropDown.
+            * @param {object} dataSelectText текст который отрисовывается в селекте.
+            */
+           export function clearSelect(select, element, dataSelectText) {
+             const { selectedItems, indexes, darkTheme, multiselectTag } = dataSelectText;
+           
+             const options = element.querySelectorAll('.list__item');
+             const ulMultiSelect = element.querySelector('.multiselect-tag');
+             const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+             const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+             const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+             const checkBox = element.querySelectorAll('li input');
+           
+             svgIcon.setAttribute('viewBox', '0 0 10 10');
+             path1.setAttribute('d', 'M2,8 L8,2');
+             path2.setAttribute('d', 'M2,2 L8,8');
+             svgIcon.appendChild(path1);
+             svgIcon.appendChild(path2);
+           
+             if (multiselectTag &amp;&amp; multiselectTag == true) {
+               return;
+             }
+           
+             if (darkTheme === true || !darkTheme) {
+               path1.classList.add('pathWhite');
+               path2.classList.add('pathWhite');
+             }
+           
+             if (darkTheme === false) {
+               path1.classList.add('pathBlack');
+               path2.classList.add('pathBlack');
+             }
+           
+             svgIcon.classList.add('svg-icon');
+             svgIcon.classList.add('svg-clear');
+           
+             select.appendChild(svgIcon);
+           
+             svgIcon.addEventListener('click', () => {
+               select.innerText = '';
+           
+               if (Array.isArray(selectedItems)) {
+                 selectedItems.splice(0);
+                 indexes.splice(0);
+               }
+           
+               checkBox.forEach((item) => {
+                 item.checked = false;
+               });
+           
+               getSelectText(dataSelectText, select);
+           
+               options.forEach((option) => {
+                 option.classList.remove('active');
+               });
+             });
+           }
 </code></pre>
         </article>
       </section>
@@ -191,15 +272,19 @@
       <ul>
         <li><a href="global.html#addOptionsBehaviour">#addOptionsBehaviour</a></li>
         <li><a href="global.html#close">#close</a></li>
+        <li><a href="global.html#checkTheme">#checkTheme</a></li>
+        <li><a href="global.html#closeSelectClick">#closeSelectClick</a></li>
         <li><a href="global.html#init">#init</a></li>
         <li><a href="global.html#initEvent">#initEvent</a></li>
         <li><a href="global.html#initSelected">#initSelected</a></li>
         <li><a href="global.html#open">#open</a></li>
         <li><a href="global.html#render">#render</a></li>
         <li><a href="global.html#renderUrl">#renderUrl</a></li>
+        <li><a href="global.html#searchMode">#searchMode</a></li>
       </ul>
       <h3>Public methods</h3>
       <ul>
+        <li><a href="global.html#addLenguage">addLenguage</a></li>
         <li><a href="global.html#addItem">addItem</a></li>
         <li><a href="global.html#buttonControl">buttonControl</a></li>
         <li><a href="global.html#deleteItem">deleteItem</a></li>

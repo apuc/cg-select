@@ -65,6 +65,7 @@
               }
             
               svgIcon.addEventListener('click', (event) => {
+                event.preventDefault();
                 event.stopPropagation();
                 nativOptionMultiple(nativOption, title, false);
             
@@ -100,7 +101,6 @@
             export function createNativeSelect() {
               const nativSelect = document.createElement('select');
             
-              nativSelect.setAttribute('form', 'data');
               nativSelect.setAttribute('name', 'dataSelect');
               nativSelect.classList.add('nativSelect');
               return nativSelect;
@@ -120,15 +120,25 @@
             /**
              * Метод который создает поиск элементов в селекте
              * @param {string} random уникальное значение для input элемента.
+             * @param {string} lenguage текст на определенном языке переданный из файла language.js
              * @returns {HTMLInputElement} Возвращает сформированный input елемент.
              */
-            export function createInputSearch(random) {
+            export function createInputSearch(random, lenguage) {
               const intputSearch = document.createElement('input');
             
               intputSearch.type = 'text';
               intputSearch.classList.add('inputSearch');
               intputSearch.setAttribute('id', `searchSelect-${random}`);
-              intputSearch.setAttribute('placeholder', 'Search...');
+            
+              if (lenguage) {
+                intputSearch.setAttribute('placeholder', `${lenguage}`);
+              } else {
+                intputSearch.setAttribute('placeholder', 'Search...');
+              }
+            
+              intputSearch.addEventListener('click', (e) => {
+                e.preventDefault();
+              });
             
               return intputSearch;
             }
@@ -158,6 +168,8 @@
       <ul>
         <li><a href="global.html#addOptionsBehaviour">#addOptionsBehaviour</a></li>
         <li><a href="global.html#close">#close</a></li>
+        <li><a href="global.html#checkTheme">#checkTheme</a></li>
+        <li><a href="global.html#closeSelectClick">#closeSelectClick</a></li>
         <li><a href="global.html#init">#init</a></li>
         <li><a href="global.html#initEvent">#initEvent</a></li>
         <li><a href="global.html#initSelected">#initSelected</a></li>
@@ -168,6 +180,7 @@
       </ul>
       <h3>Public methods</h3>
       <ul>
+        <li><a href="global.html#addLenguage">addLenguage</a></li>
         <li><a href="global.html#addItem">addItem</a></li>
         <li><a href="global.html#buttonControl">buttonControl</a></li>
         <li><a href="global.html#deleteItem">deleteItem</a></li>
