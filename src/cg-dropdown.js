@@ -14,6 +14,7 @@ import {
   createNativSelectOption,
   createNativeSelect,
 } from './components/create-element';
+import { ru, en } from './language/language';
 
 /**
  * @class Описание класса DropDown
@@ -243,9 +244,28 @@ export class DropDown {
     });
   }
 
-  // on(select, callback) {
-  //   console.log('aa');
-  // }
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {object} lenguage объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
+   * @description метод позволяющий заменить плейсхолдер в поиске и текст который выводится если нет результата
+   * @method addLenguage
+   */
+  addLenguage(lenguage) {
+    const { placeholder, textInListSearch } = lenguage;
+    const { searchMode } = this.#options;
+
+    if (searchMode && searchMode == true) {
+      const search = this.#element.querySelector('.inputSearch');
+      const textNoRezult = this.#element.querySelector('.noRezult');
+      const textNode = document.createTextNode(textInListSearch);
+
+      search.setAttribute('placeholder', placeholder);
+      search.setAttribute('placeholder', placeholder);
+
+      textNoRezult.innerText = '';
+      textNoRezult.appendChild(textNode);
+    }
+  }
 
   /**
    * Приватный метод инициализации экземпляра класса DropDown
@@ -361,7 +381,7 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect, searchMode, multiselectTag, darkTheme } = this.#options;
+    const { styles, multiselect, searchMode, multiselectTag, darkTheme, lenguage } = this.#options;
     const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
@@ -372,11 +392,18 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
-    const intputSearch = createInputSearch(random);
     const nativSelect = createNativeSelect();
+
+    let intputSearch = '';
     this.random = random;
 
     if (searchMode) {
+      if (lenguage === 'ru') {
+        intputSearch = createInputSearch(random, ru.placeholder);
+      } else {
+        intputSearch = createInputSearch(random, en.placeholder);
+      }
+
       ulList.appendChild(intputSearch);
     }
 
@@ -453,16 +480,21 @@ export class DropDown {
    * @description Изменяет цветовую схему с темной на светлую.
    */
   #checkTheme() {
-    const { darkTheme } = this.#options;
+    const { darkTheme, searchMode } = this.#options;
 
     const select = this.#element.querySelector('.cg-select');
     const caret = this.#element.querySelector('.caret');
     const list = this.#element.querySelector('ul.list');
+    const search = this.#element.querySelector('.inputSearch');
 
     if (darkTheme == false) {
       select.classList.add('selectWhite');
       caret.classList.add('caretWhite');
       list.classList.add('listWhite');
+
+      if (searchMode == true) {
+        search.classList.add('inputWhite');
+      }
     } else if (darkTheme == true || !darkTheme) {
       return;
     } else {
@@ -695,13 +727,22 @@ export class DropDown {
    * @method #searchMode
    */
   #searchMode(random) {
+    const { lenguage } = this.#options;
+
     const input = this.#element.querySelector(`#searchSelect-${random}`);
     const searchSelect = this.#element.querySelectorAll('.list__item');
     const result = document.createElement('p');
-    const textNode = document.createTextNode('No matches...');
+
+    let textNode = '';
+    if (lenguage === 'ru') {
+      textNode = document.createTextNode(`${ru.textInListSearch}`);
+    } else {
+      textNode = document.createTextNode(`${en.textInListSearch}`);
+    }
 
     result.appendChild(textNode);
     result.classList.add('displayHide');
+    result.classList.add('noRezult');
     input.parentElement.appendChild(result);
 
     input.addEventListener('click', (e) => {

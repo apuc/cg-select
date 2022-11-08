@@ -1,6 +1,13 @@
 .selectWhite {
-  color: black !important;
   background: rgb(248, 248, 248) !important;
+}
+
+.selectWhite,
+.listWhite,
+.inputWhite,
+.pathBlack,
+.selectWhite {
+  color: black !important;
 }
 
 .caretWhite {
@@ -8,8 +15,11 @@
 }
 
 .listWhite {
-  color: black !important;
   background-color: white !important;
+}
+
+.inputWhite {
+  border-bottom: 1px solid black !important;
 }
 
 .pathWhite {
