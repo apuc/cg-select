@@ -22,7 +22,10 @@
 
         <article>
           <div class="container-overview">
-            <div class="description">Utils module</div>
+            <div class="description">
+              В этом модуле представленны функции которые переиспользуются в классе селекта или в
+              других модулях. Он создан для лучшего понимания кода.
+            </div>
 
             <dl class="details">
               <dt class="tag-source">Source:</dt>
@@ -77,7 +80,7 @@
             <dd class="tag-source">
               <ul class="dummy">
                 <li>
-                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line84">line 84</a>
+                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line78">line 78</a>
                 </li>
               </ul>
             </dd>
@@ -91,6 +94,71 @@
             <dt>Type</dt>
             <dd>
               <span class="param-type">boolean</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id=".clearSelect">
+            <span class="type-signature">(static) </span>clearSelect<span class="signature"
+              >(select, element, dataSelectText)</span
+            ><span class="type-signature"></span>
+          </h4>
+
+          <div class="description">Создание кнопки отчиски селекта, при единичном выборе.</div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>select</code></td>
+
+                <td class="type">
+                  <span class="param-type">HTMLElement</span>
+                </td>
+
+                <td class="description last">место в селекте которое будет переназначено на ''.</td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>element</code></td>
+
+                <td class="type">
+                  <span class="param-type">HTMLElement</span>
+                </td>
+
+                <td class="description last">экземпляр класса DropDown.</td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>dataSelectText</code></td>
+
+                <td class="type">
+                  <span class="param-type">object</span>
+                </td>
+
+                <td class="description last">текст который отрисовывается в селекте.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line174">line 174</a>
+                </li>
+              </ul>
             </dd>
           </dl>
 
@@ -272,7 +340,7 @@
             <dd class="tag-source">
               <ul class="dummy">
                 <li>
-                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line71">line 71</a>
+                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line65">line 65</a>
                 </li>
               </ul>
             </dd>
@@ -332,7 +400,7 @@
             <dd class="tag-source">
               <ul class="dummy">
                 <li>
-                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line98">line 98</a>
+                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line111">line 111</a>
                 </li>
               </ul>
             </dd>
@@ -346,6 +414,198 @@
             <dt>Type</dt>
             <dd>
               <span class="param-type">object</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id=".getSelectText">
+            <span class="type-signature">(static) </span>getSelectText<span class="signature"
+              >(data, select)</span
+            ><span class="type-signature"> &rarr; {HTMLElement}</span>
+          </h4>
+
+          <div class="description">Вставка изначального текста селекта(до выбора)</div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>data</code></td>
+
+                <td class="type">
+                  <span class="param-type">object</span>
+                </td>
+
+                <td class="description last">объект в котором находяться title селекта</td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>select</code></td>
+
+                <td class="type">
+                  <span class="param-type">HTMLElement</span>
+                </td>
+
+                <td class="description last">елемент селекта, куда будет вставляться title</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line92">line 92</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h5>Returns:</h5>
+
+          <div class="param-desc">возвращает сформированный елемент селекта</div>
+
+          <dl>
+            <dt>Type</dt>
+            <dd>
+              <span class="param-type">HTMLElement</span>
+            </dd>
+          </dl>
+
+          <h4 class="name" id=".nativOptionMultiple">
+            <span class="type-signature">(static) </span>nativOptionMultiple<span class="signature"
+              >(element, item, condition)</span
+            ><span class="type-signature"></span>
+          </h4>
+
+          <div class="description">
+            Поведение нативного(Multiple) селекта при выборе в кастомном
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>element</code></td>
+
+                <td class="type">
+                  <span class="param-type">NodeList</span>
+                </td>
+
+                <td class="description last">NodeList нативного селекта</td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>item</code></td>
+
+                <td class="type">
+                  <span class="param-type">object</span>
+                </td>
+
+                <td class="description last">выбранный элемент в кастомном селекте</td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>condition</code></td>
+
+                <td class="type">
+                  <span class="param-type">boolean</span>
+                </td>
+
+                <td class="description last">
+                  специальный флаг при котором добавляются/убераются атрибуты у нативного селекта
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line152">line 152</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+
+          <h4 class="name" id=".nativOptionOrdinary">
+            <span class="type-signature">(static) </span>nativOptionOrdinary<span class="signature"
+              >(element, item)</span
+            ><span class="type-signature"></span>
+          </h4>
+
+          <div class="description">
+            Поведение нативного(одинарного) селекта при выборе кастомного
+          </div>
+
+          <h5>Parameters:</h5>
+
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
+
+                <th>Type</th>
+
+                <th class="last">Description</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="name"><code>element</code></td>
+
+                <td class="type">
+                  <span class="param-type">NodeList</span>
+                </td>
+
+                <td class="description last">NodeList нативного селекта</td>
+              </tr>
+
+              <tr>
+                <td class="name"><code>item</code></td>
+
+                <td class="type">
+                  <span class="param-type">object</span>
+                </td>
+
+                <td class="description last">выбранный элемент в кастомном селекте</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line137">line 137</a>
+                </li>
+              </ul>
             </dd>
           </dl>
         </article>
@@ -373,6 +633,8 @@
       <ul>
         <li><a href="global.html#addOptionsBehaviour">#addOptionsBehaviour</a></li>
         <li><a href="global.html#close">#close</a></li>
+        <li><a href="global.html#checkTheme">#checkTheme</a></li>
+        <li><a href="global.html#closeSelectClick">#closeSelectClick</a></li>
         <li><a href="global.html#init">#init</a></li>
         <li><a href="global.html#initEvent">#initEvent</a></li>
         <li><a href="global.html#initSelected">#initSelected</a></li>
@@ -383,6 +645,7 @@
       </ul>
       <h3>Public methods</h3>
       <ul>
+        <li><a href="global.html#addLenguage">addLenguage</a></li>
         <li><a href="global.html#addItem">addItem</a></li>
         <li><a href="global.html#buttonControl">buttonControl</a></li>
         <li><a href="global.html#deleteItem">deleteItem</a></li>
@@ -392,7 +655,6 @@
         <li><a href="global.html#selectIndex">selectIndex</a></li>
       </ul>
     </nav>
-
     <br class="clear" />
 
     <footer>

@@ -93,7 +93,9 @@ export class DropDown {
       placeholder: '...',
       items: [string|number|object],
       darkTheme: true/false,
-      closeOnSelect: true/false,
+      searchMode: true/false,
+      closeOnSelect:  true/false,
+      lenguage: 'ru/en',
       styles: {
         head: {
           background: '...',
@@ -289,6 +291,7 @@ export class DropDown {
           'MAN',
           'max',
         ],
+        darkTheme: true,
         multiselect: true,
         multiselectTag: true,
       }

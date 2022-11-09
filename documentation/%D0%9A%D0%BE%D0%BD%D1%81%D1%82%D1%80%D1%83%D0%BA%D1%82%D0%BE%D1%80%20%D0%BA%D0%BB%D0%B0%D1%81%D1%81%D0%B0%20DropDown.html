@@ -6,11 +6,13 @@
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
+
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css" />
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+    <link type="text/css" rel="stylesheet" href="styles/descriptionOptions.css" />
   </head>
 
   <body>
@@ -77,10 +79,14 @@
             <h5>Example</h5>
 
             <pre class="prettyprint"><code>options = {
- selector: 'Уникальный селектор',
+      selector: 'Уникальный селектор',
       selected: 'Выбранный элемент',
       placeholder: '...',
       items: [string|number|object],
+      darkTheme: true/false,
+      searchMode: true/false,
+      closeOnSelect:  true/false,
+      lenguage: 'ru/en',
       styles: {
         head: {
           background: '...',
@@ -89,6 +95,7 @@
         chips: {...},
         caret: {...},
         placeholder: {...},
+        lable: {..},
       },
       event: '...',
       url: 'http/...',
@@ -97,6 +104,79 @@
 }</code></pre>
           </div>
         </article>
+
+        <h4>Описание всех параметров селекта</h4>
+        <section>
+          <ul class="descriptionOptions">
+            <li>
+              <strong>selector</strong> - <strong>*обязательный параметр(индефикатор)</strong>,
+              который задаеться при создании селекта.
+            </li>
+            <li>
+              <strong>selected</strong> - необязательный параметр, в который передается элемент
+              который будет выбран изначально в селекте.
+            </li>
+            <li>
+              <strong>placeholder</strong> - необязательный параметр, в который передается текст
+              плейсхолдера селекта.
+            </li>
+            <li>
+              <strong>items</strong> -
+              <strong
+                >*обязательный параметр(эсли не указан другой способ получения данных (url))</strong
+              >, это массив елементов, которые будут отображаться в селекте при выборе.
+            </li>
+            <li>
+              <strong>darkTheme</strong> - необязательный параметр, который отвечает за включение
+              светлой/темной темы по умолчанию, стоит темная тема(darkTheme == true).
+            </li>
+            <li>
+              <strong>searchMode</strong> - необязательный параметр, который добавляет живой поиск
+              по элеметам селекта.
+            </li>
+            <li>
+              <strong>closeOnSelect</strong> - необязательный параметр, который отвечает за
+              поведения селекта при открытии, если closeOnSelect: false, тогда при выборе елемента в
+              селекте закрытия не происходит, и можно выбрать другой элемент по умолчанию,
+              closeOnSelect:true.
+            </li>
+
+            <li>
+              <strong>lenguage</strong> - необязательный параметр, отвечающий за локализацию
+              некоторых текстовых элементов. по умолчанию стоит 'en'. Можно добавить свою
+              локализацию, с помощью функции <a href="global.html#addLenguage">addLanguage()</a>,
+              передав туда объект с полями для текста.
+            </li>
+            <li>
+              <strong>event</strong> - необязательный параметр, который отвечает за поведения
+              селекта, передавая в этот параметр, евент по типу 'mouseenter', селект будет
+              открываться при наведении.
+            </li>
+            <li>
+              <strong>url</strong> -
+              <strong
+                >*обязательный параметр(эсли не указан другой способ получения данных
+                (items)),</strong
+              >
+              htylthbn данные которые приходят с бекэнда в формате {id:"", title: "", value: ""}.
+            </li>
+            <li>
+              <strong>multiselect</strong> - необязательный параметр, который отвечает за поведения
+              селекта, добавляет возможность выбирать несколько элементов. Выбранные элементы
+              отрисовываются как обычный текст, через запятую.
+            </li>
+            <li>
+              <strong>multiselectTag</strong> - необязательный параметр, который отвечает за
+              поведения селекта, для него,
+              <strong>***работает только в месте с подключением multiselect.</strong>
+            </li>
+            <li>
+              <strong>styles</strong> - необязательный параметр, который отвечает за кастомизацию
+              элементов селекта, в него передаются обьекты с CSS свойствами для кастомизируемых
+              элементов.
+            </li>
+          </ul>
+        </section>
       </section>
     </div>
 
@@ -121,6 +201,8 @@
       <ul>
         <li><a href="global.html#addOptionsBehaviour">#addOptionsBehaviour</a></li>
         <li><a href="global.html#close">#close</a></li>
+        <li><a href="global.html#checkTheme">#checkTheme</a></li>
+        <li><a href="global.html#closeSelectClick">#closeSelectClick</a></li>
         <li><a href="global.html#init">#init</a></li>
         <li><a href="global.html#initEvent">#initEvent</a></li>
         <li><a href="global.html#initSelected">#initSelected</a></li>
@@ -131,6 +213,7 @@
       </ul>
       <h3>Public methods</h3>
       <ul>
+        <li><a href="global.html#addLenguage">addLenguage</a></li>
         <li><a href="global.html#addItem">addItem</a></li>
         <li><a href="global.html#buttonControl">buttonControl</a></li>
         <li><a href="global.html#deleteItem">deleteItem</a></li>

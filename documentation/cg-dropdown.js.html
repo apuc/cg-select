@@ -23,9 +23,11 @@
             createSelected,
             customStyles,
             getFormatItem,
+            getSelectText,
             customStylesFormat,
             nativOptionMultiple,
             nativOptionOrdinary,
+            clearSelect,
           } from './components/utils';
           import {
             createBreadcrumb,
@@ -33,6 +35,7 @@
             createNativSelectOption,
             createNativeSelect,
           } from './components/create-element';
+          import { ru, en } from './language/language';
           
           /**
            * @class Описание класса DropDown
@@ -110,6 +113,10 @@
                 selected: 'Выбранный элемент',
                 placeholder: '...',
                 items: [string|number|object],
+                darkTheme: true/false,
+                searchMode: true/false,
+                closeOnSelect:  true/false,
+                lenguage: 'ru/en',
                 styles: {
                   head: {
                     background: '...',
@@ -118,6 +125,7 @@
                   chips: {...},
                   caret: {...},
                   placeholder: {...},
+                  lable: {..},
                 },
                 event: '...',
                 url: 'http/...',
@@ -130,6 +138,7 @@
               this.#init(options);
               this.#render();
               this.#initEvent();
+              this.#closeSelectClick();
             }
           
             /**
@@ -246,6 +255,7 @@
              * @method buttonControl
              */
             buttonControl(button, method) {
+              this.btn = button;
               button.addEventListener('click', () => {
                 if (method === 'open') {
                   this.#open(true);
@@ -255,6 +265,29 @@
                   return;
                 }
               });
+            }
+          
+            /**
+             * Метод экземпляра класса DropDown
+             * @param {object} lenguage объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
+             * @description метод позволяющий заменить плейсхолдер в поиске и текст который выводится если нет результата
+             * @method addLenguage
+             */
+            addLenguage(lenguage) {
+              const { placeholder, textInListSearch } = lenguage;
+              const { searchMode } = this.#options;
+          
+              if (searchMode &amp;&amp; searchMode == true) {
+                const search = this.#element.querySelector('.inputSearch');
+                const textNoRezult = this.#element.querySelector('.noRezult');
+                const textNode = document.createTextNode(textInListSearch);
+          
+                search.setAttribute('placeholder', placeholder);
+                search.setAttribute('placeholder', placeholder);
+          
+                textNoRezult.innerText = '';
+                textNoRezult.appendChild(textNode);
+              }
             }
           
             /**
@@ -279,6 +312,7 @@
                     'MAN',
                     'max',
                   ],
+                  darkTheme: true,
                   multiselect: true,
                   multiselectTag: true,
                 }
@@ -295,13 +329,14 @@
           
               this.#element = elem;
           
-              this.#element.addEventListener('click', () => {
+              this.#element.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.#open();
               });
           
               this.#items = [];
           
-              if (multiselect) {
+              if (multiselect &amp;&amp; multiselect == true) {
                 this.#selectedItems = [];
               }
           
@@ -333,7 +368,7 @@
              * @protected
              */
             #initSelected(select) {
-              const { styles, selected, placeholder } = this.#options;
+              const { styles, selected, placeholder, lable } = this.#options;
           
               if (selected) {
                 createSelected(this.#element, selected);
@@ -343,12 +378,22 @@
                 createSelected(this.#element, 'Select...');
               }
           
-              if (styles) {
-                customStyles(this.#element, styles);
-              }
-          
               if (select) {
                 createSelected(this.#element, select, styles);
+              }
+          
+              if (lable) {
+                const lableItem = document.createElement('h1');
+                const textLable = document.createTextNode(lable);
+          
+                lableItem.appendChild(textLable);
+                lableItem.classList.add('label');
+          
+                this.#element.insertAdjacentElement('beforebegin', lableItem);
+              }
+          
+              if (styles) {
+                customStyles(this.#element, styles);
               }
             }
           
@@ -360,7 +405,7 @@
              * @description Рендер елементов в селекте.
              */
             #render(select) {
-              const { styles, multiselect, searchMode } = this.#options;
+              const { styles, multiselect, searchMode, multiselectTag, darkTheme, lenguage } = this.#options;
               const random = Math.random().toString(36).substring(2, 10);
           
               if (select || (select &amp;&amp; styles)) {
@@ -371,15 +416,22 @@
               }
           
               const ulList = document.createElement('ul');
-              const intputSearch = createInputSearch(random);
-              this.random = random;
-          
               const nativSelect = createNativeSelect();
           
-              ulList.classList.add('list');
+              let intputSearch = '';
+              this.random = random;
+          
               if (searchMode) {
+                if (lenguage === 'ru') {
+                  intputSearch = createInputSearch(random, ru.placeholder);
+                } else {
+                  intputSearch = createInputSearch(random, en.placeholder);
+                }
+          
                 ulList.appendChild(intputSearch);
               }
+          
+              ulList.classList.add('list');
           
               if (styles) {
                 const { list } = styles;
@@ -398,12 +450,16 @@
                 liItem.classList.add('list__item');
                 strongItem.classList.add('category');
           
-                if (multiselect) {
+                if (multiselect &amp;&amp; multiselect == true) {
                   const checkBox = document.createElement('input');
                   checkBox.type = 'checkbox';
                   checkBox.setAttribute('id', `chbox-${dataItem.id}`);
-          
                   liItem.appendChild(checkBox);
+          
+                  if (multiselectTag &amp;&amp; multiselectTag == true) {
+                    checkBox.classList.add('displayHide');
+                  }
+          
                   nativSelect.setAttribute('multiple', 'multiple');
                 }
           
@@ -431,7 +487,43 @@
                 return item;
               });
           
+              if (darkTheme == false) {
+                this.#checkTheme();
+              }
+          
+              this.#list = this.#element.querySelector('.list');
+              this.#caret = this.#element.querySelector('.caret');
+          
               this.#addOptionsBehaviour();
+            }
+          
+            /**
+             * Приватный метод рендера экземпляра класса DropDown
+             * @protected
+             * @method #checkTheme
+             * @description Изменяет цветовую схему с темной на светлую.
+             */
+            #checkTheme() {
+              const { darkTheme, searchMode } = this.#options;
+          
+              const select = this.#element.querySelector('.cg-select');
+              const caret = this.#element.querySelector('.caret');
+              const list = this.#element.querySelector('ul.list');
+              const search = this.#element.querySelector('.inputSearch');
+          
+              if (darkTheme == false) {
+                select.classList.add('selectWhite');
+                caret.classList.add('caretWhite');
+                list.classList.add('listWhite');
+          
+                if (searchMode == true) {
+                  search.classList.add('inputWhite');
+                }
+              } else if (darkTheme == true || !darkTheme) {
+                return;
+              } else {
+                throw new Error('Styles error or invalid value entered!');
+              }
             }
           
             /**
@@ -441,7 +533,7 @@
              * @description Рендер елементов в селекте переданных с URL и их настойка
              */
             async #renderUrl() {
-              const { url, items, multiselect } = this.#options;
+              const { url, items, multiselect, multiselectTag } = this.#options;
           
               if (items) {
                 return;
@@ -468,9 +560,12 @@
                 const liUrl = document.createElement('li');
                 const textUrl = document.createTextNode(item.title);
           
-                if (multiselect) {
+                if (multiselect &amp;&amp; multiselect == true) {
                   const checkBox = document.createElement('input');
                   checkBox.type = 'checkbox';
+                  if (multiselectTag &amp;&amp; multiselectTag == true) {
+                    checkBox.classList.add('displayHide');
+                  }
           
                   checkBox.setAttribute('id', `chbox-${item.id}`);
                   nativSelect.setAttribute('multiple', 'multiple');
@@ -509,9 +604,6 @@
              * @method #open
              */
             #open(oneClick) {
-              this.#list = this.#element.querySelector('.list');
-              this.#caret = this.#element.querySelector('.caret');
-          
               if (oneClick === true) {
                 this.#list.classList.add('open');
                 this.#caret.classList.add('caret_rotate');
@@ -539,14 +631,23 @@
              * @method #addOptionsBehaviour
              */
             #addOptionsBehaviour() {
-              const { multiselect, placeholder, selected, multiselectTag, searchMode } = this.#options;
+              const {
+                multiselect,
+                placeholder,
+                selected,
+                multiselectTag,
+                searchMode,
+                closeOnSelect,
+                darkTheme,
+              } = this.#options;
           
               const options = this.#element.querySelectorAll('.list__item');
               const select = this.#element.querySelector('.selected');
               const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
+          
               const ulMultipul = document.createElement('ul');
           
-              if (multiselect) {
+              if (multiselect &amp;&amp; multiselect == true) {
                 ulMultipul.classList.add('multiselect-tag');
                 select.classList.add('overflow-hidden');
               }
@@ -557,12 +658,26 @@
           
               options.forEach((option, index) => {
                 option.addEventListener('click', (event) => {
+                  const dataSelectText = {
+                    placeholder,
+                    selected,
+                    selectedItems: this.#selectedItems,
+                    indexes: this.#indexes,
+                    darkTheme,
+                    multiselectTag,
+                  };
+          
                   const item = this.#items[index];
           
-                  if (multiselect) {
+                  if (closeOnSelect == false || (multiselect &amp;&amp; multiselect == true)) {
                     event.stopPropagation();
-                    option.classList.toggle('active');
+                    event.preventDefault();
+                  }
           
+                  const checkIndex = this.#indexes.indexOf(index);
+          
+                  if (multiselect &amp;&amp; multiselect == true) {
+                    option.classList.toggle('active');
                     const checkBox = option.querySelector('input[type="checkbox"]');
           
                     if (checkBox) {
@@ -570,16 +685,12 @@
                         checkBox.checked = !checkBox.checked;
                       }
           
-                      const checkIndex = this.#indexes.indexOf(index);
-          
                       if (checkIndex === -1) {
                         nativOptionMultiple(nativOption, item.title, true);
-          
                         this.#indexes.push(index);
-          
                         select.innerText = '';
           
-                        if (multiselectTag) {
+                        if (multiselectTag &amp;&amp; multiselectTag == true) {
                           this.#selectedItems.push(item);
                           select.appendChild(ulMultipul);
           
@@ -596,25 +707,20 @@
                           select.innerText = this.#selectedItems;
                         }
                       } else {
-                        if (multiselectTag) {
+                        if (multiselectTag &amp;&amp; multiselectTag == true) {
                           const tagItem = document.getElementById(`tag-${index}-${item.id}`);
                           ulMultipul.removeChild(tagItem);
                         }
+          
                         this.#indexes.splice(checkIndex, 1);
                         this.#selectedItems.splice(checkIndex, 1);
                         nativOptionMultiple(nativOption, item.title, false);
                       }
           
                       if (!this.#selectedItems.length) {
-                        if (placeholder) {
-                          select.innerText = placeholder;
-                        } else if (selected) {
-                          select.innerText = selected;
-                        } else {
-                          select.innerText = 'Select...';
-                        }
+                        getSelectText(dataSelectText, select);
                       } else {
-                        if (multiselectTag) {
+                        if (multiselectTag &amp;&amp; multiselectTag == true) {
                           select.appendChild(ulMultipul);
                         } else {
                           select.innerText = this.#selectedItems;
@@ -624,6 +730,7 @@
                   } else {
                     select.innerText = item.title;
                     this.#selectedItems = item;
+          
                     nativOptionOrdinary(nativOption, item.title);
           
                     options.forEach((option) => {
@@ -631,6 +738,8 @@
                     });
                     option.classList.add('active');
                   }
+          
+                  clearSelect(select, this.#element, dataSelectText);
                 });
               });
             }
@@ -642,13 +751,22 @@
              * @method #searchMode
              */
             #searchMode(random) {
+              const { lenguage } = this.#options;
+          
               const input = this.#element.querySelector(`#searchSelect-${random}`);
               const searchSelect = this.#element.querySelectorAll('.list__item');
               const result = document.createElement('p');
-              const textNode = document.createTextNode('No matches...');
+          
+              let textNode = '';
+              if (lenguage === 'ru') {
+                textNode = document.createTextNode(`${ru.textInListSearch}`);
+              } else {
+                textNode = document.createTextNode(`${en.textInListSearch}`);
+              }
           
               result.appendChild(textNode);
               result.classList.add('displayHide');
+              result.classList.add('noRezult');
               input.parentElement.appendChild(result);
           
               input.addEventListener('click', (e) => {
@@ -699,6 +817,27 @@
                 }
               }
             }
+          
+            /**
+             * Приватный метод экземпляра класса DropDown
+             * @protected
+             * @description Закрывает список по клику вне элемента
+             * @method #closeSelectClick
+             */
+            #closeSelectClick() {
+              const dropdown = document.querySelector(`${this.#options.selector}`);
+          
+              document.addEventListener('click', (e) => {
+                const withinBoundaries = e.composedPath().includes(dropdown);
+                if (!withinBoundaries) {
+                  if (this.btn) {
+                    return;
+                  } else {
+                    this.#close();
+                  }
+                }
+              });
+            }
           }
 </code></pre>
         </article>
@@ -726,6 +865,8 @@
       <ul>
         <li><a href="global.html#addOptionsBehaviour">#addOptionsBehaviour</a></li>
         <li><a href="global.html#close">#close</a></li>
+        <li><a href="global.html#checkTheme">#checkTheme</a></li>
+        <li><a href="global.html#closeSelectClick">#closeSelectClick</a></li>
         <li><a href="global.html#init">#init</a></li>
         <li><a href="global.html#initEvent">#initEvent</a></li>
         <li><a href="global.html#initSelected">#initSelected</a></li>
@@ -736,6 +877,7 @@
       </ul>
       <h3>Public methods</h3>
       <ul>
+        <li><a href="global.html#addLenguage">addLenguage</a></li>
         <li><a href="global.html#addItem">addItem</a></li>
         <li><a href="global.html#buttonControl">buttonControl</a></li>
         <li><a href="global.html#deleteItem">deleteItem</a></li>
