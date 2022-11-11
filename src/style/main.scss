@@ -2,6 +2,7 @@
 @import './scrolbar.scss';
 @import './whiteTheme.scss';
 @import './svgStyle.scss';
+@import './ExemplePage.scss';
 
 * {
   font-size: 14px;
@@ -9,7 +10,7 @@
 }
 
 body {
-  background: #4a4a4a;
+  background: #c5c5c6;
 }
 
 .container {
@@ -202,6 +203,7 @@ body {
   .inputSearch {
     background: transparent;
     border: none;
+    width: 90%;
     border-bottom: 1px solid white;
     margin-top: 5px;
     margin-bottom: 5px;

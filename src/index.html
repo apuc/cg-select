@@ -9,36 +9,47 @@
   </head>
   <body>
     <div class="container">
-      <form method="get" class="form">
-        <div>
-          <h1>Дефолтный селект</h1>
-          <button class="cg-dropdown cg-dropdown_one"></button>
-        </div>
+      <header class="header">
+        <h1>CG-SELECT</h1>
+        <img src="images/logoCG.jpg" alt="#" class="header__logo" />
+      </header>
+    </div>
 
-        <input type="submit" value="Отправить!" />
-      </form>
+    <div class="container content">
+      <div class="example-select">
+        <form method="get" class="form">
+          <div>
+            <h2 class="example-select_title">Дефолтный селект</h2>
+            <button class="cg-dropdown cg-dropdown_one"></button>
+          </div>
 
-      <div>
-        <h1>Селект с данными с URL</h1>
+          <input type="submit" value="Отправить!" class="example-select_submit" />
+        </form>
+      </div>
+
+      <div class="example-select">
+        <h1 class="example-select_title">Селект с данными с URL</h1>
         <button class="cg-dropdown cg-dropdown_three"></button>
       </div>
 
-      <div>
-        <h1>Селект с категориями</h1>
+      <div class="example-select">
+        <h1 class="example-select_title">Категории</h1>
         <button class="cg-dropdown cg-dropdown_categories"></button>
       </div>
 
-      <div>
-        <h1>Cелект управляемый кнопками</h1>
+      <div class="example-select">
+        <h1 class="example-select_title">Управление с помошью кнопок</h1>
+        <div style="margin-bottom: 15px">
+          <button class="button__open example-select_submit">Open</button>
+          <button class="button__close example-select_submit">Close</button>
+        </div>
         <button class="cg-dropdown cg-dropdown_usedBtn"></button>
-        <button class="button__open">Open</button>
-        <button class="button__close">Close</button>
       </div>
 
-      <div style="width: 300px">
-        <h1>Cелект с функцией disabled</h1>
+      <div class="example-select">
+        <h1 class="example-select_title">Функция disabled</h1>
 
-        <input type="checkbox" name="chbx" id="checkboxDisable" />
+        <input type="checkbox" name="chbx" id="checkboxDisable" style="margin-bottom: 16px" />
         <label for="checkboxDisable">Вы согласны на обработку данных</label>
         <button class="cg-dropdown cg-dropdown_checkboxDisable"></button>
       </div>

@@ -4,10 +4,8 @@ import { DropDown } from './cg-dropdown';
 const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
-  lable: 'Выбор лучшего авто!',
-  darkTheme: false,
-  searchMode: true,
-  closeOnSelect: false,
+  lable: 'EXAMPLE',
+
   items: [
     'BMW',
     {
@@ -18,26 +16,23 @@ const dropdown = new DropDown({
     'Mersedes',
     'MAN',
     'Ferari',
-    'Ferari',
-    'Ferari',
   ],
   styles: {
-    lable: {
-      fontSize: '14px',
-      border: '1px white solid',
-      borderRadius: '5px',
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
     },
   },
-  // multiselect: true,
-  // multiselectTag: true,
 });
 
-const ger = {
-  placeholder: 'searcH????',
-  textInListSearch: 'None',
-};
+// const ger = {
+//   placeholder: 'searcH????',
+//   textInListSearch: 'None',
+// };
 
-dropdown.addLenguage(ger);
+// dropdown.addLenguage(ger);
 
 // ------------------------------URL--------------------
 const dropdown3 = new DropDown({
@@ -45,11 +40,14 @@ const dropdown3 = new DropDown({
   placeholder: 'URL',
   url: 'http://jsonplaceholder.typicode.com/users',
   searchMode: true,
+  darkTheme: false,
   lenguage: 'ru',
   styles: {
     head: {
-      background: 'black',
-      width: '350px',
+      width: '830px',
+    },
+    list: {
+      width: '824px',
     },
   },
   // multiselect: true,
@@ -86,17 +84,17 @@ const dropdown4 = new DropDown({
       categoryItems: ['Paris'],
     },
   ],
-  // styles: {
-  //   head: {
-  //     background: 'red',
-  //   },
-  //   list: {
-  //     background: 'green',
-  //   },
-  //   chips: {
-  //     background: 'blue',
-  //   },
-  // },
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+    placeholder: {
+      maxWidth: '500px ',
+    },
+  },
   multiselect: true,
   multiselectTag: true,
 });
@@ -106,7 +104,7 @@ const dropdownBtn = new DropDown({
   selector: '.cg-dropdown_usedBtn',
   placeholder: 'Выберите авто',
   searchMode: true,
-  darkTheme: true,
+
   items: [
     'BMW',
     {
@@ -118,6 +116,21 @@ const dropdownBtn = new DropDown({
     'MAN',
     'max',
   ],
+  styles: {
+    head: {
+      width: '830px',
+      color: 'black',
+      backgroundColor: 'rgb(176 223 167)',
+    },
+    list: {
+      width: '824px',
+      color: 'black',
+      backgroundColor: 'rgb(176 223 167)',
+    },
+    caret: {
+      borderTop: '6px solid black',
+    },
+  },
   multiselect: true,
 });
 
@@ -143,6 +156,17 @@ const dropdownDisabled = new DropDown({
     'MAN',
     'max',
   ],
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+    placeholder: {
+      maxWidth: '500px ',
+    },
+  },
   multiselect: true,
 });
 dropdownDisabled.disabled(true);
