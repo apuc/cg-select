@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "start": "parcel ./src/index.html -p 4500 --open",
+    "start": "parcel ./index.html -p 4500 --open",
     "build": "parcel build ./src/index.html"
   },
   "repository": {
