@@ -1,11 +1,71 @@
 
 
-# CG-SELECT
-This component allows you to create a generic custom select. Customization, multiselect, search by select elements are available.
+# CG-SELECT 
+## version ~1.0.0
+
+Этот компонент позволяет создать кастомный селект. Он предлагает более гибкую настройку и использование селекта.
+Доступна кастомизация, мультивыбор и живой поиск по елементам.
+
+### Доступна возможность кастомизации основных элементов, таких как:
+* Кнопка селекта.
+* Список c элементами селекта.
+* Placeholder.
+* При режиме мультиселект доступна кастомизация chips(выбранных эл-ов).
+* Label элемента(если он был указан)
+* Переключение тем с темной на светлую
+
 ## Installation
 TODO: Describe the installation process
 ## Usage
-All documentation on the select is located in the folder of the same name. The documentation describes all the methods and variables, there are also examples of passing settings to the select. To view it, run the index.html file from the documentation folder.
+### Для создания компонета нужно:
+
+1. Создать обычный button елемент.
+2. Присвоить ему класс cg-dropdown.
+```
+<button class="cg-dropdown"></button>
+```
+3. Присвоить ему **уникальный класс**, например(cg-dropdown_categories)
+```
+<button class="cg-dropdown cg-dropdown_categories"></button>
+```
+4. Создать новый экземпляр класса(new DropDown)
+5. Передать все желаемые настройки как объект
+
+#### Все опции для создания и управления находятся в документации, раздел "Конструктор класса DropDown".
+
+### Пример создния обычного селекта
+
+```javascript
+import { DropDown } from './cg-dropdown';
+
+const dropdown = new DropDown({
+    selector: '.cg-dropdown_selector',
+    placeholder: 'Выберите авто',
+    items: [
+      'BMW',
+      {
+        id: '213sade',
+        title: 'Opel',
+        value: 1,
+      },
+      'Mersedes',
+      'MAN',
+      'Ferari',
+    ],
+
+});
+
+```
+
+#### Примеры разных селектов
+
+![image](https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png)
+![image](https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png)
+![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
+![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
+
+Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в select. Чтобы просмотреть его, откройте файл index.html в браузере из папки с документацией.
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
