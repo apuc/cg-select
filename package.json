@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/MaxOvs19/cg-select/issues"
   },
-  "homepage": "https://github.com/MaxOvs19/cg-select",
+  "homepage": "https://maxovs19.github.io/cg-select",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
     "parcel": "^2.7.0",
