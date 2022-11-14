@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MaxOvs19/Cg-select.git"
+    "url": "git+https://github.com/MaxOvs19/cg-select.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MaxOvs19/Cg-select/issues"
+    "url": "https://github.com/MaxOvs19/cg-select/issues"
   },
-  "homepage": "https://github.com/MaxOvs19/Cg-select",
+  "homepage": "https://maxovs19.github.io/cg-select/",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
     "parcel": "^2.7.0",
