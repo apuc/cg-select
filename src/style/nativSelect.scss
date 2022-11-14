@@ -18,7 +18,7 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 576px) {
   .nativSelect {
     display: block;
     min-width: 235px;
@@ -27,6 +27,7 @@
     border: none;
     border-radius: 10px;
   }
+
   select[multiple='multiple'] {
     color: black;
     background-color: white;
