@@ -3,22 +3,28 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "start": "parcel ./index.html -p 4500 --open",
-    "build": "parcel build ./src/index.html"
+    "start": "parcel ./src/index.html -p 4500 --open ",
+    "build": "parcel build ./src/index.html  --public-url /cg-select/",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MaxOvs19/Dropdown-list.git"
+    "url": "git+https://github.com/MaxOvs19/Cg-select.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MaxOvs19/Dropdown-list/issues"
+    "url": "https://github.com/MaxOvs19/Cg-select/issues"
   },
-  "homepage": "https://github.com/MaxOvs19/Dropdown-list#readme",
+  "homepage": "https://github.com/MaxOvs19/Cg-select",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
     "parcel": "^2.7.0",
     "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "@parcel/optimizer-css": "^2.8.0",
+    "gh-pages": "^4.0.0"
   }
 }
