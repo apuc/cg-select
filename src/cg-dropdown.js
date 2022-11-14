@@ -217,11 +217,15 @@ export class DropDown {
     }
 
     const select = this.#element.querySelector('.cg-select');
+    const nativSelect = this.#element.querySelector('.nativSelect');
+    
     if (value === true) {
       this.#element.setAttribute('disabled', true);
+      nativSelect.setAttribute('disabled', true);
       select.classList.add('disabled');
     } else {
       this.#element.removeAttribute('disabled');
+      nativSelect.removeAttribute('disabled');
       select.classList.remove('disabled');
     }
   }
