@@ -62,7 +62,8 @@ const dropdown = new DropDown({
 });
 ```
 
-#### Примеры разных селектов
+## Примеры разных селектов
+Так же рабочий пример -- https://maxovs19.github.io/cg-select/
 
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png)
