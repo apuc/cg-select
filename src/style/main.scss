@@ -322,7 +322,23 @@ input[type='checkbox'] {
   display: none;
 }
 
-@media (max-width: 425px) {
+/*320px - 576px*/
+@media (max-width: 576px) {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 90%;
+
+    .header {
+      h1 {
+        font-size: 32px;
+      }
+    }
+  }
+
   .list {
     display: none !important;
   }
