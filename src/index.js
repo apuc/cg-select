@@ -38,7 +38,7 @@ const dropdown = new DropDown({
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown_three',
   placeholder: 'URL',
-  url: 'http://jsonplaceholder.typicode.com/users',
+  url: 'https://jsonplaceholder.typicode.com/users',
   searchMode: true,
   darkTheme: false,
   lenguage: 'ru',
