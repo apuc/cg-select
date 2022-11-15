@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "start": "parcel ./src/index.html -p 4500 --open ",
+    "start": "parcel src/index.html -p 4500 --open ",
     "build": "parcel build ./src/index.html  --public-url /cg-select/",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
