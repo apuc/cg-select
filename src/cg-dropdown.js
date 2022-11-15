@@ -757,16 +757,21 @@ export class DropDown {
 
     input.oninput = function () {
       let val = this.value.trim();
+      let anyMatch = false;
 
       if (val != '') {
         searchSelect.forEach((elem) => {
+          let isMatching = new RegExp(val, 'gi').test(elem.textContent);
+          anyMatch = anyMatch || isMatching;
+
           if (elem.innerText.search(val) == -1) {
             elem.classList.add('displayHide');
-            result.classList.remove('displayHide');
           } else {
             elem.classList.remove('displayHide');
           }
         });
+
+        result.classList.toggle('displayHide', anyMatch);
       } else {
         searchSelect.forEach((elem) => {
           elem.classList.remove('displayHide');
