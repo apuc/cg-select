@@ -69,8 +69,10 @@ const dropdown = new DropDown({
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
 
-Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в select. Чтобы просмотреть его, откройте файл index.html в браузере из папки с документац
+Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в select. 
 
+
+**Чтобы ознакомиться с ней, перейдите по ссылке -** https://maxovs19.github.io/cg-select/up_/documentation/index.html
 
 
 ## Contributing
