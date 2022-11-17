@@ -389,6 +389,8 @@ export class DropDown {
    */
   #render(select) {
     const { styles, multiselect, searchMode, multiselectTag, darkTheme, lenguage } = this.#options;
+    const { list, search } = styles;
+
     const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
@@ -410,14 +412,13 @@ export class DropDown {
       } else {
         intputSearch = createInputSearch(random, en.placeholder);
       }
-
+      customStylesFormat(search, intputSearch);
       ulList.appendChild(intputSearch);
     }
 
     ulList.classList.add('list');
 
     if (styles) {
-      const { list } = styles;
       customStylesFormat(list, ulList);
     }
 
@@ -757,15 +758,15 @@ export class DropDown {
     });
 
     input.oninput = function () {
-      let val = this.value.trim();
+      let valueSearch = this.value.trim().toLowerCase();
       let anyMatch = false;
 
-      if (val != '') {
+      if (valueSearch != '') {
         searchSelect.forEach((elem) => {
-          let isMatching = new RegExp(val, 'gi').test(elem.textContent);
+          let isMatching = new RegExp(valueSearch, 'gi').test(elem.textContent);
           anyMatch = anyMatch || isMatching;
 
-          if (elem.innerText.search(val) == -1) {
+          if (elem.textContent.toLowerCase().search(valueSearch) == -1) {
             elem.classList.add('displayHide');
           } else {
             elem.classList.remove('displayHide');
