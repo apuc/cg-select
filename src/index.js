@@ -130,6 +130,13 @@ const dropdownBtn = new DropDown({
     caret: {
       borderTop: '6px solid black',
     },
+    search: {
+      backgroundColor: '#d7ffff',
+      borderRadius: '5px',
+      borderBottom: 'none',
+      width: '95%',
+      color: 'black',
+    },
   },
   multiselect: true,
 });
