@@ -95,7 +95,7 @@ export class DropDown {
       darkTheme: true/false,
       searchMode: true/false,
       closeOnSelect:  true/false,
-      lenguage: 'ru/en',
+      language: 'ru/en',
       styles: {
         head: {
           background: '...',
@@ -251,13 +251,17 @@ export class DropDown {
 
   /**
    * Метод экземпляра класса DropDown
-   * @param {object} lenguage объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
+   * @param {object} language объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
    * @description метод позволяющий заменить плейсхолдер в поиске и текст который выводится если нет результата
-   * @method addLenguage
+   * @method addLanguage
    */
-  addLenguage(lenguage) {
-    const { placeholder, textInListSearch } = lenguage;
+  addLanguage(language) {
+    const { placeholder, textInListSearch, selectPlaceholder } = language;
     const { searchMode } = this.#options;
+
+    const select = this.#element.querySelector('.selected');
+    const textNodeSelect = document.createTextNode(selectPlaceholder);
+    select.appendChild(textNodeSelect);
 
     if (searchMode && searchMode == true) {
       const search = this.#element.querySelector('.inputSearch');
@@ -350,14 +354,18 @@ export class DropDown {
    * @protected
    */
   #initSelected(select) {
-    const { styles, selected, placeholder, lable } = this.#options;
+    const { styles, selected, placeholder, lable, language } = this.#options;
 
     if (selected) {
       createSelected(this.#element, selected);
     } else if (placeholder) {
       createSelected(this.#element, placeholder);
     } else {
-      createSelected(this.#element, 'Select...');
+      if (language && language === 'ru') {
+        createSelected(this.#element, ru.selectPlaceholder);
+      } else {
+        createSelected(this.#element, en.selectPlaceholder);
+      }
     }
 
     if (select) {
@@ -387,7 +395,7 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect, searchMode, multiselectTag, darkTheme, lenguage } = this.#options;
+    const { styles, multiselect, searchMode, multiselectTag, darkTheme, language } = this.#options;
     const { list, search } = styles;
 
     const random = Math.random().toString(36).substring(2, 10);
@@ -406,7 +414,7 @@ export class DropDown {
     this.random = random;
 
     if (searchMode) {
-      if (lenguage === 'ru') {
+      if (language === 'ru') {
         intputSearch = createInputSearch(random, ru.placeholder);
       } else {
         intputSearch = createInputSearch(random, en.placeholder);
@@ -734,14 +742,14 @@ export class DropDown {
    * @method #searchMode
    */
   #searchMode(random) {
-    const { lenguage } = this.#options;
+    const { language } = this.#options;
 
     const input = this.#element.querySelector(`#searchSelect-${random}`);
     const searchSelect = this.#element.querySelectorAll('.list__item');
     const result = document.createElement('p');
 
     let textNode = '';
-    if (lenguage === 'ru') {
+    if (language && language === 'ru') {
       textNode = document.createTextNode(`${ru.textInListSearch}`);
     } else {
       textNode = document.createTextNode(`${en.textInListSearch}`);
