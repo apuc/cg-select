@@ -5,7 +5,6 @@ const dropdown = new DropDown({
   selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
   lable: 'EXAMPLE',
-
   items: [
     'BMW',
     {
@@ -41,7 +40,7 @@ const dropdown3 = new DropDown({
   url: 'https://jsonplaceholder.typicode.com/users',
   searchMode: true,
   darkTheme: false,
-  lenguage: 'ru',
+  language: 'ru',
   styles: {
     head: {
       width: '830px',
