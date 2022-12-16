@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "parcel src/index.html -p 4500 --open ",
-    "build": "parcel build ./src/index.html  --public-url /cg-select/",
+    "build": "parcel build ./src/index.html  --public-url /",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/MaxOvs19/cg-select/issues"
   },
-  "homepage": "https://maxovs19.github.io/cg-select",
+  "homepage": "https://cg-select.itguild.info",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
     "parcel": "^2.7.0",
