@@ -33,6 +33,36 @@
           </div>
 
           <input type="submit" value="Отправить!" class="example-select_submit" />
+
+          <code>
+            <pre>
+              const dropdown = new DropDown({
+                selector: '.cg-dropdown_one',
+                placeholder: 'Выберите авто',
+                lable: 'EXAMPLE',
+                items: [
+                  'BMW',
+                  {
+                    id: '213sade',
+                    title: 'Opel',
+                    value: 1,
+                  },
+                  'Mersedes',
+                  'MAN',
+                  'Ferari',
+                ],
+                styles: {
+                  head: {
+                    width: '830px',
+                  },
+                  list: {
+                    width: '824px',
+                  },
+                },
+              });
+            </pre>
+            
+          </code>
         </form>
       </div>
 
