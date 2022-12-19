@@ -49,8 +49,6 @@ const dropdown3 = new DropDown({
       width: '824px',
     },
   },
-  // multiselect: true,
-  // multiselectTag: true,
 });
 
 // --------------------------------Категории--------------------------
@@ -103,7 +101,6 @@ const dropdownBtn = new DropDown({
   selector: '.cg-dropdown_usedBtn',
   placeholder: 'Выберите авто',
   searchMode: true,
-
   items: [
     'BMW',
     {

@@ -69,7 +69,6 @@
   background-color: #5c5c5c;
   border-radius: 5px;
   margin: 15px 0 0 0;
-  //padding: 0 13px 13px 13px;
 
   &_title {
     height: 45px;
@@ -83,11 +82,13 @@
   }
 
   &_submit {
+    //background-color: #2a2f3b;
     width: 200px;
     height: 35px;
     border-radius: 10px;
     border: none;
     margin-top: 20px;
+    margin: 20px 15px;
     cursor: pointer;
     transition: 1s;
     -webkit-transition: 1s;
@@ -104,10 +105,43 @@
       -o-transition: 1s;
     }
   }
+
+  .layout-select {
+    margin: 15px;
+  }
 }
 
+pre {
+  background: #1e1e1e;
+  margin: 15px;
+  padding: 15px;
+  color: #88d0f7;
+  border-radius: 15px;
+  font-size: 16px;
+  line-height: 20px;
+}
 
+.code {
+  &__class,
+  &__var,
+  &__string,
+  &__keyword {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  &__class {
+    color: #4ec9b0;
+  }
 
-pre{
+  &__var {
+    color: #34a7ff;
+  }
 
+  &__string {
+    color: #ce9178;
+  }
+
+  &__keyword {
+    color: #5090ca;
+  }
 }
