@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cg-Select</title><link href="/index.89fc64b0.css" rel="stylesheet"></head><body> <div class="container"> <header class="header"> <div class="header__logoBox"> <h1>CG-SELECT</h1> <img src="/logoCG.1e4a02e6.jpg" alt="#" class="header__logo"> </div> <hr style="width:55%"> <nav> <ul class="navlist"> <li><a href="">Home</a></li> <li><a href="/up_/documentation/index.html">Documentation</a></li> </ul> </nav> </header> </div> <div class="container content"> <div class="example-select"> <h2 class="example-select_title">Дефолтный селект</h2> <form method="get" class="form"> <div class="layout-select"> <button class="cg-dropdown cg-dropdown_one"></button> </div> <input type="submit" value="Отправить!" class="example-select_submit"> <button type="button" class="check-code" id="first">Посмотреть код</button> <code id="codeFirst"> <pre>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cg-Select</title><link href="/index.8a8e493a.css" rel="stylesheet"></head><body> <div class="container"> <header class="header"> <div class="header__logoBox"> <h1>CG-SELECT</h1> <img src="/logoCG.1e4a02e6.jpg" alt="#" class="header__logo"> </div> <hr style="width:55%"> <nav> <ul class="navlist"> <li><a href="">Home</a></li> <li><a href="/up_/documentation/index.html">Documentation</a></li> </ul> </nav> </header> </div> <div class="container content"> <div class="example-select"> <h2 class="example-select_title">Дефолтный селект</h2> <form method="get" class="form"> <div class="layout-select"> <button class="cg-dropdown cg-dropdown_one"></button> </div> <input type="submit" value="Отправить!" class="example-select_submit"> <button type="button" class="check-code" id="first">Посмотреть код</button> <code id="codeFirst"> <pre>
               <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
                 selector: <span class="code__string">'.cg-dropdown_one',</span> 
                 placeholder: <span class="code__string">'Выберите авто',</span> 
@@ -62,7 +62,12 @@
                 },
                 {
                   category: <span class="code__string">'USA',</span>
-                  categoryItems: <span class="code__string">['Alabama', 'Texas', 'Colorado', 'Klirens', 'Los-Angeles'],</span>
+                  categoryItems: <span class="code__string">[
+                    'Alabama', 
+                    'Texas', 
+                    'Colorado', 
+                    'Klirens', 
+                    'Los-Angeles'],</span>
                 },
                 {
                   category: <span class="code__string">'France',</span>
@@ -128,6 +133,7 @@
               selector: <span class="code__string">'.cg-dropdown_checkboxDisable',</span> 
               placeholder: <span class="code__string">'Выберите авто',</span> 
               lable: <span class="code__string">'EXAMPLE',</span> 
+              searchMode: <span class="code__keyword">true,</span>
               items: [
                 <span class="code__string">'BMW',</span>
                 {
