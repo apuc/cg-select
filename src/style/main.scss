@@ -340,14 +340,25 @@ input[type='checkbox'] {
   }
 
   .list {
-    display: none !important;
+    width: 98% !important;
   }
 
-  .open {
-    display: none !important;
-  }
+  // .open {
+  //   display: none !important;
+  // }
 
   .cg-select {
-    display: none !important;
+    width: 100% !important;
+  }
+
+  .example-select {
+    &_title {
+      padding: 24px 0 0px 15px;
+      font-size: 16px;
+    }
+  }
+
+  pre {
+    overflow-x: scroll;
   }
 }
