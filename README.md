@@ -16,7 +16,9 @@
 
 ## Installation
 
+```
 npm i cg-select
+```
 
 ## Usage
 
@@ -85,4 +87,4 @@ const dropdown = new DropDown({
 
 ## History
 
-TODO: Write history
+16.12.2022 - релиз версии 0.1.0!
