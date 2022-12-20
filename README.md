@@ -16,7 +16,7 @@
 
 ## Installation
 
-TODO: Describe the installation process
+npm i cg-select
 
 ## Usage
 
