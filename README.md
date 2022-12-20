@@ -64,7 +64,7 @@ const dropdown = new DropDown({
 
 ## Примеры разных селектов
 
-Так же рабочий пример -- https://maxovs19.github.io/cg-select/
+Так же рабочий пример -- https://cg-select.itguild.info/
 
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png)
