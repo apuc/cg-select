@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>JSDoc: Source: create-element.js</title><script src="/up_/documentation/index.040a5ccc.js"></script><script src="/up_/documentation/index.7b699aeb.js"></script><!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]--><link type="text/css" rel="stylesheet" href="/up_/documentation/index.5ab5180c.css"><link type="text/css" rel="stylesheet" href="/up_/documentation/index.c0d09f69.css"></head><body> <div id="main"> <h1 class="page-title">Source: create-element.js</h1> <section> <article> <pre class="linenums prettyprint source"><code>import { customStylesFormat, nativOptionMultiple } from './utils';
+            /**
+             * @module createBreadcrumb
+             */
+            
+            /**
+             * Метод который создает и отвечает за поведение chips
+             * @param {object} data объект в котором содержатся настройки и элементы селекта
+             * @param {string} title имя выбранного элемента для отрисовки chips
+             * @param {number} index индекс выбранного элемента для отрисовки chips
+             * @param {string} id уникальное id выбранного элемента
+             * @returns {HTMLElement} возвращает сформированный HTMLElement chips item
+             */
+            export function createBreadcrumb(data, title, index, id) {
+              const { element, option, indexes, selectedItems } = data;
+              const { placeholder, styles } = option;
+            
+              const selected = element.querySelector('.selected');
+              const nativOption = element.querySelectorAll('.nativSelect__nativOption');
+            
+              const liChip = document.createElement('li');
+              const textNode = document.createTextNode(title);
+              const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+              const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+              const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            
+              svgIcon.setAttribute('viewBox', '0 0 10 10');
+              path1.setAttribute('d', 'M3,7 L7,3');
+              path2.setAttribute('d', 'M3,3 L7,7');
+              liChip.setAttribute('id', `tag-${index}-${id}`);
+            
+              svgIcon.classList.add('svg-icon');
+            
+              svgIcon.appendChild(path1);
+              svgIcon.appendChild(path2);
+              liChip.appendChild(textNode);
+              liChip.appendChild(svgIcon);
+            
+              if (styles) {
+                const { chips } = styles;
+                customStylesFormat(chips, liChip);
+              }
+            
+              svgIcon.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                nativOptionMultiple(nativOption, title, false);
+            
+                const deleteIcon = indexes.indexOf(index);
+                let checkBox = '';
+            
+                indexes.splice(deleteIcon, 1);
+                selectedItems.splice(deleteIcon, 1);
+            
+                if (id) {
+                  checkBox = document.getElementById(`chbox-${id}`);
+                } else {
+                  checkBox = document.getElementById(`chbox-${index}`);
+                }
+            
+                checkBox.checked = false;
+                checkBox.parentElement.classList.remove('active');
+            
+                if (!selectedItems.length) {
+                  selected.innerText = placeholder;
+                }
+            
+                liChip.parentElement.removeChild(liChip);
+              });
+            
+              return liChip;
+            }
+            
+            /**
+             * Метод который создает нативный селект
+             * @returns {HTMLSelectElement} Возвращает созданный нативный селект
+             */
+            export function createNativeSelect() {
+              const nativSelect = document.createElement('select');
+            
+              nativSelect.setAttribute('name', 'dataSelect');
+              nativSelect.classList.add('nativSelect');
+              return nativSelect;
+            }
+            
+            /**
+             * Метод который создает Options для нативного селекта
+             * @returns {HTMLOptionElement} Возвращает созданные Options нативного селекта
+             */
+            export function createNativSelectOption() {
+              const nativOption = document.createElement('option');
+            
+              nativOption.classList.add('nativSelect__nativOption');
+              return nativOption;
+            }
+            
+            /**
+             * Метод который создает поиск элементов в селекте
+             * @param {string} random уникальное значение для input элемента.
+             * @param {string} lenguage текст на определенном языке переданный из файла language.js
+             * @returns {HTMLInputElement} Возвращает сформированный input елемент.
+             */
+            export function createInputSearch(random, lenguage) {
+              const intputSearch = document.createElement('input');
+            
+              intputSearch.type = 'text';
+              intputSearch.classList.add('inputSearch');
+              intputSearch.setAttribute('id', `searchSelect-${random}`);
+            
+              if (lenguage) {
+                intputSearch.setAttribute('placeholder', `${lenguage}`);
+              } else {
+                intputSearch.setAttribute('placeholder', 'Search...');
+              }
+            
+              intputSearch.addEventListener('click', (e) => {
+                e.preventDefault();
+              });
+            
+              return intputSearch;
+            }
+</code></pre> </article> </section> </div> <nav> <h2><a href="/up_/documentation/index.html">Home</a></h2> <h3>Classes</h3> <ul> <li><a href="/up_/documentation/DropDown.html">DropDown</a></li> <li> <a href="/up_/documentation/%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0%20DropDown.html">Конструктор класса DropDown</a> </li> </ul> <h3>Modules</h3> <ul> <li><a href="/up_/documentation/module-Utils.html">Utils</a></li> <li><a href="/up_/documentation/module-createElementChips.html">createElementChips</a></li> </ul> <h3>Private methods</h3> <ul> <li><a href="/up_/documentation/global.html#addOptionsBehaviour">#addOptionsBehaviour</a></li> <li><a href="/up_/documentation/global.html#close">#close</a></li> <li><a href="/up_/documentation/global.html#checkTheme">#checkTheme</a></li> <li><a href="/up_/documentation/global.html#closeSelectClick">#closeSelectClick</a></li> <li><a href="/up_/documentation/global.html#init">#init</a></li> <li><a href="/up_/documentation/global.html#initEvent">#initEvent</a></li> <li><a href="/up_/documentation/global.html#initSelected">#initSelected</a></li> <li><a href="/up_/documentation/global.html#open">#open</a></li> <li><a href="/up_/documentation/global.html#render">#render</a></li> <li><a href="/up_/documentation/global.html#renderUrl">#renderUrl</a></li> <li><a href="/up_/documentation/global.html#searchMode">#searchMode</a></li> </ul> <h3>Public methods</h3> <ul> <li><a href="/up_/documentation/global.html#addLenguage">addLenguage</a></li> <li><a href="/up_/documentation/global.html#addItem">addItem</a></li> <li><a href="/up_/documentation/global.html#buttonControl">buttonControl</a></li> <li><a href="/up_/documentation/global.html#deleteItem">deleteItem</a></li> <li><a href="/up_/documentation/global.html#deleteItemAll">deleteItemAll</a></li> <li><a href="/up_/documentation/global.html#disabled">disabled</a></li> <li><a href="/up_/documentation/global.html#getElement">getElement</a></li> <li><a href="/up_/documentation/global.html#selectIndex">selectIndex</a></li> </ul> </nav> <br class="clear"> <footer> Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Wed Oct 19 2022 20:13:59 GMT+0300 (Moscow Standard Time) </footer> <script>prettyPrint();</script> <script src="/up_/documentation/global.1964ca37.js"></script> </body></html>
