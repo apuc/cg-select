@@ -1,4 +1,5 @@
 import { DropDown } from './cg-dropdown';
+import './exemple-page';
 
 // ------------------------------Обычный селект--------------------
 const dropdown = new DropDown({

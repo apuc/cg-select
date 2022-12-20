@@ -34,13 +34,13 @@
 
           <input type="submit" value="Отправить!" class="example-select_submit" />
 
-          <code>
+          <button type="button" class="check-code" id="first">Посмотреть код</button>
+          <code id="codeFirst">
             <pre>
               <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
                 selector: <span class="code__string">'.cg-dropdown_one',</span> 
                 placeholder: <span class="code__string">'Выберите авто',</span> 
                 lable: <span class="code__string">'EXAMPLE',</span> 
-                span.code__string 
                 items: [
                   <span class="code__string">'BMW',</span>
                   {
@@ -71,8 +71,9 @@
         <div class="layout-select">
           <button class="cg-dropdown cg-dropdown_three"></button>
         </div>
+        <button type="button" class="check-code" id="second">Посмотреть код</button>
 
-        <code>
+        <code id="codeSecond">
           <pre>
             <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
               selector: <span class="code__string">'.cg-dropdown_three',</span> 
@@ -100,8 +101,9 @@
         <div class="layout-select">
           <button class="cg-dropdown cg-dropdown_categories"></button>
         </div>
+        <button type="button" class="check-code" id="third">Посмотреть код</button>
 
-        <code>
+        <code id="codeThird">
           <pre>
             <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
               selector: <span class="code__string">'.cg-dropdown_categories',</span> 
@@ -160,7 +162,9 @@
           <button class="cg-dropdown cg-dropdown_usedBtn"></button>
         </div>
 
-        <code>
+        <button type="button" class="check-code" id="fourth">Посмотреть код</button>
+
+        <code id="codeFourth">
           <pre>
             <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
               selector: <span class="code__string">'.cg-dropdown_usedBtn',</span> 
@@ -208,20 +212,20 @@
       <div class="example-select">
         <h1 class="example-select_title">Функция disabled</h1>
 
-        <input type="checkbox" name="chbx" id="checkboxDisable" style="margin-bottom: 16px" />
+        <input type="checkbox" name="chbx" id="checkboxDisable" style="margin: 16px" />
         <label for="checkboxDisable">Вы согласны на обработку данных</label>
 
         <div class="layout-select">
           <button class="cg-dropdown cg-dropdown_checkboxDisable"></button>
         </div>
 
-        <code>
+        <button type="button" class="check-code" id="fifth">Посмотреть код</button>
+        <code id="codeFifth">
           <pre>
             <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
               selector: <span class="code__string">'.cg-dropdown_checkboxDisable',</span> 
               placeholder: <span class="code__string">'Выберите авто',</span> 
               lable: <span class="code__string">'EXAMPLE',</span> 
-              span.code__string 
               items: [
                 <span class="code__string">'BMW',</span>
                 {
