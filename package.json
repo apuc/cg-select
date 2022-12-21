@@ -5,7 +5,7 @@
   "author": "MaxOvs19",
   "scripts": {
     "start": "parcel src/page/index.html -p 4500 --open ",
-    "build": "parcel build ./src/page/index.html  --public-url",
+    "build": "parcel build ./src/page/index.html",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
