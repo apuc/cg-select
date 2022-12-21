@@ -309,9 +309,10 @@ export class DropDown {
 
     const elem = document.querySelector(options.selector);
 
-    if (!elem) {
-      throw new Error(`Element with selector ${options.selector}`);
-    }
+    //TODO: для теста в реакте нужно пересмотреть необходимость этой проверки!
+    // if (!elem) {
+    //   throw new Error(`Element with selector ${options.selector}`);
+    // }
 
     this.#element = elem;
 
@@ -396,8 +397,6 @@ export class DropDown {
    */
   #render(select) {
     const { styles, multiselect, searchMode, multiselectTag, darkTheme, language } = this.#options;
-    const { list, search } = styles;
-
     const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
@@ -419,6 +418,7 @@ export class DropDown {
       } else {
         intputSearch = createInputSearch(random, en.placeholder);
       }
+      const { search } = styles;
       customStylesFormat(search, intputSearch);
       ulList.appendChild(intputSearch);
     }
@@ -426,6 +426,7 @@ export class DropDown {
     ulList.classList.add('list');
 
     if (styles) {
+      const { list } = styles;
       customStylesFormat(list, ulList);
     }
 
