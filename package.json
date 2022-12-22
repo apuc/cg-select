@@ -1,6 +1,6 @@
 {
   "name": "cg-select",
-  "version": "0.1.12",
+  "version": "0.1.14",
   "description": "Select control created with JS for use in JS/React",
   "author": "MaxOvs19",
   "scripts": {
