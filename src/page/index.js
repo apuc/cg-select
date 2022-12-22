@@ -1,5 +1,5 @@
-import { DropDown } from './cg-dropdown';
-import './exemple-page';
+import { DropDown } from '../cg-select';
+import './example';
 
 // ------------------------------Обычный селект--------------------
 const dropdown = new DropDown({

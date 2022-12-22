@@ -1,37 +1,7 @@
-@import './nativSelect.scss';
-@import './scrolbar.scss';
-@import './whiteTheme.scss';
-@import './svgStyle.scss';
-@import './ExemplePage.scss';
-
-* {
-  font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-  background: #000000c4;
-}
-
-.container {
-  margin: 0 auto;
-  width: 900px;
-
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
+@import './style/nativSelect.scss';
+@import './style/scrolbar.scss';
+@import './style/svgStyle.scss';
+@import './style/whiteTheme.scss';
 
 // ----Layout----
 .cg-dropdown {
@@ -340,14 +310,25 @@ input[type='checkbox'] {
   }
 
   .list {
-    display: none !important;
+    width: 98% !important;
   }
 
-  .open {
-    display: none !important;
-  }
+  // .open {
+  //   display: none !important;
+  // }
 
   .cg-select {
-    display: none !important;
+    width: 100% !important;
+  }
+
+  .example-select {
+    &_title {
+      padding: 24px 0 0px 15px;
+      font-size: 16px;
+    }
+  }
+
+  pre {
+    overflow-x: scroll;
   }
 }

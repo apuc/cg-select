@@ -18,19 +18,19 @@
   }
 }
 
-@media (max-width: 576px) {
-  .nativSelect {
-    display: block;
-    min-width: 235px;
-    height: 50px;
+// @media (max-width: 576px) {
+//   .nativSelect {
+//     display: block;
+//     min-width: 235px;
+//     height: 50px;
 
-    border: none;
-    border-radius: 10px;
-  }
+//     border: none;
+//     border-radius: 10px;
+//   }
 
-  select[multiple='multiple'] {
-    color: black;
-    background-color: white;
-    border-radius: 0;
-  }
-}
+//   select[multiple='multiple'] {
+//     color: black;
+//     background-color: white;
+//     border-radius: 0;
+//   }
+// }

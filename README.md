@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.0.1
+## version ~ 0.1.14
 
 Этот компонент позволяет создать кастомный селект. Он предлагает более гибкую настройку и использование селекта.
 Доступна кастомизация, мультивыбор и живой поиск по елементам.
@@ -16,7 +16,9 @@
 
 ## Installation
 
-TODO: Describe the installation process
+```
+npm i cg-select
+```
 
 ## Usage
 
@@ -43,7 +45,8 @@ TODO: Describe the installation process
 ### Пример создния обычного селекта
 
 ```javascript
-import { DropDown } from './cg-dropdown';
+import { DropDown } from 'cg-select/src/cg-select';
+import 'cg-select/src/main.scss';
 
 const dropdown = new DropDown({
   selector: '.cg-dropdown_selector',
@@ -62,7 +65,7 @@ const dropdown = new DropDown({
 });
 ```
 
-## Примеры разных селектов
+## Пример разных селектов
 
 Так же рабочий пример -- https://cg-select.itguild.info/
 
@@ -73,7 +76,7 @@ const dropdown = new DropDown({
 
 Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в select.
 
-**Чтобы ознакомиться с ней, перейдите по ссылке -** https://maxovs19.github.io/cg-select/up_/documentation/index.html
+**Чтобы ознакомиться с ней, перейдите по ссылке -** https://cg-select.itguild.info/up_/up_/documentation/index.html
 
 ## Contributing
 
@@ -85,4 +88,4 @@ const dropdown = new DropDown({
 
 ## History
 
-TODO: Write history
+16.12.2022 - релиз версии 0.1.0!

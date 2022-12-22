@@ -1,10 +1,11 @@
 {
-  "name": "dropdown-list",
-  "version": "0.0.1",
-  "description": "",
+  "name": "cg-select",
+  "version": "0.1.14",
+  "description": "Select control created with JS for use in JS/React",
+  "author": "MaxOvs19",
   "scripts": {
-    "start": "parcel src/index.html -p 4500 --open ",
-    "build": "parcel build ./src/index.html  --public-url /",
+    "start": "parcel src/page/index.html -p 4500 --open ",
+    "build": "parcel build ./src/page/index.html",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
@@ -12,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/MaxOvs19/cg-select.git"
   },
-  "author": "MaxOvs19",
+
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MaxOvs19/cg-select/issues"
