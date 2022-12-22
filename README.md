@@ -45,7 +45,8 @@ npm i cg-select
 ### Пример создния обычного селекта
 
 ```javascript
-import { DropDown } from './cg-dropdown';
+import {DropDown} from 'cg-select/src/cg-select';
+import 'cg-select/src/main.scss'
 
 const dropdown = new DropDown({
   selector: '.cg-dropdown_selector',
