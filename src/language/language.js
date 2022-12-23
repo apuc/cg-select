@@ -5,7 +5,7 @@ export const ru = {
 };
 
 export const en = {
-  selectPlaceholder: 'Select...',
+  selectPlaceholder: 'Select element...',
   placeholder: 'Search...',
   textInListSearch: 'No matches...',
 };

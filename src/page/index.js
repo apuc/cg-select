@@ -1,4 +1,4 @@
-import { DropDown } from '../cg-select';
+import DropDown from '../index';
 import './example';
 
 // ------------------------------Обычный селект--------------------

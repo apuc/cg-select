@@ -4,14 +4,14 @@ import {
   getFormatItem,
   getSelectText,
   customStylesFormat,
-  nativOptionMultiple,
-  nativOptionOrdinary,
+  nativeOptionMultiple,
+  nativeOptionOrdinary,
   clearSelect,
 } from './components/utils';
 import {
   createBreadcrumb,
   createInputSearch,
-  createNativSelectOption,
+  createNativeSelectOption,
   createNativeSelect,
 } from './components/create-element';
 import { ru, en } from './language/language';
@@ -217,14 +217,14 @@ export class DropDown {
     }
 
     const select = this.#element.querySelector('.cg-select');
-    const nativSelect = this.#element.querySelector('.nativSelect');
+    const nativeSelect = this.#element.querySelector('.nativeSelect');
     if (value === true) {
       this.#element.setAttribute('disabled', true);
-      nativSelect.setAttribute('disabled', true);
+      nativeSelect.setAttribute('disabled', true);
       select.classList.add('disabled');
     } else {
       this.#element.removeAttribute('disabled');
-      nativSelect.removeAttribute('disabled');
+      nativeSelect.removeAttribute('disabled');
       select.classList.remove('disabled');
     }
   }
@@ -407,20 +407,20 @@ export class DropDown {
     }
 
     const ulList = document.createElement('ul');
-    const nativSelect = createNativeSelect();
+    const nativeSelect = createNativeSelect();
 
-    let intputSearch = '';
+    let inputSearch = '';
     this.random = random;
 
     if (searchMode) {
       if (language === 'ru') {
-        intputSearch = createInputSearch(random, ru.placeholder);
+        inputSearch = createInputSearch(random, ru.placeholder);
       } else {
-        intputSearch = createInputSearch(random, en.placeholder);
+        inputSearch = createInputSearch(random, en.placeholder);
       }
       const { search } = styles;
-      customStylesFormat(search, intputSearch);
-      ulList.appendChild(intputSearch);
+      customStylesFormat(search, inputSearch);
+      ulList.appendChild(inputSearch);
     }
 
     ulList.classList.add('list');
@@ -433,10 +433,10 @@ export class DropDown {
     this.#element.appendChild(ulList);
 
     this.#items.forEach((dataItem) => {
-      this.#element.appendChild(nativSelect);
+      this.#element.appendChild(nativeSelect);
 
       const liItem = document.createElement('li');
-      const nativOption = createNativSelectOption();
+      const nativeOption = createNativeSelectOption();
       const strongItem = document.createElement('strong');
 
       liItem.classList.add('list__item');
@@ -452,17 +452,17 @@ export class DropDown {
           checkBox.classList.add('displayHide');
         }
 
-        nativSelect.setAttribute('multiple', 'multiple');
+        nativeSelect.setAttribute('multiple', 'multiple');
       }
 
       let textNode = '';
 
       if (dataItem.title) {
-        nativOption.text = dataItem.title;
-        nativOption.value = dataItem.title;
+        nativeOption.text = dataItem.title;
+        nativeOption.value = dataItem.title;
         textNode = document.createTextNode(dataItem.title);
 
-        nativSelect.appendChild(nativOption);
+        nativeSelect.appendChild(nativeOption);
         liItem.appendChild(textNode);
         ulList.appendChild(liItem);
       } else {
@@ -538,7 +538,7 @@ export class DropDown {
     const response = await fetch(url);
     const dataUrl = await response.json();
 
-    const nativSelect = createNativeSelect();
+    const nativeSelect = createNativeSelect();
 
     dataUrl.forEach((dataItem, index) => {
       const item = {
@@ -548,7 +548,7 @@ export class DropDown {
       };
       const ulUrl = this.#element.querySelector('.list');
 
-      const nativOption = createNativSelectOption();
+      const nativeOption = createNativeSelectOption();
       const liUrl = document.createElement('li');
       const textUrl = document.createTextNode(item.title);
 
@@ -560,23 +560,23 @@ export class DropDown {
         }
 
         checkBox.setAttribute('id', `chbox-${item.id}`);
-        nativSelect.setAttribute('multiple', 'multiple');
+        nativeSelect.setAttribute('multiple', 'multiple');
 
         liUrl.appendChild(checkBox);
       }
 
       liUrl.classList.add('list__item');
-      nativOption.value = item.title;
-      nativOption.text = item.title;
+      nativeOption.value = item.title;
+      nativeOption.text = item.title;
 
-      nativSelect.appendChild(nativOption);
+      nativeSelect.appendChild(nativeOption);
       liUrl.appendChild(textUrl);
       ulUrl.appendChild(liUrl);
 
       this.#items.push(item);
     });
 
-    this.#element.appendChild(nativSelect);
+    this.#element.appendChild(nativeSelect);
 
     this.#items.filter((item, index) => {
       if (typeof item !== 'object') {
@@ -635,7 +635,7 @@ export class DropDown {
 
     const options = this.#element.querySelectorAll('.list__item');
     const select = this.#element.querySelector('.selected');
-    const nativOption = this.#element.querySelectorAll('.nativSelect__nativOption');
+    const nativeOption = this.#element.querySelectorAll('.nativeSelect__nativeOption');
 
     const ulMultipul = document.createElement('ul');
 
@@ -678,7 +678,7 @@ export class DropDown {
             }
 
             if (checkIndex === -1) {
-              nativOptionMultiple(nativOption, item.title, true);
+              nativeOptionMultiple(nativeOption, item.title, true);
               this.#indexes.push(index);
               select.innerText = '';
 
@@ -706,7 +706,7 @@ export class DropDown {
 
               this.#indexes.splice(checkIndex, 1);
               this.#selectedItems.splice(checkIndex, 1);
-              nativOptionMultiple(nativOption, item.title, false);
+              nativeOptionMultiple(nativeOption, item.title, false);
             }
 
             if (!this.#selectedItems.length) {
@@ -723,7 +723,7 @@ export class DropDown {
           select.innerText = item.title;
           this.#selectedItems = item;
 
-          nativOptionOrdinary(nativOption, item.title);
+          nativeOptionOrdinary(nativeOption, item.title);
 
           options.forEach((option) => {
             option.classList.remove('active');

@@ -1,4 +1,4 @@
-.nativSelect {
+.nativeSelect {
   border: none;
   cursor: pointer;
   display: none;
@@ -13,13 +13,13 @@
   -o-border-radius: 5px;
   margin: 0;
 
-  &__nativOption {
+  &__nativeOption {
     border: 1px #0a0b0e solid;
   }
 }
 
 // @media (max-width: 576px) {
-//   .nativSelect {
+//   .nativeSelect {
 //     display: block;
 //     min-width: 235px;
 //     height: 50px;
