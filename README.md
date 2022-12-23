@@ -91,7 +91,7 @@ const dropdown = new DropDown({
 Совместимость с приложениями |  JS  |  React  | Angular |  Vue |
 | -------------------------- | :--: | :-----: | :-----: | :--: |
 | CG-SELECT                  | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png)|
-| Комментарий                | Протестированн в Js приложениях и работает успешно.|Работает только с костылем в виде `setTimeout()` | тесты не проведены| тесты не проведены |
+| Комментарий                | Протестирован в Js приложениях и работает успешно.|Работает только с костылем в виде `setTimeout()` | тесты не проведены| тесты не проведены |
 
 ## History
 
