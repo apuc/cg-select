@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.1.14
+## version ~ 0.1.16
 
 Этот компонент позволяет создать кастомный селект. Он предлагает более гибкую настройку и использование селекта.
 Доступна кастомизация, мультивыбор и живой поиск по елементам.
@@ -45,8 +45,8 @@ npm i cg-select
 ### Пример создния обычного селекта
 
 ```javascript
-import {DropDown} from 'cg-select/src/cg-select';
-import 'cg-select/src/main.scss'
+import { DropDown } from 'cg-select/src/cg-select';
+import 'cg-select/src/main.scss';
 
 const dropdown = new DropDown({
   selector: '.cg-dropdown_selector',
@@ -88,10 +88,10 @@ const dropdown = new DropDown({
 
 ## Compatibility
 
-Совместимость с приложениями |  JS  |  React  | Angular |  Vue |
-| -------------------------- | :--: | :-----: | :-----: | :--: |
-| CG-SELECT                  | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png)|
-| Комментарий                | Протестирован в Js приложениях и работает успешно.|Работает только с костылем в виде `setTimeout()` | тесты не проведены| тесты не проведены |
+| Совместимость с приложениями |                                    JS                                    |                                                                      React                                                                       |                                 Angular                                 |                                   Vue                                   |
+| ---------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| CG-SELECT                    | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
+| Комментарий                  |            Протестирован в Js приложениях и работает успешно.            |                                                 Работает только с костылем в виде `setTimeout()`                                                 |                           тесты не проведены                            |                           тесты не проведены                            |
 
 ## History
 

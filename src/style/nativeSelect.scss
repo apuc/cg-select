@@ -20,16 +20,10 @@
 
 .nativeSelectActive {
   display: block;
-}
-
-@media (max-width: 12450px) {
-  .nativeSelect {
-    display: none;
-  }
-
-  // .cg-select {
-  //   display: flex !important;
-  // }
+  min-width: 235px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
 }
 
 @media (max-width: 576px) {

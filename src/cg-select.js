@@ -853,18 +853,19 @@ export class DropDown {
     if(nativeSelectMode === true){
       const select = this.#element.querySelector('.cg-select');
       const list = this.#element.querySelector('.list');
-      const nativeSelect = this.#element.querySelector('.nativeSelect');
+      const nativeSelect = this.#element.querySelector('.nativeSelect')
 
-
-      // if(win < 576){
-       
+      if(win < 576){
+        select.classList.add('displayHide');
+        list.classList.add('displayHide');
+        nativeSelect.classList.add('nativeSelectActive');
         
-      // } else if( win > 576){
-      //   select.classList.remove('displayHide');
-      //   list.classList.remove('displayHide');
-      //   nativeSelect.classList.remove('nativeSelectActive');
-      //   nativeSelect.classList.add('displayHide');
-      // }
+      } else if( win > 576){
+        select.classList.remove('displayHide');
+        list.classList.remove('displayHide');
+        nativeSelect.classList.remove('nativeSelectActive');
+        nativeSelect.classList.add('displayHide');
+      }
     } else{
       return
     }
