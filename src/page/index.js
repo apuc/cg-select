@@ -34,6 +34,33 @@ const dropdown = new DropDown({
 
 // dropdown.addLenguage(ger);
 
+const dropdownNativeSelect = new DropDown({
+  selector: '.cg-dropdown_selectNative',
+  placeholder: 'Выберите авто',
+  nativeSelectMode: true,
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'Ferari',
+    'Kamaz',
+    'Ural'
+  ],
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+  },
+});
+
 // ------------------------------URL--------------------
 const dropdown3 = new DropDown({
   selector: '.cg-dropdown_three',

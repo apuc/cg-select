@@ -258,8 +258,11 @@ input[type='checkbox'] {
 .label {
   color: white;
 }
+
 //-------Behavior--------
+
 .active {
+  text-align: start;
   background: #8282822c;
 }
 
@@ -270,7 +273,7 @@ input[type='checkbox'] {
   -ms-transition: 0.5s;
   -o-transition: 0.5s;
 
-  display: block;
+  display: block !important;
   opacity: 1;
 
   &_none {
@@ -289,7 +292,7 @@ input[type='checkbox'] {
 }
 
 .displayHide {
-  display: none;
+  display: none !important;
 }
 
 /*320px - 576px*/

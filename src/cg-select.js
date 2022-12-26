@@ -396,7 +396,7 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect, searchMode, multiselectTag, darkTheme, language } = this.#options;
+    const { styles, multiselect, searchMode, multiselectTag, darkTheme, language, nativeSelectMode } = this.#options;
     const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
@@ -481,6 +481,10 @@ export class DropDown {
 
     if (darkTheme == false) {
       this.#checkTheme();
+    }
+
+    if(nativeSelectMode === true){
+      this.#SelectMode(nativeSelectMode);
     }
 
     this.#list = this.#element.querySelector('.list');
@@ -834,5 +838,36 @@ export class DropDown {
         }
       }
     });
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @param {boolean} nativeSelectMode 
+   * @description Изменяет отображение селекта на мобильных устройствах
+   * @method #SelectMode
+   */
+  #SelectMode(nativeSelectMode){
+    let win = window.outerWidth;
+
+    if(nativeSelectMode === true){
+      const select = this.#element.querySelector('.cg-select');
+      const list = this.#element.querySelector('.list');
+      const nativeSelect = this.#element.querySelector('.nativeSelect');
+
+
+      // if(win < 576){
+       
+        
+      // } else if( win > 576){
+      //   select.classList.remove('displayHide');
+      //   list.classList.remove('displayHide');
+      //   nativeSelect.classList.remove('nativeSelectActive');
+      //   nativeSelect.classList.add('displayHide');
+      // }
+    } else{
+      return
+    }
+
   }
 }
