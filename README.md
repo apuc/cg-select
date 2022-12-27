@@ -86,6 +86,13 @@ const dropdown = new DropDown({
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
+## Compatibility
+
+Совместимость с приложениями |  JS  |  React  | Angular |  Vue |
+| -------------------------- | :--: | :-----: | :-----: | :--: |
+| CG-SELECT                  | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png)|
+| Комментарий                | Протестирован в Js приложениях и работает успешно.|Работает только с костылем в виде `setTimeout()` | тесты не проведены| тесты не проведены |
+
 ## History
 
 16.12.2022 - релиз версии 0.1.0!

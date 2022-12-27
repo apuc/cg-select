@@ -1,4 +1,4 @@
-import { customStylesFormat, nativOptionMultiple } from './utils';
+import { customStylesFormat, nativeOptionMultiple } from './utils';
 /**
  * @module createBreadcrumb
  */
@@ -16,7 +16,7 @@ export function createBreadcrumb(data, title, index, id) {
   const { placeholder, styles } = option;
 
   const selected = element.querySelector('.selected');
-  const nativOption = element.querySelectorAll('.nativSelect__nativOption');
+  const nativeOption = element.querySelectorAll('.nativeSelect__nativeOption');
 
   const liChip = document.createElement('li');
   const textNode = document.createTextNode(title);
@@ -44,7 +44,7 @@ export function createBreadcrumb(data, title, index, id) {
   svgIcon.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
-    nativOptionMultiple(nativOption, title, false);
+    nativeOptionMultiple(nativeOption, title, false);
 
     const deleteIcon = indexes.indexOf(index);
     let checkBox = '';
@@ -76,22 +76,22 @@ export function createBreadcrumb(data, title, index, id) {
  * @returns {HTMLSelectElement} Возвращает созданный нативный селект
  */
 export function createNativeSelect() {
-  const nativSelect = document.createElement('select');
+  const nativeSelect = document.createElement('select');
 
-  nativSelect.setAttribute('name', 'dataSelect');
-  nativSelect.classList.add('nativSelect');
-  return nativSelect;
+  nativeSelect.setAttribute('name', 'dataSelect');
+  nativeSelect.classList.add('nativeSelect');
+  return nativeSelect;
 }
 
 /**
  * Метод который создает Options для нативного селекта
  * @returns {HTMLOptionElement} Возвращает созданные Options нативного селекта
  */
-export function createNativSelectOption() {
-  const nativOption = document.createElement('option');
+export function createNativeSelectOption() {
+  const nativeOption = document.createElement('option');
 
-  nativOption.classList.add('nativSelect__nativOption');
-  return nativOption;
+  nativeOption.classList.add('nativeSelect__nativeOption');
+  return nativeOption;
 }
 
 /**
@@ -101,21 +101,21 @@ export function createNativSelectOption() {
  * @returns {HTMLInputElement} Возвращает сформированный input елемент.
  */
 export function createInputSearch(random, lenguage) {
-  const intputSearch = document.createElement('input');
+  const inputSearch = document.createElement('input');
 
-  intputSearch.type = 'text';
-  intputSearch.classList.add('inputSearch');
-  intputSearch.setAttribute('id', `searchSelect-${random}`);
+  inputSearch.type = 'text';
+  inputSearch.classList.add('inputSearch');
+  inputSearch.setAttribute('id', `searchSelect-${random}`);
 
   if (lenguage) {
-    intputSearch.setAttribute('placeholder', `${lenguage}`);
+    inputSearch.setAttribute('placeholder', `${lenguage}`);
   } else {
-    intputSearch.setAttribute('placeholder', 'Search...');
+    inputSearch.setAttribute('placeholder', 'Search...');
   }
 
-  intputSearch.addEventListener('click', (e) => {
+  inputSearch.addEventListener('click', (e) => {
     e.preventDefault();
   });
 
-  return intputSearch;
+  return inputSearch;
 }

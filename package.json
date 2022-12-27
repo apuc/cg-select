@@ -1,8 +1,12 @@
 {
   "name": "cg-select",
-  "version": "0.1.14",
-  "description": "Select control created with JS for use in JS/React",
-  "author": "MaxOvs19",
+  "version": "0.1.15",
+  "description": "Feature rich Select control for React/JS with multiselect, autocomplete and styling",
+  "author": {
+    "name": "CraftGroup",
+    "url": "https://github.com/apuc/"
+  },
+  "homepage": "https://cg-select.itguild.info",
   "scripts": {
     "start": "parcel src/page/index.html -p 4500 --open ",
     "build": "parcel build ./src/page/index.html",
@@ -11,14 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MaxOvs19/cg-select.git"
+    "url": "git+https://github.com/apuc/cg-select.git"
   },
-
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MaxOvs19/cg-select/issues"
+    "url": "https://github.com/apuc/cg-select/issues"
   },
-  "homepage": "https://cg-select.itguild.info",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
     "parcel": "^2.7.0",
@@ -27,5 +29,12 @@
   "dependencies": {
     "@parcel/optimizer-css": "^2.8.0",
     "gh-pages": "^4.0.0"
-  }
+  },
+  "keywords": [
+    "select",
+    "autocomplete",
+    "dropdown",
+    "multiselect",
+    "tag"
+  ]
 }

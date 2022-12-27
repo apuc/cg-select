@@ -134,7 +134,7 @@ export function getFormatItem(dataItem, index) {
  * @param {NodeList} element NodeList нативного селекта
  * @param {object} item выбранный элемент в кастомном селекте
  */
-export function nativOptionOrdinary(element, item) {
+export function nativeOptionOrdinary(element, item) {
   element.forEach((option) => {
     option.removeAttribute('selected');
     if (option.textContent === item) {
@@ -149,7 +149,7 @@ export function nativOptionOrdinary(element, item) {
  * @param {object} item выбранный элемент в кастомном селекте
  * @param {boolean} condition специальный флаг при котором добавляются/убераются атрибуты у нативного селекта
  */
-export function nativOptionMultiple(element, item, condition) {
+export function nativeOptionMultiple(element, item, condition) {
   element.forEach((option) => {
     if (condition == true) {
       if (option.textContent === item) {
