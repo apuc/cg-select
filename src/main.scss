@@ -2,6 +2,7 @@
 @import './style/scrollbar.scss';
 @import './style/svgStyle.scss';
 @import './style/whiteTheme.scss';
+@import './style/displayMode.scss';
 
 // ----Layout----
 .cg-dropdown {
@@ -292,7 +293,7 @@ input[type='checkbox'] {
 }
 
 .displayHide {
-  display: none;
+  display: none !important;
 }
 
 /*320px - 576px*/
@@ -302,23 +303,13 @@ input[type='checkbox'] {
     padding: 0;
   }
 
-  .container {
-    width: 90%;
-
-    .header {
-      h1 {
-        font-size: 32px;
-      }
-    }
-  }
-
   .list {
     width: 98% !important;
   }
 
-  // .open {
-  //   display: none !important;
-  // }
+  .listModal {
+    width: 88% !important;
+  }
 
   .cg-select {
     width: 100% !important;

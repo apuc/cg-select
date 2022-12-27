@@ -27,13 +27,7 @@ const dropdown = new DropDown({
   },
 });
 
-// const ger = {
-//   placeholder: 'searcH????',
-//   textInListSearch: 'None',
-// };
-
-// dropdown.addLenguage(ger);
-
+// ------------------------------NativeSelect-----------------------
 const dropdownNativeSelect = new DropDown({
   selector: '.cg-dropdown_selectNative',
   placeholder: 'Выберите авто',
@@ -50,6 +44,32 @@ const dropdownNativeSelect = new DropDown({
     'Ferari',
     'Kamaz',
     'Ural'
+  ],
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+  },
+});
+
+// ------------------------------listDisplayMode--------------------
+const dropdownlistDisplayMode = new DropDown({
+  selector: '.cg-dropdown_listDisplayMode',
+  placeholder: 'Выберите авто',
+  listDisplayMode: true,
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'Ferari',
   ],
   styles: {
     head: {
