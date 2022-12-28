@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      property="og:description"
+      content="Feature rich Select control for React/JS with multiselect, autocomplete and styling"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="cg-select" />
+    <meta property="og:url" content="https://cg-select.itguild.info" />
+    <meta property="og:image" content="/src/images/logoCG.jpg" />
+
+    <title>Cg-Select</title>
+    <link href="example.scss" rel="stylesheet" />
+  </head>
+  <body class="body-example">
+    <div class="container">
+      <header class="header">
+        <div class="header__logoBox">
+          <h1>CG-SELECT</h1>
+          <img src="/src/images/logoCG.jpg" alt="#" class="header__logo" />
+        </div>
+        <hr style="width: 55%" />
+        <nav>
+          <ul class="navlist">
+            <li><a href="">Home</a></li>
+            <li><a href="../documentation/index.html">Documentation</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+    <div class="container content">
+      <div class="example-select">
+        <h2 class="example-select_title">Дефолтный селект</h2>
+        <form method="get" class="form">
+          <div class="layout-select">
+            <button class="cg-dropdown cg-dropdown_one"></button>
+          </div>
+
+          <input type="submit" value="Отправить!" class="example-select_submit" />
+
+          <button type="button" class="check-code" id="first">Посмотреть код</button>
+          <code id="codeFirst">
+            <pre>
+              <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+                selector: <span class="code__string">'.cg-dropdown_one',</span> 
+                placeholder: <span class="code__string">'Выберите авто',</span> 
+                lable: <span class="code__string">'EXAMPLE',</span> 
+                items: [
+                  <span class="code__string">'BMW',</span>
+                  {
+                    id: <span class="code__string">'213sade',</span>
+                    title: <span class="code__string">'Opel',</span>
+                    value: 1,
+                  },
+                  <span class="code__string">'Mersedes',</span> 
+                  <span class="code__string">'MAN',</span>  
+                  <span class="code__string">'Ferari',</span> 
+                ],
+                styles: {
+                  head: {
+                    width: <span class="code__string">'830px',</span> 
+                  },
+                  list: {
+                    width: <span class="code__string">'824px',</span> 
+                  },
+                },
+              });
+            </pre>
+          </code>
+        </form>
+      </div>
+
+      <div class="example-select">
+        <h2 class="example-select_title">Дефолтный селект с функцией nativeSelectMode</h2>
+
+        <form method="get" class="form">
+          <p style="margin-left: 12px; color: white">
+            *При мобильном разрешении появляеться нативный селект.
+          </p>
+          <div class="layout-select">
+            <button class="cg-dropdown cg-dropdown_selectNative"></button>
+          </div>
+
+          <button type="button" class="check-code" id="Native">Посмотреть код</button>
+          <code id="codeNative">
+            <pre>
+              <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+                selector: <span class="code__string">'.cg-dropdown_one',</span> 
+                placeholder: <span class="code__string">'Выберите авто',</span> 
+                nativeSelectMode: <span class="code__keyword">true,</span>
+                items: [
+                  <span class="code__string">'BMW',</span>
+                  {
+                    id: <span class="code__string">'213sade',</span>
+                    title: <span class="code__string">'Opel',</span>
+                    value: 1,
+                  },
+                  <span class="code__string">'Mersedes',</span> 
+                  <span class="code__string">'MAN',</span>  
+                  <span class="code__string">'Ferari',</span> 
+                ],
+                styles: {
+                  head: {
+                    width: <span class="code__string">'830px',</span> 
+                  },
+                  list: {
+                    width: <span class="code__string">'824px',</span> 
+                  },
+                },
+              });
+            </pre>
+          </code>
+        </form>
+      </div>
+
+      <div class="example-select">
+        <h2 class="example-select_title">Дефолтный селект с функцией listDisplayMode</h2>
+
+        <form method="get" class="form">
+          <p style="margin-left: 12px; color: white">
+            *При использовании данного метода лист с выбором появляеться как модальное окно.
+          </p>
+          <div class="layout-select">
+            <button class="cg-dropdown cg-dropdown_listDisplayMode"></button>
+          </div>
+
+          <button type="button" class="check-code" id="six">Посмотреть код</button>
+
+          <code id="codeSix">
+            <pre>
+              <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+                selector: <span class="code__string">'.cg-dropdown_listDisplayMode',</span> 
+                placeholder: <span class="code__string">'Выберите авто',</span> 
+                listDisplayMode: <span class="code__keyword">true,</span>
+                items: [
+                  <span class="code__string">'BMW',</span>
+                  {
+                    id: <span class="code__string">'213sade',</span>
+                    title: <span class="code__string">'Opel',</span>
+                    value: 1,
+                  },
+                  <span class="code__string">'Mersedes',</span> 
+                  <span class="code__string">'MAN',</span>  
+                  <span class="code__string">'Ferari',</span> 
+                ],
+                styles: {
+                  head: {
+                    width: <span class="code__string">'830px',</span> 
+                  },
+                  list: {
+                    width: <span class="code__string">'824px',</span> 
+                  },
+                },
+              });
+            </pre>
+          </code>
+        </form>
+      </div>
+
+      <div class="example-select">
+        <h1 class="example-select_title">Селект с данными с URL</h1>
+        <div class="layout-select">
+          <button class="cg-dropdown cg-dropdown_three"></button>
+        </div>
+        <button type="button" class="check-code" id="second">Посмотреть код</button>
+
+        <code id="codeSecond">
+          <pre>
+            <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+              selector: <span class="code__string">'.cg-dropdown_three',</span> 
+              placeholder: <span class="code__string">'URL',</span> 
+              url: <span class="code__string">'https://jsonplaceholder.typicode.com/users',</span>            
+              searchMode: <span class="code__keyword">true,</span>
+              darkTheme: <span class="code__keyword">false,</span>
+              language: <span class="code__string">'ru',</span>
+              styles: {
+                head: {
+                  width: <span class="code__string">'830px',</span> 
+                },
+                list: {
+                  width: <span class="code__string">'824px',</span> 
+                },
+              },
+            });
+          </pre>
+        </code>
+      </div>
+
+      <div class="example-select">
+        <h1 class="example-select_title">Категории</h1>
+
+        <div class="layout-select">
+          <button class="cg-dropdown cg-dropdown_categories"></button>
+        </div>
+        <button type="button" class="check-code" id="third">Посмотреть код</button>
+
+        <code id="codeThird">
+          <pre>
+            <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+              selector: <span class="code__string">'.cg-dropdown_categories',</span> 
+              placeholder: <span class="code__string">'Выберите регион',</span> 
+              searchMode: <span class="code__keyword">true,</span>
+              items: [
+                {
+                  category: <span class="code__string">'Russia',</span>
+                  categoryItems: [
+                    {
+                      id: <span class="code__string">'28qwds',</span>
+                      title: <span class="code__string">'Москва',</span>
+                      value: 0,
+                    },
+                    <span class="code__string">'Ростов-на-дону',</span>
+                    <span class="code__string">'Саратов',</span>
+                    <span class="code__string">'Волгоград',</span>
+                    <span class="code__string">'Донецк',</span>
+                  ],
+                },
+                {
+                  category: <span class="code__string">'USA',</span>
+                  categoryItems: <span class="code__string">[
+                    'Alabama', 
+                    'Texas', 
+                    'Colorado', 
+                    'Klirens', 
+                    'Los-Angeles'],</span>
+                },
+                {
+                  category: <span class="code__string">'France',</span>
+                  categoryItems: <span class="code__string">['Paris'],</span>
+                },
+              ],
+              styles: {
+                head: {
+                  width: <span class="code__string">'830px',</span> 
+                },
+                list: {
+                  width: <span class="code__string">'824px',</span> 
+                },
+                placeholder: {
+                  maxWidth: <span class="code__string">'500px ',</span>
+                },
+              },
+              multiselect: <span class="code__keyword">true,</span>
+              multiselectTag: <span class="code__keyword">true,</span>
+            });
+          </pre>
+        </code>
+      </div>
+
+      <div class="example-select">
+        <h1 class="example-select_title">Управление с помошью кнопок</h1>
+        <div style="margin-bottom: 15px">
+          <button class="button__open example-select_submit">Open</button>
+          <button class="button__close example-select_submit">Close</button>
+        </div>
+
+        <div class="layout-select">
+          <button class="cg-dropdown cg-dropdown_usedBtn"></button>
+        </div>
+
+        <button type="button" class="check-code" id="fourth">Посмотреть код</button>
+
+        <code id="codeFourth">
+          <pre>
+            <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+              selector: <span class="code__string">'.cg-dropdown_usedBtn',</span> 
+              placeholder: <span class="code__string">'Выберите авто',</span> 
+              searchMode: <span class="code__keyword">true,</span>
+              items: [
+                  <span class="code__string">'BMW',</span>
+                  {
+                    id: <span class="code__string">'213sade',</span>
+                    title: <span class="code__string">'Opel',</span>
+                    value: 1,
+                  },
+                  <span class="code__string">'Mersedes',</span> 
+                  <span class="code__string">'MAN',</span>  
+                  <span class="code__string">'max',</span> 
+              ],
+              styles: {
+                head: {
+                  width:  <span class="code__string">'830px',</span>
+                  color:  <span class="code__string">'black',</span>
+                  backgroundColor:  <span class="code__string">'rgb(176 223 167)',</span>
+                },
+                list: {
+                  width:  <span class="code__string">'824px',</span>
+                  color:  <span class="code__string">'black',</span>
+                  backgroundColor:  <span class="code__string">'rgb(176 223 167)',</span>
+                },
+                caret: {
+                  borderTop:  <span class="code__string">'6px solid black',</span>
+                },
+                search: {
+                  backgroundColor:  <span class="code__string">'#d7ffff',</span>
+                  borderRadius:  <span class="code__string">'5px',</span>
+                  borderBottom:  <span class="code__string">'none',</span>
+                  width:  <span class="code__string">'95%',</span>
+                  color:  <span class="code__string">'black',</span>
+                },
+              },
+              multiselect: <span class="code__keyword">true,</span>
+            });
+          </pre>
+        </code>
+      </div>
+
+      <div class="example-select">
+        <h1 class="example-select_title">Функция disabled</h1>
+
+        <input type="checkbox" name="chbx" id="checkboxDisable" style="margin: 16px" />
+        <label for="checkboxDisable" style="color: white">Вы согласны на обработку данных</label>
+
+        <div class="layout-select">
+          <button class="cg-dropdown cg-dropdown_checkboxDisable"></button>
+        </div>
+
+        <button type="button" class="check-code" id="fifth">Посмотреть код</button>
+        <code id="codeFifth">
+          <pre>
+            <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+              selector: <span class="code__string">'.cg-dropdown_checkboxDisable',</span> 
+              placeholder: <span class="code__string">'Выберите авто',</span> 
+              searchMode: <span class="code__keyword">true,</span>
+              items: [
+                <span class="code__string">'BMW',</span>
+                {
+                  id: <span class="code__string">'213sade',</span>
+                  title: <span class="code__string">'Opel',</span>
+                  value: 1,
+                },
+                <span class="code__string">'Mersedes',</span> 
+                <span class="code__string">'MAN',</span>  
+                <span class="code__string">'Ferari',</span> 
+              ],
+              styles: {
+                head: {
+                  width: <span class="code__string">'830px',</span> 
+                },
+                list: {
+                  width: <span class="code__string">'824px',</span> 
+                },
+                placeholder: {
+                  maxWidth: <span class="code__string">'500px ',</span>
+                },
+              },
+            });
+          </pre>
+        </code>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="index.js"></script>
+</html>
