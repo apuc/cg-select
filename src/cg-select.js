@@ -499,7 +499,7 @@ export class DropDown {
     }
 
     if(nativeSelectMode === true){
-      this.#SelectMode(nativeSelectMode);
+      this.#selectMode(nativeSelectMode);
     }
 
 
@@ -508,7 +508,7 @@ export class DropDown {
     this.#caret = this.#element.querySelector('.caret');
 
     if(listDisplayMode === true){
-      this.#DisplayMode(listDisplayMode)
+      this.#displayMode(listDisplayMode)
     }
 
     this.#addOptionsBehaviour();
@@ -866,9 +866,9 @@ export class DropDown {
    * @protected
    * @param {boolean} nativeSelectMode параметр отвечающий за добавления нативного селекта.
    * @description Изменяет отображение селекта на мобильных устройствах
-   * @method #SelectMode
+   * @method #selectMode
    */
-  #SelectMode(nativeSelectMode){
+  #selectMode(nativeSelectMode){
     let win = window.outerWidth;
 
     if(nativeSelectMode === true){
@@ -897,10 +897,9 @@ export class DropDown {
    * @protected
    * @param {boolean} listDisplayMode параметр отвечающий за отображение выбора в виде модального окна.
    * @description Изменяет отображение листа с выбором в виде модального окна.
-   * @method #DisplayMode
-   * @returns 
+   * @method #displayMode
    */
-  #DisplayMode(listDisplayMode){
+  #displayMode(listDisplayMode){
     if(listDisplayMode === true){
       const modal = document.createElement('div');
       const body = document.querySelector('body')
@@ -914,7 +913,6 @@ export class DropDown {
         list.classList.toggle('listModal');
         body.classList.toggle('overflowHide')
       });
-
     } else{
       return
     }
