@@ -1,15 +1,16 @@
 {
   "name": "cg-select",
-  "version": "0.1.15",
+  "version": "0.1.17",
   "description": "Feature rich Select control for React/JS with multiselect, autocomplete and styling",
   "author": {
     "name": "CraftGroup",
     "url": "https://github.com/apuc/"
   },
   "homepage": "https://cg-select.itguild.info",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "parcel src/page/index.html -p 4500 --open ",
-    "build": "parcel build ./src/page/index.html",
+    "start": "parcel example/index.html -p 4500 --open ",
+    "build": "parcel build index.js",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
+    "jsdoc": "^4.0.0",
     "parcel": "^2.7.0",
     "prettier": "^2.7.1"
   },

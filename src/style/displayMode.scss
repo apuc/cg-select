@@ -1,0 +1,24 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.45);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+
+  &_active {
+    display: flex;
+  }
+}
+
+.listModal {
+  position: fixed !important;
+  top: 150px;
+}
+
+.overflowHide {
+  overflow: hidden;
+}

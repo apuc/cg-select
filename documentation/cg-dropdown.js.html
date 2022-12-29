@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>JSDoc: Source: cg-dropdown.js</title>
+    <title>JSDoc: Source: cg-select.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -15,7 +15,7 @@
 
   <body>
     <div id="main">
-      <h1 class="page-title">Source: cg-dropdown.js</h1>
+      <h1 class="page-title">Source: cg-select.js</h1>
 
       <section>
         <article>
@@ -40,7 +40,7 @@
           /**
            * @class Описание класса DropDown
            * @description Этот класс реализовывает функционал кастомного селекта, с возможностями кастомизации.
-           *@author Овсяников Максим
+           * @author Овсяников Максим
            */
           export class DropDown {
             /**
@@ -116,7 +116,9 @@
                 darkTheme: true/false,
                 searchMode: true/false,
                 closeOnSelect:  true/false,
-                lenguage: 'ru/en',
+                nativeSelectMode: true/false,
+                listDisplayMode: true/false,
+                language: 'ru/en',
                 styles: {
                   head: {
                     background: '...',
@@ -238,11 +240,14 @@
               }
           
               const select = this.#element.querySelector('.cg-select');
+              const nativeSelect = this.#element.querySelector('.nativeSelect');
               if (value === true) {
                 this.#element.setAttribute('disabled', true);
+                nativeSelect.setAttribute('disabled', true);
                 select.classList.add('disabled');
               } else {
                 this.#element.removeAttribute('disabled');
+                nativeSelect.removeAttribute('disabled');
                 select.classList.remove('disabled');
               }
             }
@@ -255,11 +260,18 @@
              * @method buttonControl
              */
             buttonControl(button, method) {
+              const {listDisplayMode} = this.#options;
+          
+          
+              if(listDisplayMode === true){
+                return
+              }
+          
               this.btn = button;
               button.addEventListener('click', () => {
-                if (method === 'open') {
+                if (method.toLowerCase() === 'open') {
                   this.#open(true);
-                } else if (method === 'close') {
+                } else if (method.toLowerCase() === 'close') {
                   this.#close();
                 } else {
                   return;
@@ -269,13 +281,17 @@
           
             /**
              * Метод экземпляра класса DropDown
-             * @param {object} lenguage объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
+             * @param {object} language объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
              * @description метод позволяющий заменить плейсхолдер в поиске и текст который выводится если нет результата
-             * @method addLenguage
+             * @method addLanguage
              */
-            addLenguage(lenguage) {
-              const { placeholder, textInListSearch } = lenguage;
+            addLanguage(language) {
+              const { placeholder, textInListSearch, selectPlaceholder } = language;
               const { searchMode } = this.#options;
+          
+              const select = this.#element.querySelector('.selected');
+              const textNodeSelect = document.createTextNode(selectPlaceholder);
+              select.appendChild(textNodeSelect);
           
               if (searchMode &amp;&amp; searchMode == true) {
                 const search = this.#element.querySelector('.inputSearch');
@@ -323,9 +339,10 @@
           
               const elem = document.querySelector(options.selector);
           
-              if (!elem) {
-                throw new Error(`Element with selector ${options.selector}`);
-              }
+              //TODO: для теста в реакте нужно пересмотреть необходимость этой проверки!
+              // if (!elem) {
+              //   throw new Error(`Element with selector ${options.selector}`);
+              // }
           
               this.#element = elem;
           
@@ -368,14 +385,18 @@
              * @protected
              */
             #initSelected(select) {
-              const { styles, selected, placeholder, lable } = this.#options;
+              const { styles, selected, placeholder, lable, language } = this.#options;
           
               if (selected) {
                 createSelected(this.#element, selected);
               } else if (placeholder) {
                 createSelected(this.#element, placeholder);
               } else {
-                createSelected(this.#element, 'Select...');
+                if (language &amp;&amp; language === 'ru') {
+                  createSelected(this.#element, ru.selectPlaceholder);
+                } else {
+                  createSelected(this.#element, en.selectPlaceholder);
+                }
               }
           
               if (select) {
@@ -405,7 +426,13 @@
              * @description Рендер елементов в селекте.
              */
             #render(select) {
-              const { styles, multiselect, searchMode, multiselectTag, darkTheme, lenguage } = this.#options;
+              const { 
+                styles, multiselect, 
+                searchMode, multiselectTag, 
+                darkTheme, language, 
+                nativeSelectMode, listDisplayMode 
+              } = this.#options;
+          
               const random = Math.random().toString(36).substring(2, 10);
           
               if (select || (select &amp;&amp; styles)) {
@@ -422,12 +449,13 @@
               this.random = random;
           
               if (searchMode) {
-                if (lenguage === 'ru') {
+                if (language === 'ru') {
                   inputSearch = createInputSearch(random, ru.placeholder);
                 } else {
                   inputSearch = createInputSearch(random, en.placeholder);
                 }
-          
+                const { search } = styles;
+                customStylesFormat(search, inputSearch);
                 ulList.appendChild(inputSearch);
               }
           
@@ -491,8 +519,18 @@
                 this.#checkTheme();
               }
           
+              if(nativeSelectMode === true){
+                this.#selectMode(nativeSelectMode);
+              }
+          
+          
+          
               this.#list = this.#element.querySelector('.list');
               this.#caret = this.#element.querySelector('.caret');
+          
+              if(listDisplayMode === true){
+                this.#displayMode(listDisplayMode)
+              }
           
               this.#addOptionsBehaviour();
             }
@@ -751,14 +789,14 @@
              * @method #searchMode
              */
             #searchMode(random) {
-              const { lenguage } = this.#options;
+              const { language } = this.#options;
           
               const input = this.#element.querySelector(`#searchSelect-${random}`);
               const searchSelect = this.#element.querySelectorAll('.list__item');
               const result = document.createElement('p');
           
               let textNode = '';
-              if (lenguage === 'ru') {
+              if (language &amp;&amp; language === 'ru') {
                 textNode = document.createTextNode(`${ru.textInListSearch}`);
               } else {
                 textNode = document.createTextNode(`${en.textInListSearch}`);
@@ -774,17 +812,22 @@
               });
           
               input.oninput = function () {
-                let val = this.value.trim();
+                let valueSearch = this.value.trim().toLowerCase();
+                let anyMatch = false;
           
-                if (val != '') {
+                if (valueSearch != '') {
                   searchSelect.forEach((elem) => {
-                    if (elem.innerText.search(val) == -1) {
+                    let isMatching = new RegExp(valueSearch, 'gi').test(elem.textContent);
+                    anyMatch = anyMatch || isMatching;
+          
+                    if (elem.textContent.toLowerCase().search(valueSearch) == -1) {
                       elem.classList.add('displayHide');
-                      result.classList.remove('displayHide');
                     } else {
                       elem.classList.remove('displayHide');
                     }
                   });
+          
+                  result.classList.toggle('displayHide', anyMatch);
                 } else {
                   searchSelect.forEach((elem) => {
                     elem.classList.remove('displayHide');
@@ -838,6 +881,64 @@
                 }
               });
             }
+          
+            /**
+             * Приватный метод экземпляра класса DropDown
+             * @protected
+             * @param {boolean} nativeSelectMode параметр отвечающий за добавления нативного селекта.
+             * @description Изменяет отображение селекта на мобильных устройствах
+             * @method #selectMode
+             */
+            #selectMode(nativeSelectMode){
+              let win = window.outerWidth;
+          
+              if(nativeSelectMode === true){
+                const select = this.#element.querySelector('.cg-select');
+                const list = this.#element.querySelector('.list');
+                const nativeSelect = this.#element.querySelector('.nativeSelect')
+          
+                if(win &lt; 576){
+                  select.classList.add('displayHide');
+                  list.classList.add('displayHide');
+                  nativeSelect.classList.add('nativeSelectActive');       
+                } else if( win > 576){
+                  select.classList.remove('displayHide');
+                  list.classList.remove('displayHide');
+                  nativeSelect.classList.remove('nativeSelectActive');
+                  nativeSelect.classList.add('displayHide');
+                }
+              } else{
+                return
+              }
+          
+            }
+          
+            /**
+             * Приватный метод экземпляра класса DropDown
+             * @protected
+             * @param {boolean} listDisplayMode параметр отвечающий за отображение выбора в виде модального окна.
+             * @description Изменяет отображение листа с выбором в виде модального окна.
+             * @method #displayMode
+             */
+            #displayMode(listDisplayMode){
+              if(listDisplayMode === true){
+                const modal = document.createElement('div');
+                const body = document.querySelector('body')
+                const list = this.#list;
+            
+                modal.appendChild(list);
+                this.#element.appendChild(modal);
+          
+                this.#element.addEventListener('click', () => {
+                  modal.classList.toggle('modal');
+                  list.classList.toggle('listModal');
+                  body.classList.toggle('overflowHide')
+                });
+              } else{
+                return
+              }
+          
+            }
           }
 </code></pre>
         </article>
@@ -850,10 +951,7 @@
       <ul>
         <li><a href="DropDown.html">DropDown</a></li>
         <li>
-          <a
-            href="%25D0%259A%25D0%25BE%25D0%25BD%25D1%2581%25D1%2582%25D1%2580%25D1%2583%25D0%25BA%25D1%2582%25D0%25BE%25D1%2580%2520%25D0%25BA%25D0%25BB%25D0%25B0%25D1%2581%25D1%2581%25D0%25B0%2520DropDown.html"
-            >Конструктор класса DropDown</a
-          >
+          <a href="constructor.html">Конструктор класса DropDown</a>
         </li>
       </ul>
       <h3>Modules</h3>
@@ -874,10 +972,12 @@
         <li><a href="global.html#render">#render</a></li>
         <li><a href="global.html#renderUrl">#renderUrl</a></li>
         <li><a href="global.html#searchMode">#searchMode</a></li>
+        <li><a href="global.html#displayMode">#displayMode</a></li>
+        <li><a href="global.html#selectMode">#selectMode</a></li>
       </ul>
       <h3>Public methods</h3>
       <ul>
-        <li><a href="global.html#addLenguage">addLenguage</a></li>
+        <li><a href="global.html#addLanguage">addLanguage</a></li>
         <li><a href="global.html#addItem">addItem</a></li>
         <li><a href="global.html#buttonControl">buttonControl</a></li>
         <li><a href="global.html#deleteItem">deleteItem</a></li>

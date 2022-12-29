@@ -95,6 +95,8 @@ export class DropDown {
       darkTheme: true/false,
       searchMode: true/false,
       closeOnSelect:  true/false,
+      nativeSelectMode: true/false,
+      listDisplayMode: true/false,
       language: 'ru/en',
       styles: {
         head: {
@@ -237,11 +239,18 @@ export class DropDown {
    * @method buttonControl
    */
   buttonControl(button, method) {
+    const {listDisplayMode} = this.#options;
+
+
+    if(listDisplayMode === true){
+      return
+    }
+
     this.btn = button;
     button.addEventListener('click', () => {
-      if (method === 'open') {
+      if (method.toLowerCase() === 'open') {
         this.#open(true);
-      } else if (method === 'close') {
+      } else if (method.toLowerCase() === 'close') {
         this.#close();
       } else {
         return;
@@ -396,7 +405,13 @@ export class DropDown {
    * @description Рендер елементов в селекте.
    */
   #render(select) {
-    const { styles, multiselect, searchMode, multiselectTag, darkTheme, language } = this.#options;
+    const { 
+      styles, multiselect, 
+      searchMode, multiselectTag, 
+      darkTheme, language, 
+      nativeSelectMode, listDisplayMode 
+    } = this.#options;
+
     const random = Math.random().toString(36).substring(2, 10);
 
     if (select || (select && styles)) {
@@ -483,8 +498,18 @@ export class DropDown {
       this.#checkTheme();
     }
 
+    if(nativeSelectMode === true){
+      this.#selectMode(nativeSelectMode);
+    }
+
+
+
     this.#list = this.#element.querySelector('.list');
     this.#caret = this.#element.querySelector('.caret');
+
+    if(listDisplayMode === true){
+      this.#displayMode(listDisplayMode)
+    }
 
     this.#addOptionsBehaviour();
   }
@@ -834,5 +859,63 @@ export class DropDown {
         }
       }
     });
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @param {boolean} nativeSelectMode параметр отвечающий за добавления нативного селекта.
+   * @description Изменяет отображение селекта на мобильных устройствах
+   * @method #selectMode
+   */
+  #selectMode(nativeSelectMode){
+    let win = window.outerWidth;
+
+    if(nativeSelectMode === true){
+      const select = this.#element.querySelector('.cg-select');
+      const list = this.#element.querySelector('.list');
+      const nativeSelect = this.#element.querySelector('.nativeSelect')
+
+      if(win < 576){
+        select.classList.add('displayHide');
+        list.classList.add('displayHide');
+        nativeSelect.classList.add('nativeSelectActive');       
+      } else if( win > 576){
+        select.classList.remove('displayHide');
+        list.classList.remove('displayHide');
+        nativeSelect.classList.remove('nativeSelectActive');
+        nativeSelect.classList.add('displayHide');
+      }
+    } else{
+      return
+    }
+
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @param {boolean} listDisplayMode параметр отвечающий за отображение выбора в виде модального окна.
+   * @description Изменяет отображение листа с выбором в виде модального окна.
+   * @method #displayMode
+   */
+  #displayMode(listDisplayMode){
+    if(listDisplayMode === true){
+      const modal = document.createElement('div');
+      const body = document.querySelector('body')
+      const list = this.#list;
+  
+      modal.appendChild(list);
+      this.#element.appendChild(modal);
+
+      this.#element.addEventListener('click', () => {
+        modal.classList.toggle('modal');
+        list.classList.toggle('listModal');
+        body.classList.toggle('overflowHide')
+      });
+    } else{
+      return
+    }
+
   }
 }
