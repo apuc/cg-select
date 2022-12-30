@@ -7,7 +7,6 @@
     "url": "https://github.com/apuc/"
   },
   "homepage": "https://cg-select.itguild.info",
-  "main": "dist/index.js",
   "scripts": {
     "start": "parcel example/index.html -p 4500 --open ",
     "build": "parcel build index.js",
