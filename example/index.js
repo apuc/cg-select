@@ -27,12 +27,59 @@ const dropdown = new DropDown({
   },
 });
 
-// const ger = {
-//   placeholder: 'searcH????',
-//   textInListSearch: 'None',
-// };
+// ------------------------------NativeSelect-----------------------
+const dropdownNativeSelect = new DropDown({
+  selector: '.cg-dropdown_selectNative',
+  placeholder: 'Выберите авто',
+  nativeSelectMode: true,
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'Ferari',
+    'Kamaz',
+    'Ural'
+  ],
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+  },
+});
 
-// dropdown.addLenguage(ger);
+// ------------------------------listDisplayMode--------------------
+const dropdownlistDisplayMode = new DropDown({
+  selector: '.cg-dropdown_listDisplayMode',
+  placeholder: 'Выберите авто',
+  listDisplayMode: true,
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'Ferari',
+  ],
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+  },
+});
 
 // ------------------------------URL--------------------
 const dropdown3 = new DropDown({

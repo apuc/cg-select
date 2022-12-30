@@ -87,7 +87,6 @@
 
 .content {
   margin-top: 15px;
-  // background-color: #6b6d76;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -112,7 +111,6 @@
     font-size: 20px;
   }
   &_submit {
-    //background-color: #2a2f3b;
     width: 200px;
     height: 35px;
     border-radius: 10px;
@@ -192,4 +190,22 @@ pre {
 
 .active {
   display: block;
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 95%;
+  }
+
+  .header {
+    margin-top: 15px;
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  .example-select_title {
+    font-size: 14px;
+    height: 40px;
+  }
 }

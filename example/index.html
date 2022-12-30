@@ -4,8 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      property="og:description"
+      content="Feature rich Select control for React/JS with multiselect, autocomplete and styling"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="cg-select" />
+    <meta property="og:url" content="https://cg-select.itguild.info" />
+    <meta property="og:image" content="/src/images/logoCG.jpg" />
+
     <title>Cg-Select</title>
-    <link href="/src/page/example.scss" rel="stylesheet" />
+    <link href="example.scss" rel="stylesheet" />
   </head>
   <body class="body-example">
     <div class="container">
@@ -41,6 +50,93 @@
                 selector: <span class="code__string">'.cg-dropdown_one',</span> 
                 placeholder: <span class="code__string">'Выберите авто',</span> 
                 lable: <span class="code__string">'EXAMPLE',</span> 
+                items: [
+                  <span class="code__string">'BMW',</span>
+                  {
+                    id: <span class="code__string">'213sade',</span>
+                    title: <span class="code__string">'Opel',</span>
+                    value: 1,
+                  },
+                  <span class="code__string">'Mersedes',</span> 
+                  <span class="code__string">'MAN',</span>  
+                  <span class="code__string">'Ferari',</span> 
+                ],
+                styles: {
+                  head: {
+                    width: <span class="code__string">'830px',</span> 
+                  },
+                  list: {
+                    width: <span class="code__string">'824px',</span> 
+                  },
+                },
+              });
+            </pre>
+          </code>
+        </form>
+      </div>
+
+      <div class="example-select">
+        <h2 class="example-select_title">Дефолтный селект с функцией nativeSelectMode</h2>
+
+        <form method="get" class="form">
+          <p style="margin-left: 12px; color: white">
+            *При мобильном разрешении появляеться нативный селект.
+          </p>
+          <div class="layout-select">
+            <button class="cg-dropdown cg-dropdown_selectNative"></button>
+          </div>
+
+          <button type="button" class="check-code" id="Native">Посмотреть код</button>
+          <code id="codeNative">
+            <pre>
+              <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+                selector: <span class="code__string">'.cg-dropdown_one',</span> 
+                placeholder: <span class="code__string">'Выберите авто',</span> 
+                nativeSelectMode: <span class="code__keyword">true,</span>
+                items: [
+                  <span class="code__string">'BMW',</span>
+                  {
+                    id: <span class="code__string">'213sade',</span>
+                    title: <span class="code__string">'Opel',</span>
+                    value: 1,
+                  },
+                  <span class="code__string">'Mersedes',</span> 
+                  <span class="code__string">'MAN',</span>  
+                  <span class="code__string">'Ferari',</span> 
+                ],
+                styles: {
+                  head: {
+                    width: <span class="code__string">'830px',</span> 
+                  },
+                  list: {
+                    width: <span class="code__string">'824px',</span> 
+                  },
+                },
+              });
+            </pre>
+          </code>
+        </form>
+      </div>
+
+      <div class="example-select">
+        <h2 class="example-select_title">Дефолтный селект с функцией listDisplayMode</h2>
+
+        <form method="get" class="form">
+          <p style="margin-left: 12px; color: white">
+            *При использовании данного метода лист с выбором появляеться как модальное окно.
+          </p>
+          <div class="layout-select">
+            <button class="cg-dropdown cg-dropdown_listDisplayMode"></button>
+          </div>
+
+          <button type="button" class="check-code" id="six">Посмотреть код</button>
+
+          <code id="codeSix">
+            <pre>
+              <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">DropDown</span>({
+                selector: <span class="code__string">'.cg-dropdown_listDisplayMode',</span> 
+                placeholder: <span class="code__string">'Выберите авто',</span> 
+                listDisplayMode: <span class="code__keyword">true,</span>
                 items: [
                   <span class="code__string">'BMW',</span>
                   {
@@ -218,7 +314,7 @@
         <h1 class="example-select_title">Функция disabled</h1>
 
         <input type="checkbox" name="chbx" id="checkboxDisable" style="margin: 16px" />
-        <label for="checkboxDisable">Вы согласны на обработку данных</label>
+        <label for="checkboxDisable" style="color: white">Вы согласны на обработку данных</label>
 
         <div class="layout-select">
           <button class="cg-dropdown cg-dropdown_checkboxDisable"></button>

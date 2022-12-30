@@ -13,6 +13,14 @@ const codeFourth = document.getElementById('codeFourth');
 const fifthBtn = document.getElementById('fifth');
 const codeFifth = document.getElementById('codeFifth');
 
+const six = document.getElementById('six')
+const codeSix = document.getElementById('codeSix');
+
+
+const Native = document.getElementById('Native')
+const codeNative = document.getElementById('codeNative')
+
+
 firstBtn.addEventListener('click', () => {
     codeFirst.classList.toggle("active")
 })
@@ -31,4 +39,12 @@ fourthBtn.addEventListener('click', () => {
 
 fifthBtn.addEventListener('click', () => {
     codeFifth.classList.toggle("active")
+})
+
+six.addEventListener('click', () => {
+    codeSix.classList.toggle("active")
+})
+
+Native.addEventListener('click', () => {
+    codeNative.classList.toggle("active")
 })

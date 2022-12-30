@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.1.14
+## version ~ 0.1.171
 
 Этот компонент позволяет создать кастомный селект. Он предлагает более гибкую настройку и использование селекта.
 Доступна кастомизация, мультивыбор и живой поиск по елементам.
@@ -74,9 +74,9 @@ const dropdown = new DropDown({
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
 
-Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в select.
+Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в select. Так же её можно открыть на странице с примером, или перейти по ссылке ниже.
 
-**Чтобы ознакомиться с ней, перейдите по ссылке -** https://cg-select.itguild.info/up_/up_/documentation/index.html
+**Чтобы ознакомиться с ней, перейдите по ссылке -** https://cg-select.itguild.info/up_/documentation/index.html
 
 ## Contributing
 
@@ -88,10 +88,10 @@ const dropdown = new DropDown({
 
 ## Compatibility
 
-Совместимость с приложениями |  JS  |  React  | Angular |  Vue |
-| -------------------------- | :--: | :-----: | :-----: | :--: |
-| CG-SELECT                  | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |  ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png)|
-| Комментарий                | Протестирован в Js приложениях и работает успешно.|Работает только с костылем в виде `setTimeout()` | тесты не проведены| тесты не проведены |
+| Совместимость с приложениями |                                    JS                                    |                                                                      React                                                                       |                                 Angular                                 |                                   Vue                                   |
+| ---------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| CG-SELECT                    | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
+| Комментарий                  |            Протестирован в Js приложениях и работает успешно.            |                                                 Работает только с костылем в виде `setTimeout()`                                                 |                             пока недоступно                             |                           тесты не проведены                            |
 
 ## History
 
