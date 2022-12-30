@@ -15,6 +15,7 @@ import {
   createNativeSelect,
 } from './components/create-element';
 import { ru, en } from './language/language';
+import './main.scss'
 
 /**
  * @class Описание класса DropDown
