@@ -1,6 +1,6 @@
 {
   "name": "cg-select",
-  "version": "0.1.171",
+  "version": "0.2.1",
   "description": "Feature rich Select control for React/JS with multiselect, autocomplete and styling",
   "author": {
     "name": "CraftGroup",
@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "@parcel/optimizer-css": "^2.8.0",
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^4.0.0",
+    "typescript": "^4.9.4"
   },
   "keywords": [
     "select",

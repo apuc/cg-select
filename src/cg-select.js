@@ -92,6 +92,7 @@ export class DropDown {
    *  selector: 'Уникальный селектор',
       selected: 'Выбранный элемент',
       placeholder: '...',
+      lable: '...'
       items: [string|number|object],
       darkTheme: true/false,
       searchMode: true/false,
@@ -919,3 +920,4 @@ export class DropDown {
     }
   }
 }
+

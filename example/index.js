@@ -2,30 +2,30 @@ import DropDown from '../index';
 import './example';
 
 // ------------------------------Обычный селект--------------------
-const dropdown = new DropDown({
-  selector: '.cg-dropdown_one',
-  placeholder: 'Выберите авто',
-  lable: 'EXAMPLE',
-  items: [
-    'BMW',
-    {
-      id: '213sade',
-      title: 'Opel',
-      value: 1,
-    },
-    'Mersedes',
-    'MAN',
-    'Ferari',
-  ],
-  styles: {
-    head: {
-      width: '830px',
-    },
-    list: {
-      width: '824px',
-    },
-  },
-});
+// const dropdown = new DropDown({
+//   selector: '.cg-dropdown_one',
+//   placeholder: 'Выберите авто',
+//   lable: 'EXAMPLE',
+//   items: [
+//     'BMW',
+//     {
+//       id: '213sade',
+//       title: 'Opel',
+//       value: 1,
+//     },
+//     'Mersedes',
+//     'MAN',
+//     'Ferari',
+//   ],
+//   styles: {
+//     head: {
+//       width: '830px',
+//     },
+//     list: {
+//       width: '824px',
+//     },
+//   },
+// });
 
 // ------------------------------NativeSelect-----------------------
 const dropdownNativeSelect = new DropDown({
