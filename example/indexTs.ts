@@ -3,7 +3,6 @@ import { SGSelect } from "../src/cg-selectTS";
 const dropdn = new SGSelect({
     selector: '.cg-dropdown_one',
     placeholder: 'Выберите авто',
-    // lable: 'EXAMPLE',
     items: [
       'BMW',
       {

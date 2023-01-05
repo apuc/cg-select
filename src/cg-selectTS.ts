@@ -1,3 +1,5 @@
+import { IDataItem } from './components/utils/urils.interface';
+import { createSelected, getFormatItem } from './components/utils/utilsTs';
 import { ISgSelect } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
 import './main.scss';
@@ -22,7 +24,7 @@ export class SGSelect implements ISgSelect {
 
   private element: Element | null;
   private list: HTMLElement;
-  private options: object;
+  private options: ISgSelect;
   private caret: HTMLElement;
   private category: string;
   private selectedItems: object[] | object;
@@ -31,17 +33,23 @@ export class SGSelect implements ISgSelect {
 
   constructor(setting: ISgSelect) {
     this.init(setting);
+    this.render();
   }
 
   private init(setting: ISgSelect): void {
     const { items, multiselect, url, selector} = setting;
+
     this.options = setting;
+
+    
 
     const elem = document.querySelector(selector);
     this.element = elem;
 
     this.element?.addEventListener('click', (e) => {
       e.preventDefault();
+      console.log('click');
+      
     });
 
     this.itemsSelect = [];
@@ -55,11 +63,45 @@ export class SGSelect implements ISgSelect {
         return;
     }
 
-    items.forEach((dataItem, index) => {
-        this.itemsSelect.push()
+    items.forEach((dataItem:IDataItem, index:number) => {
+        this.itemsSelect.push(getFormatItem(dataItem, index))
     })
   }
 
-  private render() {}
+  private render() {
+    const {
+      styles,
+      multiselect,
+      searchMode,
+      multiselectTag,
+      darkTheme,
+      language,
+      nativeSelectMode,
+      listDisplayMode,
+    } = this.options;
+
+    const random = Math.random().toString(36).substring(2, 10);
+
+    this.initSelected()
+
+  }
+
   private renderUrl() {}
+
+
+  private initSelected(){
+    const { styles, selected, placeholder, lable, language } = this.options;
+
+    if (selected) {
+      createSelected(this.element, selected);
+    } else if (placeholder) {
+      createSelected(this.element, placeholder);
+    } else {
+      // if (language && language === 'ru') {
+      //   createSelected(this.#element, ru.selectPlaceholder);
+      // } else {
+      //   createSelected(this.#element, en.selectPlaceholder);
+      // }
+    }
+  }
 }
