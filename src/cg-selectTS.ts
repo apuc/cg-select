@@ -39,11 +39,12 @@ export class SGSelect implements ISgSelect {
   constructor(setting: ISgSelect) {
     this.init(setting);
     this.render();
+    this.closeSelectClick();
   }
 
   /**
    * Приватный метод инициализации экземпляра класса DropDown
-   * @method #init
+   * @method init
    * @member
    * @protected
    * @param {ISgSelect} setting передаваемые настройки селекта
@@ -104,7 +105,7 @@ export class SGSelect implements ISgSelect {
   /**
    * Приватный метод рендера экземпляра класса DropDown
    *@protected
-   * @method #render
+   * @method render
    * @param {string} select  необязательный елемент. Передаеться в метод initSelected
    * @description Рендер елементов в селекте.
    */
@@ -178,7 +179,7 @@ export class SGSelect implements ISgSelect {
     this.list = this.element?.querySelector('.list');
     this.caret = this.element?.querySelector('.caret');
 
-    // this.#addOptionsBehaviour();
+    this.addOptionsBehaviour();
   }
 
   private renderUrl() {}
@@ -186,7 +187,7 @@ export class SGSelect implements ISgSelect {
   /**
    * Привaтный метод экземпляра класса DropDown
    *
-   * @method #initSelected
+   * @method initSelected
    * @param {string} select необязательный елемент. Используется в методе selectIndex
    * @description Отрисовывает и стилизует селект
    * @protected
@@ -212,7 +213,7 @@ export class SGSelect implements ISgSelect {
    * @protected
    * @param {boolean} oneClick необязательный параметр передаваемый из функции buttonControl
    * @description Открывает список для выбора элемента
-   * @method #open
+   * @method open
    */
   private open(oneClick?: boolean): void {
     if (oneClick === true) {
@@ -224,5 +225,76 @@ export class SGSelect implements ISgSelect {
     }
   }
 
-  private addOptionsBehaviour() {}
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @description Закрывает список
+   * @method #close
+   */
+  private close() {
+    this.list?.classList.remove('open');
+    this.caret?.classList.remove('caret_rotate');
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @description Закрывает список по клику вне элемента
+   * @method #closeSelectClick
+   */
+  private closeSelectClick() {
+    const dropdown = document.querySelector(`${this.options.selector}`);
+
+    document.addEventListener('click', (e) => {
+      const withinBoundaries = e.composedPath().includes(dropdown!);
+      if (!withinBoundaries) {
+        // if (this.btn) {
+        //   return;
+        // } else {
+        //   this.#close();
+        // }
+        this.close();
+      }
+    });
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @description Метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + Мультиселект Таг.
+   * @method addOptionsBehaviour
+   */
+  private addOptionsBehaviour() {
+    const {
+      multiselect,
+      placeholder,
+      selected,
+      multiselectTag,
+      searchMode,
+      closeOnSelect,
+      darkTheme,
+    } = this.options;
+
+    const options = this.element?.querySelectorAll('.list__item');
+    const select = this.element?.querySelector('.selected');
+    const nativeOption = this.element?.querySelectorAll('.nativeSelect__nativeOption');
+
+    const ulMultipul = document.createElement('ul');
+
+    if (multiselect && multiselect == true) {
+      ulMultipul.classList.add('multiselect-tag');
+      select?.classList.add('overflow-hidden');
+    }
+
+    options?.forEach((option: Element, index: number) => {
+      option.addEventListener('click', (event) => {
+        const item = this.itemsSelect[index];
+        const checkIndex = this.indexes.indexOf(index);
+
+        select!.textContent = item.title;
+        this.selectedItems = item;
+        console.log(this.selectedItems);
+      });
+    });
+  }
 }
