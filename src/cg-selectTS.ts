@@ -4,11 +4,11 @@ import {
 } from './components/create-element/create-elementTs';
 import { IDataItem } from './components/utils/urils.interface';
 import { createSelected, getFormatItem } from './components/utils/utilsTs';
-import { ISgSelect } from './interfaces/cg-select.interface';
+import { ICgSelect } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
 import './main.scss';
 
-export class SGSelect implements ISgSelect {
+export class CGSelect implements ICgSelect {
   selector: string;
   selected?: string;
   placeholder?: string;
@@ -28,7 +28,7 @@ export class SGSelect implements ISgSelect {
 
   private element: Element | null;
   private list: Element | null | undefined;
-  private options: ISgSelect;
+  private options: ICgSelect;
   private randomId: string;
   private caret: Element | null | undefined;
   private category: string;
@@ -36,7 +36,7 @@ export class SGSelect implements ISgSelect {
   private itemsSelect: IItems[] | string[] | any;
   private indexes: number[] = [];
 
-  constructor(setting: ISgSelect) {
+  constructor(setting: ICgSelect) {
     this.init(setting);
     this.render();
     this.closeSelectClick();
@@ -69,7 +69,7 @@ export class SGSelect implements ISgSelect {
         multiselectTag: true,
       }
    */
-  private init(setting: ISgSelect): void {
+  private init(setting: ICgSelect): void {
     const { items, multiselect, url, selector } = setting;
 
     this.options = setting;
@@ -240,7 +240,7 @@ export class SGSelect implements ISgSelect {
    * Приватный метод экземпляра класса DropDown
    * @protected
    * @description Закрывает список по клику вне элемента
-   * @method #closeSelectClick
+   * @method closeSelectClick
    */
   private closeSelectClick() {
     const dropdown = document.querySelector(`${this.options.selector}`);
