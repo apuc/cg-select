@@ -3,7 +3,7 @@ import {
   createNativeSelectOption,
 } from './components/create-element/create-elementTs';
 import { IDataItem } from './components/utils/urils.interface';
-import { createSelected, getFormatItem } from './components/utils/utilsTs';
+import { createSelected, getFormatItem, nativeOptionOrdinary } from './components/utils/utilsTs';
 import { ICgSelect } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
 import './main.scss';
@@ -32,7 +32,7 @@ export class CGSelect implements ICgSelect {
   private randomId: string;
   private caret: Element | null | undefined;
   private category: string;
-  private selectedItems: object[] | object;
+  private selectedItems: string[] | string;
   private itemsSelect: IItems[] | string[] | any;
   private indexes: number[] = [];
 
@@ -83,10 +83,6 @@ export class CGSelect implements ICgSelect {
     });
 
     this.itemsSelect = [];
-
-    if (multiselect === true) {
-      this.selectedItems = [];
-    }
 
     if (!items && url) {
       this.renderUrl();
@@ -147,13 +143,13 @@ export class CGSelect implements ICgSelect {
       liItem.classList.add('list__item');
       strongItem.classList.add('category');
 
-      if (multiselect && multiselect === true) {
+      if (multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
         liItem.appendChild(checkBox);
 
-        if (multiselectTag && multiselectTag == true) {
+        if (multiselectTag) {
           checkBox.classList.add('displayHide');
         }
 
@@ -276,24 +272,102 @@ export class CGSelect implements ICgSelect {
     } = this.options;
 
     const options = this.element?.querySelectorAll('.list__item');
-    const select = this.element?.querySelector('.selected');
+    const select: HTMLElement | null | undefined = this.element?.querySelector('.selected');
     const nativeOption = this.element?.querySelectorAll('.nativeSelect__nativeOption');
 
     const ulMultipul = document.createElement('ul');
 
-    if (multiselect && multiselect == true) {
+    if (multiselect) {
       ulMultipul.classList.add('multiselect-tag');
       select?.classList.add('overflow-hidden');
     }
 
     options?.forEach((option: Element, index: number) => {
       option.addEventListener('click', (event) => {
-        const item = this.itemsSelect[index];
+        const item: IItems = this.itemsSelect[index];
         const checkIndex = this.indexes.indexOf(index);
 
+        if (closeOnSelect == false || multiselect) {
+          event.stopPropagation();
+          event.preventDefault();
+        }
+
         select!.textContent = item.title;
-        this.selectedItems = item;
-        console.log(this.selectedItems);
+        this.selectedItems = item.title;
+
+        nativeOptionOrdinary(nativeOption, item.title);
+
+        options.forEach((option) => {
+          option.classList.remove('active');
+        });
+        option.classList.add('active');
+
+        // if (multiselect) {
+        //   this.selectedItems = [];
+        //   option.classList.toggle('active');
+        //   const checkBox: HTMLInputElement | null = option.querySelector('input[type="checkbox"]');
+
+        //   if (checkBox) {
+        //     if (!(event.target instanceof HTMLInputElement)) {
+        //       checkBox.checked = !checkBox.checked;
+        //     }
+
+        //     if (checkIndex === -1) {
+        //       nativeOptionMultiple(nativeOption, item.title, true);
+        //       this.indexes.push(index);
+        //       select!.textContent = '';
+
+        //       if (multiselectTag) {
+        //         this.selectedItems.push(item);
+        //         select!.appendChild(ulMultipul);
+
+        //         const data = {
+        //           option: this.options,
+        //           element: this.element,
+        //           indexes: this.indexes,
+        //           selectedItems: this.selectedItems,
+        //         };
+
+        //         ulMultipul.appendChild(createBreadcrumb(data, item.title, index, item.id));
+        //       } else {
+        //         debugger;
+        //         this.selectedItems.push(item.title);
+        //         console.log(this.selectedItems);
+
+        //         select.innerText = this.selectedItems;
+        //       }
+        //     } else {
+        //       if (multiselectTag) {
+        //         const tagItem = document.getElementById(`tag-${index}-${item.id}`);
+        //         ulMultipul.removeChild(tagItem);
+        //       }
+
+        //       this.indexes.splice(checkIndex, 1);
+        //       this.selectedItems.splice(checkIndex, 1);
+        //       nativeOptionMultiple(nativeOption, item.title, false);
+        //     }
+
+        //     if (!this.#selectedItems.length) {
+        //       getSelectText(dataSelectText, select);
+        //     } else {
+        //       if (multiselectTag) {
+        //         select.appendChild(ulMultipul);
+        //       } else {
+        //         select.innerText = this.#selectedItems;
+        //       }
+        //     }
+        //   }
+        // } else {
+        //   select!.textContent = item.title;
+        //   this.selectedItems = item.title;
+
+        //   nativeOptionOrdinary(nativeOption, item.title);
+
+        //   options.forEach((option) => {
+        //     option.classList.remove('active');
+        //   });
+        //   option.classList.add('active');
+        // }
       });
     });
   }

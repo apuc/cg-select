@@ -14,4 +14,5 @@ const dropdn = new CGSelect({
     'MAN',
     'Ferari',
   ],
+  multiselect: true,
 });

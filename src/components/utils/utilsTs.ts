@@ -8,18 +8,18 @@ import { IDataItem } from './urils.interface';
  * @returns {IDataItem | IItems} возвращает сформированный объект
  */
 
-export function getFormatItem(dataItem:any , index: number) : IItems {
+export function getFormatItem(dataItem: any, index: number): IItems {
   const random = Math.random().toString(36).substring(2, 10);
   let item: IItems;
 
-  if(checkItemStruct(dataItem)){
-   return dataItem;
-  } else{
+  if (checkItemStruct(dataItem)) {
+    return dataItem;
+  } else {
     item = {
       id: random,
       title: dataItem,
-      value: index
-    }
+      value: index,
+    };
 
     return item;
   }
@@ -44,12 +44,10 @@ export function checkItemStruct(item: object): boolean {
  * @param {string} content placeholer передаваемый из настроек селекта
  * @param {object} styles не обязательный параметр. Объект в котором находяться настройки кастомизации частей селекта
  */
-export function createSelected(element: Element|null, content?: string, styles?: object) {
-  
+export function createSelected(element: Element | null, content?: string, styles?: object) {
   const select = document.createElement('div');
   const selected = document.createElement('p');
   const caret = document.createElement('div');
-
 
   select.classList.add('cg-select');
   selected.classList.add('selected');
@@ -58,15 +56,15 @@ export function createSelected(element: Element|null, content?: string, styles?:
   select.appendChild(selected);
   select.appendChild(caret);
 
-  if(content){
+  if (content) {
     const text = document.createTextNode(content);
     selected.appendChild(text);
-    element?.appendChild(select)
-  } else if(styles){
+    element?.appendChild(select);
+  } else if (styles) {
     // customStyles(element, styles);
-    select.setAttribute('style', `${styles}`)
-    selected.setAttribute('style', `${styles}`)
-    caret.setAttribute('style', `${styles}`)
+    select.setAttribute('style', `${styles}`);
+    selected.setAttribute('style', `${styles}`);
+    caret.setAttribute('style', `${styles}`);
   }
 
   // if (styles) {
@@ -79,4 +77,18 @@ export function createSelected(element: Element|null, content?: string, styles?:
   //     </div>
   //   `;
   // }
+}
+
+/**
+ * Поведение нативного(одинарного) селекта при выборе кастомного
+ * @param {NodeList} element NodeList нативного селекта
+ * @param {any} item выбранный элемент в кастомном селекте
+ */
+export function nativeOptionOrdinary(element: NodeListOf<Element> | undefined, item: any) {
+  element!.forEach((option) => {
+    option.removeAttribute('selected');
+    if (option.textContent === item) {
+      option.setAttribute('selected', 'selected');
+    }
+  });
 }
