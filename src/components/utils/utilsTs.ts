@@ -8,7 +8,7 @@ import { IDataItem } from './urils.interface';
  * @returns {IDataItem | IItems} возвращает сформированный объект
  */
 
-export function getFormatItem(dataItem:IDataItem , index: number):IDataItem | IItems {
+export function getFormatItem(dataItem:any , index: number) : IItems {
   const random = Math.random().toString(36).substring(2, 10);
   let item: IItems;
 
@@ -20,6 +20,7 @@ export function getFormatItem(dataItem:IDataItem , index: number):IDataItem | II
       title: dataItem,
       value: index
     }
+
     return item;
   }
 }

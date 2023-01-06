@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@parcel/optimizer-css": "^2.8.0",
+    "@types/prettier": "^2.7.2",
     "gh-pages": "^4.0.0",
     "typescript": "^4.9.4"
   },
