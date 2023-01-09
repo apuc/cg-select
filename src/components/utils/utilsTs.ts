@@ -1,5 +1,6 @@
+import { ICgSelect } from '../../interfaces/cg-select.interface';
 import { IItems } from '../../interfaces/items.interface';
-import { IDataItem } from './urils.interface';
+import { IDataItem, ITextSelect } from './urils.interface';
 
 /**
  * Преобразование каждого елемента полученного из поля Items;
@@ -23,6 +24,28 @@ export function getFormatItem(dataItem: any, index: number): IItems {
 
     return item;
   }
+}
+
+/**
+ * Вставка изначального текста селекта(до выбора)
+ * @param {ITextSelect} data объект в котором находяться title селекта
+ * @param {HTMLElement | null | undefined} select елемент селекта, куда будет вставляться title
+ * @returns {HTMLElement} возвращает сформированный елемент селекта
+ */
+export function getSelectText(
+  data: ITextSelect,
+  select: HTMLElement | null | undefined,
+): HTMLElement {
+  const { placeholder, selected } = data;
+
+  if (placeholder) {
+    select!.innerText = placeholder;
+  } else if (selected) {
+    select!.innerText = selected;
+  } else {
+    select!.innerText = 'Select...';
+  }
+  return select!;
 }
 
 /**
@@ -89,6 +112,32 @@ export function nativeOptionOrdinary(element: NodeListOf<Element> | undefined, i
     option.removeAttribute('selected');
     if (option.textContent === item) {
       option.setAttribute('selected', 'selected');
+    }
+  });
+}
+
+/**
+ * Поведение нативного(Multiple) селекта при выборе в кастомном
+ * @param {NodeListOf<Element> | undefined} element NodeList нативного селекта
+ * @param {string} item выбранный элемент в кастомном селекте
+ * @param {boolean} condition специальный флаг при котором добавляются/убераются атрибуты у нативного селекта
+ */
+export function nativeOptionMultiple(
+  element: NodeListOf<Element> | undefined,
+  item: string,
+  condition: boolean,
+) {
+  element!.forEach((option) => {
+    if (condition == true) {
+      if (option.textContent === item) {
+        option.setAttribute('selected', 'selected');
+      }
+    } else if (condition == false) {
+      if (option.textContent === item) {
+        option.removeAttribute('selected');
+      }
+    } else {
+      return;
     }
   });
 }

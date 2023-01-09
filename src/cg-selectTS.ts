@@ -2,8 +2,14 @@ import {
   createNativeSelect,
   createNativeSelectOption,
 } from './components/create-element/create-elementTs';
-import { IDataItem } from './components/utils/urils.interface';
-import { createSelected, getFormatItem, nativeOptionOrdinary } from './components/utils/utilsTs';
+import { IDataItem, ITextSelect } from './components/utils/urils.interface';
+import {
+  createSelected,
+  getFormatItem,
+  getSelectText,
+  nativeOptionMultiple,
+  nativeOptionOrdinary,
+} from './components/utils/utilsTs';
 import { ICgSelect } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
 import './main.scss';
@@ -227,7 +233,7 @@ export class CGSelect implements ICgSelect {
    * @description Закрывает список
    * @method #close
    */
-  private close() {
+  private close(): void {
     this.list?.classList.remove('open');
     this.caret?.classList.remove('caret_rotate');
   }
@@ -238,7 +244,7 @@ export class CGSelect implements ICgSelect {
    * @description Закрывает список по клику вне элемента
    * @method closeSelectClick
    */
-  private closeSelectClick() {
+  private closeSelectClick(): void {
     const dropdown = document.querySelector(`${this.options.selector}`);
 
     document.addEventListener('click', (e) => {
@@ -275,9 +281,15 @@ export class CGSelect implements ICgSelect {
     const select: HTMLElement | null | undefined = this.element?.querySelector('.selected');
     const nativeOption = this.element?.querySelectorAll('.nativeSelect__nativeOption');
 
+    const placeholderTextSelect: ITextSelect = {
+      placeholder: placeholder,
+      selected: selected,
+    };
+
     const ulMultipul = document.createElement('ul');
 
     if (multiselect) {
+      this.selectedItems = [];
       ulMultipul.classList.add('multiselect-tag');
       select?.classList.add('overflow-hidden');
     }
@@ -285,6 +297,7 @@ export class CGSelect implements ICgSelect {
     options?.forEach((option: Element, index: number) => {
       option.addEventListener('click', (event) => {
         const item: IItems = this.itemsSelect[index];
+
         const checkIndex = this.indexes.indexOf(index);
 
         if (closeOnSelect == false || multiselect) {
@@ -292,15 +305,50 @@ export class CGSelect implements ICgSelect {
           event.preventDefault();
         }
 
-        select!.textContent = item.title;
-        this.selectedItems = item.title;
+        if (multiselect) {
+          option.classList.toggle('active');
 
-        nativeOptionOrdinary(nativeOption, item.title);
+          const checkBox: HTMLInputElement | null = option.querySelector('input[type="checkbox"]');
 
-        options.forEach((option) => {
-          option.classList.remove('active');
-        });
-        option.classList.add('active');
+          if (checkBox) {
+            if (!(event.target instanceof HTMLInputElement)) {
+              checkBox.checked = !checkBox.checked;
+            }
+
+            if (checkIndex == -1) {
+              this.indexes.push(index);
+              nativeOptionMultiple(nativeOption, item.title, true);
+              select!.textContent = '';
+
+              if (Array.isArray(this.selectedItems)) {
+                this.selectedItems.push(item.title);
+                select!.innerText = this.selectedItems.join(',');
+              }
+            } else {
+              this.indexes.splice(checkIndex, 1);
+              nativeOptionMultiple(nativeOption, item.title, false);
+
+              if (Array.isArray(this.selectedItems)) {
+                this.selectedItems.splice(checkIndex, 1);
+                select!.innerText = this.selectedItems.join(',');
+              }
+            }
+
+            if (Array.isArray(this.selectedItems) && !this.selectedItems.length) {
+              getSelectText(placeholderTextSelect, select);
+            }
+          }
+        } else {
+          select!.textContent = item.title;
+          this.selectedItems = item.title;
+
+          nativeOptionOrdinary(nativeOption, item.title);
+
+          options.forEach((option) => {
+            option.classList.remove('active');
+          });
+          option.classList.add('active');
+        }
 
         // if (multiselect) {
         //   this.selectedItems = [];
@@ -357,17 +405,6 @@ export class CGSelect implements ICgSelect {
         //       }
         //     }
         //   }
-        // } else {
-        //   select!.textContent = item.title;
-        //   this.selectedItems = item.title;
-
-        //   nativeOptionOrdinary(nativeOption, item.title);
-
-        //   options.forEach((option) => {
-        //     option.classList.remove('active');
-        //   });
-        //   option.classList.add('active');
-        // }
       });
     });
   }

@@ -1,3 +1,5 @@
+import { IcreateBreadCrumb } from './create-element.interface';
+
 /**
  * Метод который создает нативный селект
  * @returns {HTMLSelectElement} Возвращает созданный нативный селект
@@ -29,12 +31,17 @@ export function createNativeSelectOption(): HTMLOptionElement {
  * @param {string} id уникальное id выбранного элемента
  * @returns {HTMLElement} возвращает сформированный HTMLElement chips item
  */
-export function createBreadcrumb(data: any, title: string, index: number, id: string) {
+export function createBreadcrumb(
+  data: IcreateBreadCrumb,
+  title: string,
+  index: number,
+  id: string,
+) {
   const { element, option, indexes, selectedItems } = data;
   const { placeholder, styles } = option;
 
-  const selected = element.querySelector('.selected');
-  const nativeOption = element.querySelectorAll('.nativeSelect__nativeOption');
+  const selected = element!.querySelector('.selected');
+  const nativeOption = element!.querySelectorAll('.nativeSelect__nativeOption');
 
   const liChip = document.createElement('li');
   const textNode = document.createTextNode(title);
@@ -55,7 +62,7 @@ export function createBreadcrumb(data: any, title: string, index: number, id: st
   liChip.appendChild(svgIcon);
 
   if (styles) {
-    const { chips } = styles;
+    // const { chips } = styles;
     //   customStylesFormat(chips, liChip);
   }
 
@@ -80,7 +87,7 @@ export function createBreadcrumb(data: any, title: string, index: number, id: st
     //   checkBox.parentElement.classList.remove('active');
 
     if (!selectedItems.length) {
-      selected.innerText = placeholder;
+      //selected?.textContent = placeholder;
     }
 
     //   liChip.parentElement.removeChild(liChip);
