@@ -1,11 +1,9 @@
-import { ICreateBreadCrumb } from './components/create-element/create-element.interface';
 import {
-  CreateBreadCrumb,
+  createBreadCrumb,
   createNativeSelect,
   createNativeSelectOption,
 } from './components/create-element/create-elementTs';
-
-import { IDataItem, ITextSelect } from './components/utils/urils.interface';
+import { ICreateBreadCrumb } from './components/create-element/create-element.interface';
 
 import {
   createSelected,
@@ -14,9 +12,11 @@ import {
   nativeOptionMultiple,
   nativeOptionOrdinary,
 } from './components/utils/utilsTs';
+import { IDataItem, ITextSelect } from './components/utils/urils.interface';
 
 import { ICgSelect } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
+
 import './main.scss';
 
 export class CGSelect implements ICgSelect {
@@ -337,7 +337,7 @@ export class CGSelect implements ICgSelect {
                   this.selectedItems.push(item.title);
                   select!.appendChild(ulMultipul);
                   ulMultipul.appendChild(
-                    CreateBreadCrumb(dataBreadCrumb, item.title, index, item.id),
+                    createBreadCrumb(dataBreadCrumb, item.title, index, item.id),
                   );
                 }
               } else {

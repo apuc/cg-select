@@ -32,7 +32,7 @@ export function createNativeSelectOption(): HTMLOptionElement {
  * @param {string} id уникальное id выбранного элемента
  * @returns {HTMLElement} возвращает сформированный HTMLElement chips item
  */
-export function CreateBreadCrumb(
+export function createBreadCrumb(
   data: ICreateBreadCrumb,
   title: string,
   index: number,
