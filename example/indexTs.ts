@@ -15,4 +15,5 @@ const dropdn = new CGSelect({
     'Ferari',
   ],
   multiselect: true,
+  multiselectTag: true,
 });

@@ -1,8 +1,12 @@
+import { ICreateBreadCrumb } from './components/create-element/create-element.interface';
 import {
+  CreateBreadCrumb,
   createNativeSelect,
   createNativeSelectOption,
 } from './components/create-element/create-elementTs';
+
 import { IDataItem, ITextSelect } from './components/utils/urils.interface';
+
 import {
   createSelected,
   getFormatItem,
@@ -10,6 +14,7 @@ import {
   nativeOptionMultiple,
   nativeOptionOrdinary,
 } from './components/utils/utilsTs';
+
 import { ICgSelect } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
 import './main.scss';
@@ -320,22 +325,50 @@ export class CGSelect implements ICgSelect {
               nativeOptionMultiple(nativeOption, item.title, true);
               select!.textContent = '';
 
-              if (Array.isArray(this.selectedItems)) {
-                this.selectedItems.push(item.title);
-                select!.innerText = this.selectedItems.join(',');
+              if (multiselectTag) {
+                if (Array.isArray(this.selectedItems)) {
+                  const dataBreadCrumb: ICreateBreadCrumb = {
+                    option: this.options,
+                    element: this.element,
+                    indexes: this.indexes,
+                    selectedItems: this.selectedItems,
+                  };
+
+                  this.selectedItems.push(item.title);
+                  select!.appendChild(ulMultipul);
+                  ulMultipul.appendChild(
+                    CreateBreadCrumb(dataBreadCrumb, item.title, index, item.id),
+                  );
+                }
+              } else {
+                if (Array.isArray(this.selectedItems)) {
+                  this.selectedItems.push(item.title);
+                  select!.innerText = this.selectedItems.join(',');
+                }
               }
             } else {
-              this.indexes.splice(checkIndex, 1);
-              nativeOptionMultiple(nativeOption, item.title, false);
+              if (multiselectTag) {
+                const tagItem = document.getElementById(`tag-${index}-${item.id}`);
+                ulMultipul.removeChild<Element>(tagItem!);
+              }
 
               if (Array.isArray(this.selectedItems)) {
                 this.selectedItems.splice(checkIndex, 1);
-                select!.innerText = this.selectedItems.join(',');
+                this.indexes.splice(checkIndex, 1);
+                nativeOptionMultiple(nativeOption, item.title, false);
               }
             }
 
-            if (Array.isArray(this.selectedItems) && !this.selectedItems.length) {
+            if (!this.selectedItems.length) {
               getSelectText(placeholderTextSelect, select);
+            } else {
+              if (multiselectTag) {
+                select!.appendChild(ulMultipul);
+              } else {
+                if (Array.isArray(this.selectedItems)) {
+                  select!.innerText = this.selectedItems.join(',');
+                }
+              }
             }
           }
         } else {
@@ -349,62 +382,6 @@ export class CGSelect implements ICgSelect {
           });
           option.classList.add('active');
         }
-
-        // if (multiselect) {
-        //   this.selectedItems = [];
-        //   option.classList.toggle('active');
-        //   const checkBox: HTMLInputElement | null = option.querySelector('input[type="checkbox"]');
-
-        //   if (checkBox) {
-        //     if (!(event.target instanceof HTMLInputElement)) {
-        //       checkBox.checked = !checkBox.checked;
-        //     }
-
-        //     if (checkIndex === -1) {
-        //       nativeOptionMultiple(nativeOption, item.title, true);
-        //       this.indexes.push(index);
-        //       select!.textContent = '';
-
-        //       if (multiselectTag) {
-        //         this.selectedItems.push(item);
-        //         select!.appendChild(ulMultipul);
-
-        //         const data = {
-        //           option: this.options,
-        //           element: this.element,
-        //           indexes: this.indexes,
-        //           selectedItems: this.selectedItems,
-        //         };
-
-        //         ulMultipul.appendChild(createBreadcrumb(data, item.title, index, item.id));
-        //       } else {
-        //         debugger;
-        //         this.selectedItems.push(item.title);
-        //         console.log(this.selectedItems);
-
-        //         select.innerText = this.selectedItems;
-        //       }
-        //     } else {
-        //       if (multiselectTag) {
-        //         const tagItem = document.getElementById(`tag-${index}-${item.id}`);
-        //         ulMultipul.removeChild(tagItem);
-        //       }
-
-        //       this.indexes.splice(checkIndex, 1);
-        //       this.selectedItems.splice(checkIndex, 1);
-        //       nativeOptionMultiple(nativeOption, item.title, false);
-        //     }
-
-        //     if (!this.#selectedItems.length) {
-        //       getSelectText(dataSelectText, select);
-        //     } else {
-        //       if (multiselectTag) {
-        //         select.appendChild(ulMultipul);
-        //       } else {
-        //         select.innerText = this.#selectedItems;
-        //       }
-        //     }
-        //   }
       });
     });
   }

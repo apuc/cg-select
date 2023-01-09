@@ -1,4 +1,5 @@
-import { IcreateBreadCrumb } from './create-element.interface';
+import { nativeOptionMultiple } from '../utils/utilsTs';
+import { ICreateBreadCrumb } from './create-element.interface';
 
 /**
  * Метод который создает нативный селект
@@ -25,22 +26,22 @@ export function createNativeSelectOption(): HTMLOptionElement {
 
 /**
  * Метод который создает и отвечает за поведение chips
- * @param {object} data объект в котором содержатся настройки и элементы селекта
+ * @param {ICreateBreadCrumb} data объект в котором содержатся настройки и элементы селекта
  * @param {string} title имя выбранного элемента для отрисовки chips
  * @param {number} index индекс выбранного элемента для отрисовки chips
  * @param {string} id уникальное id выбранного элемента
  * @returns {HTMLElement} возвращает сформированный HTMLElement chips item
  */
-export function createBreadcrumb(
-  data: IcreateBreadCrumb,
+export function CreateBreadCrumb(
+  data: ICreateBreadCrumb,
   title: string,
   index: number,
   id: string,
-) {
+): HTMLLIElement {
   const { element, option, indexes, selectedItems } = data;
   const { placeholder, styles } = option;
 
-  const selected = element!.querySelector('.selected');
+  const selected: HTMLElement | null | undefined = element?.querySelector('.selected');
   const nativeOption = element!.querySelectorAll('.nativeSelect__nativeOption');
 
   const liChip = document.createElement('li');
@@ -69,28 +70,28 @@ export function createBreadcrumb(
   svgIcon.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
-    //   nativeOptionMultiple(nativeOption, title, false);
+    nativeOptionMultiple(nativeOption, title, false);
 
     const deleteIcon = indexes.indexOf(index);
-    let checkBox = '';
+    let checkBox: any;
 
     indexes.splice(deleteIcon, 1);
     selectedItems.splice(deleteIcon, 1);
 
     if (id) {
-      // checkBox = document.getElementById(`chbox-${id}`);
+      checkBox = document.getElementById(`chbox-${id}`);
     } else {
-      // checkBox = document.getElementById(`chbox-${index}`);
+      checkBox = document.getElementById(`chbox-${index}`);
     }
 
-    //   checkBox.checked = false;
-    //   checkBox.parentElement.classList.remove('active');
+    checkBox.checked = false;
+    checkBox.parentElement.classList.remove('active');
 
     if (!selectedItems.length) {
-      //selected?.textContent = placeholder;
+      selected!.innerText = placeholder!;
     }
 
-    //   liChip.parentElement.removeChild(liChip);
+    liChip.parentElement!.removeChild(liChip);
   });
 
   return liChip;
