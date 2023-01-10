@@ -548,7 +548,7 @@ export class DropDown {
 
   /**
    * Приватный метод рендера экземпляра класса DropDown
-   *@protected
+   * @protected
    * @method #renderUrl
    * @description Рендер елементов в селекте переданных с URL и их настойка
    */

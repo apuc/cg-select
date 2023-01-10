@@ -8,6 +8,8 @@ import { ICreateBreadCrumb } from './components/create-element/create-element.in
 import {
   clearSelect,
   createSelected,
+  customStyles,
+  customStylesFormat,
   getFormatItem,
   getSelectText,
   nativeOptionMultiple,
@@ -15,7 +17,7 @@ import {
 } from './components/utils/utilsTs';
 import { IDataItem, ISelectedItems } from './components/utils/urils.interface';
 
-import { ICgSelect } from './interfaces/cg-select.interface';
+import { ICgSelect, IStyle } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
 
 import './main.scss';
@@ -32,7 +34,7 @@ export class CGSelect implements ICgSelect {
   listDisplayMode?: boolean;
   language?: string;
   lable?: string;
-  styles?: object;
+  styles?: IStyle;
   event?: string;
   url?: string;
   multiselect?: boolean;
@@ -104,15 +106,25 @@ export class CGSelect implements ICgSelect {
     items.forEach((dataItem: any, index: number) => {
       let itemInputs: IDataItem = {
         ItemValue: dataItem,
+        // category: dataItem.category,
+        // categoryItems: dataItem.categoryItems,
       };
 
-      this.itemsSelect.push(getFormatItem(itemInputs.ItemValue, index));
+      if (dataItem.category && dataItem.categoryItems) {
+        this.category = dataItem.category!;
+        this.itemsSelect.push(this.category);
+        dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
+          this.itemsSelect.push(getFormatItem(categoryItem, indexCategory));
+        });
+      } else {
+        this.itemsSelect.push(getFormatItem(itemInputs.ItemValue, index));
+      }
     });
   }
 
   /**
    * Приватный метод рендера экземпляра класса DropDown
-   *@protected
+   * @protected
    * @method render
    * @param {string} select  необязательный елемент. Передаеться в метод initSelected
    * @description Рендер елементов в селекте.
@@ -131,7 +143,12 @@ export class CGSelect implements ICgSelect {
 
     const random = Math.random().toString(36).substring(2, 10);
 
-    this.initSelected();
+    if (select || (select && styles)) {
+      this.initSelected(select);
+      customStyles(this.element!, styles);
+    } else {
+      this.initSelected();
+    }
 
     const ulList = document.createElement('ul');
     const nativeSelect = createNativeSelect();
@@ -142,6 +159,11 @@ export class CGSelect implements ICgSelect {
     this.randomId = random;
 
     ulList.classList.add('list');
+
+    if (styles) {
+      const { list } = styles;
+      customStylesFormat(list!, ulList);
+    }
 
     this.element?.appendChild(ulList);
 
@@ -184,13 +206,98 @@ export class CGSelect implements ICgSelect {
       }
     });
 
+    this.itemsSelect.filter((item, index) => {
+      if (typeof item !== 'object') {
+        this.itemsSelect.splice(index, 1);
+      }
+      return item;
+    });
+
+    if (darkTheme == false) {
+      this.checkTheme();
+    }
+
+    if (nativeSelectMode === true) {
+      // this.#selectMode(nativeSelectMode);
+    }
+
     this.list = this.element?.querySelector('.list');
     this.caret = this.element?.querySelector('.caret');
 
     this.addOptionsBehaviour();
   }
 
-  private renderUrl() {}
+  /**
+   * Приватный метод рендера экземпляра класса DropDown
+   * @protected
+   * @method renderUrl
+   * @description Рендер елементов в селекте переданных с URL и их настойка
+   */
+  private async renderUrl() {
+    const { url, items, multiselect, multiselectTag } = this.options;
+
+    if (items) {
+      return;
+    }
+
+    if (!url) {
+      return;
+    }
+
+    const response = await fetch(url);
+    const dataUrl = await response.json();
+
+    const nativeSelect = createNativeSelect();
+
+    dataUrl.forEach((dataItem: IItems, index: number) => {
+      const item = {
+        id: dataItem.id,
+        title: dataItem.title,
+        value: index,
+      };
+
+      const ulUrl = this.element!.querySelector('.list');
+
+      const nativeOption = createNativeSelectOption();
+      const liUrl = document.createElement('li');
+      const textUrl = document.createTextNode(item.title);
+
+      if (multiselect) {
+        const checkBox = document.createElement('input');
+        checkBox.type = 'checkbox';
+
+        if (multiselectTag) {
+          checkBox.classList.add('displayHide');
+        }
+
+        checkBox.setAttribute('id', `chbox-${item.id}`);
+        nativeSelect.setAttribute('multiple', 'multiple');
+
+        liUrl.appendChild(checkBox);
+      }
+
+      liUrl.classList.add('list__item');
+      nativeOption.value = item.title;
+      nativeOption.text = item.title;
+
+      nativeSelect.appendChild(nativeOption);
+      liUrl.appendChild(textUrl);
+      ulUrl!.appendChild(liUrl);
+
+      this.itemsSelect.push(item);
+    });
+
+    this.element!.appendChild(nativeSelect);
+
+    this.itemsSelect.filter((item, index) => {
+      if (typeof item !== 'object') {
+        this.itemsSelect.splice(index, 1);
+      }
+      return item;
+    });
+
+    this.addOptionsBehaviour();
+  }
 
   /**
    * Привaтный метод экземпляра класса DropDown
@@ -208,11 +315,29 @@ export class CGSelect implements ICgSelect {
     } else if (placeholder) {
       createSelected(this.element, placeholder);
     } else {
-      // if (language && language === 'ru') {
-      //   createSelected(this.#element, ru.selectPlaceholder);
-      // } else {
-      //   createSelected(this.#element, en.selectPlaceholder);
-      // }
+      if (language && language === 'ru') {
+        // createSelected(this.#element, ru.selectPlaceholder);
+      } else {
+        // createSelected(this.#element, en.selectPlaceholder);
+      }
+    }
+
+    if (select) {
+      createSelected(this.element, select, styles);
+    }
+
+    if (lable) {
+      const lableItem = document.createElement('h1');
+      const textLable = document.createTextNode(lable);
+
+      lableItem.appendChild(textLable);
+      lableItem.classList.add('label');
+
+      this.element!.insertAdjacentElement('beforebegin', lableItem);
+    }
+
+    if (styles) {
+      customStyles(this.element!, styles);
     }
   }
 
@@ -237,7 +362,7 @@ export class CGSelect implements ICgSelect {
    * Приватный метод экземпляра класса DropDown
    * @protected
    * @description Закрывает список
-   * @method #close
+   * @method close
    */
   private close(): void {
     this.list?.classList.remove('open');
@@ -395,5 +520,34 @@ export class CGSelect implements ICgSelect {
         clearSelect(select!, this.element!, selectedItemsClear);
       });
     });
+  }
+
+  /**
+   * Приватный метод рендера экземпляра класса DropDown
+   * @protected
+   * @method #checkTheme
+   * @description Изменяет цветовую схему с темной на светлую.
+   */
+  private checkTheme(): void {
+    const { darkTheme, searchMode } = this.options;
+
+    const select = this.element!.querySelector('.cg-select');
+    const caret = this.element!.querySelector('.caret');
+    const list = this.element!.querySelector('ul.list');
+    const search = this.element!.querySelector('.inputSearch');
+
+    if (darkTheme == false) {
+      select!.classList.add('selectWhite');
+      caret!.classList.add('caretWhite');
+      list!.classList.add('listWhite');
+
+      if (searchMode == true) {
+        search!.classList.add('inputWhite');
+      }
+    } else if (darkTheme == true || !darkTheme) {
+      return;
+    } else {
+      throw new Error('Styles error or invalid value entered!');
+    }
   }
 }

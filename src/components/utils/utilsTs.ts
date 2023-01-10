@@ -204,3 +204,42 @@ export function nativeOptionMultiple(
     }
   });
 }
+
+/**
+ * Поиск и стилизация елементов полученных из styles экземпляра DropDown
+ * @param {Element} element созданный экземпляр класса DropDown
+ * @param {object} styles объект в котором находяться настройки кастомизации частей селекта
+ */
+export function customStyles(element: Element, styles: any) {
+  if (!styles) {
+    return;
+  }
+
+  const { head, caret, placeholder, lable } = styles;
+
+  const cgSelect = element.querySelector('.cg-select');
+  const caretSelect = element.querySelector('.caret');
+  const placeholderSelect = element.querySelector('.selected');
+  const lableItem = element.parentElement!.querySelector('h1.label');
+
+  customStylesFormat(head, cgSelect!);
+  customStylesFormat(caret, caretSelect!);
+  customStylesFormat(lable, lableItem!);
+
+  if (placeholderSelect) {
+    customStylesFormat(placeholder, placeholderSelect);
+  }
+}
+
+/**
+ * Универсальный метод для стилизации селекта
+ * @param {object} elemOption объект полученное из объекта styles у которого мы получаем ключ-значение стилей
+ * @param {HTMLElement} selector  HTMLElement подвергающиеся кастомизации
+ */
+export function customStylesFormat(elemOption: object, selector: any) {
+  if (elemOption) {
+    Object.entries(elemOption).forEach(([key, value]) => {
+      selector.style[key] = value;
+    });
+  }
+}

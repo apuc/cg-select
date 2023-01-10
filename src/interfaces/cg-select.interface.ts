@@ -12,9 +12,18 @@ export interface ICgSelect {
   listDisplayMode?: boolean;
   language?: string;
   lable?: string;
-  styles?: object;
+  styles?: IStyle;
   event?: string;
   url?: string;
   multiselect?: boolean;
   multiselectTag?: boolean;
+}
+
+export interface IStyle {
+  head?: object;
+  caret?: object;
+  placeholder?: object;
+  lable?: object;
+  list?: object;
+  search?: object;
 }
