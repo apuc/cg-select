@@ -6,13 +6,14 @@ import {
 import { ICreateBreadCrumb } from './components/create-element/create-element.interface';
 
 import {
+  clearSelect,
   createSelected,
   getFormatItem,
   getSelectText,
   nativeOptionMultiple,
   nativeOptionOrdinary,
 } from './components/utils/utilsTs';
-import { IDataItem, ITextSelect } from './components/utils/urils.interface';
+import { IDataItem, ISelectedItems } from './components/utils/urils.interface';
 
 import { ICgSelect } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
@@ -284,12 +285,9 @@ export class CGSelect implements ICgSelect {
 
     const options = this.element?.querySelectorAll('.list__item');
     const select: HTMLElement | null | undefined = this.element?.querySelector('.selected');
-    const nativeOption = this.element?.querySelectorAll('.nativeSelect__nativeOption');
+    const nativeOption = this.element!.querySelectorAll('.nativeSelect__nativeOption');
 
-    const placeholderTextSelect: ITextSelect = {
-      placeholder: placeholder,
-      selected: selected,
-    };
+    let selectedItemsClear: ISelectedItems;
 
     const ulMultipul = document.createElement('ul');
 
@@ -301,6 +299,17 @@ export class CGSelect implements ICgSelect {
 
     options?.forEach((option: Element, index: number) => {
       option.addEventListener('click', (event) => {
+        if (Array.isArray(this.selectedItems)) {
+          selectedItemsClear = {
+            placeholder: placeholder!,
+            selected: selected!,
+            selectedItems: this.selectedItems,
+            indexes: this.indexes,
+            darkTheme: darkTheme,
+            multiselectTag: multiselectTag,
+          };
+        }
+
         const item: IItems = this.itemsSelect[index];
 
         const checkIndex = this.indexes.indexOf(index);
@@ -360,7 +369,7 @@ export class CGSelect implements ICgSelect {
             }
 
             if (!this.selectedItems.length) {
-              getSelectText(placeholderTextSelect, select);
+              getSelectText(selectedItemsClear, select);
             } else {
               if (multiselectTag) {
                 select!.appendChild(ulMultipul);
@@ -382,6 +391,8 @@ export class CGSelect implements ICgSelect {
           });
           option.classList.add('active');
         }
+
+        clearSelect(select!, this.element!, selectedItemsClear);
       });
     });
   }

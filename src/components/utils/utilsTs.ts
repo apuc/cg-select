@@ -1,6 +1,6 @@
 import { ICgSelect } from '../../interfaces/cg-select.interface';
 import { IItems } from '../../interfaces/items.interface';
-import { IDataItem, ITextSelect } from './urils.interface';
+import { IDataItem, ISelectedItems } from './urils.interface';
 
 /**
  * Преобразование каждого елемента полученного из поля Items;
@@ -33,7 +33,7 @@ export function getFormatItem(dataItem: any, index: number): IItems {
  * @returns {HTMLElement} возвращает сформированный елемент селекта
  */
 export function getSelectText(
-  data: ITextSelect,
+  data: ISelectedItems,
   select: HTMLElement | null | undefined,
 ): HTMLElement {
   const { placeholder, selected } = data;
@@ -100,6 +100,69 @@ export function createSelected(element: Element | null, content?: string, styles
   //     </div>
   //   `;
   // }
+}
+
+/**
+ * Создание кнопки отчиски селекта, при единичном выборе.
+ * @param {HTMLElement} select место в селекте которое будет переназначено на ''.
+ * @param {Element} element экземпляр класса DropDown.
+ * @param {ISelectedItems} dataSelectText текст который отрисовывается в селекте.
+ */
+export function clearSelect(select: HTMLElement, element: Element, dataSelectText: ISelectedItems) {
+  const { selectedItems, indexes, darkTheme, multiselectTag } = dataSelectText;
+
+  const options = element.querySelectorAll('.list__item');
+  const ulMultiSelect = element.querySelector('.multiselect-tag');
+  const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  const checkBox = element.querySelectorAll('li input');
+
+  svgIcon.setAttribute('viewBox', '0 0 10 10');
+  path1.setAttribute('d', 'M2,8 L8,2');
+  path2.setAttribute('d', 'M2,2 L8,8');
+  svgIcon.appendChild(path1);
+  svgIcon.appendChild(path2);
+
+  if (multiselectTag) {
+    return;
+  }
+
+  if (darkTheme === true || !darkTheme) {
+    path1.classList.add('pathWhite');
+    path2.classList.add('pathWhite');
+  }
+
+  if (darkTheme === false) {
+    path1.classList.add('pathBlack');
+    path2.classList.add('pathBlack');
+  }
+
+  svgIcon.classList.add('svg-icon');
+  svgIcon.classList.add('svg-clear');
+
+  select!.appendChild(svgIcon);
+
+  svgIcon.addEventListener('click', () => {
+    select!.innerText = '';
+
+    if (Array.isArray(selectedItems)) {
+      selectedItems!.splice(0);
+      indexes!.splice(0);
+    }
+
+    checkBox.forEach((item) => {
+      if (item instanceof HTMLInputElement) {
+        item.checked = false;
+      }
+    });
+
+    getSelectText(dataSelectText, select);
+
+    options.forEach((option) => {
+      option.classList.remove('active');
+    });
+  });
 }
 
 /**

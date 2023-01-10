@@ -6,7 +6,11 @@ export interface IDataItem {
   ItemValue: string | IItems | number;
 }
 
-export interface ITextSelect {
+export interface ISelectedItems {
   placeholder?: string;
   selected?: string;
+  selectedItems?: string[];
+  indexes?: number[];
+  multiselectTag?: boolean;
+  darkTheme?: boolean;
 }
