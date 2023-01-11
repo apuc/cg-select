@@ -20,7 +20,8 @@ import { IDataItem, ISelectedItems } from './components/utils/urils.interface';
 
 import { ICgSelect, IStyle } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
-import { ru, en } from './language/language';
+import { ru, en } from './language/languageTS';
+import { ILanguage } from './interfaces/language.interface';
 
 import './main.scss';
 
@@ -629,32 +630,6 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @param {boolean} listDisplayMode параметр отвечающий за отображение выбора в виде модального окна.
-   * @description Изменяет отображение листа с выбором в виде модального окна.
-   * @method displayMode
-   */
-  private displayMode(listDisplayMode: boolean): void {
-    if (listDisplayMode) {
-      const modal = document.createElement('div');
-      const body = document.querySelector('body');
-      const list = this.list!;
-
-      modal.appendChild(list);
-      this.element!.appendChild(modal);
-
-      this.element!.addEventListener('click', () => {
-        modal.classList.toggle('modal');
-        list.classList.toggle('listModal');
-        body!.classList.toggle('overflowHide');
-      });
-    } else {
-      return;
-    }
-  }
-
-  /**
    * Метод который реализует поиск элементов в селекте
    * @protected
    * @param {string} random уникальное значение для input элемента.
@@ -709,5 +684,85 @@ export class CGSelect implements ICgSelect {
         }
       };
     }
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @param {boolean} listDisplayMode параметр отвечающий за отображение выбора в виде модального окна.
+   * @description Изменяет отображение листа с выбором в виде модального окна.
+   * @method displayMode
+   */
+  private displayMode(listDisplayMode: boolean): void {
+    if (listDisplayMode) {
+      const modal = document.createElement('div');
+      const body = document.querySelector('body');
+      const list = this.list!;
+
+      modal.appendChild(list);
+      this.element!.appendChild(modal);
+
+      this.element!.addEventListener('click', () => {
+        modal.classList.toggle('modal');
+        list.classList.toggle('listModal');
+        body!.classList.toggle('overflowHide');
+      });
+    } else {
+      return;
+    }
+  }
+
+  // Public methods
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {object} language объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
+   * @description метод позволяющий заменить плейсхолдер в поиске и текст который выводится если нет результата
+   * @method addLanguage
+   */
+  public addLanguage(language: ILanguage) {
+    const { placeholder, textInListSearch, selectPlaceholder } = language;
+    const { searchMode } = this.options;
+
+    const select = this.element!.querySelector('.selected');
+    const textNodeSelect = document.createTextNode(selectPlaceholder);
+    select!.appendChild(textNodeSelect);
+
+    if (searchMode) {
+      const search = this.element!.querySelector('.inputSearch');
+      const textNoRezult = this.element!.querySelector('.noRezult');
+      const textNode = document.createTextNode(textInListSearch);
+
+      search!.setAttribute('placeholder', placeholder);
+      search!.setAttribute('placeholder', placeholder);
+
+      textNoRezult!.textContent = '';
+      textNoRezult!.appendChild(textNode);
+    }
+  }
+
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {HTMLInputElement} button - HTML кнопка
+   * @param {string} method - метод открытия open/close
+   * @description Метод позволяющий открывать/закрывать селект с помощью кнопок
+   * @method buttonControl
+   */
+  public buttonControl(button, method: string) {
+    const { listDisplayMode } = this.options;
+
+    if (listDisplayMode === true) {
+      return;
+    }
+
+    // this.btn = button;
+    button.addEventListener('click', () => {
+      if (method.toLowerCase() === 'open') {
+        this.open(true);
+      } else if (method.toLowerCase() === 'close') {
+        this.close();
+      } else {
+        return;
+      }
+    });
   }
 }
