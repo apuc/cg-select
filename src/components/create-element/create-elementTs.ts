@@ -96,3 +96,29 @@ export function createBreadCrumb(
 
   return liChip;
 }
+
+/**
+ * Метод который создает поиск элементов в селекте
+ * @param {string} random уникальное значение для input элемента.
+ * @param {string} lenguage текст на определенном языке переданный из файла language.js
+ * @returns {HTMLInputElement} Возвращает сформированный input елемент.
+ */
+export function createInputSearch(random: string, lenguage: string): HTMLInputElement {
+  const inputSearch = document.createElement('input');
+
+  inputSearch.type = 'text';
+  inputSearch.classList.add('inputSearch');
+  inputSearch.setAttribute('id', `searchSelect-${random}`);
+
+  if (lenguage) {
+    inputSearch.setAttribute('placeholder', `${lenguage}`);
+  } else {
+    inputSearch.setAttribute('placeholder', 'Search...');
+  }
+
+  inputSearch.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+
+  return inputSearch;
+}

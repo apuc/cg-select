@@ -1,5 +1,6 @@
 import {
   createBreadCrumb,
+  createInputSearch,
   createNativeSelect,
   createNativeSelectOption,
 } from './components/create-element/create-elementTs';
@@ -19,6 +20,7 @@ import { IDataItem, ISelectedItems } from './components/utils/urils.interface';
 
 import { ICgSelect, IStyle } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
+import { ru, en } from './language/language';
 
 import './main.scss';
 
@@ -54,6 +56,7 @@ export class CGSelect implements ICgSelect {
     this.init(setting);
     this.render();
     this.closeSelectClick();
+    this.initEvent();
   }
 
   /**
@@ -153,7 +156,7 @@ export class CGSelect implements ICgSelect {
     const ulList = document.createElement('ul');
     const nativeSelect = createNativeSelect();
 
-    let inputSearch: string = '';
+    let inputSearch: HTMLInputElement;
     let textNode: Text;
 
     this.randomId = random;
@@ -163,6 +166,18 @@ export class CGSelect implements ICgSelect {
     if (styles) {
       const { list } = styles;
       customStylesFormat(list!, ulList);
+    }
+
+    if (searchMode) {
+      if (language === 'ru') {
+        inputSearch = createInputSearch(random, ru.placeholder);
+      } else {
+        inputSearch = createInputSearch(random, en.placeholder);
+      }
+
+      const { search } = styles!;
+      customStylesFormat(search!, inputSearch);
+      ulList.appendChild(inputSearch);
     }
 
     this.element?.appendChild(ulList);
@@ -213,16 +228,20 @@ export class CGSelect implements ICgSelect {
       return item;
     });
 
+    this.list = this.element!.querySelector('.list');
+    this.caret = this.element!.querySelector('.caret');
+
     if (darkTheme == false) {
       this.checkTheme();
     }
 
     if (nativeSelectMode === true) {
-      // this.#selectMode(nativeSelectMode);
+      this.selectMode(nativeSelectMode);
     }
 
-    this.list = this.element?.querySelector('.list');
-    this.caret = this.element?.querySelector('.caret');
+    if (listDisplayMode) {
+      this.displayMode(listDisplayMode);
+    }
 
     this.addOptionsBehaviour();
   }
@@ -344,6 +363,30 @@ export class CGSelect implements ICgSelect {
   /**
    * Приватный метод экземпляра класса DropDown
    * @protected
+   * @description Открывает и закрывает список по переданному эвенту
+   * @method initEvent
+   */
+  private initEvent() {
+    const { event } = this.options;
+    if (!event) {
+      return;
+    }
+
+    if (event) {
+      if (event === 'mouseenter') {
+        this.element!.addEventListener(event, () => {
+          this.open();
+        });
+        this.element!.addEventListener('mouseleave', () => {
+          this.close();
+        });
+      }
+    }
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
    * @param {boolean} oneClick необязательный параметр передаваемый из функции buttonControl
    * @description Открывает список для выбора элемента
    * @method open
@@ -420,6 +463,10 @@ export class CGSelect implements ICgSelect {
       this.selectedItems = [];
       ulMultipul.classList.add('multiselect-tag');
       select?.classList.add('overflow-hidden');
+    }
+
+    if (searchMode) {
+      this.searchModeSelect(this.randomId);
     }
 
     options?.forEach((option: Element, index: number) => {
@@ -548,6 +595,119 @@ export class CGSelect implements ICgSelect {
       return;
     } else {
       throw new Error('Styles error or invalid value entered!');
+    }
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @param {boolean} nativeSelectMode параметр отвечающий за добавления нативного селекта.
+   * @description Изменяет отображение селекта на мобильных устройствах
+   * @method selectMode
+   */
+  private selectMode(nativeSelectMode: boolean) {
+    let win = window.outerWidth;
+
+    if (nativeSelectMode === true) {
+      const select = this.element!.querySelector('.cg-select');
+      const list = this.element!.querySelector('.list');
+      const nativeSelect = this.element!.querySelector('.nativeSelect');
+
+      if (win < 576) {
+        select!.classList.add('displayHide');
+        list!.classList.add('displayHide');
+        nativeSelect!.classList.add('nativeSelectActive');
+      } else if (win > 576) {
+        select!.classList.remove('displayHide');
+        list!.classList.remove('displayHide');
+        nativeSelect!.classList.remove('nativeSelectActive');
+        nativeSelect!.classList.add('displayHide');
+      }
+    } else {
+      return;
+    }
+  }
+
+  /**
+   * Приватный метод экземпляра класса DropDown
+   * @protected
+   * @param {boolean} listDisplayMode параметр отвечающий за отображение выбора в виде модального окна.
+   * @description Изменяет отображение листа с выбором в виде модального окна.
+   * @method displayMode
+   */
+  private displayMode(listDisplayMode: boolean): void {
+    if (listDisplayMode) {
+      const modal = document.createElement('div');
+      const body = document.querySelector('body');
+      const list = this.list!;
+
+      modal.appendChild(list);
+      this.element!.appendChild(modal);
+
+      this.element!.addEventListener('click', () => {
+        modal.classList.toggle('modal');
+        list.classList.toggle('listModal');
+        body!.classList.toggle('overflowHide');
+      });
+    } else {
+      return;
+    }
+  }
+
+  /**
+   * Метод который реализует поиск элементов в селекте
+   * @protected
+   * @param {string} random уникальное значение для input элемента.
+   * @method searchMode
+   */
+  private searchModeSelect(random: string) {
+    const { language } = this.options;
+
+    const input = this.element!.querySelector(`#searchSelect-${random}`) as HTMLInputElement;
+    const searchSelect = this.element!.querySelectorAll('.list__item');
+    const result = document.createElement('p');
+
+    let textNode: Text;
+    if (language && language === 'ru') {
+      textNode = document.createTextNode(`${ru.textInListSearch}`);
+    } else {
+      textNode = document.createTextNode(`${en.textInListSearch}`);
+    }
+
+    result.appendChild(textNode);
+    result.classList.add('displayHide');
+    result.classList.add('noRezult');
+    input!.parentElement!.appendChild(result);
+
+    input!.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    if (input instanceof HTMLInputElement) {
+      input!.oninput = function () {
+        let valueSearch: string = input.value.trim().toLowerCase();
+        let anyMatch = false;
+
+        if (valueSearch != '') {
+          searchSelect.forEach((elem) => {
+            let isMatching = new RegExp(valueSearch, 'gi').test(elem.textContent!);
+            anyMatch = anyMatch || isMatching;
+
+            if (elem.textContent!.toLowerCase().search(valueSearch) == -1) {
+              elem.classList.add('displayHide');
+            } else {
+              elem.classList.remove('displayHide');
+            }
+          });
+
+          result.classList.toggle('displayHide', anyMatch);
+        } else {
+          searchSelect.forEach((elem) => {
+            elem.classList.remove('displayHide');
+            result.classList.add('displayHide');
+          });
+        }
+      };
     }
   }
 }

@@ -39,6 +39,11 @@ const dropdn = new CGSelect({
       maxWidth: '500px ',
     },
   },
+  // url
+  // listDisplayMode: true,
+  // searchMode: true,
+  // nativeSelectMode: true
+  // event: 'mouseenter',
   multiselect: true,
   multiselectTag: true,
 });
