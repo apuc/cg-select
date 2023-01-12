@@ -44,6 +44,7 @@ const dropdn = new CGSelect({
   // searchMode: true,
   // nativeSelectMode: true
   // event: 'mouseenter',
+  // buttonControl
   multiselect: true,
   multiselectTag: true,
 });

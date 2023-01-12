@@ -84,7 +84,7 @@ export function createSelected(element: Element | null, content?: string, styles
     selected.appendChild(text);
     element?.appendChild(select);
   } else if (styles) {
-    // customStyles(element, styles);
+    customStyles(element!, styles);
     select.setAttribute('style', `${styles}`);
     selected.setAttribute('style', `${styles}`);
     caret.setAttribute('style', `${styles}`);

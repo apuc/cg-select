@@ -26,6 +26,7 @@ import { ILanguage } from './interfaces/language.interface';
 import './main.scss';
 
 export class CGSelect implements ICgSelect {
+  // Настройки селекта
   selector: string;
   selected?: string;
   placeholder?: string;
@@ -43,6 +44,7 @@ export class CGSelect implements ICgSelect {
   multiselect?: boolean;
   multiselectTag?: boolean;
 
+  // Переменные и комплектующие селекта
   private element: Element | null;
   private list: Element | null | undefined;
   private options: ICgSelect;
@@ -50,8 +52,8 @@ export class CGSelect implements ICgSelect {
   private caret: Element | null | undefined;
   private category: string;
   private selectedItems: string[] | string;
-  private itemsSelect: IItems[] | string[] | any;
   private indexes: number[] = [];
+  private btnCntr: Element | null;
 
   constructor(setting: ICgSelect) {
     this.init(setting);
@@ -88,11 +90,43 @@ export class CGSelect implements ICgSelect {
       }
    */
   private init(setting: ICgSelect): void {
-    const { items, multiselect, url, selector } = setting;
+    const {
+      items,
+      multiselect,
+      multiselectTag,
+      url,
+      selector,
+      listDisplayMode,
+      nativeSelectMode,
+      searchMode,
+      darkTheme,
+      language,
+      styles,
+      lable,
+      event,
+      selected,
+      placeholder,
+    } = setting;
 
     this.options = setting;
 
-    const elem = document.querySelector(selector);
+    this.multiselect = multiselect;
+    this.multiselectTag = multiselectTag;
+    this.url = url;
+    this.selector = selector;
+    this.items = items;
+    this.searchMode = searchMode;
+    this.darkTheme = darkTheme;
+    this.language = language;
+    this.nativeSelectMode = nativeSelectMode;
+    this.listDisplayMode = listDisplayMode;
+    this.styles = styles;
+    this.lable = lable;
+    this.event = event;
+    this.selected = selected;
+    this.placeholder = placeholder;
+
+    const elem = document.querySelector(this.selector);
     this.element = elem;
 
     this.element?.addEventListener('click', (e) => {
@@ -100,9 +134,9 @@ export class CGSelect implements ICgSelect {
       this.open();
     });
 
-    this.itemsSelect = [];
+    this.items = [];
 
-    if (!items && url) {
+    if (!this.items && this.url) {
       this.renderUrl();
       return;
     }
@@ -116,12 +150,12 @@ export class CGSelect implements ICgSelect {
 
       if (dataItem.category && dataItem.categoryItems) {
         this.category = dataItem.category!;
-        this.itemsSelect.push(this.category);
-        dataItem.categoryItems.forEach((categoryItem, indexCategory) => {
-          this.itemsSelect.push(getFormatItem(categoryItem, indexCategory));
+        this.items.push(this.category);
+        dataItem.categoryItems.forEach((categoryItem, indexCategory: number) => {
+          this.items.push(getFormatItem(categoryItem, indexCategory));
         });
       } else {
-        this.itemsSelect.push(getFormatItem(itemInputs.ItemValue, index));
+        this.items.push(getFormatItem(itemInputs.ItemValue, index));
       }
     });
   }
@@ -134,16 +168,7 @@ export class CGSelect implements ICgSelect {
    * @description Рендер елементов в селекте.
    */
   private render(select?: string): void {
-    const {
-      styles,
-      multiselect,
-      searchMode,
-      multiselectTag,
-      darkTheme,
-      language,
-      nativeSelectMode,
-      listDisplayMode,
-    } = this.options;
+    const { styles } = this.options;
 
     const random = Math.random().toString(36).substring(2, 10);
 
@@ -169,8 +194,8 @@ export class CGSelect implements ICgSelect {
       customStylesFormat(list!, ulList);
     }
 
-    if (searchMode) {
-      if (language === 'ru') {
+    if (this.searchMode) {
+      if (this.language === 'ru') {
         inputSearch = createInputSearch(random, ru.placeholder);
       } else {
         inputSearch = createInputSearch(random, en.placeholder);
@@ -183,7 +208,7 @@ export class CGSelect implements ICgSelect {
 
     this.element?.appendChild(ulList);
 
-    this.itemsSelect.forEach((dataItem: IItems | any) => {
+    this.items.forEach((dataItem: IItems | any) => {
       this.element?.appendChild(nativeSelect);
 
       const liItem = document.createElement('li');
@@ -193,13 +218,13 @@ export class CGSelect implements ICgSelect {
       liItem.classList.add('list__item');
       strongItem.classList.add('category');
 
-      if (multiselect) {
+      if (this.multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.setAttribute('id', `chbox-${dataItem.id}`);
         liItem.appendChild(checkBox);
 
-        if (multiselectTag) {
+        if (this.multiselectTag) {
           checkBox.classList.add('displayHide');
         }
 
@@ -222,9 +247,9 @@ export class CGSelect implements ICgSelect {
       }
     });
 
-    this.itemsSelect.filter((item, index) => {
+    this.items.filter((item, index) => {
       if (typeof item !== 'object') {
-        this.itemsSelect.splice(index, 1);
+        this.items.splice(index, 1);
       }
       return item;
     });
@@ -232,16 +257,16 @@ export class CGSelect implements ICgSelect {
     this.list = this.element!.querySelector('.list');
     this.caret = this.element!.querySelector('.caret');
 
-    if (darkTheme == false) {
+    if (this.darkTheme == false) {
       this.checkTheme();
     }
 
-    if (nativeSelectMode === true) {
-      this.selectMode(nativeSelectMode);
+    if (this.nativeSelectMode === true) {
+      this.selectMode(this.nativeSelectMode);
     }
 
-    if (listDisplayMode) {
-      this.displayMode(listDisplayMode);
+    if (this.listDisplayMode) {
+      this.displayMode(this.listDisplayMode);
     }
 
     this.addOptionsBehaviour();
@@ -254,17 +279,11 @@ export class CGSelect implements ICgSelect {
    * @description Рендер елементов в селекте переданных с URL и их настойка
    */
   private async renderUrl() {
-    const { url, items, multiselect, multiselectTag } = this.options;
-
-    if (items) {
+    if (this.items || !this.url) {
       return;
     }
 
-    if (!url) {
-      return;
-    }
-
-    const response = await fetch(url);
+    const response = await fetch(this.url);
     const dataUrl = await response.json();
 
     const nativeSelect = createNativeSelect();
@@ -282,11 +301,11 @@ export class CGSelect implements ICgSelect {
       const liUrl = document.createElement('li');
       const textUrl = document.createTextNode(item.title);
 
-      if (multiselect) {
+      if (this.multiselect) {
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
 
-        if (multiselectTag) {
+        if (this.multiselectTag) {
           checkBox.classList.add('displayHide');
         }
 
@@ -304,14 +323,14 @@ export class CGSelect implements ICgSelect {
       liUrl.appendChild(textUrl);
       ulUrl!.appendChild(liUrl);
 
-      this.itemsSelect.push(item);
+      this.items.push(item);
     });
 
     this.element!.appendChild(nativeSelect);
 
-    this.itemsSelect.filter((item, index) => {
+    this.items.filter((item, index) => {
       if (typeof item !== 'object') {
-        this.itemsSelect.splice(index, 1);
+        this.items.splice(index, 1);
       }
       return item;
     });
@@ -328,17 +347,17 @@ export class CGSelect implements ICgSelect {
    * @protected
    */
   private initSelected(select?: string): void {
-    const { styles, selected, placeholder, lable, language } = this.options;
+    const { styles } = this.options;
 
-    if (selected) {
-      createSelected(this.element, selected);
-    } else if (placeholder) {
-      createSelected(this.element, placeholder);
+    if (this.selected) {
+      createSelected(this.element, this.selected);
+    } else if (this.placeholder) {
+      createSelected(this.element, this.placeholder);
     } else {
-      if (language && language === 'ru') {
-        // createSelected(this.#element, ru.selectPlaceholder);
+      if (this.language && this.language === 'ru') {
+        createSelected(this.element, ru.selectPlaceholder);
       } else {
-        // createSelected(this.#element, en.selectPlaceholder);
+        createSelected(this.element, en.selectPlaceholder);
       }
     }
 
@@ -346,9 +365,9 @@ export class CGSelect implements ICgSelect {
       createSelected(this.element, select, styles);
     }
 
-    if (lable) {
+    if (this.lable) {
       const lableItem = document.createElement('h1');
-      const textLable = document.createTextNode(lable);
+      const textLable = document.createTextNode(this.lable);
 
       lableItem.appendChild(textLable);
       lableItem.classList.add('label');
@@ -368,14 +387,13 @@ export class CGSelect implements ICgSelect {
    * @method initEvent
    */
   private initEvent() {
-    const { event } = this.options;
-    if (!event) {
+    if (!this.event) {
       return;
     }
 
-    if (event) {
-      if (event === 'mouseenter') {
-        this.element!.addEventListener(event, () => {
+    if (this.event) {
+      if (this.event === 'mouseenter') {
+        this.element!.addEventListener(this.event, () => {
           this.open();
         });
         this.element!.addEventListener('mouseleave', () => {
@@ -394,11 +412,11 @@ export class CGSelect implements ICgSelect {
    */
   private open(oneClick?: boolean): void {
     if (oneClick === true) {
-      this.list?.classList.add('open');
-      this.caret?.classList.add('caret_rotate');
+      this.list!.classList.add('open');
+      this.caret!.classList.add('caret_rotate');
     } else {
-      this.list?.classList.toggle('open');
-      this.caret?.classList.toggle('caret_rotate');
+      this.list!.classList.toggle('open');
+      this.caret!.classList.toggle('caret_rotate');
     }
   }
 
@@ -425,12 +443,11 @@ export class CGSelect implements ICgSelect {
     document.addEventListener('click', (e) => {
       const withinBoundaries = e.composedPath().includes(dropdown!);
       if (!withinBoundaries) {
-        // if (this.btn) {
-        //   return;
-        // } else {
-        //   this.#close();
-        // }
-        this.close();
+        if (this.btnCntr) {
+          return;
+        } else {
+          this.close();
+        }
       }
     });
   }
@@ -442,16 +459,6 @@ export class CGSelect implements ICgSelect {
    * @method addOptionsBehaviour
    */
   private addOptionsBehaviour() {
-    const {
-      multiselect,
-      placeholder,
-      selected,
-      multiselectTag,
-      searchMode,
-      closeOnSelect,
-      darkTheme,
-    } = this.options;
-
     const options = this.element?.querySelectorAll('.list__item');
     const select: HTMLElement | null | undefined = this.element?.querySelector('.selected');
     const nativeOption = this.element!.querySelectorAll('.nativeSelect__nativeOption');
@@ -460,13 +467,13 @@ export class CGSelect implements ICgSelect {
 
     const ulMultipul = document.createElement('ul');
 
-    if (multiselect) {
+    if (this.multiselect) {
       this.selectedItems = [];
       ulMultipul.classList.add('multiselect-tag');
       select?.classList.add('overflow-hidden');
     }
 
-    if (searchMode) {
+    if (this.searchMode) {
       this.searchModeSelect(this.randomId);
     }
 
@@ -474,25 +481,25 @@ export class CGSelect implements ICgSelect {
       option.addEventListener('click', (event) => {
         if (Array.isArray(this.selectedItems)) {
           selectedItemsClear = {
-            placeholder: placeholder!,
-            selected: selected!,
+            placeholder: this.placeholder!,
+            selected: this.selected!,
             selectedItems: this.selectedItems,
             indexes: this.indexes,
-            darkTheme: darkTheme,
-            multiselectTag: multiselectTag,
+            darkTheme: this.darkTheme,
+            multiselectTag: this.multiselectTag,
           };
         }
 
-        const item: IItems = this.itemsSelect[index];
+        const item: IItems = this.items[index];
 
         const checkIndex = this.indexes.indexOf(index);
 
-        if (closeOnSelect == false || multiselect) {
+        if (this.closeOnSelect == false || this.multiselect) {
           event.stopPropagation();
           event.preventDefault();
         }
 
-        if (multiselect) {
+        if (this.multiselect) {
           option.classList.toggle('active');
 
           const checkBox: HTMLInputElement | null = option.querySelector('input[type="checkbox"]');
@@ -507,7 +514,7 @@ export class CGSelect implements ICgSelect {
               nativeOptionMultiple(nativeOption, item.title, true);
               select!.textContent = '';
 
-              if (multiselectTag) {
+              if (this.multiselectTag) {
                 if (Array.isArray(this.selectedItems)) {
                   const dataBreadCrumb: ICreateBreadCrumb = {
                     option: this.options,
@@ -529,7 +536,7 @@ export class CGSelect implements ICgSelect {
                 }
               }
             } else {
-              if (multiselectTag) {
+              if (this.multiselectTag) {
                 const tagItem = document.getElementById(`tag-${index}-${item.id}`);
                 ulMultipul.removeChild<Element>(tagItem!);
               }
@@ -544,7 +551,7 @@ export class CGSelect implements ICgSelect {
             if (!this.selectedItems.length) {
               getSelectText(selectedItemsClear, select);
             } else {
-              if (multiselectTag) {
+              if (this.multiselectTag) {
                 select!.appendChild(ulMultipul);
               } else {
                 if (Array.isArray(this.selectedItems)) {
@@ -577,22 +584,20 @@ export class CGSelect implements ICgSelect {
    * @description Изменяет цветовую схему с темной на светлую.
    */
   private checkTheme(): void {
-    const { darkTheme, searchMode } = this.options;
-
     const select = this.element!.querySelector('.cg-select');
     const caret = this.element!.querySelector('.caret');
     const list = this.element!.querySelector('ul.list');
     const search = this.element!.querySelector('.inputSearch');
 
-    if (darkTheme == false) {
+    if (this.darkTheme == false) {
       select!.classList.add('selectWhite');
       caret!.classList.add('caretWhite');
       list!.classList.add('listWhite');
 
-      if (searchMode == true) {
+      if (this.searchMode == true) {
         search!.classList.add('inputWhite');
       }
-    } else if (darkTheme == true || !darkTheme) {
+    } else if (this.darkTheme == true) {
       return;
     } else {
       throw new Error('Styles error or invalid value entered!');
@@ -636,14 +641,12 @@ export class CGSelect implements ICgSelect {
    * @method searchMode
    */
   private searchModeSelect(random: string) {
-    const { language } = this.options;
-
     const input = this.element!.querySelector(`#searchSelect-${random}`) as HTMLInputElement;
     const searchSelect = this.element!.querySelectorAll('.list__item');
     const result = document.createElement('p');
 
     let textNode: Text;
-    if (language && language === 'ru') {
+    if (this.language && this.language === 'ru') {
       textNode = document.createTextNode(`${ru.textInListSearch}`);
     } else {
       textNode = document.createTextNode(`${en.textInListSearch}`);
@@ -715,19 +718,32 @@ export class CGSelect implements ICgSelect {
   // Public methods
   /**
    * Метод экземпляра класса DropDown
+   * @param {number} numberItem номер возвращаемого элемента
+   * @returns {HTMLElement} возвращает ссылку на выбранный HTML элемент
+   * @method getElement
+   */
+  public getElement(numberItem: number) {
+    if (numberItem > this.items.length) {
+      return;
+    }
+
+    return this.items[numberItem];
+  }
+
+  /**
+   * Метод экземпляра класса DropDown
    * @param {object} language объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
    * @description метод позволяющий заменить плейсхолдер в поиске и текст который выводится если нет результата
    * @method addLanguage
    */
   public addLanguage(language: ILanguage) {
     const { placeholder, textInListSearch, selectPlaceholder } = language;
-    const { searchMode } = this.options;
 
     const select = this.element!.querySelector('.selected');
     const textNodeSelect = document.createTextNode(selectPlaceholder);
     select!.appendChild(textNodeSelect);
 
-    if (searchMode) {
+    if (this.searchMode) {
       const search = this.element!.querySelector('.inputSearch');
       const textNoRezult = this.element!.querySelector('.noRezult');
       const textNode = document.createTextNode(textInListSearch);
@@ -747,14 +763,12 @@ export class CGSelect implements ICgSelect {
    * @description Метод позволяющий открывать/закрывать селект с помощью кнопок
    * @method buttonControl
    */
-  public buttonControl(button, method: string) {
-    const { listDisplayMode } = this.options;
-
-    if (listDisplayMode === true) {
+  public buttonControl(button: Element, method: string) {
+    if (this.listDisplayMode) {
       return;
     }
 
-    // this.btn = button;
+    this.btnCntr = button!;
     button.addEventListener('click', () => {
       if (method.toLowerCase() === 'open') {
         this.open(true);
