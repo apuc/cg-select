@@ -779,4 +779,97 @@ export class CGSelect implements ICgSelect {
       }
     });
   }
+
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {boolean} value - Передаваемый параметр для добавления атрибута disabled;
+   * @description Метод позволяющий переключать состояние селекта disabled,
+   * @method disabled
+   */
+  public disabled(value: boolean) {
+    const select = this.element!.querySelector('.cg-select');
+    const nativeSelect = this.element!.querySelector('.nativeSelect');
+
+    if (value === true) {
+      this.element!.setAttribute('disabled', 'true');
+      nativeSelect!.setAttribute('disabled', 'true');
+      select!.classList.add('disabled');
+    } else {
+      this.element!.removeAttribute('disabled');
+      nativeSelect!.removeAttribute('disabled');
+      select!.classList.remove('disabled');
+    }
+  }
+
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {string | object} item добавляемый елемент
+   * @description добавляет переданный элемент в конец списка и перерисовывает список. Не может использоваться при передачи элементов с категорями
+   * @method addItem
+   */
+  public addItem(item: IItems | string | number) {
+    if (this.category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
+    if (!item) {
+      return false;
+    }
+
+    const index = this.items.length;
+
+    this.items.push(getFormatItem(item, index));
+    this.render();
+  }
+
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {number} index индекс удаляемого элемента
+   * @description удаляет елемент по индексу из списка и перерисовывает его. Не может использоваться при передачи элементов с категорями.
+   * @method deleteItem
+   */
+  public deleteItem(index: number) {
+    if (this.category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
+    const item = this.items[index];
+
+    this.items.splice(index, 1);
+    this.render();
+  }
+
+  /**
+   * Метод экземпляра класса DropDown
+   * @description удаляет все елементы из списка и перерисовывает его.
+   * @method deleteItemAll
+   */
+  public deleteItemAll() {
+    this.items.splice(0, this.items.length);
+    this.render();
+  }
+
+  /**
+   * Метод экземпляра класса DropDown
+   * @param {number} index индекс выбранного элемента
+   * @description  выбирает элемент который будет изначально отрисовываться в селекте
+   * @method selectIndex
+   */
+  public selectIndex(index: number) {
+    if (this.category) {
+      console.log('can`t add item to category');
+      return;
+    }
+
+    const options = this.element!.querySelectorAll('.list__item') as NodeListOf<HTMLElement>;
+
+    if (index > options!.length) {
+      return;
+    }
+
+    const select: string = options[index].innerText;
+    this.render(select);
+  }
 }
