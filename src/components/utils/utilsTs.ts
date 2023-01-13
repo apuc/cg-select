@@ -1,14 +1,18 @@
-import { ICgSelect } from '../../interfaces/cg-select.interface';
+/**
+ * Utils module
+ * @module Utils
+ */
+
+import { IStyle } from '../../interfaces/cg-select.interface';
 import { IItems } from '../../interfaces/items.interface';
 import { IDataItem, ISelectedItems } from './urils.interface';
 
 /**
  * Преобразование каждого елемента полученного из поля Items;
- * @param {IDataItem} dataItem полученный елемент переданный при создании селекта может быть как object / string
+ * @param {any} dataItem полученный елемент переданный при создании селекта может быть как object / string
  * @param {number} index индекс этого элемента
- * @returns {IDataItem | IItems} возвращает сформированный объект
+ * @returns {IItems} возвращает сформированный объект
  */
-
 export function getFormatItem(dataItem: any, index: number): IItems {
   const random = Math.random().toString(36).substring(2, 10);
   let item: IItems;
@@ -67,7 +71,7 @@ export function checkItemStruct(item: object): boolean {
  * @param {string} content placeholer передаваемый из настроек селекта
  * @param {object} styles не обязательный параметр. Объект в котором находяться настройки кастомизации частей селекта
  */
-export function createSelected(element: Element | null, content?: string, styles?: object) {
+export function createSelected(element: Element, content?: string, styles?: IStyle) {
   const select = document.createElement('div');
   const selected = document.createElement('p');
   const caret = document.createElement('div');
@@ -89,17 +93,6 @@ export function createSelected(element: Element | null, content?: string, styles
     selected.setAttribute('style', `${styles}`);
     caret.setAttribute('style', `${styles}`);
   }
-
-  // if (styles) {
-  //   customStyles(element, styles);
-
-  //   element.innerHTML = `
-  //     <div class="cg-select" style = "${styles}">
-  //         <p class="selected" style = "${styles}">${content}</p>
-  //         <div class="caret" style = "${styles}"></div>
-  //     </div>
-  //   `;
-  // }
 }
 
 /**
@@ -210,24 +203,18 @@ export function nativeOptionMultiple(
  * @param {Element} element созданный экземпляр класса DropDown
  * @param {object} styles объект в котором находяться настройки кастомизации частей селекта
  */
-export function customStyles(element: Element, styles: any) {
-  if (!styles) {
-    return;
-  }
-
-  const { head, caret, placeholder, lable } = styles;
-
+export function customStyles(element: Element, styles: IStyle) {
   const cgSelect = element.querySelector('.cg-select');
   const caretSelect = element.querySelector('.caret');
   const placeholderSelect = element.querySelector('.selected');
   const lableItem = element.parentElement!.querySelector('h1.label');
 
-  customStylesFormat(head, cgSelect!);
-  customStylesFormat(caret, caretSelect!);
-  customStylesFormat(lable, lableItem!);
+  customStylesFormat(styles.head!, cgSelect!);
+  customStylesFormat(styles.caret!, caretSelect!);
+  customStylesFormat(styles.lable!, lableItem!);
 
   if (placeholderSelect) {
-    customStylesFormat(placeholder, placeholderSelect);
+    customStylesFormat(styles.placeholder!, placeholderSelect);
   }
 }
 

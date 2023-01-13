@@ -25,8 +25,14 @@ import { ILanguage } from './interfaces/language.interface';
 
 import './main.scss';
 
+/**
+ * @class Описание класса ICgSelect
+ * @description Этот класс реализовывает функционал кастомного селекта, с возможностями кастомизации.
+ * @author Овсяников Максим
+ */
 export class CGSelect implements ICgSelect {
   // Настройки селекта
+
   selector: string;
   selected?: string;
   placeholder?: string;
@@ -45,21 +51,110 @@ export class CGSelect implements ICgSelect {
   multiselectTag?: boolean;
 
   // Переменные и комплектующие селекта
+
+  /**
+   * Созданный HTML елемент
+   * @type {Element | null}
+   */
   private element: Element | null;
+  /**
+   * Созданный список(ul), с классом list
+   * @type {Element | null | undefined}
+   */
   private list: Element | null | undefined;
+  /**
+   * Настройки селекта передаваемые при создании экземпляра класса
+   * @type {ICgSelect}
+   */
   private options: ICgSelect;
+  /**
+   * Уникальный Id для елементов
+   * @type {string}
+   */
   private randomId: string;
+  /**
+   * Переменная для управления каретки
+   * @type {Element | null | undefined}
+   */
   private caret: Element | null | undefined;
+  /**
+   * Переданные категории
+   * @type {string}
+   */
   private category: string;
+  /**
+   * Выбранный или массив выбранных элементов из списка
+   * @type {string[] | string}
+   */
   private selectedItems: string[] | string;
+  /**
+   * Массив индексов выбранных элементов
+   * @type {number[]}
+   */
   private indexes: number[] = [];
+  /**
+   * Кнопка, для управления селектом
+   * @type {Element | null}
+   */
   private btnCntr: Element | null;
 
+  /**
+   * @param {ICgSelect} setting Объект принимающий настройки селекта
+   * @constructor Конструктор класса DropDown
+   * @description  Конструктор принимает объект и рендерит селект.
+   * @example
+   * options = {
+   *  selector: 'Уникальный селектор',
+      selected: 'Выбранный элемент',
+      placeholder: '...',
+      lable: '...'
+      items: [string|number|object],
+      darkTheme: true/false,
+      searchMode: true/false,
+      closeOnSelect:  true/false,
+      nativeSelectMode: true/false,
+      listDisplayMode: true/false,
+      language: 'ru/en',
+      styles: {
+        head: {
+          background: '...',
+        },
+        list: {...},
+        chips: {...},
+        caret: {...},
+        placeholder: {...},
+        lable: {..},
+      },
+      event: '...',
+      url: 'http/...',
+      multiselect: true/false,
+      multiselectTag: true/false,
+   * } 
+   */
   constructor(setting: ICgSelect) {
     this.init(setting);
     this.render();
     this.closeSelectClick();
     this.initEvent();
+  }
+
+  //Getters
+  /**
+   * Метод экземпляра класса DropDown
+   * @returns {string[] | string} Возвращает выбранные элемент(ы) в виде массива/элемента/null
+   * @description Геттер возвращающий выбранные элемент(ы) селекта
+   */
+  get value(): string | string[] {
+    return this.selectedItems ?? null;
+  }
+
+  /**
+   * Метод экземпляра класса DropDown
+   * @returns {number | number[]}Возвращает индексы выбранных элемента(ов) в виде массива/пустой массив
+   * @description Геттер возвращающий индексы выбранных элемента(ов) селекта
+   */
+  get indexesOf(): number | number[] {
+    return this.indexes ?? [];
   }
 
   /**
@@ -140,18 +235,19 @@ export class CGSelect implements ICgSelect {
       this.renderUrl();
       return;
     }
+    createSelected;
 
     items.forEach((dataItem: any, index: number) => {
       let itemInputs: IDataItem = {
         ItemValue: dataItem,
-        // category: dataItem.category,
-        // categoryItems: dataItem.categoryItems,
+        category: dataItem.category,
+        categoryItems: dataItem.categoryItems,
       };
 
-      if (dataItem.category && dataItem.categoryItems) {
-        this.category = dataItem.category!;
+      if (itemInputs.category && itemInputs.categoryItems) {
+        this.category = itemInputs.category!;
         this.items.push(this.category);
-        dataItem.categoryItems.forEach((categoryItem, indexCategory: number) => {
+        itemInputs.categoryItems.forEach((categoryItem, indexCategory: number) => {
           this.items.push(getFormatItem(categoryItem, indexCategory));
         });
       } else {
@@ -168,13 +264,11 @@ export class CGSelect implements ICgSelect {
    * @description Рендер елементов в селекте.
    */
   private render(select?: string): void {
-    const { styles } = this.options;
-
     const random = Math.random().toString(36).substring(2, 10);
 
-    if (select || (select && styles)) {
+    if (select || (select && this.styles)) {
       this.initSelected(select);
-      customStyles(this.element!, styles);
+      customStyles(this.element!, this.styles!);
     } else {
       this.initSelected();
     }
@@ -189,9 +283,8 @@ export class CGSelect implements ICgSelect {
 
     ulList.classList.add('list');
 
-    if (styles) {
-      const { list } = styles;
-      customStylesFormat(list!, ulList);
+    if (this.styles) {
+      customStylesFormat(this.styles.list!, ulList);
     }
 
     if (this.searchMode) {
@@ -201,8 +294,7 @@ export class CGSelect implements ICgSelect {
         inputSearch = createInputSearch(random, en.placeholder);
       }
 
-      const { search } = styles!;
-      customStylesFormat(search!, inputSearch);
+      customStylesFormat(this.styles?.search!, inputSearch);
       ulList.appendChild(inputSearch);
     }
 
@@ -247,10 +339,11 @@ export class CGSelect implements ICgSelect {
       }
     });
 
-    this.items.filter((item, index) => {
+    this.items.filter((item: IItems | any, index: number) => {
       if (typeof item !== 'object') {
         this.items.splice(index, 1);
       }
+
       return item;
     });
 
@@ -340,29 +433,26 @@ export class CGSelect implements ICgSelect {
 
   /**
    * Привaтный метод экземпляра класса DropDown
-   *
    * @method initSelected
    * @param {string} select необязательный елемент. Используется в методе selectIndex
    * @description Отрисовывает и стилизует селект
    * @protected
    */
   private initSelected(select?: string): void {
-    const { styles } = this.options;
-
     if (this.selected) {
-      createSelected(this.element, this.selected);
+      createSelected(this.element!, this.selected);
     } else if (this.placeholder) {
-      createSelected(this.element, this.placeholder);
+      createSelected(this.element!, this.placeholder);
     } else {
       if (this.language && this.language === 'ru') {
-        createSelected(this.element, ru.selectPlaceholder);
+        createSelected(this.element!, ru.selectPlaceholder);
       } else {
-        createSelected(this.element, en.selectPlaceholder);
+        createSelected(this.element!, en.selectPlaceholder);
       }
     }
 
     if (select) {
-      createSelected(this.element, select, styles);
+      createSelected(this.element!, select, this.styles);
     }
 
     if (this.lable) {
@@ -375,8 +465,8 @@ export class CGSelect implements ICgSelect {
       this.element!.insertAdjacentElement('beforebegin', lableItem);
     }
 
-    if (styles) {
-      customStyles(this.element!, styles);
+    if (this.styles) {
+      customStyles(this.element!, this.styles);
     }
   }
 
@@ -722,7 +812,7 @@ export class CGSelect implements ICgSelect {
    * @returns {HTMLElement} возвращает ссылку на выбранный HTML элемент
    * @method getElement
    */
-  public getElement(numberItem: number) {
+  public getElement(numberItem: number): IItems[] | string[] | any {
     if (numberItem > this.items.length) {
       return;
     }

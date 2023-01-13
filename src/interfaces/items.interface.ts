@@ -1,5 +1,17 @@
-export interface IItems{
-    id: string;
-    title: string;
-    value: number | string
+export interface IItems {
+  /**
+   * Уникальное ID элемента
+   * @type {string}
+   */
+  id: string;
+  /**
+   * Текстовое значение элемента
+   * @type {string}
+   */
+  title: string;
+  /**
+   * Порядковый номер, или другая информация
+   * @type {number | string}
+   */
+  value: number | string;
 }

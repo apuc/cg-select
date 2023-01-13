@@ -4,29 +4,15 @@ const dropdn = new CGSelect({
   selector: '.cg-dropdown_one',
   placeholder: 'Выберите авто',
   items: [
+    'BMW',
     {
-      category: 'Russia',
-      categoryItems: [
-        {
-          id: '28qwds',
-          title: 'Москва',
-          value: 0,
-        },
-        ,
-        'Ростов-на-дону',
-        'Саратов',
-        'Волгоград',
-        'Донецк',
-      ],
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
     },
-    {
-      category: 'USA',
-      categoryItems: ['Alabama', 'Texas', 'Colorado', 'Klirens', 'Los-Angeles'],
-    },
-    {
-      category: 'France',
-      categoryItems: ['Paris'],
-    },
+    'Mersedes',
+    'MAN',
+    'max',
   ],
   styles: {
     head: {
