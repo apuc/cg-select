@@ -32,8 +32,7 @@ import './main.scss';
  */
 export class CGSelect implements ICgSelect {
   // Настройки селекта
-
-  selector: string;
+  selector?: string;
   selected?: string;
   placeholder?: string;
   items?: IItems[] | string[] | any;
@@ -56,22 +55,22 @@ export class CGSelect implements ICgSelect {
    * Созданный HTML елемент
    * @type {Element | null}
    */
-  private element: Element | null;
+  private element!: Element | null;
   /**
    * Созданный список(ul), с классом list
    * @type {Element | null | undefined}
    */
-  private list: Element | null | undefined;
+  private list!: Element | null;
   /**
    * Настройки селекта передаваемые при создании экземпляра класса
    * @type {ICgSelect}
    */
-  private options: ICgSelect;
+  private options!: ICgSelect;
   /**
    * Уникальный Id для елементов
    * @type {string}
    */
-  private randomId: string;
+  private randomId!: string;
   /**
    * Переменная для управления каретки
    * @type {Element | null | undefined}
@@ -81,12 +80,12 @@ export class CGSelect implements ICgSelect {
    * Переданные категории
    * @type {string}
    */
-  private category: string;
+  private category?: string;
   /**
    * Выбранный или массив выбранных элементов из списка
    * @type {string[] | string}
    */
-  private selectedItems: string[] | string;
+  private selectedItems!: string[] | string;
   /**
    * Массив индексов выбранных элементов
    * @type {number[]}
@@ -96,7 +95,7 @@ export class CGSelect implements ICgSelect {
    * Кнопка, для управления селектом
    * @type {Element | null}
    */
-  private btnCntr: Element | null;
+  private btnCntr?: Element | null;
 
   /**
    * @param {ICgSelect} setting Объект принимающий настройки селекта
@@ -221,7 +220,7 @@ export class CGSelect implements ICgSelect {
     this.selected = selected;
     this.placeholder = placeholder;
 
-    const elem = document.querySelector(this.selector);
+    const elem = document.querySelector(this.selector!);
     this.element = elem;
 
     this.element?.addEventListener('click', (e) => {
@@ -247,9 +246,11 @@ export class CGSelect implements ICgSelect {
       if (itemInputs.category && itemInputs.categoryItems) {
         this.category = itemInputs.category!;
         this.items.push(this.category);
-        itemInputs.categoryItems.forEach((categoryItem, indexCategory: number) => {
-          this.items.push(getFormatItem(categoryItem, indexCategory));
-        });
+        itemInputs.categoryItems.forEach(
+          (categoryItem: string | IItems | any, indexCategory: number) => {
+            this.items.push(getFormatItem(categoryItem, indexCategory));
+          },
+        );
       } else {
         this.items.push(getFormatItem(itemInputs.ItemValue, index));
       }
@@ -421,7 +422,7 @@ export class CGSelect implements ICgSelect {
 
     this.element!.appendChild(nativeSelect);
 
-    this.items.filter((item, index) => {
+    this.items.filter((item: IItems | string | any, index: number) => {
       if (typeof item !== 'object') {
         this.items.splice(index, 1);
       }

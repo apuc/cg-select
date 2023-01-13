@@ -10,7 +10,7 @@ export interface IDataItem {
    * Необязательный параметр. Массив с элементами.
    * @type {IItems[] | string[] | any}
    */
-  categoryItems?: IItems[] | string[] | any;
+  categoryItems?: IItems[] | string[];
   /**
    * Значение переданного элемента.
    * @type {string | IItems | number}
