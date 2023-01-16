@@ -1,5 +1,8 @@
 import { ICgSelect } from '../../interfaces/cg-select.interface';
 
+/**
+ * @description Настройки для создания чипсов.
+ */
 export interface ICreateBreadCrumb {
   /**
    * Определенный экземпляр класса.

@@ -1,5 +1,8 @@
 import { IItems } from './items.interface';
 
+/**
+ * @description Настройки селекта.
+ */
 export interface ICgSelect {
   /**
    * Уникальный селектор - *обязательный параметр(индефикатор), который задаеться при создании селекта.
@@ -91,6 +94,9 @@ export interface ICgSelect {
   multiselectTag?: boolean;
 }
 
+/**
+ * @description Настройки стилей.
+ */
 export interface IStyle {
   /**
    * Кастомизация кнопки селекта.

@@ -1,3 +1,6 @@
+/**
+ * @description Настройки для добавления языков.
+ */
 export interface ILanguage {
   /**
    * Текст в поиске.

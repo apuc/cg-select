@@ -1,3 +1,6 @@
+/**
+ * @description Строение элемента.
+ */
 export interface IItems {
   /**
    * Уникальное ID элемента

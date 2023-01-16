@@ -1,5 +1,8 @@
 import { IItems } from '../../interfaces/items.interface';
 
+/**
+ * @description Настройки получаемых элементов.
+ */
 export interface IDataItem {
   /**
    * Необязательный параметр. Категория группы элементов.
@@ -18,6 +21,9 @@ export interface IDataItem {
   ItemValue: string | IItems | number;
 }
 
+/**
+ * @description Настройки для текста селекта и тд.
+ */
 export interface ISelectedItems {
   /**
    * Placeholder  необязательный параметр, в который передается текст плейсхолдера селекта.
