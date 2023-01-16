@@ -1,4 +1,4 @@
-import { IItems } from '../../interfaces/items.interface';
+import { IItems } from 'interfaces/items.interface';
 
 /**
  * @description Настройки получаемых элементов.

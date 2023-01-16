@@ -1,4 +1,4 @@
-import { ILanguage } from '../interfaces/language.interface';
+import { ILanguage } from 'interfaces/language.interface';
 
 export const ru: ILanguage = {
   selectPlaceholder: 'Выберите элемент...',

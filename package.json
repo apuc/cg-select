@@ -9,7 +9,7 @@
   "homepage": "https://cg-select.itguild.info",
   "scripts": {
     "start": "parcel example/index.html -p 4500 --open ",
-    "build": "parcel build index.ts",
+    "build": "parcel build ./src/cg-selectTS.ts --no-cache",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },

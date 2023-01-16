@@ -1,4 +1,4 @@
-import { ICgSelect } from '../../interfaces/cg-select.interface';
+import { ICgSelect } from 'interfaces/cg-select.interface';
 
 /**
  * @description Настройки для создания чипсов.

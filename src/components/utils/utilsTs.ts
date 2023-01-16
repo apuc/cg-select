@@ -2,10 +2,9 @@
  * Utils module
  * @module Utils
  */
-
-import { IStyle } from '../../interfaces/cg-select.interface';
-import { IItems } from '../../interfaces/items.interface';
-import { IDataItem, ISelectedItems } from './urils.interface';
+import { IStyle } from 'interfaces/cg-select.interface';
+import { IItems } from 'interfaces/items.interface';
+import { ISelectedItems } from './urils.interface';
 
 /**
  * Преобразование каждого елемента полученного из поля Items;
