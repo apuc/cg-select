@@ -230,10 +230,11 @@ export class CGSelect implements ICgSelect {
 
     this.items = [];
 
-    if (!this.items && this.url) {
+    if (this.url && !items) {
       this.renderUrl();
       return;
     }
+
     createSelected;
 
     items.forEach((dataItem: any, index: number) => {
@@ -373,12 +374,9 @@ export class CGSelect implements ICgSelect {
    * @description Рендер елементов в селекте переданных с URL и их настойка
    */
   private async renderUrl() {
-    if (this.items || !this.url) {
-      return;
-    }
-
-    const response = await fetch(this.url);
+    const response = await fetch(this.url!);
     const dataUrl = await response.json();
+    console.log(dataUrl);
 
     const nativeSelect = createNativeSelect();
 
@@ -554,7 +552,10 @@ export class CGSelect implements ICgSelect {
     const select: HTMLElement | null | undefined = this.element?.querySelector('.selected');
     const nativeOption = this.element!.querySelectorAll('.nativeSelect__nativeOption');
 
-    let selectedItemsClear: ISelectedItems;
+    let selectedItemsClear: ISelectedItems = {
+      placeholder: this.placeholder!,
+      selected: this.selected!,
+    };
 
     const ulMultipul = document.createElement('ul');
 

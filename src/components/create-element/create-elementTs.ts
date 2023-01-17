@@ -1,4 +1,4 @@
-import { nativeOptionMultiple } from '../utils/utilsTs';
+import { customStylesFormat, nativeOptionMultiple } from '../utils/utilsTs';
 import { ICreateBreadCrumb } from './create-element.interface';
 
 /**
@@ -63,8 +63,8 @@ export function createBreadCrumb(
   liChip.appendChild(svgIcon);
 
   if (styles) {
-    // const { chips } = styles;
-    //   customStylesFormat(chips, liChip);
+    const { chips } = styles;
+    customStylesFormat(chips!, liChip);
   }
 
   svgIcon.addEventListener('click', (event) => {

@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*", "index.ts"],
+  // "include": ["src/**/*", "index.ts"],
   "compilerOptions": {
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */

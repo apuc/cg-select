@@ -1,34 +1,34 @@
-import DropDown from '../index';
+import { CGSelect } from '../src/cg-selectTS';
 import './example';
 
 // ------------------------------Обычный селект--------------------
-// const dropdown = new DropDown({
-//   selector: '.cg-dropdown_one',
-//   placeholder: 'Выберите авто',
-//   lable: 'EXAMPLE',
-//   items: [
-//     'BMW',
-//     {
-//       id: '213sade',
-//       title: 'Opel',
-//       value: 1,
-//     },
-//     'Mersedes',
-//     'MAN',
-//     'Ferari',
-//   ],
-//   styles: {
-//     head: {
-//       width: '830px',
-//     },
-//     list: {
-//       width: '824px',
-//     },
-//   },
-// });
+const dropdown = new CGSelect({
+  selector: '.cg-dropdown_one',
+  placeholder: 'Выберите авто',
+  lable: 'EXAMPLE',
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'Ferari',
+  ],
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+  },
+});
 
 // ------------------------------NativeSelect-----------------------
-const dropdownNativeSelect = new DropDown({
+const dropdownNativeSelect = new CGSelect({
   selector: '.cg-dropdown_selectNative',
   placeholder: 'Выберите авто',
   nativeSelectMode: true,
@@ -43,7 +43,7 @@ const dropdownNativeSelect = new DropDown({
     'MAN',
     'Ferari',
     'Kamaz',
-    'Ural'
+    'Ural',
   ],
   styles: {
     head: {
@@ -56,7 +56,7 @@ const dropdownNativeSelect = new DropDown({
 });
 
 // ------------------------------listDisplayMode--------------------
-const dropdownlistDisplayMode = new DropDown({
+const dropdownlistDisplayMode = new CGSelect({
   selector: '.cg-dropdown_listDisplayMode',
   placeholder: 'Выберите авто',
   listDisplayMode: true,
@@ -81,26 +81,8 @@ const dropdownlistDisplayMode = new DropDown({
   },
 });
 
-// ------------------------------URL--------------------
-const dropdown3 = new DropDown({
-  selector: '.cg-dropdown_three',
-  placeholder: 'URL',
-  url: 'https://jsonplaceholder.typicode.com/users',
-  searchMode: true,
-  darkTheme: false,
-  language: 'ru',
-  styles: {
-    head: {
-      width: '830px',
-    },
-    list: {
-      width: '824px',
-    },
-  },
-});
-
 // --------------------------------Категории--------------------------
-const dropdown4 = new DropDown({
+const dropdown4 = new CGSelect({
   selector: '.cg-dropdown_categories',
   placeholder: 'Выберите регион',
   searchMode: true,
@@ -145,7 +127,7 @@ const dropdown4 = new DropDown({
 });
 
 //----------------управление с помощью кнопок----------------------------------
-const dropdownBtn = new DropDown({
+const dropdownBtn = new CGSelect({
   selector: '.cg-dropdown_usedBtn',
   placeholder: 'Выберите авто',
   searchMode: true,
@@ -192,7 +174,7 @@ dropdownBtn.buttonControl(buttonOpen, 'open');
 dropdownBtn.buttonControl(buttonClose, 'close');
 
 //-------------------------Функция Disabled----------------------------------
-const dropdownDisabled = new DropDown({
+const dropdownDisabled = new CGSelect({
   selector: '.cg-dropdown_checkboxDisable',
   placeholder: 'Выберите авто',
   searchMode: true,
@@ -229,4 +211,23 @@ chbox.addEventListener('click', () => {
   } else {
     dropdownDisabled.disabled(true);
   }
+});
+
+// ------------------------------URL--------------------
+const dropdown3 = new CGSelect({
+  selector: '.cg-dropdown_three',
+  placeholder: 'URL',
+  url: 'https://jsonplaceholder.typicode.com/todos',
+  searchMode: true,
+  darkTheme: false,
+  language: 'ru',
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+  },
+  multiselect: true,
 });

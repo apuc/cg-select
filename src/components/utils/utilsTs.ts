@@ -48,6 +48,7 @@ export function getSelectText(
   } else {
     select!.innerText = 'Select...';
   }
+
   return select!;
 }
 
@@ -116,7 +117,7 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
   svgIcon.appendChild(path1);
   svgIcon.appendChild(path2);
 
-  if (multiselectTag) {
+  if (multiselectTag && multiselectTag == true) {
     return;
   }
 
@@ -162,7 +163,7 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
  * @param {NodeList} element NodeList нативного селекта
  * @param {any} item выбранный элемент в кастомном селекте
  */
-export function nativeOptionOrdinary(element: NodeListOf<Element> | undefined, item: any) {
+export function nativeOptionOrdinary(element: NodeListOf<Element> | undefined, item: string) {
   element!.forEach((option) => {
     option.removeAttribute('selected');
     if (option.textContent === item) {

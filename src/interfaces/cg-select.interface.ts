@@ -128,4 +128,9 @@ export interface IStyle {
    * @type {object}
    */
   search?: object;
+  /**
+   * Кастомизация чипсов с выбранными элементами
+   * @type {object}
+   */
+  chips?: object;
 }
