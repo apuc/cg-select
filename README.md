@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.1.171
+## version ~ 0.2.1
 
 Этот компонент позволяет создать кастомный селект. Он предлагает более гибкую настройку и использование селекта.
 Доступна кастомизация, мультивыбор и живой поиск по елементам.
@@ -45,10 +45,9 @@ npm i cg-select
 ### Пример создния обычного селекта
 
 ```javascript
-import { DropDown } from 'cg-select/src/cg-select';
-import 'cg-select/src/main.scss';
+import { CGSelect } from 'cg-select';
 
-const dropdown = new DropDown({
+const dropdown = new CGSelect({
   selector: '.cg-dropdown_selector',
   placeholder: 'Выберите авто',
   items: [

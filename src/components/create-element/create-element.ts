@@ -1,22 +1,48 @@
-import { customStylesFormat, nativeOptionMultiple } from './utils';
+import { customStylesFormat, nativeOptionMultiple } from '../utils/utils';
+import { ICreateBreadCrumb } from './create-element.interface';
+
 /**
- * @module createBreadcrumb
+ * Метод который создает нативный селект
+ * @returns {HTMLSelectElement} Возвращает созданный нативный селект
  */
+export function createNativeSelect(): HTMLSelectElement {
+  const nativeSelect = document.createElement('select');
+
+  nativeSelect.setAttribute('name', 'dataSelect');
+  nativeSelect.classList.add('nativeSelect');
+  return nativeSelect;
+}
+
+/**
+ * Метод который создает Options для нативного селекта
+ * @returns {HTMLOptionElement} Возвращает созданные Options нативного селекта
+ */
+export function createNativeSelectOption(): HTMLOptionElement {
+  const nativeOption = document.createElement('option');
+
+  nativeOption.classList.add('nativeSelect__nativeOption');
+  return nativeOption;
+}
 
 /**
  * Метод который создает и отвечает за поведение chips
- * @param {object} data объект в котором содержатся настройки и элементы селекта
+ * @param {ICreateBreadCrumb} data объект в котором содержатся настройки и элементы селекта
  * @param {string} title имя выбранного элемента для отрисовки chips
  * @param {number} index индекс выбранного элемента для отрисовки chips
  * @param {string} id уникальное id выбранного элемента
  * @returns {HTMLElement} возвращает сформированный HTMLElement chips item
  */
-export function createBreadcrumb(data, title, index, id) {
+export function createBreadCrumb(
+  data: ICreateBreadCrumb,
+  title: string,
+  index: number,
+  id: string,
+): HTMLLIElement {
   const { element, option, indexes, selectedItems } = data;
   const { placeholder, styles } = option;
 
-  const selected = element.querySelector('.selected');
-  const nativeOption = element.querySelectorAll('.nativeSelect__nativeOption');
+  const selected: HTMLElement | null | undefined = element?.querySelector('.selected');
+  const nativeOption = element!.querySelectorAll('.nativeSelect__nativeOption');
 
   const liChip = document.createElement('li');
   const textNode = document.createTextNode(title);
@@ -38,7 +64,7 @@ export function createBreadcrumb(data, title, index, id) {
 
   if (styles) {
     const { chips } = styles;
-    customStylesFormat(chips, liChip);
+    customStylesFormat(chips!, liChip);
   }
 
   svgIcon.addEventListener('click', (event) => {
@@ -47,7 +73,7 @@ export function createBreadcrumb(data, title, index, id) {
     nativeOptionMultiple(nativeOption, title, false);
 
     const deleteIcon = indexes.indexOf(index);
-    let checkBox = '';
+    let checkBox: any;
 
     indexes.splice(deleteIcon, 1);
     selectedItems.splice(deleteIcon, 1);
@@ -62,36 +88,13 @@ export function createBreadcrumb(data, title, index, id) {
     checkBox.parentElement.classList.remove('active');
 
     if (!selectedItems.length) {
-      selected.innerText = placeholder;
+      selected!.innerText = placeholder!;
     }
 
-    liChip.parentElement.removeChild(liChip);
+    liChip.parentElement!.removeChild(liChip);
   });
 
   return liChip;
-}
-
-/**
- * Метод который создает нативный селект
- * @returns {HTMLSelectElement} Возвращает созданный нативный селект
- */
-export function createNativeSelect() {
-  const nativeSelect = document.createElement('select');
-
-  nativeSelect.setAttribute('name', 'dataSelect');
-  nativeSelect.classList.add('nativeSelect');
-  return nativeSelect;
-}
-
-/**
- * Метод который создает Options для нативного селекта
- * @returns {HTMLOptionElement} Возвращает созданные Options нативного селекта
- */
-export function createNativeSelectOption() {
-  const nativeOption = document.createElement('option');
-
-  nativeOption.classList.add('nativeSelect__nativeOption');
-  return nativeOption;
 }
 
 /**
@@ -100,7 +103,7 @@ export function createNativeSelectOption() {
  * @param {string} lenguage текст на определенном языке переданный из файла language.js
  * @returns {HTMLInputElement} Возвращает сформированный input елемент.
  */
-export function createInputSearch(random, lenguage) {
+export function createInputSearch(random: string, lenguage: string): HTMLInputElement {
   const inputSearch = document.createElement('input');
 
   inputSearch.type = 'text';
