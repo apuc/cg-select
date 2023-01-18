@@ -3,7 +3,7 @@ import {
   createInputSearch,
   createNativeSelect,
   createNativeSelectOption,
-} from './components/create-element/create-elementTs';
+} from './components/create-element/create-element';
 import { ICreateBreadCrumb } from './components/create-element/create-element.interface';
 
 import {
@@ -15,12 +15,12 @@ import {
   getSelectText,
   nativeOptionMultiple,
   nativeOptionOrdinary,
-} from './components/utils/utilsTs';
+} from './components/utils/utils';
 import { IDataItem, ISelectedItems } from './components/utils/urils.interface';
 
 import { ICgSelect, IStyle } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
-import { ru, en } from './language/languageTS';
+import { ru, en } from './language/language';
 import { ILanguage } from './interfaces/language.interface';
 
 import './main.scss';
@@ -235,7 +235,15 @@ export class CGSelect implements ICgSelect {
       return;
     }
 
-    createSelected;
+    if (this.lable) {
+      const lableItem = document.createElement('h1');
+      const textLable = document.createTextNode(this.lable);
+
+      lableItem.appendChild(textLable);
+      lableItem.classList.add('label');
+
+      this.element!.insertAdjacentElement('beforebegin', lableItem);
+    }
 
     items.forEach((dataItem: any, index: number) => {
       let itemInputs: IDataItem = {
@@ -452,16 +460,6 @@ export class CGSelect implements ICgSelect {
 
     if (select) {
       createSelected(this.element!, select, this.styles);
-    }
-
-    if (this.lable) {
-      const lableItem = document.createElement('h1');
-      const textLable = document.createTextNode(this.lable);
-
-      lableItem.appendChild(textLable);
-      lableItem.classList.add('label');
-
-      this.element!.insertAdjacentElement('beforebegin', lableItem);
     }
 
     if (this.styles) {

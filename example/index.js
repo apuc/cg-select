@@ -1,4 +1,4 @@
-import { CGSelect } from '../src/cg-selectTS';
+import { CGSelect } from '../src/cg-select';
 import './example';
 
 // ------------------------------Обычный селект--------------------

@@ -86,7 +86,8 @@ export function createSelected(element: Element, content?: string, styles?: ISty
   if (content) {
     const text = document.createTextNode(content);
     selected.appendChild(text);
-    element?.appendChild(select);
+    element.innerHTML = '';
+    element?.insertAdjacentElement('afterbegin', select);
   } else if (styles) {
     customStyles(element!, styles);
     select.setAttribute('style', `${styles}`);
@@ -105,7 +106,7 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
   const { selectedItems, indexes, darkTheme, multiselectTag } = dataSelectText;
 
   const options = element.querySelectorAll('.list__item');
-  const ulMultiSelect = element.querySelector('.multiselect-tag');
+  const nativeOption = element!.querySelectorAll('.nativeSelect__nativeOption');
   const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -138,6 +139,10 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
 
   svgIcon.addEventListener('click', () => {
     select!.innerText = '';
+
+    nativeOption.forEach((option) => {
+      option.removeAttribute('selected');
+    });
 
     if (Array.isArray(selectedItems)) {
       selectedItems!.splice(0);

@@ -1,4 +1,4 @@
-import { customStylesFormat, nativeOptionMultiple } from '../utils/utilsTs';
+import { customStylesFormat, nativeOptionMultiple } from '../utils/utils';
 import { ICreateBreadCrumb } from './create-element.interface';
 
 /**
