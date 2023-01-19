@@ -1,27 +1,27 @@
 # CG-SELECT
 
-### 16.12.2022 - релиз версии 0.1.0!
+### 16.12.2022 - release version 0.1.0!
 
-### 20.12.2022 - обновление 0.1.12.
+### 20.12.2022 - update 0.1.12.
 
-Проведены тесты в JS и React. Выявленны ошибки в работе в Реакт приложениях.
+Tested in JS and React. Errors in work in React applications are revealed.
 
-- Изменена файловая структура приложения.
+- Changed the file structure of the application.
 
-### 22.12.2022 - обновление 0.1.14.
+### 22.12.2022 - update 0.1.14.
 
-- Изменеия в расположении файлов scss.
-- Исправлено влияние стилей селекта на JS приложение.
+- Changes in the location of the scss files.
+- Fixed influence of select styles on JS application.
 
-### 29.12.2022 - обновление 0.1.17
+### 29.12.2022 - update 0.1.17
 
-- Добавленна возможность менять отображения селекта на телефонах (нативный/cg-select).
-- Добавленна возможность менять отображения листа с выбором (обычный/модальное окно).
-- Исправленны выявленные баги.
-- Исправленно отображение страницы с примером на мобильных устройствах.
-- Обновленна документация!
+- Added ability to change select display on phones (native/cg-select).
+- Added the ability to change the display of the sheet with a choice (normal / modal window).
+- Fixed identified bugs.
+- Fixed display of the example page on mobile devices.
+- Updated documentation!
 
-### 00.00.2023 - обновление 0.2.1
+### 00.00.2023 - update 0.2.1
 
-- Весь селект переписан на ts.
-- Исправленны баги и недочеты.
+- All select rewritten to ts.
+- Fixed bugs and shortcomings.
