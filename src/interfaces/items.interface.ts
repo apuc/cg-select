@@ -1,19 +1,19 @@
 /**
- * @description Строение элемента.
+ * @description Element structure.
  */
 export interface IItems {
   /**
-   * Уникальное ID элемента
+   * Unique item ID.
    * @type {string}
    */
   id: string;
   /**
-   * Текстовое значение элемента
+   * Element text value.
    * @type {string}
    */
   title: string;
   /**
-   * Порядковый номер, или другая информация
+   * Sequence number, or other information.
    * @type {number | string}
    */
   value: number | string;

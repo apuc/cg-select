@@ -1,19 +1,19 @@
 /**
- * @description Настройки для добавления языков.
+ * @description Settings for adding languages.
  */
 export interface ILanguage {
   /**
-   * Текст в поиске.
+   * Search text.
    * @type {string}
    */
   placeholder: string;
   /**
-   * Дефолтный Текст Селекта если не указан placeholder или выбранный элемент
+   * Default Select Text if no placeholder or selected element is specified.
    * @type {string}
    */
   selectPlaceholder: string;
   /**
-   * Текст если совпадений нет.
+   * Text if no match.
    * @type {string}
    */
   textInListSearch: string;

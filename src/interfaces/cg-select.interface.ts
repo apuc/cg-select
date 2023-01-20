@@ -1,135 +1,135 @@
 import { IItems } from './items.interface';
 
 /**
- * @description Настройки селекта.
+ * @description Select settings.
  */
 export interface ICgSelect {
   /**
-   * Уникальный селектор - *обязательный параметр(индефикатор), который задаеться при создании селекта.
+   * Unique selector - *mandatory parameter (indicator) that is set when creating a select.
    * @type {string}
    */
   selector?: string;
   /**
-   * Необязательный параметр, в который передается элемент который будет выбран изначально в селекте.
+   * An optional parameter, which is passed the element that will be selected initially in the select.
    * @type {string}
    */
   selected?: string;
   /**
-   * Placeholder  необязательный параметр, в который передается текст плейсхолдера селекта.
+   * Placeholder optional parameter to which the text of the select placeholder is passed.
    * @type {string}
    */
   placeholder?: string;
   /**
-   * *Обязательный параметр(эсли не указан другой способ получения данных (url)), это массив элементов,
-   *  которые будут отображаться в селекте при выборе.
+   * *Required parameter (if no other way to get data (url) is specified), this is an array of elements,
+   *  which will be displayed in the select when selected.
    * @type {IItems[] | string[] | any}
    */
   items?: IItems[] | string[] | any;
   /**
-   * Необязательный параметр, который отвечает за включение светлой/темной темы по умолчанию, стоит темная тема(darkTheme == true)
+   * An optional parameter that is responsible for enabling a light / dark theme by default, the dark theme is set (darkTheme == true).
    * @type {boolean}
    */
   darkTheme?: boolean;
   /**
-   * Необязательный параметр, который добавляет живой поиск по элеметам селекта.
+   * An optional parameter that adds a live search on the select elements.
    * @type {boolean}
    */
   searchMode?: boolean;
   /**
-   * Необязательный параметр, который отвечает за поведения селекта при открытии, если closeOnSelect: false,
-   * тогда при выборе елемента в селекте закрытия не происходит,
-   * и можно выбрать другой элемент по умолчанию, closeOnSelect:true.
+   * An optional parameter that is responsible for the behavior of the select when opening, if closeOnSelect: false,
+   * then when an element is selected in the selector, closing does not occur,
+   * and you can select another element by default, closeOnSelect:true.
    * @type {boolean}
    */
   closeOnSelect?: boolean;
   /**
-   * Необязательный параметр, который отвечает за поведения селекта при открытии на мобильных усторйствах.
+   * An optional parameter that is responsible for the behavior of the select when opened on mobile devices.
    * @type {boolean}
    */
   nativeSelectMode?: boolean;
   /**
-   * Необязательный параметр, который отвечает за поведения селекта при открытии.
+   * An optional parameter that is responsible for the behavior of the select when opening.
    * @type {boolean}
    */
   listDisplayMode?: boolean;
   /**
-   * Необязательный параметр, отвечающий за локализацию некоторых текстовых элементов.
+   * Optional parameter responsible for the localization of some text elements.
    * @type {string}
    */
   language?: string;
   /**
-   * Необязательный параметр,который добавляет lable перед селектом.
+   * An optional parameter that adds a lable before the select.
    * @type {string}
    */
   lable?: string;
   /**
-   * Необязательный параметр, который отвечает за кастомизацию элементов селекта,
-   * в него передаются обьекты с CSS свойствами для кастомизируемых элементов.
+   * An optional parameter that is responsible for customizing the select elements,
+   * objects with CSS properties for customizable elements are passed to it.
    * @type {IStyle}
    */
   styles?: IStyle;
   /**
-   * Необязательный параметр, который отвечает за поведения селекта, передавая в этот параметр, евент по типу 'mouseenter',
-   * селект будет открываться при наведении.
+   * An optional parameter that is responsible for the behavior of the select, passing to this parameter an event of the 'mouseenter' type,
+   * select will open on hover.
    * @type {string}
    */
   event?: string;
   /**
-   * Обязательный параметр(эсли не указан другой способ получения данных (items)),
-   * данные которые приходят с бекэнда в формате {id:"", title: "", value: ""}.
+   * Required parameter (if no other way to get data (items) is specified),
+   * data that comes from the backend in the format { id: "", title: "", value: ""}.
    * @type {string}
    */
   url?: string;
   /**
-   * Необязательный параметр, который отвечает за поведения селекта, добавляет возможность выбирать несколько элементов.
-   * Выбранные элементы отрисовываются как обычный текст, через запятую.
+   * An optional parameter, which is responsible for the behavior of the select, adds the ability to select multiple elements.
+   * Selected elements are rendered as plain text, separated by commas.
    * @type {boolean}
    */
   multiselect?: boolean;
   /**
-   * Необязательный параметр, который отвечает за поведения селекта,
-   * для него, ***работает только в месте с подключением multiselect.
+   * An optional parameter that is responsible for the behavior of the select,
+   * for him, *** works only in a place with a multiselect connection.
    * @type {boolean}
    */
   multiselectTag?: boolean;
 }
 
 /**
- * @description Настройки стилей.
+ * @description Style Settings.
  */
 export interface IStyle {
   /**
-   * Кастомизация кнопки селекта.
+   * Select button customization.
    * @type {object}
    */
   head?: object;
   /**
-   * Кастомизация каретки.
+   * Carriage customization.
    * @type {object}
    */
   caret?: object;
   /**
-   * Кастомизация placeholder.
+   * Customization placeholder.
    * @type {object}
    */
   placeholder?: object;
   /**
-   * Кастомизация lable селекта.
+   * Lable select customization.
    * @type {object}
    */
   lable?: object;
   /**
-   * Кастомизация листа с выбором элементов.
+   * Sheet customization with a selection of elements.
    * @type {object}
    */
   list?: object;
   /**
-   * Кастомизация поиска.
+   * Search customization.
    * @type {object}
    */
   search?: object;
   /**
-   * Кастомизация чипсов с выбранными элементами
+   * Chips customization with selected elements.
    * @type {object}
    */
   chips?: object;

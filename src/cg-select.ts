@@ -26,12 +26,12 @@ import { ILanguage } from './interfaces/language.interface';
 import './main.scss';
 
 /**
- * @class Описание класса ICgSelect
- * @description Этот класс реализовывает функционал кастомного селекта, с возможностями кастомизации.
- * @author Овсяников Максим
+ * @class Class Description ICgSelect
+ * @description This class implements the functionality of a custom select, with customization capabilities.
+ * @author Ovsyanikov Maxim
  */
 export class CGSelect implements ICgSelect {
-  // Настройки селекта
+  // Select settings
   selector?: string;
   selected?: string;
   placeholder?: string;
@@ -49,62 +49,60 @@ export class CGSelect implements ICgSelect {
   multiselect?: boolean;
   multiselectTag?: boolean;
 
-  // Переменные и комплектующие селекта
-
   /**
-   * Созданный HTML елемент
+   * Created HTML element.
    * @type {Element | null}
    */
   private element!: Element | null;
   /**
-   * Созданный список(ul), с классом list
+   * Created list(ul), with class list.
    * @type {Element | null | undefined}
    */
   private list!: Element | null;
   /**
-   * Настройки селекта передаваемые при создании экземпляра класса
+   * Select settings passed when creating an instance of the class.
    * @type {ICgSelect}
    */
   private options!: ICgSelect;
   /**
-   * Уникальный Id для елементов
+   * Unique Id for elements.
    * @type {string}
    */
   private randomId!: string;
   /**
-   * Переменная для управления каретки
+   * Variable for carriage control.
    * @type {Element | null | undefined}
    */
   private caret: Element | null | undefined;
   /**
-   * Переданные категории
+   * Transferred categories.
    * @type {string}
    */
   private category?: string;
   /**
-   * Выбранный или массив выбранных элементов из списка
+   * Selected or an array of selected items from a list.
    * @type {string[] | string}
    */
   private selectedItems!: string[] | string;
   /**
-   * Массив индексов выбранных элементов
+   * Array of indexes of selected elements.
    * @type {number[]}
    */
   private indexes: number[] = [];
   /**
-   * Кнопка, для управления селектом
+   * Button, to control the select.
    * @type {Element | null}
    */
   private btnCntr?: Element | null;
 
   /**
-   * @param {ICgSelect} setting Объект принимающий настройки селекта
-   * @constructor Конструктор класса DropDown
-   * @description  Конструктор принимает объект и рендерит селект.
+   * @param {ICgSelect} setting Object accepting select settings.
+   * @constructor ICgSelect class constructor.
+   * @description The constructor takes an object and renders the select.
    * @example
    * options = {
-   *  selector: 'Уникальный селектор',
-      selected: 'Выбранный элемент',
+   *  selector: 'Unique selector',
+      selected: 'Selected item',
       placeholder: '...',
       lable: '...'
       items: [string|number|object],
@@ -139,34 +137,32 @@ export class CGSelect implements ICgSelect {
 
   //Getters
   /**
-   * Метод экземпляра класса DropDown
-   * @returns {string[] | string} Возвращает выбранные элемент(ы) в виде массива/элемента/null
-   * @description Геттер возвращающий выбранные элемент(ы) селекта
+   * @returns {string[] | string} Returns the selected element(s) as an array / element / null.
+   * @description Getter returning the selected element(s) of the select.
    */
   get value(): string | string[] {
     return this.selectedItems ?? null;
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @returns {number | number[]}Возвращает индексы выбранных элемента(ов) в виде массива/пустой массив
-   * @description Геттер возвращающий индексы выбранных элемента(ов) селекта
+   * @returns {number | number[]} Returns the indices of the selected element(s) as an array / empty array.
+   * @description A getter that returns the indexes of the selected element(s) of the select.
    */
   get indexesOf(): number | number[] {
     return this.indexes ?? [];
   }
 
   /**
-   * Приватный метод инициализации экземпляра класса DropDown
+   * Private method for initializing an instance of the ICgSelect class.
    * @method init
    * @member
-   * @protected
-   * @param {ISgSelect} setting передаваемые настройки селекта
-   * @description Приватный метод. Общая инициализация селекта. Получение настоек и преобразвание элементов селекта.
+   * @private
+   * @param {ISgSelect} setting passed select settings.
+   * @description Private method. General initialization of the select. Obtaining tinctures and converting select elements.
    * @example
    *  {
         selector: '.cg-dropdown_one',
-        placeholder: 'Выберите авто',
+        placeholder: 'Choose a car',
         items: [
           'BMW',
           {
@@ -267,11 +263,10 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод рендера экземпляра класса DropDown
-   * @protected
+   * @private
    * @method render
-   * @param {string} select  необязательный елемент. Передаеться в метод initSelected
-   * @description Рендер елементов в селекте.
+   * @param {string} select  optional element. Passed to the initSelected.
+   * @description Render elements in select.
    */
   private render(select?: string): void {
     const random = Math.random().toString(36).substring(2, 10);
@@ -376,10 +371,9 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод рендера экземпляра класса DropDown
-   * @protected
+   * @private
    * @method renderUrl
-   * @description Рендер елементов в селекте переданных с URL и их настойка
+   * @description Rendering elements in the select passed from the URL and setting them up.
    */
   private async renderUrl() {
     const response = await fetch(this.url!);
@@ -439,11 +433,10 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Привaтный метод экземпляра класса DropDown
    * @method initSelected
-   * @param {string} select необязательный елемент. Используется в методе selectIndex
-   * @description Отрисовывает и стилизует селект
-   * @protected
+   * @param {string} select optional element. Used in the selectedIndex method.
+   * @description Renders and styles the select.
+   * @private
    */
   private initSelected(select?: string): void {
     if (this.selected) {
@@ -468,9 +461,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @description Открывает и закрывает список по переданному эвенту
+   * @private
+   * @description Opens and closes the list by the passed event.
    * @method initEvent
    */
   private initEvent() {
@@ -491,10 +483,9 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @param {boolean} oneClick необязательный параметр передаваемый из функции buttonControl
-   * @description Открывает список для выбора элемента
+   * @private
+   * @param {boolean} oneClick optional parameter passed from the buttonControl function.
+   * @description Opens a list to select an element.
    * @method open
    */
   private open(oneClick?: boolean): void {
@@ -508,9 +499,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @description Закрывает список
+   * @private
+   * @description Closes the list.
    * @method close
    */
   private close(): void {
@@ -519,9 +509,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @description Закрывает список по клику вне элемента
+   * @private
+   * @description Closes the list on click outside of an element.
    * @method closeSelectClick
    */
   private closeSelectClick(): void {
@@ -540,9 +529,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @description Метод реализовывающий выбор элементов в разных режимах. Обычный/Мультиселект/Мультиселект + Мультиселект Таг.
+   * @private
+   * @description A method that implements the selection of elements in different modes.
    * @method addOptionsBehaviour
    */
   private addOptionsBehaviour() {
@@ -668,10 +656,9 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод рендера экземпляра класса DropDown
-   * @protected
-   * @method #checkTheme
-   * @description Изменяет цветовую схему с темной на светлую.
+   * @private
+   * @method checkTheme
+   * @description Changes the color scheme from dark to light.
    */
   private checkTheme(): void {
     const select = this.element!.querySelector('.cg-select');
@@ -695,10 +682,9 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @param {boolean} nativeSelectMode параметр отвечающий за добавления нативного селекта.
-   * @description Изменяет отображение селекта на мобильных устройствах
+   * @private
+   * @param {boolean} nativeSelectMode parameter responsible for adding native select.
+   * @description Changes the display of the select on mobile devices.
    * @method selectMode
    */
   private selectMode(nativeSelectMode: boolean) {
@@ -725,9 +711,9 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод который реализует поиск элементов в селекте
-   * @protected
-   * @param {string} random уникальное значение для input элемента.
+   * @description The method that implements the search for elements in the select.
+   * @private
+   * @param {string} random unique value for input element.
    * @method searchMode
    */
   private searchModeSelect(random: string) {
@@ -780,10 +766,9 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Приватный метод экземпляра класса DropDown
-   * @protected
-   * @param {boolean} listDisplayMode параметр отвечающий за отображение выбора в виде модального окна.
-   * @description Изменяет отображение листа с выбором в виде модального окна.
+   * @private
+   * @param {boolean} listDisplayMode parameter responsible for displaying the selection in the form of a modal window.
+   * @description Changes the display of a sheet with a selection as a modal window.
    * @method displayMode
    */
   private displayMode(listDisplayMode: boolean): void {
@@ -806,10 +791,10 @@ export class CGSelect implements ICgSelect {
   }
 
   // Public methods
+
   /**
-   * Метод экземпляра класса DropDown
-   * @param {number} numberItem номер возвращаемого элемента
-   * @returns {HTMLElement} возвращает ссылку на выбранный HTML элемент
+   * @param {number} numberItem returned element number.
+   * @returns {HTMLElement} returns a reference to the selected HTML element.
    * @method getElement
    */
   public getElement(numberItem: number): IItems[] | string[] | any {
@@ -821,9 +806,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @param {object} language объект в котором находятся поля для подключения языка имеет два обязательных поля placeholder, textInListSearch
-   * @description метод позволяющий заменить плейсхолдер в поиске и текст который выводится если нет результата
+   * @param {ILanguage} language the object in which the fields for connecting the language are located has two mandatory fields placeholder, textInListSearch, selectPlaceholder.
+   * @description a method that allows you to change the placeholder in the search and the text that is displayed if there is no result.
    * @method addLanguage
    */
   public addLanguage(language: ILanguage) {
@@ -847,10 +831,9 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @param {HTMLInputElement} button - HTML кнопка
-   * @param {string} method - метод открытия open/close
-   * @description Метод позволяющий открывать/закрывать селект с помощью кнопок
+   * @param {HTMLInputElement} button - HTML button.
+   * @param {string} method - open/close method.
+   * @description A method that allows you to open / close the select using buttons.
    * @method buttonControl
    */
   public buttonControl(button: Element, method: string) {
@@ -871,9 +854,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @param {boolean} value - Передаваемый параметр для добавления атрибута disabled;
-   * @description Метод позволяющий переключать состояние селекта disabled,
+   * @param {boolean} value - Passed parameter to add the disabled attribute.
+   * @description A method that allows you to toggle the state of the disabled select.
    * @method disabled
    */
   public disabled(value: boolean) {
@@ -892,9 +874,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @param {string | object} item добавляемый елемент
-   * @description добавляет переданный элемент в конец списка и перерисовывает список. Не может использоваться при передачи элементов с категорями
+   * @param {string | IItems} item added element.
+   * @description adds the given element to the end of the list and redraws the list. Cannot be used when passing elements with categories.
    * @method addItem
    */
   public addItem(item: IItems | string | number) {
@@ -914,9 +895,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @param {number} index индекс удаляемого элемента
-   * @description удаляет елемент по индексу из списка и перерисовывает его. Не может использоваться при передачи элементов с категорями.
+   * @param {number} index the index of the element to be removed.
+   * @description removes the element by index from the list and redraws it. Cannot be used when passing elements with categories.
    * @method deleteItem
    */
   public deleteItem(index: number) {
@@ -932,8 +912,7 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @description удаляет все елементы из списка и перерисовывает его.
+   * @description removes all elements from the list and redraws it.
    * @method deleteItemAll
    */
   public deleteItemAll() {
@@ -942,9 +921,8 @@ export class CGSelect implements ICgSelect {
   }
 
   /**
-   * Метод экземпляра класса DropDown
-   * @param {number} index индекс выбранного элемента
-   * @description  выбирает элемент который будет изначально отрисовываться в селекте
+   * @param {number} index the index of the selected element.
+   * @description selects the element that will be initially rendered in the select.
    * @method selectIndex
    */
   public selectIndex(index: number) {

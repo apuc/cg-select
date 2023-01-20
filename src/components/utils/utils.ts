@@ -7,10 +7,10 @@ import { IItems } from 'interfaces/items.interface';
 import { ISelectedItems } from './urils.interface';
 
 /**
- * Преобразование каждого елемента полученного из поля Items;
- * @param {any} dataItem полученный елемент переданный при создании селекта может быть как object / string
- * @param {number} index индекс этого элемента
- * @returns {IItems} возвращает сформированный объект
+ * Converting each item obtained from the Items field;
+ * @param {any} dataItem received element passed when creating the select.
+ * @param {number} index index of this element.
+ * @returns {IItems} returns the formed object
  */
 export function getFormatItem(dataItem: any, index: number): IItems {
   const random = Math.random().toString(36).substring(2, 10);
@@ -30,10 +30,10 @@ export function getFormatItem(dataItem: any, index: number): IItems {
 }
 
 /**
- * Вставка изначального текста селекта(до выбора)
- * @param {ITextSelect} data объект в котором находяться title селекта
- * @param {HTMLElement | null | undefined} select елемент селекта, куда будет вставляться title
- * @returns {HTMLElement} возвращает сформированный елемент селекта
+ * Insert initial select text (before selection)
+ * @param {ITextSelect} data the object in which the title of the select is located.
+ * @param {HTMLElement | null | undefined} select select element where title will be inserted.
+ * @returns {HTMLElement} returns the generated select element.
  */
 export function getSelectText(
   data: ISelectedItems,
@@ -53,9 +53,9 @@ export function getSelectText(
 }
 
 /**
- * Проверка содержит ли item  указанные свойства,
- * @param {object} item проверяемый на определенную структуру элемент
- * @returns {boolean} возвращает true/false если item содержит указанные свойства
+ * Checking if item contains the specified properties.
+ * @param {object} item element to be checked against a certain structure.
+ * @returns {boolean} returns true/false if item contains the specified properties.
  */
 export function checkItemStruct(item: object): boolean {
   if (item && typeof item !== 'object') {
@@ -66,10 +66,10 @@ export function checkItemStruct(item: object): boolean {
 }
 
 /**
- * Создание кнопки выбора элементов
- * @param {HTMLElement} element созданный экземпляр класса DropDown
- * @param {string} content placeholer передаваемый из настроек селекта
- * @param {object} styles не обязательный параметр. Объект в котором находяться настройки кастомизации частей селекта
+ * Creating an Item Selector Button.
+ * @param {HTMLElement} element instantiated class CgSelect.
+ * @param {string} content placeholer passed from select settings.
+ * @param {object} styles optional parameter. The object in which the settings for customizing parts of the select are located.
  */
 export function createSelected(element: Element, content?: string, styles?: IStyle) {
   const select = document.createElement('div');
@@ -97,10 +97,10 @@ export function createSelected(element: Element, content?: string, styles?: ISty
 }
 
 /**
- * Создание кнопки отчиски селекта, при единичном выборе.
- * @param {HTMLElement} select место в селекте которое будет переназначено на ''.
- * @param {Element} element экземпляр класса DropDown.
- * @param {ISelectedItems} dataSelectText текст который отрисовывается в селекте.
+ * Creating a clear select button, with a single selection.
+ * @param {HTMLElement} select place in the select that will be reassigned to ''.
+ * @param {Element} element class instance CgSelect.
+ * @param {ISelectedItems} dataSelectText the text that is rendered in the select.
  */
 export function clearSelect(select: HTMLElement, element: Element, dataSelectText: ISelectedItems) {
   const { selectedItems, indexes, darkTheme, multiselectTag } = dataSelectText;
@@ -164,9 +164,9 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
 }
 
 /**
- * Поведение нативного(одинарного) селекта при выборе кастомного
- * @param {NodeList} element NodeList нативного селекта
- * @param {any} item выбранный элемент в кастомном селекте
+ * Behavior of a native (single) select when choosing a custom one.
+ * @param {NodeList} element NodeList native select.
+ * @param {any} item selected element in custom select.
  */
 export function nativeOptionOrdinary(element: NodeListOf<Element> | undefined, item: string) {
   element!.forEach((option) => {
@@ -178,10 +178,10 @@ export function nativeOptionOrdinary(element: NodeListOf<Element> | undefined, i
 }
 
 /**
- * Поведение нативного(Multiple) селекта при выборе в кастомном
- * @param {NodeListOf<Element> | undefined} element NodeList нативного селекта
- * @param {string} item выбранный элемент в кастомном селекте
- * @param {boolean} condition специальный флаг при котором добавляются/убераются атрибуты у нативного селекта
+ * The behavior of the native (Multiple) select when choosing in a custom one.
+ * @param {NodeListOf<Element> | undefined} element NodeList of native select.
+ * @param {string} item selected element in custom select.
+ * @param {boolean} condition a special flag that adds / removes attributes from the native select.
  */
 export function nativeOptionMultiple(
   element: NodeListOf<Element> | undefined,
@@ -204,9 +204,9 @@ export function nativeOptionMultiple(
 }
 
 /**
- * Поиск и стилизация елементов полученных из styles экземпляра DropDown
- * @param {Element} element созданный экземпляр класса DropDown
- * @param {object} styles объект в котором находяться настройки кастомизации частей селекта
+ * Finding and styling elements derived from the styles instance CgSelect
+ * @param {Element} element instantiated class CgSelect.
+ * @param {object} styles object in which there are settings for customizing parts of the select.
  */
 export function customStyles(element: Element, styles: IStyle) {
   const cgSelect = element.querySelector('.cg-select');
@@ -224,9 +224,9 @@ export function customStyles(element: Element, styles: IStyle) {
 }
 
 /**
- * Универсальный метод для стилизации селекта
- * @param {object} elemOption объект полученное из объекта styles у которого мы получаем ключ-значение стилей
- * @param {HTMLElement} selector  HTMLElement подвергающиеся кастомизации
+ * Generic Method for Styling a Select.
+ * @param {object} elemOption an object obtained from the styles object from which we get the styles key-value.
+ * @param {HTMLElement} selector  HTMLElement subject to customization.
  */
 export function customStylesFormat(elemOption: object, selector: any) {
   if (elemOption) {

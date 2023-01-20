@@ -2,8 +2,8 @@ import { customStylesFormat, nativeOptionMultiple } from '../utils/utils';
 import { ICreateBreadCrumb } from './create-element.interface';
 
 /**
- * Метод который создает нативный селект
- * @returns {HTMLSelectElement} Возвращает созданный нативный селект
+ * The method that creates the native select.
+ * @returns {HTMLSelectElement} Returns the created native select.
  */
 export function createNativeSelect(): HTMLSelectElement {
   const nativeSelect = document.createElement('select');
@@ -14,8 +14,8 @@ export function createNativeSelect(): HTMLSelectElement {
 }
 
 /**
- * Метод который создает Options для нативного селекта
- * @returns {HTMLOptionElement} Возвращает созданные Options нативного селекта
+ * The method that creates Options for the native select.
+ * @returns {HTMLOptionElement} Returns the generated Options of the native select.
  */
 export function createNativeSelectOption(): HTMLOptionElement {
   const nativeOption = document.createElement('option');
@@ -25,12 +25,12 @@ export function createNativeSelectOption(): HTMLOptionElement {
 }
 
 /**
- * Метод который создает и отвечает за поведение chips
- * @param {ICreateBreadCrumb} data объект в котором содержатся настройки и элементы селекта
- * @param {string} title имя выбранного элемента для отрисовки chips
- * @param {number} index индекс выбранного элемента для отрисовки chips
- * @param {string} id уникальное id выбранного элемента
- * @returns {HTMLElement} возвращает сформированный HTMLElement chips item
+ * The method that creates and is responsible for the behavior of the chips.
+ * @param {ICreateBreadCrumb} data an object that contains settings and select elements.
+ * @param {string} title the name of the selected element to draw chips.
+ * @param {number} index index of the selected item to draw chips.
+ * @param {string} id unique id of the selected element.
+ * @returns {HTMLElement} returns the generated HTMLElement chips item.
  */
 export function createBreadCrumb(
   data: ICreateBreadCrumb,
@@ -98,10 +98,10 @@ export function createBreadCrumb(
 }
 
 /**
- * Метод который создает поиск элементов в селекте
- * @param {string} random уникальное значение для input элемента.
- * @param {string} lenguage текст на определенном языке переданный из файла language.js
- * @returns {HTMLInputElement} Возвращает сформированный input елемент.
+ * The method that creates a search for elements in the select.
+ * @param {string} random unique value for input element.
+ * @param {string} lenguage text in specific language passed from language.ts file
+ * @returns {HTMLInputElement} Returns the rendered input element.
  */
 export function createInputSearch(random: string, lenguage: string): HTMLInputElement {
   const inputSearch = document.createElement('input');

@@ -1,26 +1,26 @@
 import { ICgSelect } from 'interfaces/cg-select.interface';
 
 /**
- * @description Настройки для создания чипсов.
+ * @description cSettings for creating chips.
  */
 export interface ICreateBreadCrumb {
   /**
-   * Определенный экземпляр класса.
+   * A specific instance of a class.
    * @type {Element | null}
    */
   element: Element | null;
   /**
-   * Настройки селекта.
+   * Select settings.
    * @type {ICgSelect}
    */
   option: ICgSelect;
   /**
-   * Массив индексов выбранных элементов.
+   * Array of indexes of selected elements.
    * @type {number[]}
    */
   indexes: number[];
   /**
-   * Массив с выбранными элементами.
+   * Array with selected elements.
    * @type {string[]}
    */
   selectedItems: string[];

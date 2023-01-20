@@ -1,58 +1,58 @@
 import { IItems } from 'interfaces/items.interface';
 
 /**
- * @description Настройки получаемых элементов.
+ * @description Receive Item Settings.
  */
 export interface IDataItem {
   /**
-   * Необязательный параметр. Категория группы элементов.
+   * Optional parameter. Item group category.
    * @type {string}
    */
   category?: string;
   /**
-   * Необязательный параметр. Массив с элементами.
+   * Optional parameter. Array with elements.
    * @type {IItems[] | string[] | any}
    */
   categoryItems?: IItems[] | string[];
   /**
-   * Значение переданного элемента.
+   * The value of the passed element.
    * @type {string | IItems | number}
    */
   ItemValue: string | IItems | number;
 }
 
 /**
- * @description Настройки для текста селекта и тд.
+ * @description Settings for select text, etc.
  */
 export interface ISelectedItems {
   /**
-   * Placeholder  необязательный параметр, в который передается текст плейсхолдера селекта.
+   * Placeholder  optional parameter to which the text of the select placeholder is passed.
    * @type {string}
    */
   placeholder?: string;
   /**
-   * Необязательный параметр, в который передается элемент который будет выбран изначально в селекте.
+   * An optional parameter, which is passed the element that will be selected initially in the select.
    * @type {string}
    */
   selected?: string;
   /**
-   * Массив выбранных элементов из списка
+   * Array of selected items from the list.
    * @type {string[]}
    */
   selectedItems?: string[];
   /**
-   * Массив индексов выбранных элементов
+   * Array of indexes of selected elements.
    * @type {number[]}
    */
   indexes?: number[];
   /**
-   * Необязательный параметр, который отвечает за поведения селекта,
-   * для него, ***работает только в месте с подключением multiselect.
+   * An optional parameter that is responsible for the behavior of the select,
+   * for him, *** works only in a place with a multiselect connection.
    * @type {boolean}
    */
   multiselectTag?: boolean;
   /**
-   * Необязательный параметр, который отвечает за включение светлой/темной темы по умолчанию, стоит темная тема.
+   * An optional parameter that is responsible for enabling a light/dark theme by default, the dark theme is set.
    * @type {boolean}
    */
   darkTheme?: boolean;
