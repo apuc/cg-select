@@ -1,3 +1,3 @@
-import { DropDown } from './src/cg-select';
+import { CGSelect } from './src/cg-select';
 
-export default DropDown;
+export default CGSelect;
