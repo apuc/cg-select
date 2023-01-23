@@ -95,4 +95,5 @@ All documentation on CG-SELECT is located in the folder of the same name. The do
 ## History
 
 16.12.2022 - release version 0.1.0!
-00.00.2023 - upgrade to version 0.2.1
+
+20.01.2023 - upgrade to version 0.2.1
