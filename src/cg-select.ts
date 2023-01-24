@@ -378,7 +378,6 @@ export class CGSelect implements ICgSelect {
   private async renderUrl() {
     const response = await fetch(this.url!);
     const dataUrl = await response.json();
-    console.log(dataUrl);
 
     const nativeSelect = createNativeSelect();
 

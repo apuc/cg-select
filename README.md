@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.2.1
+## version ~ 0.2.2
 
 This component allows you to create a custom select. It offers more flexible customization and use of select.
 Customization, multi-selection and live search by elements are available.
@@ -45,7 +45,7 @@ npm i cg-select
 ### An example of creating a regular select.
 
 ```javascript
-import { CGSelect } from 'cg-select';
+import CGSelect from 'cg-select';
 
 const dropdown = new CGSelect({
   selector: '.cg-dropdown_selector',

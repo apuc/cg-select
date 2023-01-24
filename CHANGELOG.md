@@ -21,7 +21,11 @@ Tested in JS and React. Errors in work in React applications are revealed.
 - Fixed display of the example page on mobile devices.
 - Updated documentation!
 
-### 00.00.2023 - update 0.2.1
+### 20.01.2023 - update 0.2.1
 
 - All select rewritten to ts.
 - Fixed bugs and shortcomings.
+
+### 24.01.2023 - fix 0.2.2
+
+- Fixed documentation etc.
