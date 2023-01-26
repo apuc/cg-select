@@ -37,6 +37,7 @@ export class CGSelect implements ICgSelect {
   placeholder?: string;
   items?: IItems[] | string[] | any;
   darkTheme?: boolean;
+  theme?: string;
   searchMode?: boolean;
   closeOnSelect?: boolean;
   nativeSelectMode?: boolean;
@@ -195,7 +196,7 @@ export class CGSelect implements ICgSelect {
       lable,
       event,
       selected,
-      placeholder,
+      placeholder, theme
     } = setting;
 
     this.options = setting;
@@ -215,6 +216,7 @@ export class CGSelect implements ICgSelect {
     this.event = event;
     this.selected = selected;
     this.placeholder = placeholder;
+    this.theme = theme;
 
     const elem = document.querySelector(this.selector!);
     this.element = elem;
@@ -358,6 +360,7 @@ export class CGSelect implements ICgSelect {
     if (this.darkTheme == false) {
       this.checkTheme();
     }
+    this.themeCheck();
 
     if (this.nativeSelectMode === true) {
       this.selectMode(this.nativeSelectMode);
@@ -677,6 +680,28 @@ export class CGSelect implements ICgSelect {
       return;
     } else {
       throw new Error('Styles error or invalid value entered!');
+    }
+  }
+
+  private themeCheck(): void{
+    const select = this.element!.querySelector('.cg-select');
+    const caret = this.element!.querySelector('.caret');
+    const list = this.element!.querySelector('ul.list');
+    const search = this.element!.querySelector('.inputSearch');
+ 
+    switch (this.theme) {
+      case 'classic':
+        console.log('sss');
+        break;
+      case 'dark':
+        console.log('dark');
+        break;
+      case 'white':
+        console.log('white');
+        break;
+        
+      default:
+        break;
     }
   }
 

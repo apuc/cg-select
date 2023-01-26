@@ -30,6 +30,7 @@ export interface ICgSelect {
    * @type {boolean}
    */
   darkTheme?: boolean;
+  theme?: string;
   /**
    * An optional parameter that adds a live search on the select elements.
    * @type {boolean}
