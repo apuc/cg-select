@@ -24,6 +24,7 @@ import { ru, en } from './language/language';
 import { ILanguage } from './interfaces/language.interface';
 
 import './main.scss';
+import { changeTheme } from './components/theme/theme';
 
 /**
  * @class Class Description ICgSelect
@@ -36,7 +37,7 @@ export class CGSelect implements ICgSelect {
   selected?: string;
   placeholder?: string;
   items?: IItems[] | string[] | any;
-  darkTheme?: boolean;
+  theme?: string;
   searchMode?: boolean;
   closeOnSelect?: boolean;
   nativeSelectMode?: boolean;
@@ -106,7 +107,7 @@ export class CGSelect implements ICgSelect {
       placeholder: '...',
       lable: '...'
       items: [string|number|object],
-      darkTheme: true/false,
+      theme: string,
       searchMode: true/false,
       closeOnSelect:  true/false,
       nativeSelectMode: true/false,
@@ -174,7 +175,6 @@ export class CGSelect implements ICgSelect {
           'MAN',
           'max',
         ],
-        darkTheme: true,
         multiselect: true,
         multiselectTag: true,
       }
@@ -189,13 +189,13 @@ export class CGSelect implements ICgSelect {
       listDisplayMode,
       nativeSelectMode,
       searchMode,
-      darkTheme,
       language,
       styles,
       lable,
       event,
       selected,
       placeholder,
+      theme,
     } = setting;
 
     this.options = setting;
@@ -206,7 +206,6 @@ export class CGSelect implements ICgSelect {
     this.selector = selector;
     this.items = items;
     this.searchMode = searchMode;
-    this.darkTheme = darkTheme;
     this.language = language;
     this.nativeSelectMode = nativeSelectMode;
     this.listDisplayMode = listDisplayMode;
@@ -215,6 +214,7 @@ export class CGSelect implements ICgSelect {
     this.event = event;
     this.selected = selected;
     this.placeholder = placeholder;
+    this.theme = theme;
 
     const elem = document.querySelector(this.selector!);
     this.element = elem;
@@ -287,6 +287,7 @@ export class CGSelect implements ICgSelect {
     this.randomId = random;
 
     ulList.classList.add('list');
+    ulList!.classList.add('classicList');
 
     if (this.styles) {
       customStylesFormat(this.styles.list!, ulList);
@@ -355,8 +356,8 @@ export class CGSelect implements ICgSelect {
     this.list = this.element!.querySelector('.list');
     this.caret = this.element!.querySelector('.caret');
 
-    if (this.darkTheme == false) {
-      this.checkTheme();
+    if (this.theme) {
+      changeTheme(this.element!, this.theme!);
     }
 
     if (this.nativeSelectMode === true) {
@@ -540,6 +541,7 @@ export class CGSelect implements ICgSelect {
     let selectedItemsClear: ISelectedItems = {
       placeholder: this.placeholder!,
       selected: this.selected!,
+      theme: this.theme,
     };
 
     const ulMultipul = document.createElement('ul');
@@ -562,7 +564,6 @@ export class CGSelect implements ICgSelect {
             selected: this.selected!,
             selectedItems: this.selectedItems,
             indexes: this.indexes,
-            darkTheme: this.darkTheme,
             multiselectTag: this.multiselectTag,
           };
         }
@@ -652,32 +653,6 @@ export class CGSelect implements ICgSelect {
         clearSelect(select!, this.element!, selectedItemsClear);
       });
     });
-  }
-
-  /**
-   * @private
-   * @method checkTheme
-   * @description Changes the color scheme from dark to light.
-   */
-  private checkTheme(): void {
-    const select = this.element!.querySelector('.cg-select');
-    const caret = this.element!.querySelector('.caret');
-    const list = this.element!.querySelector('ul.list');
-    const search = this.element!.querySelector('.inputSearch');
-
-    if (this.darkTheme == false) {
-      select!.classList.add('selectWhite');
-      caret!.classList.add('caretWhite');
-      list!.classList.add('listWhite');
-
-      if (this.searchMode == true) {
-        search!.classList.add('inputWhite');
-      }
-    } else if (this.darkTheme == true) {
-      return;
-    } else {
-      throw new Error('Styles error or invalid value entered!');
-    }
   }
 
   /**

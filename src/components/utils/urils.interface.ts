@@ -55,5 +55,5 @@ export interface ISelectedItems {
    * An optional parameter that is responsible for enabling a light/dark theme by default, the dark theme is set.
    * @type {boolean}
    */
-  darkTheme?: boolean;
+  theme?: string;
 }

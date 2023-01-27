@@ -26,10 +26,10 @@ export interface ICgSelect {
    */
   items?: IItems[] | string[] | any;
   /**
-   * An optional parameter that is responsible for enabling a light / dark theme by default, the dark theme is set (darkTheme == true).
-   * @type {boolean}
+   * An optional parameter responsible for switching between different themes, the classic theme is set by default.
+   * @type {string}
    */
-  darkTheme?: boolean;
+  theme?: string;
   /**
    * An optional parameter that adds a live search on the select elements.
    * @type {boolean}

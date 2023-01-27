@@ -3,6 +3,8 @@
 @import './style/svgStyle.scss';
 @import './style/whiteTheme.scss';
 @import './style/displayMode.scss';
+@import './style/classicTheme.scss';
+@import './style/darkTheme.scss';
 
 // ----Layout----
 .cg-dropdown {
@@ -26,7 +28,6 @@
   flex-grow: 1;
 
   min-height: 50px;
-  color: #fff;
   padding: 5px;
 
   display: -webkit-box;
@@ -42,7 +43,6 @@
   align-items: center;
 
   text-overflow: ellipsis;
-  background: #2a2f3b;
 
   border: none;
   cursor: pointer;
@@ -70,8 +70,6 @@
     -moz-transition: 0.5s;
     -ms-transition: 0.5s;
     -o-transition: 0.5s;
-
-    background: #394050;
   }
 }
 
@@ -113,10 +111,6 @@
   padding: 7px;
   margin-top: -0.2px;
   list-style: none;
-
-  color: white;
-  background: #2a2f3b;
-  border: 1px #0a0b0e solid;
 
   border-radius: 5px;
   -webkit-border-radius: 5px;
