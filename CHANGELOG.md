@@ -33,3 +33,4 @@ Tested in JS and React. Errors in work in React applications are revealed.
 ### 27.01.2023 - fix 0.2.3
 
 - Changed the theme selection function.
+- Fixed documentation.
