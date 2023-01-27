@@ -1,6 +1,6 @@
 {
   "name": "cg-select",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Feature rich Select control for React/JS with multiselect, autocomplete and styling",
   "author": {
     "name": "CraftGroup",

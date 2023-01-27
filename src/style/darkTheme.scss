@@ -1,32 +1,17 @@
 .selectDark {
-    background: rgb(29, 29, 29) !important;
-  }
-  
-//   .selectDark,
-//   .listDark,
-//   .inputWhite,
-//   .pathBlack,
-//   .selectWhite {
-//     color: black !important;
-//   }
-  
-  .caretWhite {
-    border-top: 6px solid black !important;
-  }
-  
-  .listWhite {
-    background-color: white !important;
-  }
-  
-  .inputWhite {
-    border-bottom: 1px solid black !important;
-  }
-  
-  .pathWhite {
-    color: white !important;
-  }
-  
-  .pathBlack {
-    color: black !important;
-  }
-  
+  background: rgb(29, 29, 29);
+  color: white;
+}
+
+.caretWhite {
+  border-top: 6px solid black !important;
+}
+
+.listDark {
+  background: rgb(29, 29, 29);
+  color: white;
+}
+
+.inputDark {
+  border-bottom: 1px solid black !important;
+}

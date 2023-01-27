@@ -1,14 +1,22 @@
-.cg-select{
-    color: #fff;
-    background: #2a2f3b;
+.classicSelect {
+  color: #fff;
+  background: #2a2f3b;
 
-    &:hover {   
-        background: #394050;
-      }
+  &:hover {
+    background: #394050;
+  }
 }
 
-.list {
-    color: white;
-    background: #2a2f3b;
-    border: 1px #0a0b0e solid;
+.classicList {
+  color: white;
+  background: #2a2f3b;
+  border: 1px #0a0b0e solid;
+}
+
+.pathWhite {
+  color: white !important;
+}
+
+.pathBlack {
+  color: black;
 }

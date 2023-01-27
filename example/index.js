@@ -25,7 +25,6 @@ const dropdown = new CGSelect({
       width: '824px',
     },
   },
-  theme: 'dark'
 });
 
 // ------------------------------NativeSelect-----------------------
