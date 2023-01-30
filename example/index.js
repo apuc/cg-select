@@ -25,6 +25,11 @@ const dropdown = new CGSelect({
       width: '824px',
     },
   },
+  // multiselect: true,
+});
+
+dropdown.on('select', function (e) {
+  console.log(`this state: ${e}`);
 });
 
 // ------------------------------NativeSelect-----------------------
