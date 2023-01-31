@@ -914,4 +914,37 @@ export class CGSelect implements ICgSelect {
     const select: string = options[index].innerText;
     this.render(select);
   }
+
+  /**
+   * @description Method for tracking the actions of the select, you can pass a callback
+   * @param state select state.
+   * @param callback
+   * @method on
+   */
+  public on(state: string, callback: (state: any) => any) {
+    const options = this.element?.querySelectorAll('.list__item');
+
+    switch (state) {
+      case 'select':
+        options?.forEach((option: Element) => {
+          option.addEventListener('click', () => {
+            console.log('option:select', option.textContent);
+          });
+        });
+        callback(state);
+        break;
+      case 'close':
+        this.element!.addEventListener('click', () => {
+          console.log('list:close', this.list!.classList.contains('close'));
+        });
+        callback(state);
+        break;
+      case 'open':
+        this.element!.addEventListener('click', () => {
+          console.log('list:open', this.list!.classList.contains('open'));
+        });
+        callback(state);
+        break;
+    }
+  }
 }
