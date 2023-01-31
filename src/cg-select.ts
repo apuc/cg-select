@@ -915,6 +915,12 @@ export class CGSelect implements ICgSelect {
     this.render(select);
   }
 
+  /**
+   * @description Method for tracking the actions of the select, you can pass a callback
+   * @param state select state.
+   * @param callback
+   * @method on
+   */
   public on(state: string, callback: (state: any) => any) {
     const options = this.element?.querySelectorAll('.list__item');
 
