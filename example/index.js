@@ -28,9 +28,9 @@ const dropdown = new CGSelect({
   // multiselect: true,
 });
 
-dropdown.on('select', function (e) {
-  console.log(`this state: ${e}`);
-});
+// dropdown.on('select', function (e) {
+//   console.log(`this state: ${e}`);
+// });
 
 // ------------------------------NativeSelect-----------------------
 const dropdownNativeSelect = new CGSelect({
