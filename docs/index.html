@@ -1,444 +1,167 @@
-<!DOCTYPE html>
-<html class="default" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>cg-select</title>
-    <meta name="description" content="Documentation for cg-select" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/style.css" />
-    <link rel="stylesheet" href="assets/highlight.css" />
-    <script async src="assets/search.js" id="search-script"></script>
-  </head>
-  <body>
-    <script>
-      document.documentElement.dataset.theme = localStorage.getItem('tsd-theme') || 'os';
-    </script>
-    <header class="tsd-page-toolbar">
-      <div class="tsd-toolbar-contents container">
-        <div class="table-cell" id="tsd-search" data-base=".">
-          <div class="field">
-            <label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"
-              ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z"
-                  fill="var(--color-text)"
-                ></path></svg></label
-            ><input type="text" id="tsd-search-field" aria-label="Search" />
-          </div>
-          <div class="field">
-            <div id="tsd-toolbar-links"></div>
-          </div>
-          <ul class="results">
-            <li class="state loading">Preparing search index...</li>
-            <li class="state failure">The search index is not available</li>
-          </ul>
-          <a href="index.html" class="title">Home</a>
-          <a href="/example/index.html" class="title" style="margin-left: 15px">Go to CGSelect</a>
-        </div>
-        <div class="table-cell" id="tsd-widgets">
-          <a
-            href="#"
-            class="tsd-widget tsd-toolbar-icon menu no-caption"
-            data-toggle="menu"
-            aria-label="Menu"
-            ><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect>
-              <rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect>
-              <rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg
-          ></a>
-        </div>
-      </div>
-    </header>
-    <div class="container container-main">
-      <div class="col-8 col-content">
-        <div class="tsd-page-title">
-          <h2>cg-select</h2>
-        </div>
-        <div class="tsd-panel tsd-typography">
-          <a href="#cg-select" id="cg-select" style="color: inherit; text-decoration: none">
-            <h1>CG-SELECT</h1>
-          </a>
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>cg-select</title><meta name="description" content="Documentation for cg-select"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">cg-select</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>cg-select</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#cg-select" id="cg-select" style="color: inherit; text-decoration: none;">
+  <h1>CG-SELECT</h1>
+</a>
 
-          <a href="#version--021" id="version--021" style="color: inherit; text-decoration: none">
-            <h2>version ~ 0.2.3</h2>
-          </a>
-          <p>
-            This component allows you to create a custom select. It offers more flexible
-            customization and use of select. Customization, multi-selection and live search by
-            elements are available.
-          </p>
+<a href="#version--0231" id="version--0231" style="color: inherit; text-decoration: none;">
+  <h2>version ~ 0.2.31</h2>
+</a>
+<p>This component allows you to create a custom select. It offers more flexible customization and use of select.
+Customization, multi-selection and live search by elements are available.</p>
 
-          <a
-            href="#the-ability-to-customize-basic-elements-such-as"
-            id="the-ability-to-customize-basic-elements-such-as"
-            style="color: inherit; text-decoration: none"
-          >
-            <h3>The ability to customize basic elements, such as:</h3>
-          </a>
-          <ul>
-            <li>Select button.</li>
-            <li>List with select elements.</li>
-            <li>Placeholder.</li>
-            <li>
-              In the multiselect mode, customization of chips (selected elements) is available.
-            </li>
-            <li>Label of the element (if it was specified).</li>
-            <li>Switch themes from dark to light.</li>
-          </ul>
+<a href="#the-ability-to-customize-basic-elements-such-as" id="the-ability-to-customize-basic-elements-such-as" style="color: inherit; text-decoration: none;">
+  <h3>The ability to customize basic elements, such as:</h3>
+</a>
+<ul>
+<li>Select button.</li>
+<li>List with select elements.</li>
+<li>Placeholder.</li>
+<li>In the multiselect mode, customization of chips (selected elements) is available.</li>
+<li>Label of the element (if it was specified).</li>
+<li>Switch themes from dark to light.</li>
+</ul>
 
-          <a href="#installation" id="installation" style="color: inherit; text-decoration: none">
-            <h2>Installation</h2>
-          </a>
-          <pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> </span><span class="hl-0">cg</span><span class="hl-1">-</span><span class="hl-0">select</span>
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+<pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> </span><span class="hl-0">cg</span><span class="hl-1">-</span><span class="hl-0">select</span>
 </code></pre>
 
-          <a href="#usage" id="usage" style="color: inherit; text-decoration: none">
-            <h2>Usage</h2>
-          </a>
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
 
-          <a
-            href="#to-create-a-component-you-need"
-            id="to-create-a-component-you-need"
-            style="color: inherit; text-decoration: none"
-          >
-            <h3>To create a component, you need:</h3>
-          </a>
-          <ol>
-            <li>Create a regular button element.</li>
-            <li>Give it the cg-dropdown class.</li>
-          </ol>
-          <pre><code><span class="hl-1">&lt;</span><span class="hl-0">button</span><span class="hl-1"> </span><span class="hl-0">class</span><span class="hl-1">=</span><span class="hl-2">&quot;cg-dropdown&quot;</span><span class="hl-1">&gt;&lt;/</span><span class="hl-3">button</span><span class="hl-1">&gt;</span>
+<a href="#to-create-a-component-you-need" id="to-create-a-component-you-need" style="color: inherit; text-decoration: none;">
+  <h3>To create a component, you need:</h3>
+</a>
+<ol>
+<li>Create a regular button element.</li>
+<li>Give it the cg-dropdown class.</li>
+</ol>
+<pre><code><span class="hl-1">&lt;</span><span class="hl-0">button</span><span class="hl-1"> </span><span class="hl-0">class</span><span class="hl-1">=</span><span class="hl-2">&quot;cg-dropdown&quot;</span><span class="hl-1">&gt;&lt;/</span><span class="hl-3">button</span><span class="hl-1">&gt;</span>
 </code></pre>
-          <ol start="3">
-            <li>Give it a <strong>unique class</strong>, e.g. (cg-dropdown_categories).</li>
-          </ol>
-          <pre><code><span class="hl-1">&lt;</span><span class="hl-0">button</span><span class="hl-1"> </span><span class="hl-0">class</span><span class="hl-1">=</span><span class="hl-2">&quot;cg-dropdown cg-dropdown_categories&quot;</span><span class="hl-1">&gt;&lt;/</span><span class="hl-3">button</span><span class="hl-1">&gt;</span>
+<ol start="3">
+<li>Give it a <strong>unique class</strong>, e.g. (cg-dropdown_categories).</li>
+</ol>
+<pre><code><span class="hl-1">&lt;</span><span class="hl-0">button</span><span class="hl-1"> </span><span class="hl-0">class</span><span class="hl-1">=</span><span class="hl-2">&quot;cg-dropdown cg-dropdown_categories&quot;</span><span class="hl-1">&gt;&lt;/</span><span class="hl-3">button</span><span class="hl-1">&gt;</span>
 </code></pre>
-          <ol start="4">
-            <li>Create a new instance of the class (new CGSelect)</li>
-            <li>Pass all desired settings as an object</li>
-          </ol>
+<ol start="4">
+<li>Create a new instance of the class (new CGSelect)</li>
+<li>Pass all desired settings as an object</li>
+</ol>
 
-          <a
-            href="#all-options-for-creating-and-managing-are-in-the-documentation-section-quotcgselect-class-constructorquot"
-            id="all-options-for-creating-and-managing-are-in-the-documentation-section-quotcgselect-class-constructorquot"
-            style="color: inherit; text-decoration: none"
-          >
-            <h4>
-              All options for creating and managing are in the documentation, section &quot;CGSelect
-              class constructor&quot;.
-            </h4>
-          </a>
+<a href="#all-options-for-creating-and-managing-are-in-the-documentation-section-quotcgselect-class-constructorquot" id="all-options-for-creating-and-managing-are-in-the-documentation-section-quotcgselect-class-constructorquot" style="color: inherit; text-decoration: none;">
+  <h4>All options for creating and managing are in the documentation, section &quot;CGSelect class constructor&quot;.</h4>
+</a>
 
-          <a
-            href="#an-example-of-creating-a-regular-select"
-            id="an-example-of-creating-a-regular-select"
-            style="color: inherit; text-decoration: none"
-          >
-            <h3>An example of creating a regular select.</h3>
-          </a>
-          <pre><code class="language-javascript"><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-0">CGSelect</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;cg-select&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">dropdown</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">CGSelect</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-0">selector:</span><span class="hl-1"> </span><span class="hl-2">&#39;.cg-dropdown_selector&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-0">placeholder:</span><span class="hl-1"> </span><span class="hl-2">&#39;Выберите авто&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-0">items:</span><span class="hl-1"> [</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;BMW&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    {</span><br/><span class="hl-1">      </span><span class="hl-0">id:</span><span class="hl-1"> </span><span class="hl-2">&#39;213sade&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-0">title:</span><span class="hl-1"> </span><span class="hl-2">&#39;Opel&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-0">value:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">,</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;Mersedes&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;MAN&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;Ferari&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  ],</span><br/><span class="hl-1">});</span>
+<a href="#an-example-of-creating-a-regular-select" id="an-example-of-creating-a-regular-select" style="color: inherit; text-decoration: none;">
+  <h3>An example of creating a regular select.</h3>
+</a>
+<pre><code class="language-javascript"><span class="hl-4">import</span><span class="hl-1"> </span><span class="hl-0">CGSelect</span><span class="hl-1"> </span><span class="hl-4">from</span><span class="hl-1"> </span><span class="hl-2">&#39;cg-select&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">dropdown</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-7">CGSelect</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-0">selector:</span><span class="hl-1"> </span><span class="hl-2">&#39;.cg-dropdown_selector&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-0">placeholder:</span><span class="hl-1"> </span><span class="hl-2">&#39;Выберите авто&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-0">items:</span><span class="hl-1"> [</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;BMW&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    {</span><br/><span class="hl-1">      </span><span class="hl-0">id:</span><span class="hl-1"> </span><span class="hl-2">&#39;213sade&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-0">title:</span><span class="hl-1"> </span><span class="hl-2">&#39;Opel&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-0">value:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">,</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;Mersedes&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;MAN&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">&#39;Ferari&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  ],</span><br/><span class="hl-1">});</span>
 </code></pre>
 
-          <a
-            href="#example-of-different-selects"
-            id="example-of-different-selects"
-            style="color: inherit; text-decoration: none"
-          >
-            <h2>Example of different selects</h2>
-          </a>
-          <p>
-            Same working example --
-            <a href="https://cg-select.itguild.info/">https://cg-select.itguild.info/</a>
-          </p>
-          <p>
-            <img src="../src/images/DefaultSelect.png" alt="image" />
-            <img src="../src/images/MultiSelect.png" alt="image" />
-            <img src="../src/images/WhiteTheme.png" alt="image" />
-            <img src="../src/images/Categories.png" alt="image" />
-          </p>
-          <p>
-            All documentation on CG-SELECT is located in the folder of the same name. The
-            documentation describes all methods and variables, there are also examples of passing
-            settings to select. You can also open it on the page with an example, or follow the link
-            below.
-          </p>
+<a href="#example-of-different-selects" id="example-of-different-selects" style="color: inherit; text-decoration: none;">
+  <h2>Example of different selects</h2>
+</a>
+<p>Same working example -- <a href="https://cg-select.itguild.info/">https://cg-select.itguild.info/</a></p>
+<p><img src="https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png" alt="image">
+<img src="https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png" alt="image">
+<img src="https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png" alt="image">
+<img src="https://github.com/apuc/cg-select/blob/main/src/images/Categories.png" alt="image"></p>
+<p>All documentation on CG-SELECT is located in the folder of the same name. The documentation describes all methods and variables, there are also examples of passing settings to select. You can also open it on the page with an example, or follow the link below.</p>
+<p><strong>To view it, follow the link -</strong> <a href="https://cg-select.itguild.info/up_/documentation/index.html">https://cg-select.itguild.info/up_/documentation/index.html</a></p>
 
-          <a href="#contributing" id="contributing" style="color: inherit; text-decoration: none">
-            <h2>Contributing</h2>
-          </a>
-          <ol>
-            <li>Fork it!</li>
-            <li>Create your feature branch: <code>git checkout -b my-new-feature</code></li>
-            <li>Commit your changes: <code>git commit -am &#39;Add some feature&#39;</code></li>
-            <li>Push to the branch: <code>git push origin my-new-feature</code></li>
-            <li>Submit a pull request :D</li>
-          </ol>
+<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+  <h2>Contributing</h2>
+</a>
+<ol>
+<li>Fork it!</li>
+<li>Create your feature branch: <code>git checkout -b my-new-feature</code></li>
+<li>Commit your changes: <code>git commit -am &#39;Add some feature&#39;</code></li>
+<li>Push to the branch: <code>git push origin my-new-feature</code></li>
+<li>Submit a pull request :D</li>
+</ol>
 
-          <a href="#compatibility" id="compatibility" style="color: inherit; text-decoration: none">
-            <h2>Compatibility</h2>
-          </a>
-          <table>
-            <thead>
-              <tr>
-                <th>Application Compatibility</th>
-                <th align="center">JS</th>
-                <th align="center">React</th>
-                <th align="center">Angular</th>
-                <th align="center">Vue</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>CG-SELECT</td>
-                <td align="center">
-                  <img src="../src/images/yes.png" alt="image" />
-                </td>
-                <td align="center">
-                  <img src="../src/images/yes.png" alt="image" />
-                  <img src="../src/images/no.png" alt="image" />
-                </td>
-                <td align="center">
-                  <img src="../src/images/no.png" alt="image" />
-                </td>
-                <td align="center">
-                  <img src="../src/images/no.png" alt="image" />
-                </td>
-              </tr>
-              <tr>
-                <td>Comment</td>
-                <td align="center">Tested in Js applications and it worksуспешно.</td>
-                <td align="center">
-                  Works only with a crutch in the form <code>setTimeout()</code>
-                </td>
-                <td align="center">not yet available</td>
-                <td align="center">not yet available</td>
-              </tr>
-            </tbody>
-          </table>
+<a href="#compatibility" id="compatibility" style="color: inherit; text-decoration: none;">
+  <h2>Compatibility</h2>
+</a>
+<table>
+<thead>
+<tr>
+<th>Application Compatibility</th>
+<th align="center">JS</th>
+<th align="center">React</th>
+<th align="center">Angular</th>
+<th align="center">Vue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CG-SELECT</td>
+<td align="center"><img src="https://github.com/apuc/cg-select/blob/main/src/images/yes.png" alt="image"></td>
+<td align="center"><img src="https://github.com/apuc/cg-select/blob/main/src/images/yes.png" alt="image"> <img src="https://github.com/apuc/cg-select/blob/main/src/images/no.png" alt="image"></td>
+<td align="center"><img src="https://github.com/apuc/cg-select/blob/main/src/images/no.png" alt="image"></td>
+<td align="center"><img src="https://github.com/apuc/cg-select/blob/main/src/images/no.png" alt="image"></td>
+</tr>
+<tr>
+<td>Comment</td>
+<td align="center">Tested in Js applications and it worksуспешно.</td>
+<td align="center">Works only with a crutch in the form <code>setTimeout()</code></td>
+<td align="center">not yet available</td>
+<td align="center">not yet available</td>
+</tr>
+</tbody></table>
 
-          <a href="#history" id="history" style="color: inherit; text-decoration: none">
-            <h2>History</h2>
-          </a>
-          <p>
-            16.12.2022 - release version 0.1.0! <br />
-            20.01.2023 - upgrade to version 0.2.1
-          </p>
-        </div>
-      </div>
-      <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-        <div class="tsd-navigation settings">
-          <details class="tsd-index-accordion">
-            <summary class="tsd-accordion-summary">
-              <h3>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z"
-                    fill="var(--color-text)"
-                  ></path>
-                </svg>
-                Settings
-              </h3>
-            </summary>
-            <div class="tsd-accordion-details">
-              <div class="tsd-filter-visibility">
-                <h4 class="uppercase">Member Visibility</h4>
-                <form>
-                  <ul id="tsd-filter-options">
-                    <li class="tsd-filter-item">
-                      <label class="tsd-filter-input"
-                        ><input type="checkbox" id="tsd-filter-protected" name="protected" /><svg
-                          width="32"
-                          height="32"
-                          viewBox="0 0 32 32"
-                          aria-hidden="true"
-                        >
-                          <rect
-                            class="tsd-checkbox-background"
-                            width="30"
-                            height="30"
-                            x="1"
-                            y="1"
-                            rx="6"
-                            fill="none"
-                          ></rect>
-                          <path
-                            class="tsd-checkbox-checkmark"
-                            d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
-                            stroke="none"
-                            stroke-width="3.5"
-                            stroke-linejoin="round"
-                            fill="none"
-                          ></path></svg
-                        ><span>Protected</span></label
-                      >
-                    </li>
-                    <li class="tsd-filter-item">
-                      <label class="tsd-filter-input"
-                        ><input type="checkbox" id="tsd-filter-private" name="private" /><svg
-                          width="32"
-                          height="32"
-                          viewBox="0 0 32 32"
-                          aria-hidden="true"
-                        >
-                          <rect
-                            class="tsd-checkbox-background"
-                            width="30"
-                            height="30"
-                            x="1"
-                            y="1"
-                            rx="6"
-                            fill="none"
-                          ></rect>
-                          <path
-                            class="tsd-checkbox-checkmark"
-                            d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
-                            stroke="none"
-                            stroke-width="3.5"
-                            stroke-linejoin="round"
-                            fill="none"
-                          ></path></svg
-                        ><span>Private</span></label
-                      >
-                    </li>
-                    <li class="tsd-filter-item">
-                      <label class="tsd-filter-input"
-                        ><input
-                          type="checkbox"
-                          id="tsd-filter-inherited"
-                          name="inherited"
-                          checked
-                        /><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
-                          <rect
-                            class="tsd-checkbox-background"
-                            width="30"
-                            height="30"
-                            x="1"
-                            y="1"
-                            rx="6"
-                            fill="none"
-                          ></rect>
-                          <path
-                            class="tsd-checkbox-checkmark"
-                            d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
-                            stroke="none"
-                            stroke-width="3.5"
-                            stroke-linejoin="round"
-                            fill="none"
-                          ></path></svg
-                        ><span>Inherited</span></label
-                      >
-                    </li>
-                    <li class="tsd-filter-item">
-                      <label class="tsd-filter-input"
-                        ><input type="checkbox" id="tsd-filter-external" name="external" /><svg
-                          width="32"
-                          height="32"
-                          viewBox="0 0 32 32"
-                          aria-hidden="true"
-                        >
-                          <rect
-                            class="tsd-checkbox-background"
-                            width="30"
-                            height="30"
-                            x="1"
-                            y="1"
-                            rx="6"
-                            fill="none"
-                          ></rect>
-                          <path
-                            class="tsd-checkbox-checkmark"
-                            d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
-                            stroke="none"
-                            stroke-width="3.5"
-                            stroke-linejoin="round"
-                            fill="none"
-                          ></path></svg
-                        ><span>External</span></label
-                      >
-                    </li>
-                  </ul>
-                </form>
-              </div>
-              <div class="tsd-theme-toggle">
-                <h4 class="uppercase">Theme</h4>
-                <select id="theme">
-                  <option value="os">OS</option>
-                  <option value="light">Light</option>
-                  <option value="dark">Dark</option>
-                </select>
-              </div>
-            </div>
-          </details>
-        </div>
-        <nav class="tsd-navigation primary">
-          <details class="tsd-index-accordion" open>
-            <summary class="tsd-accordion-summary">
-              <h3>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z"
-                    fill="var(--color-text)"
-                  ></path>
-                </svg>
-                Modules
-              </h3>
-            </summary>
-            <div class="tsd-accordion-details">
-              <ul>
-                <li class="current selected">
-                  <a href="modules.html">cg-<wbr />select</a>
-                  <ul>
-                    <li class="tsd-kind-module"><a href="modules/Utils.html">Utils</a></li>
-                    <li class="selected tsd-kind-module">
-                      <a href="modules/cg_select.html">cg-<wbr />select</a>
-                    </li>
-                    <li class="tsd-kind-module">
-                      <a href="modules/components_create_element_create_element.html"
-                        >components/create-<wbr />element/create-<wbr />element</a
-                      >
-                    </li>
-                    <li class="tsd-kind-module">
-                      <a href="modules/components_create_element_create_element_interface.html"
-                        >components/create-<wbr />element/create-<wbr />element.interface</a
-                      >
-                    </li>
-                    <li class="tsd-kind-module">
-                      <a href="modules/components_utils_urils_interface.html"
-                        >components/utils/urils.interface</a
-                      >
-                    </li>
-                    <li class="tsd-kind-module">
-                      <a href="modules/interfaces_cg_select_interface.html"
-                        >interfaces/cg-<wbr />select.interface</a
-                      >
-                    </li>
-                    <li class="tsd-kind-module">
-                      <a href="modules/interfaces_items_interface.html"
-                        >interfaces/items.interface</a
-                      >
-                    </li>
-                    <li class="tsd-kind-module">
-                      <a href="modules/interfaces_language_interface.html"
-                        >interfaces/language.interface</a
-                      >
-                    </li>
-                    <li class="tsd-kind-module">
-                      <a href="modules/language_language.html">language/language</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </details>
-        </nav>
-      </div>
-    </div>
-    <div class="container tsd-generator">
-      <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-    </div>
-    <div class="overlay"></div>
-    <script src="assets/main.js"></script>
-  </body>
-</html>
+<a href="#history" id="history" style="color: inherit; text-decoration: none;">
+  <h2>History</h2>
+</a>
+<p>16.12.2022 - release version 0.1.0!</p>
+<p>20.01.2023 - upgrade to version 0.2.1</p>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">cg-<wbr/>select</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/Utils.html">Utils</a></li>
+<li class="selected tsd-kind-module"><a href="modules/cg_select.html">cg-<wbr/>select</a></li>
+<li class="tsd-kind-module"><a href="modules/components_create_element_create_element.html">components/create-<wbr/>element/create-<wbr/>element</a></li>
+<li class="tsd-kind-module"><a href="modules/components_create_element_create_element_interface.html">components/create-<wbr/>element/create-<wbr/>element.interface</a></li>
+<li class="tsd-kind-module"><a href="modules/components_theme_theme.html">components/theme/theme</a></li>
+<li class="tsd-kind-module"><a href="modules/components_utils_urils_interface.html">components/utils/urils.interface</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces_cg_select_interface.html">interfaces/cg-<wbr/>select.interface</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces_items_interface.html">interfaces/items.interface</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces_language_interface.html">interfaces/language.interface</a></li>
+<li class="tsd-kind-module"><a href="modules/language_language.html">language/language</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>

@@ -94,8 +94,8 @@
           <ul>
             <li>
               Defined in
-              <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L33"
-                >cg-select.ts:33</a
+              <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L34"
+                >cg-select.ts:34</a
               >
             </li>
           </ul>
@@ -195,14 +195,6 @@
                         <use href="#icon-1024-path"></use>
                         <use href="#icon-1024-text"></use></svg
                       ><span>close<wbr />On<wbr />Select?</span></a
-                    >
-                    <a
-                      href="cg_select.CGSelect.html#darkTheme"
-                      class="tsd-index-link tsd-kind-property tsd-parent-kind-class"
-                      ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
-                        <use href="#icon-1024-path"></use>
-                        <use href="#icon-1024-text"></use></svg
-                      ><span>theme?</span></a
                     >
                     <a
                       href="cg_select.CGSelect.html#element"
@@ -357,6 +349,14 @@
                       ><span>styles?</span></a
                     >
                     <a
+                      href="cg_select.CGSelect.html#theme"
+                      class="tsd-index-link tsd-kind-property tsd-parent-kind-class"
+                      ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
+                        <use href="#icon-1024-path"></use>
+                        <use href="#icon-1024-text"></use></svg
+                      ><span>theme?</span></a
+                    >
+                    <a
                       href="cg_select.CGSelect.html#url"
                       class="tsd-index-link tsd-kind-property tsd-parent-kind-class"
                       ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
@@ -451,14 +451,6 @@
                       ><span>button<wbr />Control</span></a
                     >
                     <a
-                      href="cg_select.CGSelect.html#checkTheme"
-                      class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-private"
-                      ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
-                        <use href="#icon-2048-path"></use>
-                        <use href="#icon-2048-text"></use></svg
-                      ><span>check<wbr />Theme</span></a
-                    >
-                    <a
                       href="cg_select.CGSelect.html#close"
                       class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-private"
                       ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
@@ -537,6 +529,14 @@
                         <use href="#icon-2048-path"></use>
                         <use href="#icon-2048-text"></use></svg
                       ><span>init<wbr />Selected</span></a
+                    >
+                    <a
+                      href="cg_select.CGSelect.html#on"
+                      class="tsd-index-link tsd-kind-method tsd-parent-kind-class"
+                      ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
+                        <use href="#icon-2048-path"></use>
+                        <use href="#icon-2048-text"></use></svg
+                      ><span>on</span></a
                     >
                     <a
                       href="cg_select.CGSelect.html#open"
@@ -654,7 +654,7 @@
                   <p>The constructor takes an object and renders the select.</p>
 
                   <h3>Example</h3>
-                  <pre><code class="language-ts"><span class="hl-0">options</span><span class="hl-1"> = {</span><br/><span class="hl-1"> </span><span class="hl-0">selector:</span><span class="hl-1"> </span><span class="hl-2">&#39;Unique selector&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">selected:</span><span class="hl-1"> </span><span class="hl-2">&#39;Selected item&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">placeholder:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">lable:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><br/><span class="hl-1">   </span><span class="hl-0">items</span><span class="hl-1">: [</span><span class="hl-0">string</span><span class="hl-1">|</span><span class="hl-0">number</span><span class="hl-1">|</span><span class="hl-0">object</span><span class="hl-1">],</span><br/><span class="hl-1">   </span><span class="hl-0">theme:</span><span class="hl-1"> </span><span class="hl-5">string</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">searchMode:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">closeOnSelect:</span><span class="hl-1">  </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">nativeSelectMode:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">listDisplayMode:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">language:</span><span class="hl-1"> </span><span class="hl-2">&#39;ru/en&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">styles:</span><span class="hl-1"> {</span><br/><span class="hl-1">     </span><span class="hl-0">head:</span><span class="hl-1"> {</span><br/><span class="hl-1">       </span><span class="hl-0">background:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">     },</span><br/><span class="hl-1">     </span><span class="hl-0">list:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">chips:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">caret:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">placeholder:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">lable:</span><span class="hl-1"> {..},</span><br/><span class="hl-1">   },</span><br/><span class="hl-1">   </span><span class="hl-0">event:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">url:</span><span class="hl-1"> </span><span class="hl-2">&#39;http/...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">multiselect:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">multiselectTag:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">}</span>
+                  <pre><code class="language-ts"><span class="hl-0">options</span><span class="hl-1"> = {</span><br/><span class="hl-1"> </span><span class="hl-0">selector:</span><span class="hl-1"> </span><span class="hl-2">&#39;Unique selector&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">selected:</span><span class="hl-1"> </span><span class="hl-2">&#39;Selected item&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">placeholder:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">lable:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><br/><span class="hl-1">   </span><span class="hl-0">items</span><span class="hl-1">: [</span><span class="hl-0">string</span><span class="hl-1">|</span><span class="hl-0">number</span><span class="hl-1">|</span><span class="hl-0">object</span><span class="hl-1">],</span><br/><span class="hl-1">   </span><span class="hl-0">theme:</span><span class="hl-1"> </span><span class="hl-0">string</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">searchMode:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">closeOnSelect:</span><span class="hl-1">  </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">nativeSelectMode:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">listDisplayMode:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">language:</span><span class="hl-1"> </span><span class="hl-2">&#39;ru/en&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">styles:</span><span class="hl-1"> {</span><br/><span class="hl-1">     </span><span class="hl-0">head:</span><span class="hl-1"> {</span><br/><span class="hl-1">       </span><span class="hl-0">background:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">     },</span><br/><span class="hl-1">     </span><span class="hl-0">list:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">chips:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">caret:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">placeholder:</span><span class="hl-1"> {...},</span><br/><span class="hl-1">     </span><span class="hl-0">lable:</span><span class="hl-1"> {..},</span><br/><span class="hl-1">   },</span><br/><span class="hl-1">   </span><span class="hl-0">event:</span><span class="hl-1"> </span><span class="hl-2">&#39;...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">url:</span><span class="hl-1"> </span><span class="hl-2">&#39;http/...&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">multiselect:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">   </span><span class="hl-0">multiselectTag:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">/</span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">}</span>
 </code></pre>
                 </div>
                 <div class="tsd-parameters">
@@ -686,8 +686,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L131"
-                        >cg-select.ts:131</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L132"
+                        >cg-select.ts:132</a
                       >
                     </li>
                   </ul>
@@ -731,8 +731,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L96"
-                    >cg-select.ts:96</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L97"
+                    >cg-select.ts:97</a
                   >
                 </li>
               </ul>
@@ -772,8 +772,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L76"
-                    >cg-select.ts:76</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L77"
+                    >cg-select.ts:77</a
                   >
                 </li>
               </ul>
@@ -810,8 +810,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L81"
-                    >cg-select.ts:81</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L82"
+                    >cg-select.ts:82</a
                   >
                 </li>
               </ul>
@@ -861,55 +861,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L41"
-                    >cg-select.ts:41</a
-                  >
-                </li>
-              </ul>
-            </aside>
-          </section>
-          <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-            <a id="darkTheme" class="tsd-anchor"></a>
-            <h3 class="tsd-anchor-link">
-              <code class="tsd-tag ts-flagOptional">Optional</code> <span>theme</span
-              ><a href="#darkTheme" aria-label="Permalink" class="tsd-anchor-icon"
-                ><svg
-                  class="icon icon-tabler icon-tabler-link"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="#icon-anchor-a"></use>
-                  <use href="#icon-anchor-b"></use>
-                  <use href="#icon-anchor-c"></use></svg
-              ></a>
-            </h3>
-            <div class="tsd-signature">
-              theme<span class="tsd-signature-symbol">?:</span>
-              <span class="tsd-signature-type">string</span>
-            </div>
-            <div class="tsd-comment tsd-typography">
-              <p>
-                An optional parameter responsible for switching between different themes, the
-                classic theme is set by default.
-              </p>
-            </div>
-            <aside class="tsd-sources">
-              <p>
-                Implementation of
-                <a href="../interfaces/interfaces_cg_select_interface.ICgSelect.html">ICgSelect</a
-                >.<a href="../interfaces/interfaces_cg_select_interface.ICgSelect.html#darkTheme"
-                  >theme</a
-                >
-              </p>
-              <ul>
-                <li>
-                  Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L39"
-                    >cg-select.ts:39</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L42"
+                    >cg-select.ts:42</a
                   >
                 </li>
               </ul>
@@ -947,8 +900,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L56"
-                    >cg-select.ts:56</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L57"
+                    >cg-select.ts:57</a
                   >
                 </li>
               </ul>
@@ -994,8 +947,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L47"
-                    >cg-select.ts:47</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L48"
+                    >cg-select.ts:48</a
                   >
                 </li>
               </ul>
@@ -1035,8 +988,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L91"
-                    >cg-select.ts:91</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L92"
+                    >cg-select.ts:92</a
                   >
                 </li>
               </ul>
@@ -1082,8 +1035,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L38"
-                    >cg-select.ts:38</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L39"
+                    >cg-select.ts:39</a
                   >
                 </li>
               </ul>
@@ -1126,8 +1079,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L45"
-                    >cg-select.ts:45</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L46"
+                    >cg-select.ts:46</a
                   >
                 </li>
               </ul>
@@ -1170,8 +1123,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L44"
-                    >cg-select.ts:44</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L45"
+                    >cg-select.ts:45</a
                   >
                 </li>
               </ul>
@@ -1209,8 +1162,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L61"
-                    >cg-select.ts:61</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L62"
+                    >cg-select.ts:62</a
                   >
                 </li>
               </ul>
@@ -1258,8 +1211,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L43"
-                    >cg-select.ts:43</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L44"
+                    >cg-select.ts:44</a
                   >
                 </li>
               </ul>
@@ -1306,8 +1259,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L49"
-                    >cg-select.ts:49</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L50"
+                    >cg-select.ts:50</a
                   >
                 </li>
               </ul>
@@ -1355,8 +1308,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L50"
-                    >cg-select.ts:50</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L51"
+                    >cg-select.ts:51</a
                   >
                 </li>
               </ul>
@@ -1404,8 +1357,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L42"
-                    >cg-select.ts:42</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L43"
+                    >cg-select.ts:43</a
                   >
                 </li>
               </ul>
@@ -1448,8 +1401,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L66"
-                    >cg-select.ts:66</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L67"
+                    >cg-select.ts:67</a
                   >
                 </li>
               </ul>
@@ -1495,8 +1448,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L37"
-                    >cg-select.ts:37</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L38"
+                    >cg-select.ts:38</a
                   >
                 </li>
               </ul>
@@ -1532,8 +1485,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L71"
-                    >cg-select.ts:71</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L72"
+                    >cg-select.ts:72</a
                   >
                 </li>
               </ul>
@@ -1576,8 +1529,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L40"
-                    >cg-select.ts:40</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L41"
+                    >cg-select.ts:41</a
                   >
                 </li>
               </ul>
@@ -1623,8 +1576,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L36"
-                    >cg-select.ts:36</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L37"
+                    >cg-select.ts:37</a
                   >
                 </li>
               </ul>
@@ -1665,8 +1618,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L86"
-                    >cg-select.ts:86</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L87"
+                    >cg-select.ts:87</a
                   >
                 </li>
               </ul>
@@ -1712,8 +1665,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L35"
-                    >cg-select.ts:35</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L36"
+                    >cg-select.ts:36</a
                   >
                 </li>
               </ul>
@@ -1764,8 +1717,55 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L46"
-                    >cg-select.ts:46</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L47"
+                    >cg-select.ts:47</a
+                  >
+                </li>
+              </ul>
+            </aside>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+            <a id="theme" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <code class="tsd-tag ts-flagOptional">Optional</code> <span>theme</span
+              ><a href="#theme" aria-label="Permalink" class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <div class="tsd-signature">
+              theme<span class="tsd-signature-symbol">?:</span>
+              <span class="tsd-signature-type">string</span>
+            </div>
+            <div class="tsd-comment tsd-typography">
+              <p>
+                An optional parameter responsible for switching between different themes, the
+                classic theme is set by default.
+              </p>
+            </div>
+            <aside class="tsd-sources">
+              <p>
+                Implementation of
+                <a href="../interfaces/interfaces_cg_select_interface.ICgSelect.html">ICgSelect</a
+                >.<a href="../interfaces/interfaces_cg_select_interface.ICgSelect.html#theme"
+                  >theme</a
+                >
+              </p>
+              <ul>
+                <li>
+                  Defined in
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L40"
+                    >cg-select.ts:40</a
                   >
                 </li>
               </ul>
@@ -1810,8 +1810,8 @@
               <ul>
                 <li>
                   Defined in
-                  <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L48"
-                    >cg-select.ts:48</a
+                  <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L49"
+                    >cg-select.ts:49</a
                   >
                 </li>
               </ul>
@@ -1869,8 +1869,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L151"
-                        >cg-select.ts:151</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L152"
+                        >cg-select.ts:152</a
                       >
                     </li>
                   </ul>
@@ -1927,8 +1927,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L143"
-                        >cg-select.ts:143</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L144"
+                        >cg-select.ts:144</a
                       >
                     </li>
                   </ul>
@@ -2032,8 +2032,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L881"
-                        >cg-select.ts:881</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L855"
+                        >cg-select.ts:855</a
                       >
                     </li>
                   </ul>
@@ -2128,8 +2128,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L813"
-                        >cg-select.ts:813</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L787"
+                        >cg-select.ts:787</a
                       >
                     </li>
                   </ul>
@@ -2202,7 +2202,7 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L536"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L536"
                         >cg-select.ts:536</a
                       >
                     </li>
@@ -2288,75 +2288,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L839"
-                        >cg-select.ts:839</a
-                      >
-                    </li>
-                  </ul>
-                </aside>
-              </li>
-            </ul>
-          </section>
-          <section
-            class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private"
-          >
-            <a id="checkTheme" class="tsd-anchor"></a>
-            <h3 class="tsd-anchor-link">
-              <code class="tsd-tag ts-flagPrivate">Private</code> <span>check<wbr />Theme</span
-              ><a href="#checkTheme" aria-label="Permalink" class="tsd-anchor-icon"
-                ><svg
-                  class="icon icon-tabler icon-tabler-link"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <use href="#icon-anchor-a"></use>
-                  <use href="#icon-anchor-b"></use>
-                  <use href="#icon-anchor-c"></use></svg
-              ></a>
-            </h3>
-            <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-              <li class="tsd-signature tsd-anchor-link" id="checkTheme.checkTheme-1">
-                check<wbr />Theme<span class="tsd-signature-symbol">(</span
-                ><span class="tsd-signature-symbol">)</span
-                ><span class="tsd-signature-symbol">: </span
-                ><span class="tsd-signature-type">void</span
-                ><a href="#checkTheme.checkTheme-1" aria-label="Permalink" class="tsd-anchor-icon"
-                  ><svg
-                    class="icon icon-tabler icon-tabler-link"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <use href="#icon-anchor-a"></use>
-                    <use href="#icon-anchor-b"></use>
-                    <use href="#icon-anchor-c"></use></svg
-                ></a>
-              </li>
-              <li class="tsd-description">
-                <code class="tsd-tag ts-flagPrivate">Private</code>
-                <div class="tsd-comment tsd-typography">
-                  <h3>Method</h3>
-                  <p>checkTheme</p>
-
-                  <h3>Description</h3>
-                  <p>Changes the color scheme from dark to light.</p>
-                </div>
-                <h4 class="tsd-returns-title">
-                  Returns <span class="tsd-signature-type">void</span>
-                </h4>
-                <aside class="tsd-sources">
-                  <ul>
-                    <li>
-                      Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L663"
-                        >cg-select.ts:663</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L813"
+                        >cg-select.ts:813</a
                       >
                     </li>
                   </ul>
@@ -2422,7 +2355,7 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L506"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L506"
                         >cg-select.ts:506</a
                       >
                     </li>
@@ -2493,7 +2426,7 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L516"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L516"
                         >cg-select.ts:516</a
                       >
                     </li>
@@ -2574,8 +2507,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L902"
-                        >cg-select.ts:902</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L876"
+                        >cg-select.ts:876</a
                       >
                     </li>
                   </ul>
@@ -2641,8 +2574,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L918"
-                        >cg-select.ts:918</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L892"
+                        >cg-select.ts:892</a
                       >
                     </li>
                   </ul>
@@ -2719,8 +2652,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L861"
-                        >cg-select.ts:861</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L835"
+                        >cg-select.ts:835</a
                       >
                     </li>
                   </ul>
@@ -2803,8 +2736,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L774"
-                        >cg-select.ts:774</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L748"
+                        >cg-select.ts:748</a
                       >
                     </li>
                   </ul>
@@ -2879,8 +2812,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L800"
-                        >cg-select.ts:800</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L774"
+                        >cg-select.ts:774</a
                       >
                     </li>
                   </ul>
@@ -2953,7 +2886,7 @@
                   </p>
 
                   <h3>Example</h3>
-                  <pre><code class="language-ts"><span class="hl-1">{</span><br/><span class="hl-1">        </span><span class="hl-9">selector</span><span class="hl-1">: </span><span class="hl-2">&#39;.cg-dropdown_one&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-9">placeholder</span><span class="hl-1">: </span><span class="hl-2">&#39;Choose a car&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-9">items</span><span class="hl-1">: [</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;BMW&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">          {</span><br/><span class="hl-1">            </span><span class="hl-0">id:</span><span class="hl-1"> </span><span class="hl-2">&#39;213sade&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">            </span><span class="hl-0">title:</span><span class="hl-1"> </span><span class="hl-2">&#39;Opel&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">            </span><span class="hl-0">value:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">,</span><br/><span class="hl-1">          },</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;Mersedes&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;MAN&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;max&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">        ],</span><br/><span class="hl-1">        </span><span class="hl-9">theme</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-9">multiselect</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-9">multiselectTag</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">      }</span>
+                  <pre><code class="language-ts"><span class="hl-1">{</span><br/><span class="hl-1">        </span><span class="hl-9">selector</span><span class="hl-1">: </span><span class="hl-2">&#39;.cg-dropdown_one&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-9">placeholder</span><span class="hl-1">: </span><span class="hl-2">&#39;Choose a car&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-9">items</span><span class="hl-1">: [</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;BMW&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">          {</span><br/><span class="hl-1">            </span><span class="hl-0">id:</span><span class="hl-1"> </span><span class="hl-2">&#39;213sade&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">            </span><span class="hl-0">title:</span><span class="hl-1"> </span><span class="hl-2">&#39;Opel&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">            </span><span class="hl-0">value:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">,</span><br/><span class="hl-1">          },</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;Mersedes&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;MAN&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">          </span><span class="hl-2">&#39;max&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">        ],</span><br/><span class="hl-1">        </span><span class="hl-9">multiselect</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-9">multiselectTag</span><span class="hl-1">: </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">      }</span>
 </code></pre>
                 </div>
                 <div class="tsd-parameters">
@@ -2980,7 +2913,7 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L182"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L182"
                         >cg-select.ts:182</a
                       >
                     </li>
@@ -3047,7 +2980,7 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L468"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L468"
                         >cg-select.ts:468</a
                       >
                     </li>
@@ -3134,8 +3067,134 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L441"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L441"
                         >cg-select.ts:441</a
+                      >
+                    </li>
+                  </ul>
+                </aside>
+              </li>
+            </ul>
+          </section>
+          <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+            <a id="on" class="tsd-anchor"></a>
+            <h3 class="tsd-anchor-link">
+              <span>on</span
+              ><a href="#on" aria-label="Permalink" class="tsd-anchor-icon"
+                ><svg
+                  class="icon icon-tabler icon-tabler-link"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#icon-anchor-a"></use>
+                  <use href="#icon-anchor-b"></use>
+                  <use href="#icon-anchor-c"></use></svg
+              ></a>
+            </h3>
+            <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+              <li class="tsd-signature tsd-anchor-link" id="on.on-1">
+                on<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol"
+                  >: </span
+                ><span class="tsd-signature-type">string</span>, callback<span
+                  class="tsd-signature-symbol"
+                  >: </span
+                ><span class="tsd-signature-symbol">(</span
+                ><span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol"
+                  >: </span
+                ><span class="tsd-signature-type">any</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol"> =&gt; </span
+                ><span class="tsd-signature-type">any</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">)</span
+                ><span class="tsd-signature-symbol">: </span
+                ><span class="tsd-signature-type">void</span
+                ><a href="#on.on-1" aria-label="Permalink" class="tsd-anchor-icon"
+                  ><svg
+                    class="icon icon-tabler icon-tabler-link"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#icon-anchor-a"></use>
+                    <use href="#icon-anchor-b"></use>
+                    <use href="#icon-anchor-c"></use></svg
+                ></a>
+              </li>
+              <li class="tsd-description">
+                <div class="tsd-comment tsd-typography">
+                  <h3>Description</h3>
+                  <p>Method for tracking the actions of the select, you can pass a callback</p>
+
+                  <h3>Method</h3>
+                  <p>on</p>
+                </div>
+                <div class="tsd-parameters">
+                  <h4 class="tsd-parameters-title">Parameters</h4>
+                  <ul class="tsd-parameter-list">
+                    <li>
+                      <h5>state: <span class="tsd-signature-type">string</span></h5>
+                      <div class="tsd-comment tsd-typography"><p>select state.</p></div>
+                    </li>
+                    <li>
+                      <h5>
+                        callback: <span class="tsd-signature-symbol">(</span
+                        ><span class="tsd-signature-symbol">(</span>state<span
+                          class="tsd-signature-symbol"
+                          >: </span
+                        ><span class="tsd-signature-type">any</span
+                        ><span class="tsd-signature-symbol">)</span
+                        ><span class="tsd-signature-symbol"> =&gt; </span
+                        ><span class="tsd-signature-type">any</span
+                        ><span class="tsd-signature-symbol">)</span>
+                      </h5>
+                      <ul class="tsd-parameters">
+                        <li class="tsd-parameter-signature">
+                          <ul class="tsd-signatures tsd-kind-type-literal">
+                            <li class="tsd-signature">
+                              <span class="tsd-signature-symbol">(</span>state<span
+                                class="tsd-signature-symbol"
+                                >: </span
+                              ><span class="tsd-signature-type">any</span
+                              ><span class="tsd-signature-symbol">)</span
+                              ><span class="tsd-signature-symbol">: </span
+                              ><span class="tsd-signature-type">any</span>
+                            </li>
+                            <li class="tsd-description">
+                              <div class="tsd-parameters">
+                                <h4 class="tsd-parameters-title">Parameters</h4>
+                                <ul class="tsd-parameter-list">
+                                  <li>
+                                    <h5>state: <span class="tsd-signature-type">any</span></h5>
+                                  </li>
+                                </ul>
+                              </div>
+                              <h4 class="tsd-returns-title">
+                                Returns <span class="tsd-signature-type">any</span>
+                              </h4>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <h4 class="tsd-returns-title">
+                  Returns <span class="tsd-signature-type">void</span>
+                </h4>
+                <aside class="tsd-sources">
+                  <ul>
+                    <li>
+                      Defined in
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L924"
+                        >cg-select.ts:924</a
                       >
                     </li>
                   </ul>
@@ -3218,7 +3277,7 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L491"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L491"
                         >cg-select.ts:491</a
                       >
                     </li>
@@ -3302,7 +3361,7 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L271"
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L271"
                         >cg-select.ts:271</a
                       >
                     </li>
@@ -3375,8 +3434,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L378"
-                        >cg-select.ts:378</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L379"
+                        >cg-select.ts:379</a
                       >
                     </li>
                   </ul>
@@ -3460,8 +3519,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L719"
-                        >cg-select.ts:719</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L693"
+                        >cg-select.ts:693</a
                       >
                     </li>
                   </ul>
@@ -3538,8 +3597,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L928"
-                        >cg-select.ts:928</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L902"
+                        >cg-select.ts:902</a
                       >
                     </li>
                   </ul>
@@ -3619,8 +3678,8 @@
                   <ul>
                     <li>
                       Defined in
-                      <a href="https://github.com/apuc/cg-select/blob/15f73b1/src/cg-select.ts#L690"
-                        >cg-select.ts:690</a
+                      <a href="https://github.com/apuc/cg-select/blob/31b10e2/src/cg-select.ts#L664"
+                        >cg-select.ts:664</a
                       >
                     </li>
                   </ul>
@@ -3808,6 +3867,9 @@
                       >
                     </li>
                     <li class="tsd-kind-module">
+                      <a href="../modules/components_theme_theme.html">components/theme/theme</a>
+                    </li>
+                    <li class="tsd-kind-module">
                       <a href="../modules/components_utils_urils_interface.html"
                         >components/utils/urils.interface</a
                       >
@@ -3898,14 +3960,6 @@
                       <use href="#icon-1024-path"></use>
                       <use href="#icon-1024-text"></use></svg
                     >close<wbr />On<wbr />Select?</a
-                  >
-                </li>
-                <li class="tsd-kind-property tsd-parent-kind-class">
-                  <a href="cg_select.CGSelect.html#darkTheme" class="tsd-index-link"
-                    ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
-                      <use href="#icon-1024-path"></use>
-                      <use href="#icon-1024-text"></use></svg
-                    >theme?</a
                   >
                 </li>
                 <li class="tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -4061,6 +4115,14 @@
                   >
                 </li>
                 <li class="tsd-kind-property tsd-parent-kind-class">
+                  <a href="cg_select.CGSelect.html#theme" class="tsd-index-link"
+                    ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
+                      <use href="#icon-1024-path"></use>
+                      <use href="#icon-1024-text"></use></svg
+                    >theme?</a
+                  >
+                </li>
+                <li class="tsd-kind-property tsd-parent-kind-class">
                   <a href="cg_select.CGSelect.html#url" class="tsd-index-link"
                     ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
                       <use href="#icon-1024-path"></use>
@@ -4114,14 +4176,6 @@
                       <use href="#icon-2048-path"></use>
                       <use href="#icon-2048-text"></use></svg
                     >button<wbr />Control</a
-                  >
-                </li>
-                <li class="tsd-kind-method tsd-parent-kind-class tsd-is-private">
-                  <a href="cg_select.CGSelect.html#checkTheme" class="tsd-index-link"
-                    ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
-                      <use href="#icon-2048-path"></use>
-                      <use href="#icon-2048-text"></use></svg
-                    >check<wbr />Theme</a
                   >
                 </li>
                 <li class="tsd-kind-method tsd-parent-kind-class tsd-is-private">
@@ -4202,6 +4256,14 @@
                       <use href="#icon-2048-path"></use>
                       <use href="#icon-2048-text"></use></svg
                     >init<wbr />Selected</a
+                  >
+                </li>
+                <li class="tsd-kind-method tsd-parent-kind-class">
+                  <a href="cg_select.CGSelect.html#on" class="tsd-index-link"
+                    ><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24">
+                      <use href="#icon-2048-path"></use>
+                      <use href="#icon-2048-text"></use></svg
+                    >on</a
                   >
                 </li>
                 <li class="tsd-kind-method tsd-parent-kind-class tsd-is-private">
