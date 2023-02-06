@@ -4,8 +4,8 @@ import './example';
 // ------------------------------Обычный селект--------------------
 const dropdown = new CGSelect({
   selector: '.cg-dropdown_one',
-  placeholder: 'Выберите авто',
-  lable: 'EXAMPLE',
+  placeholder: 'Choose a car',
+  label: 'EXAMPLE',
   items: [
     'BMW',
     {
@@ -28,14 +28,14 @@ const dropdown = new CGSelect({
   // multiselect: true,
 });
 
-// dropdown.on('select', function (e) {
-//   console.log(`this state: ${e}`);
-// });
+dropdown.on('clear', function (e) {
+  console.log(`this state: ${e}`);
+});
 
 // ------------------------------NativeSelect-----------------------
 const dropdownNativeSelect = new CGSelect({
   selector: '.cg-dropdown_selectNative',
-  placeholder: 'Выберите авто',
+  placeholder: 'Choose a car',
   nativeSelectMode: true,
   items: [
     'BMW',
@@ -63,7 +63,7 @@ const dropdownNativeSelect = new CGSelect({
 // ------------------------------listDisplayMode--------------------
 const dropdownlistDisplayMode = new CGSelect({
   selector: '.cg-dropdown_listDisplayMode',
-  placeholder: 'Выберите авто',
+  placeholder: 'Choose a car',
   listDisplayMode: true,
   items: [
     'BMW',
@@ -134,7 +134,7 @@ const dropdown4 = new CGSelect({
 //----------------управление с помощью кнопок----------------------------------
 const dropdownBtn = new CGSelect({
   selector: '.cg-dropdown_usedBtn',
-  placeholder: 'Выберите авто',
+  placeholder: 'Choose a car',
   searchMode: true,
   items: [
     'BMW',
@@ -181,7 +181,7 @@ dropdownBtn.buttonControl(buttonClose, 'close');
 //-------------------------Функция Disabled----------------------------------
 const dropdownDisabled = new CGSelect({
   selector: '.cg-dropdown_checkboxDisable',
-  placeholder: 'Выберите авто',
+  placeholder: 'Choose a car',
   searchMode: true,
   items: [
     'BMW',

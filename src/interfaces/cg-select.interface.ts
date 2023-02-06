@@ -61,7 +61,7 @@ export interface ICgSelect {
    * An optional parameter that adds a lable before the select.
    * @type {string}
    */
-  lable?: string;
+  label?: string;
   /**
    * An optional parameter that is responsible for customizing the select elements,
    * objects with CSS properties for customizable elements are passed to it.

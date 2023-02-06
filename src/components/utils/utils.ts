@@ -143,7 +143,9 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
 
   select!.appendChild(svgIcon);
 
-  svgIcon.addEventListener('click', () => {
+  svgIcon.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     select!.innerText = '';
 
     nativeOption.forEach((option) => {
