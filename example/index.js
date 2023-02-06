@@ -25,7 +25,6 @@ const dropdown = new CGSelect({
       width: '824px',
     },
   },
-  // multiselect: true,
 });
 
 dropdown.on('clear', function (e) {
