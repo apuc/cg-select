@@ -16,7 +16,7 @@ import {
   nativeOptionMultiple,
   nativeOptionOrdinary,
 } from './components/utils/utils';
-import { IDataItem, ISelectedItems } from './components/utils/urils.interface';
+import { IDataItem, ISelectedItems } from './components/utils/utils.interface';
 
 import { ICgSelect, IStyle } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';

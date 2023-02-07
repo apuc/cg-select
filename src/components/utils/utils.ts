@@ -4,7 +4,7 @@
  */
 import { IStyle } from 'interfaces/cg-select.interface';
 import { IItems } from 'interfaces/items.interface';
-import { ISelectedItems } from './urils.interface';
+import { ISelectedItems } from './utils.interface';
 
 /**
  * Converting each item obtained from the Items field;

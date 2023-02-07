@@ -73,6 +73,8 @@ Same working example -- https://cg-select.itguild.info/
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
 
+Built-in themes are also available: dark, white. To apply them, specify the theme attribute in the select settings and pass one of the values ​​into it dark or white.
+
 All documentation on CG-SELECT is located in the folder of the same name. The documentation describes all methods and variables, there are also examples of passing settings to select. You can also open it on the page with an example, or follow the link below.
 
 **To view it, follow the link -** https://cg-select.itguild.info/up_/documentation/index.html
