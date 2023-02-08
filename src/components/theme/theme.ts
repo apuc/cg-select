@@ -4,6 +4,7 @@ export function changeTheme(element: Element, theme: string) {
   const list = element!.querySelector('ul.list');
   const search = element!.querySelector('.inputSearch');
   const path = element.querySelectorAll('.pathWhite');
+  const nativeSelect = element.querySelector('.nativeSelect');
 
   select!.classList.remove('classicSelect');
   list!.classList.remove('classicList');
@@ -12,10 +13,11 @@ export function changeTheme(element: Element, theme: string) {
     elem.classList.remove('pathWhite');
   });
 
-  switch (theme) {
+  switch (theme.toLowerCase()) {
     case 'dark':
       select!.classList.add('selectDark');
       list!.classList.add('listDark');
+      nativeSelect?.classList.add('listDark');
       path.forEach((elem) => {
         elem.classList.add('pathWhite');
       });
@@ -24,6 +26,7 @@ export function changeTheme(element: Element, theme: string) {
       select!.classList.add('selectWhite');
       caret!.classList.add('caretWhite');
       list!.classList.add('listWhite');
+      nativeSelect?.classList.add('listWhite');
       path.forEach((elem) => {
         elem.classList.add('pathBlack');
       });

@@ -57,6 +57,7 @@ const dropdownNativeSelect = new CGSelect({
       width: '824px',
     },
   },
+  theme: 'dark',
 });
 
 // ------------------------------listDisplayMode--------------------
@@ -88,7 +89,7 @@ const dropdownlistDisplayMode = new CGSelect({
 // --------------------------------Категории--------------------------
 const dropdown4 = new CGSelect({
   selector: '.cg-dropdown_categories',
-  placeholder: 'Выберите регион',
+  placeholder: 'Choose region',
   searchMode: true,
   items: [
     {

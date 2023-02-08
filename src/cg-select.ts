@@ -32,7 +32,6 @@ import { changeTheme } from './components/theme/theme';
  * @author Ovsyanikov Maxim
  */
 export class CGSelect implements ICgSelect {
-  // Select settings
   selector?: string;
   selected?: string;
   placeholder?: string;
@@ -466,10 +465,6 @@ export class CGSelect implements ICgSelect {
    * @method initEvent
    */
   private initEvent() {
-    if (!this.event) {
-      return;
-    }
-
     if (this.event) {
       if (this.event === 'mouseenter') {
         this.element!.addEventListener(this.event, () => {
@@ -771,7 +766,7 @@ export class CGSelect implements ICgSelect {
    * @returns {HTMLElement} returns a reference to the selected HTML element.
    * @method getElement
    */
-  public getElement(numberItem: number): IItems[] | string[] | any {
+  public getElement(numberItem: number): IItems[] | any {
     if (numberItem > this.items.length) {
       return;
     }
