@@ -26,13 +26,23 @@ Tested in JS and React. Errors in work in React applications are revealed.
 - All select rewritten to ts.
 - Fixed bugs and shortcomings.
 
-  24.01.2023 - fix 0.2.2 - Fixed documentation etc.
-  27.01.2023 - fix 0.2.3
+##### 24.01.2023 - fix 0.2.2 - Fixed documentation etc.
+
+### 27.01.2023 - update 0.2.3
 
 - Changed the theme selection function.
 - Fixed documentation.
 
-  31.01.2023 - fix 0.2.31
+##### 31.01.2023 - fix 0.2.31
 
 - Adding a new method to track select actions.
 - Fixed documentation.
+
+##### 08.02.2023 - fix 0.2.32
+
+- Fixing Methods and Variables.
+- Updating how themes work.
+- Fixed documentation.
+- Fixing bugs related to the cleanup of the select.
+- Documentation navigation update.
+- Added icon for example page and documentation.
