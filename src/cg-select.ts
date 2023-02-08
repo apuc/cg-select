@@ -16,7 +16,7 @@ import {
   nativeOptionMultiple,
   nativeOptionOrdinary,
 } from './components/utils/utils';
-import { IDataItem, ISelectedItems } from './components/utils/urils.interface';
+import { IDataItem, ISelectedItems } from './components/utils/utils.interface';
 
 import { ICgSelect, IStyle } from './interfaces/cg-select.interface';
 import { IItems } from './interfaces/items.interface';
@@ -24,6 +24,7 @@ import { ru, en } from './language/language';
 import { ILanguage } from './interfaces/language.interface';
 
 import './main.scss';
+import { changeTheme } from './components/theme/theme';
 
 /**
  * @class Class Description ICgSelect
@@ -31,18 +32,17 @@ import './main.scss';
  * @author Ovsyanikov Maxim
  */
 export class CGSelect implements ICgSelect {
-  // Select settings
   selector?: string;
   selected?: string;
   placeholder?: string;
   items?: IItems[] | string[] | any;
-  darkTheme?: boolean;
+  theme?: string;
   searchMode?: boolean;
   closeOnSelect?: boolean;
   nativeSelectMode?: boolean;
   listDisplayMode?: boolean;
   language?: string;
-  lable?: string;
+  label?: string;
   styles?: IStyle;
   event?: string;
   url?: string;
@@ -73,7 +73,7 @@ export class CGSelect implements ICgSelect {
    * Variable for carriage control.
    * @type {Element | null | undefined}
    */
-  private caret: Element | null | undefined;
+  private carriage: Element | null | undefined;
   /**
    * Transferred categories.
    * @type {string}
@@ -93,7 +93,7 @@ export class CGSelect implements ICgSelect {
    * Button, to control the select.
    * @type {Element | null}
    */
-  private btnCntr?: Element | null;
+  private buttonAction?: Element | null;
 
   /**
    * @param {ICgSelect} setting Object accepting select settings.
@@ -104,9 +104,9 @@ export class CGSelect implements ICgSelect {
    *  selector: 'Unique selector',
       selected: 'Selected item',
       placeholder: '...',
-      lable: '...'
+      label: '...'
       items: [string|number|object],
-      darkTheme: true/false,
+      theme: string,
       searchMode: true/false,
       closeOnSelect:  true/false,
       nativeSelectMode: true/false,
@@ -118,9 +118,9 @@ export class CGSelect implements ICgSelect {
         },
         list: {...},
         chips: {...},
-        caret: {...},
+        carriage: {...},
         placeholder: {...},
-        lable: {..},
+        label: {..},
       },
       event: '...',
       url: 'http/...',
@@ -174,7 +174,6 @@ export class CGSelect implements ICgSelect {
           'MAN',
           'max',
         ],
-        darkTheme: true,
         multiselect: true,
         multiselectTag: true,
       }
@@ -189,13 +188,13 @@ export class CGSelect implements ICgSelect {
       listDisplayMode,
       nativeSelectMode,
       searchMode,
-      darkTheme,
       language,
       styles,
-      lable,
+      label,
       event,
       selected,
       placeholder,
+      theme,
     } = setting;
 
     this.options = setting;
@@ -206,15 +205,15 @@ export class CGSelect implements ICgSelect {
     this.selector = selector;
     this.items = items;
     this.searchMode = searchMode;
-    this.darkTheme = darkTheme;
     this.language = language;
     this.nativeSelectMode = nativeSelectMode;
     this.listDisplayMode = listDisplayMode;
     this.styles = styles;
-    this.lable = lable;
+    this.label = label;
     this.event = event;
     this.selected = selected;
     this.placeholder = placeholder;
+    this.theme = theme;
 
     const elem = document.querySelector(this.selector!);
     this.element = elem;
@@ -231,14 +230,14 @@ export class CGSelect implements ICgSelect {
       return;
     }
 
-    if (this.lable) {
-      const lableItem = document.createElement('h1');
-      const textLable = document.createTextNode(this.lable);
+    if (this.label) {
+      const labelItem = document.createElement('h1');
+      const textLabel = document.createTextNode(this.label);
 
-      lableItem.appendChild(textLable);
-      lableItem.classList.add('label');
+      labelItem.appendChild(textLabel);
+      labelItem.classList.add('label');
 
-      this.element!.insertAdjacentElement('beforebegin', lableItem);
+      this.element!.insertAdjacentElement('beforebegin', labelItem);
     }
 
     items.forEach((dataItem: any, index: number) => {
@@ -287,6 +286,7 @@ export class CGSelect implements ICgSelect {
     this.randomId = random;
 
     ulList.classList.add('list');
+    ulList!.classList.add('classicList');
 
     if (this.styles) {
       customStylesFormat(this.styles.list!, ulList);
@@ -353,10 +353,10 @@ export class CGSelect implements ICgSelect {
     });
 
     this.list = this.element!.querySelector('.list');
-    this.caret = this.element!.querySelector('.caret');
+    this.carriage = this.element!.querySelector('.caret');
 
-    if (this.darkTheme == false) {
-      this.checkTheme();
+    if (this.theme) {
+      changeTheme(this.element!, this.theme!);
     }
 
     if (this.nativeSelectMode === true) {
@@ -378,7 +378,6 @@ export class CGSelect implements ICgSelect {
   private async renderUrl() {
     const response = await fetch(this.url!);
     const dataUrl = await response.json();
-    console.log(dataUrl);
 
     const nativeSelect = createNativeSelect();
 
@@ -466,10 +465,6 @@ export class CGSelect implements ICgSelect {
    * @method initEvent
    */
   private initEvent() {
-    if (!this.event) {
-      return;
-    }
-
     if (this.event) {
       if (this.event === 'mouseenter') {
         this.element!.addEventListener(this.event, () => {
@@ -491,10 +486,10 @@ export class CGSelect implements ICgSelect {
   private open(oneClick?: boolean): void {
     if (oneClick === true) {
       this.list!.classList.add('open');
-      this.caret!.classList.add('caret_rotate');
+      this.carriage!.classList.add('caret_rotate');
     } else {
       this.list!.classList.toggle('open');
-      this.caret!.classList.toggle('caret_rotate');
+      this.carriage!.classList.toggle('caret_rotate');
     }
   }
 
@@ -505,7 +500,7 @@ export class CGSelect implements ICgSelect {
    */
   private close(): void {
     this.list?.classList.remove('open');
-    this.caret?.classList.remove('caret_rotate');
+    this.carriage?.classList.remove('caret_rotate');
   }
 
   /**
@@ -519,7 +514,7 @@ export class CGSelect implements ICgSelect {
     document.addEventListener('click', (e) => {
       const withinBoundaries = e.composedPath().includes(dropdown!);
       if (!withinBoundaries) {
-        if (this.btnCntr) {
+        if (this.buttonAction) {
           return;
         } else {
           this.close();
@@ -541,6 +536,7 @@ export class CGSelect implements ICgSelect {
     let selectedItemsClear: ISelectedItems = {
       placeholder: this.placeholder!,
       selected: this.selected!,
+      theme: this.theme,
     };
 
     const ulMultipul = document.createElement('ul');
@@ -563,7 +559,6 @@ export class CGSelect implements ICgSelect {
             selected: this.selected!,
             selectedItems: this.selectedItems,
             indexes: this.indexes,
-            darkTheme: this.darkTheme,
             multiselectTag: this.multiselectTag,
           };
         }
@@ -653,32 +648,6 @@ export class CGSelect implements ICgSelect {
         clearSelect(select!, this.element!, selectedItemsClear);
       });
     });
-  }
-
-  /**
-   * @private
-   * @method checkTheme
-   * @description Changes the color scheme from dark to light.
-   */
-  private checkTheme(): void {
-    const select = this.element!.querySelector('.cg-select');
-    const caret = this.element!.querySelector('.caret');
-    const list = this.element!.querySelector('ul.list');
-    const search = this.element!.querySelector('.inputSearch');
-
-    if (this.darkTheme == false) {
-      select!.classList.add('selectWhite');
-      caret!.classList.add('caretWhite');
-      list!.classList.add('listWhite');
-
-      if (this.searchMode == true) {
-        search!.classList.add('inputWhite');
-      }
-    } else if (this.darkTheme == true) {
-      return;
-    } else {
-      throw new Error('Styles error or invalid value entered!');
-    }
   }
 
   /**
@@ -797,7 +766,7 @@ export class CGSelect implements ICgSelect {
    * @returns {HTMLElement} returns a reference to the selected HTML element.
    * @method getElement
    */
-  public getElement(numberItem: number): IItems[] | string[] | any {
+  public getElement(numberItem: number): IItems[] | any {
     if (numberItem > this.items.length) {
       return;
     }
@@ -841,7 +810,7 @@ export class CGSelect implements ICgSelect {
       return;
     }
 
-    this.btnCntr = button!;
+    this.buttonAction = button!;
     button.addEventListener('click', () => {
       if (method.toLowerCase() === 'open') {
         this.open(true);
@@ -939,5 +908,47 @@ export class CGSelect implements ICgSelect {
 
     const select: string = options[index].innerText;
     this.render(select);
+  }
+
+  /**
+   * @description Method for tracking the actions of the select, you can pass a callback
+   * @param state select state.
+   * @param callback
+   * @method on
+   */
+  public on(state: string, callback: (state: any) => any) {
+    const options = this.element?.querySelectorAll('.list__item');
+
+    switch (state) {
+      case 'select':
+        options?.forEach((option: Element) => {
+          option.addEventListener('click', () => {
+            console.log('option:select', option.textContent);
+          });
+        });
+        callback(state);
+        break;
+      case 'close':
+        this.element!.addEventListener('click', () => {
+          console.log('list:close', this.list!.classList.contains('close'));
+        });
+        callback(state);
+        break;
+      case 'open':
+        this.element!.addEventListener('click', () => {
+          console.log('list:open', this.list!.classList.contains('open'));
+        });
+        callback(state);
+        break;
+      case 'clear':
+        this.element!.addEventListener('click', () => {
+          const svgIcon = this.element?.querySelector('.svg-icon');
+          svgIcon?.addEventListener('click', () => {
+            console.log('list:clear', svgIcon.classList.contains('svg-clear'));
+          });
+        });
+        callback(state);
+        break;
+    }
   }
 }

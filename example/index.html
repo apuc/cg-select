@@ -14,6 +14,7 @@
     <meta property="og:image" content="/src/images/logoCG.jpg" />
 
     <title>Cg-Select</title>
+    <link rel="shortcut icon" href="../src/images/logoCG2.ico" type="image/x-icon" />
     <link href="example.scss" rel="stylesheet" />
   </head>
   <body class="body-example">
@@ -27,7 +28,7 @@
         <nav>
           <ul class="navlist">
             <li><a href="">Home</a></li>
-            <li><a href="/documentation/index.html">Documentation</a></li>
+            <li><a href="/docs/index.html">Documentation</a></li>
           </ul>
         </nav>
       </header>
@@ -35,7 +36,7 @@
 
     <div class="container content">
       <div class="example-select">
-        <h2 class="example-select_title">Дефолтный селект</h2>
+        <h2 class="example-select_title">Default select</h2>
         <form method="get" class="form">
           <div class="layout-select">
             <button class="cg-dropdown cg-dropdown_one"></button>
@@ -43,12 +44,12 @@
 
           <input type="submit" value="Отправить!" class="example-select_submit" />
 
-          <button type="button" class="check-code" id="first">Посмотреть код</button>
+          <button type="button" class="check-code" id="first">View code</button>
           <code id="codeFirst">
             <pre>
               <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">CGSelect</span>({
                 selector: <span class="code__string">'.cg-dropdown_one',</span> 
-                placeholder: <span class="code__string">'Выберите авто',</span> 
+                placeholder: <span class="code__string">'Choose a car',</span> 
                 lable: <span class="code__string">'EXAMPLE',</span> 
                 items: [
                   <span class="code__string">'BMW',</span>
@@ -76,22 +77,22 @@
       </div>
 
       <div class="example-select">
-        <h2 class="example-select_title">Дефолтный селект с функцией nativeSelectMode</h2>
+        <h2 class="example-select_title">Default select with function nativeSelectMode</h2>
 
         <form method="get" class="form">
           <p style="margin-left: 12px; color: white">
-            *При мобильном разрешении появляеться нативный селект.
+            *Native select appears on mobile resolution.
           </p>
           <div class="layout-select">
             <button class="cg-dropdown cg-dropdown_selectNative"></button>
           </div>
 
-          <button type="button" class="check-code" id="Native">Посмотреть код</button>
+          <button type="button" class="check-code" id="Native">View code</button>
           <code id="codeNative">
             <pre>
               <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">CGSelect</span>({
                 selector: <span class="code__string">'.cg-dropdown_one',</span> 
-                placeholder: <span class="code__string">'Выберите авто',</span> 
+                placeholder: <span class="code__string">'Choose a car',</span> 
                 nativeSelectMode: <span class="code__keyword">true,</span>
                 items: [
                   <span class="code__string">'BMW',</span>
@@ -119,23 +120,23 @@
       </div>
 
       <div class="example-select">
-        <h2 class="example-select_title">Дефолтный селект с функцией listDisplayMode</h2>
+        <h2 class="example-select_title">Default select with function listDisplayMode</h2>
 
         <form method="get" class="form">
           <p style="margin-left: 12px; color: white">
-            *При использовании данного метода лист с выбором появляеться как модальное окно.
+            *When using this method, the selection sheet appears as a modal window.
           </p>
           <div class="layout-select">
             <button class="cg-dropdown cg-dropdown_listDisplayMode"></button>
           </div>
 
-          <button type="button" class="check-code" id="six">Посмотреть код</button>
+          <button type="button" class="check-code" id="six">View code</button>
 
           <code id="codeSix">
             <pre>
               <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">CGSelect</span>({
                 selector: <span class="code__string">'.cg-dropdown_listDisplayMode',</span> 
-                placeholder: <span class="code__string">'Выберите авто',</span> 
+                placeholder: <span class="code__string">'Choose a car',</span> 
                 listDisplayMode: <span class="code__keyword">true,</span>
                 items: [
                   <span class="code__string">'BMW',</span>
@@ -163,11 +164,11 @@
       </div>
 
       <div class="example-select">
-        <h1 class="example-select_title">Селект с данными с URL</h1>
+        <h1 class="example-select_title">Select with data from URL</h1>
         <div class="layout-select">
           <button class="cg-dropdown cg-dropdown_three"></button>
         </div>
-        <button type="button" class="check-code" id="second">Посмотреть код</button>
+        <button type="button" class="check-code" id="second">View code</button>
 
         <code id="codeSecond">
           <pre>
@@ -192,12 +193,12 @@
       </div>
 
       <div class="example-select">
-        <h1 class="example-select_title">Категории</h1>
+        <h1 class="example-select_title">Categories</h1>
 
         <div class="layout-select">
           <button class="cg-dropdown cg-dropdown_categories"></button>
         </div>
-        <button type="button" class="check-code" id="third">Посмотреть код</button>
+        <button type="button" class="check-code" id="third">View code</button>
 
         <code id="codeThird">
           <pre>
@@ -253,7 +254,7 @@
       </div>
 
       <div class="example-select">
-        <h1 class="example-select_title">Управление с помошью кнопок</h1>
+        <h1 class="example-select_title">Button control</h1>
         <div style="margin-bottom: 15px">
           <button class="button__open example-select_submit">Open</button>
           <button class="button__close example-select_submit">Close</button>
@@ -263,13 +264,13 @@
           <button class="cg-dropdown cg-dropdown_usedBtn"></button>
         </div>
 
-        <button type="button" class="check-code" id="fourth">Посмотреть код</button>
+        <button type="button" class="check-code" id="fourth">View code</button>
 
         <code id="codeFourth">
           <pre>
             <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">CGSelect</span>({
               selector: <span class="code__string">'.cg-dropdown_usedBtn',</span> 
-              placeholder: <span class="code__string">'Выберите авто',</span> 
+              placeholder: <span class="code__string">'Choose a car',</span> 
               searchMode: <span class="code__keyword">true,</span>
               items: [
                   <span class="code__string">'BMW',</span>
@@ -311,21 +312,23 @@
       </div>
 
       <div class="example-select">
-        <h1 class="example-select_title">Функция disabled</h1>
+        <h1 class="example-select_title">Function disabled</h1>
 
         <input type="checkbox" name="chbx" id="checkboxDisable" style="margin: 16px" />
-        <label for="checkboxDisable" style="color: white">Вы согласны на обработку данных</label>
+        <label for="checkboxDisable" style="color: white">
+          You agree to the processing of data</label
+        >
 
         <div class="layout-select">
           <button class="cg-dropdown cg-dropdown_checkboxDisable"></button>
         </div>
 
-        <button type="button" class="check-code" id="fifth">Посмотреть код</button>
+        <button type="button" class="check-code" id="fifth">View code</button>
         <code id="codeFifth">
           <pre>
             <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">CGSelect</span>({
               selector: <span class="code__string">'.cg-dropdown_checkboxDisable',</span> 
-              placeholder: <span class="code__string">'Выберите авто',</span> 
+              placeholder: <span class="code__string">'Choose a car',</span> 
               searchMode: <span class="code__keyword">true,</span>
               items: [
                 <span class="code__string">'BMW',</span>
@@ -349,6 +352,7 @@
                   maxWidth: <span class="code__string">'500px ',</span>
                 },
               },
+              multiselect: <span class="code__keyword">true,</span>
             });
           </pre>
         </code>

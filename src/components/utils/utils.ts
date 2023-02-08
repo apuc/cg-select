@@ -4,7 +4,7 @@
  */
 import { IStyle } from 'interfaces/cg-select.interface';
 import { IItems } from 'interfaces/items.interface';
-import { ISelectedItems } from './urils.interface';
+import { ISelectedItems } from './utils.interface';
 
 /**
  * Converting each item obtained from the Items field;
@@ -77,6 +77,7 @@ export function createSelected(element: Element, content?: string, styles?: ISty
   const caret = document.createElement('div');
 
   select.classList.add('cg-select');
+  select.classList.add('classicSelect');
   selected.classList.add('selected');
   caret.classList.add('caret');
 
@@ -103,7 +104,7 @@ export function createSelected(element: Element, content?: string, styles?: ISty
  * @param {ISelectedItems} dataSelectText the text that is rendered in the select.
  */
 export function clearSelect(select: HTMLElement, element: Element, dataSelectText: ISelectedItems) {
-  const { selectedItems, indexes, darkTheme, multiselectTag } = dataSelectText;
+  const { selectedItems, indexes, theme, multiselectTag } = dataSelectText;
 
   const options = element.querySelectorAll('.list__item');
   const nativeOption = element!.querySelectorAll('.nativeSelect__nativeOption');
@@ -122,14 +123,19 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
     return;
   }
 
-  if (darkTheme === true || !darkTheme) {
-    path1.classList.add('pathWhite');
-    path2.classList.add('pathWhite');
-  }
-
-  if (darkTheme === false) {
-    path1.classList.add('pathBlack');
-    path2.classList.add('pathBlack');
+  switch (theme) {
+    case 'dark':
+      path1.classList.add('pathWhite');
+      path2.classList.add('pathWhite');
+      break;
+    case 'white':
+      path1.classList.add('pathBlack');
+      path2.classList.add('pathBlack');
+      break;
+    default:
+      path1.classList.add('pathWhite');
+      path2.classList.add('pathWhite');
+      break;
   }
 
   svgIcon.classList.add('svg-icon');
@@ -137,7 +143,9 @@ export function clearSelect(select: HTMLElement, element: Element, dataSelectTex
 
   select!.appendChild(svgIcon);
 
-  svgIcon.addEventListener('click', () => {
+  svgIcon.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     select!.innerText = '';
 
     nativeOption.forEach((option) => {
