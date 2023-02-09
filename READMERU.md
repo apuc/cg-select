@@ -2,18 +2,18 @@
 
 ## version ~ 0.2.31
 
-This component allows you to create a custom select. It offers more flexible customization and use of select.
-Customization, multi-selection and live search by elements are available.
+Этот компонент позволяет вам создать пользовательский Select. Он предлагает более гибкую настройку и использование select.
+Доступна кастомизация, multi-selection, живой поиск по элементам и многое другое.
 
-### The ability to customize basic elements, such as:
+### Возможность настройки основных элементов, таких как:
 
-- Select button.
-- List with select elements.
+- Кнопка самого селекта Select.
+- Список с выбранными элементами.
 - Placeholder.
-- In the multiselect mode, customization of chips (selected elements) is available.
-- Label of the element (if it was specified).
-- Switch themes from dark to light.
-- The documentation also lists all the elements for catatomization using CSS.
+- В режиме мультиселекта доступна кастомизация chips (выбранных элементов).
+- Label элемента (если она была указана).
+- Переключить тему с темной на светлую.
+- Так же в документации указанны всеэлементы для катомизации с помощью CSS.
 
 ## Installation
 
@@ -23,27 +23,28 @@ npm i cg-select
 
 ## Usage
 
-### To create a component, you need:
+### Для создания компонента необходимо:
 
-1. Create a regular button element.
-2. Give it the cg-dropdown class.
+1. Создайте обычную кнопку.
+2. Добавьте ей класс cg-dropdown.
 
 ```
 <button class="cg-dropdown"></button>
 ```
 
-3. Give it a **unique class**, e.g. (cg-dropdown_categories).
+3. Добавьте ему **уникальный класс**,
+   например: (cg-dropdown_categories)
 
 ```
 <button class="cg-dropdown cg-dropdown_categories"></button>
 ```
 
-4. Create a new instance of the class (new CGSelect)
-5. Pass all desired settings as an object
+4. Создайте новый экземпляр класса (new CGSelect)
+5. Передайте все нужные настройки как объект.
 
-#### All options for creating and managing are in the documentation, section "CGSelect class constructor".
+#### Все варианты создания и управления селектом есть в документации, раздел "Конструктор класса CGSelect".
 
-### An example of creating a regular select.
+### Пример создания обычного CGSelect.
 
 ```javascript
 import CGSelect from 'cg-select';
@@ -65,20 +66,18 @@ const dropdown = new CGSelect({
 });
 ```
 
-## Example of different selects
+## Примеры различных вариантов выбора.
 
-Same working example -- https://cg-select.itguild.info/
+Рабочий пример -- https://cg-select.itguild.info/
 
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
 ![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
 
-All documentation on CG-SELECT is located in the folder of the same name. The documentation describes all methods and variables, there are also examples of passing settings to select. You can also open it on the page with an example, or follow the link below.
+Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в CGSelect. Вы также можете открыть его на странице с примером, или перейти по ссылке ниже.
 
-**To view it, follow the link -** https://cg-select.itguild.info/up_/documentation/index.html
-
-**Russian version README -**
+**Для просмотра перейдите по ссылке -** https://cg-select.itguild.info/up_/documentation/index.html
 
 ## Contributing
 
