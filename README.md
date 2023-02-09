@@ -80,7 +80,7 @@ All documentation on CG-SELECT is located in the folder of the same name. The do
 
 **To view it, follow the link -** https://cg-select.itguild.info/up_/documentation/index.html
 
-**Russian version README -**
+**Russian version README -** https://github.com/apuc/cg-select/blob/main/READMERU.md
 
 ## Contributing
 
