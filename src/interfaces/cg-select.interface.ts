@@ -27,7 +27,7 @@ export interface ICgSelect {
   items?: IItems[] | string[] | any;
   /**
    * An optional parameter responsible for switching between different themes, the classic theme is set by default.
-   * @type {string}
+   * @type {string} values: dark, white
    */
   theme?: string;
   /**
@@ -61,7 +61,7 @@ export interface ICgSelect {
    * An optional parameter that adds a lable before the select.
    * @type {string}
    */
-  lable?: string;
+  label?: string;
   /**
    * An optional parameter that is responsible for customizing the select elements,
    * objects with CSS properties for customizable elements are passed to it.
