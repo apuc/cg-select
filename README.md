@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.2.32
+## version ~ 0.2.33
 
 This component allows you to create a custom select. It offers more flexible customization and use of select.
 Customization, multi-selection and live search by elements are available.
