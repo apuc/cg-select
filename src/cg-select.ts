@@ -25,6 +25,7 @@ import { ILanguage } from './interfaces/language.interface';
 
 import './main.scss';
 import { changeTheme } from './components/theme/theme';
+import { CustomTheme } from 'components/theme/theme.interface';
 
 /**
  * @class Class Description ICgSelect
@@ -36,7 +37,7 @@ export class CGSelect implements ICgSelect {
   selected?: string;
   placeholder?: string;
   items?: IItems[] | string[] | any;
-  theme?: string;
+  theme?: string | CustomTheme;
   searchMode?: boolean;
   closeOnSelect?: boolean;
   nativeSelectMode?: boolean;

@@ -1,5 +1,6 @@
 import { CGSelect } from '../src/cg-select';
 import './example';
+import { newCustomTheme } from './themeTest';
 
 // ------------------------------Обычный селект--------------------
 const dropdown = new CGSelect({
@@ -25,11 +26,12 @@ const dropdown = new CGSelect({
       width: '824px',
     },
   },
+  theme: newCustomTheme,
 });
 
-dropdown.on('clear', function (e) {
-  console.log(`this state: ${e}`);
-});
+// dropdown.on('clear', function (e) {
+//   console.log(`this state: ${e}`);
+// });
 
 // ------------------------------NativeSelect-----------------------
 const dropdownNativeSelect = new CGSelect({
