@@ -192,6 +192,115 @@
         </code>
       </div>
 
+      <div class="example-select description-theme">
+        <h1 class="example-select_title">Setting up and adding a theme.</h1>
+
+        <div class="layout-select">
+          <div class="row">
+            <div class="col">
+              <h5>Default theme:</h5>
+              <p style="margin-right: 50px">
+                To change the theme of the select, you need to specify this parameter in the select
+                settings. The default theme is the classic theme, you can choose a white or dark
+                theme.
+              </p>
+              <code style="display: block; margin-top: 32px">
+                <pre>
+                  <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">CGSelect</span>({
+                    selector: <span class="code__string">'.cg-dropdown_one',</span> 
+                    placeholder: <span class="code__string">'Choose a car',</span> 
+                    lable: <span class="code__string">'EXAMPLE',</span> 
+                    items: [
+                      ...
+                    ],
+                    <span class="code__keyword">theme</span>:  <span class="code__string">'dark / white'</span>
+                  });
+                </pre>
+              </code>
+            </div>
+
+            <div class="col">
+              <h5>Create custom theme:</h5>
+              <div class="createTheme">
+                <p style="margin-right: 25px">
+                  To create your own theme, you need to create an object with the following fields.
+                  In these fields you need to insert the previously created css class. After
+                  creating the object, just pass it to the select settings.
+                </p>
+                <code style="display: block">
+                  <pre>
+            <span class="code__keyword">interface</span> <span class="code__var">CustomTheme</span> {
+              name: <span class="code__class">'string',</span> 
+              styles: {
+                head?:  <span class="code__class">'string',</span> 
+                list?: <span class="code__class">'testClass',</span> ,
+                placeholder?: <span class="code__class">'string',</span> ,
+                caret?: <span class="code__class">'string',</span> ,
+                search?: <span class="code__class">'string',</span> ,
+                chips?: <span class="code__class">'string',</span> ,
+                lable?: <span class="code__class">'string',</span> ,
+              },
+            });
+                  </pre>
+                </code>
+              </div>
+            </div>
+          </div>
+
+          <h5 style="margin: 20px 0 5px; text-align: center">Example:</h5>
+
+          <div class="row">
+            <h6>For JS</h6>
+            <h6>For TS</h6>
+          </div>
+
+          <div class="row">
+            <code style="display: block">
+              <pre>
+        <span class="code__keyword">const</span> <span class="code__var">newTheme</span> = {
+          name: <span class="code__string">'test',</span> 
+          styles: {
+            head:  <span class="code__string">'testClass',</span> 
+            list: <span class="code__string">'testClass',</span> ,
+            placeholder: <span class="code__string">'testClass',</span> ,
+            caret: <span class="code__string">'testClass',</span> ,
+            search: <span class="code__string">'testClass',</span> ,
+            chips: <span class="code__string">'testClass',</span> ,
+            lable: <span class="code__string">'testClass',</span> ,
+          },
+        });
+              </pre>
+            </code>
+
+            <code style="display: block">
+              <pre>
+        <span class="code__keyword">const</span> <span class="code__var">newCustomTheme</span>:<span class="code__class"> CustomTheme</span>  = {
+          name: <span class="code__string">'test',</span> 
+          styles: {
+            head:  <span class="code__string">'testClass',</span> 
+            list: <span class="code__string">'testClass',</span> ,
+            placeholder: <span class="code__string">'testClass',</span> ,
+            caret: <span class="code__string">'testClass',</span> ,
+            search: <span class="code__string">'testClass',</span> ,
+            chips: <span class="code__string">'testClass',</span> ,
+            lable: <span class="code__string">'testClass',</span> ,
+          },
+        });
+              </pre>
+            </code>
+          </div>
+          <h6>CSS</h6>
+          <code style="display: block; width: 44%">
+            <pre>
+              .testClass {
+                background-color: #ff8282;
+                color: white;
+              }
+            </pre>
+          </code>
+        </div>
+      </div>
+
       <div class="example-select">
         <h1 class="example-select_title">Categories</h1>
 

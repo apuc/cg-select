@@ -1,6 +1,19 @@
 import { CGSelect } from '../src/cg-select';
 import './example';
-import { newCustomTheme } from './themeTest';
+// import { newCustomTheme } from './themeTest';
+
+const newTheme = {
+  name: 'test',
+  styles: {
+    head: 'testClass',
+    list: 'testClass',
+    placeholder: 'testClass',
+    caret: 'testClass',
+    search: 'testClass',
+    chips: 'testClass',
+    lable: 'testClass',
+  },
+};
 
 // ------------------------------Обычный селект--------------------
 const dropdown = new CGSelect({
@@ -26,7 +39,6 @@ const dropdown = new CGSelect({
       width: '824px',
     },
   },
-  theme: newCustomTheme,
 });
 
 // dropdown.on('clear', function (e) {
