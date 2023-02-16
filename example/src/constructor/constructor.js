@@ -6,32 +6,17 @@ const body = new CGSelect({
   items: ['head', 'list', 'placeholder', 'caret', 'search', 'chips', 'lable'],
 });
 
-const select = new CGSelect({
-  selector: '.select',
-  placeholder: 'Choose a car',
-  items: [
-    'BMW',
-    {
-      id: '213sade',
-      title: 'Opel',
-      value: 1,
-    },
-    'Mersedes',
-    'MAN',
-    'Ferari',
-  ],
-  styles: {
-    head: {},
-    placeholder: {},
-    list: {},
-    caret: {},
-    chips: {},
-    search: {},
-    lable: {},
-  },
-});
-
+let head = '';
+let list = '';
+let placeholder = '';
+let caret = '';
+let chips = '';
+let lable = '';
 let valueSelect = '';
+
+const textarea = document.querySelector('#styles');
+const renderBtn = document.querySelector('.render');
+const saveStyleBtn = document.querySelector('.saveStyle');
 
 body.on('select', (e, value) => {
   valueSelect = value;
@@ -41,7 +26,12 @@ body.on('select', (e, value) => {
 function getValueSelect(value) {
   switch (value) {
     case 'head':
-      console.log('lol');
+      // ввод стилей
+      // background: red;
+      textarea.onkeyup = function () {
+        console.log(textarea.value);
+        head = textarea.value;
+      };
       break;
     case 'list':
       break;
@@ -61,8 +51,37 @@ function getValueSelect(value) {
   }
 }
 
-let textarea = document.querySelector('#styles');
+// Рендер селекта со стилями
+renderBtn.addEventListener('click', () => {
+  // debugger;
+  // let HEAD = {
+  //   key[0]: key[1]
+  // };
 
-textarea.onkeyup = function () {
-  console.log(textarea.value);
-};
+  const select = new CGSelect({
+    selector: '.select',
+    placeholder: 'Choose a car',
+    items: [
+      'BMW',
+      {
+        id: '213sade',
+        title: 'Opel',
+        value: 1,
+      },
+      'Mersedes',
+      'MAN',
+      'Ferari',
+    ],
+    styles: {
+      head: {
+        background: head,
+      },
+      placeholder: {},
+      list: {},
+      caret: {},
+      chips: {},
+      search: {},
+      lable: {},
+    },
+  });
+});
