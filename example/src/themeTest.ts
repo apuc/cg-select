@@ -4,11 +4,6 @@ export const newCustomTheme: CustomTheme = {
   name: 'test',
   styles: {
     head: 'testClass',
-    list: 'testClass',
-    placeholder: 'testClass',
-    caret: 'testClass',
-    search: 'testClass',
-    chips: 'testClass',
-    lable: 'testClass',
+    list: 'listTest',
   },
 };

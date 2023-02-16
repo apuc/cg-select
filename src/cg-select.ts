@@ -917,17 +917,19 @@ export class CGSelect implements ICgSelect {
    * @param callback
    * @method on
    */
-  public on(state: string, callback: (state: any) => any) {
+  public on(state: string, callback: (state: any, value?: string) => any) {
     const options = this.element?.querySelectorAll('.list__item');
+    let value = '';
 
     switch (state) {
       case 'select':
         options?.forEach((option: Element) => {
           option.addEventListener('click', () => {
             console.log('option:select', option.textContent);
+            value = option.textContent!;
+            callback(state, value);
           });
         });
-        callback(state);
         break;
       case 'close':
         this.element!.addEventListener('click', () => {

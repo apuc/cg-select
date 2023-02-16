@@ -1,4 +1,5 @@
 @import '/src/main.scss';
+@import './src/constructor/constructor.scss';
 
 * {
   font-size: 14px;
@@ -7,7 +8,13 @@
 }
 
 .testClass {
-  background-color: #ff8282;
+  background-color: #8297ff;
+  color: white;
+}
+
+.listTest {
+  background-color: #8297ff;
+  border: 1px solid black;
   color: white;
 }
 
@@ -118,6 +125,7 @@
   }
 
   &_submit {
+    text-align: center;
     width: 200px;
     height: 35px;
     border-radius: 10px;
@@ -219,6 +227,7 @@ pre {
 }
 
 .check-code {
+  text-align: center;
   width: 200px;
   height: 35px;
   cursor: pointer;

@@ -260,13 +260,13 @@
         <span class="code__keyword">const</span> <span class="code__var">newTheme</span> = {
           name: <span class="code__string">'test',</span> 
           styles: {
-            head:  <span class="code__string">'testClass',</span> 
-            list: <span class="code__string">'testClass',</span> ,
-            placeholder: <span class="code__string">'testClass',</span> ,
-            caret: <span class="code__string">'testClass',</span> ,
-            search: <span class="code__string">'testClass',</span> ,
-            chips: <span class="code__string">'testClass',</span> ,
-            lable: <span class="code__string">'testClass',</span> ,
+            head:  <span class="code__string">'headTestClass',</span> 
+            list: <span class="code__string">'listTestClass',</span> ,
+            placeholder: <span class="code__string">'placeholderTestClass',</span> ,
+            caret: <span class="code__string">'caretTestClass',</span> ,
+            search: <span class="code__string">'searchTestClass',</span> ,
+            chips: <span class="code__string">'chipsTestClass',</span> ,
+            lable: <span class="code__string">'lableTestClass',</span> ,
           },
         });
               </pre>
@@ -277,13 +277,13 @@
         <span class="code__keyword">const</span> <span class="code__var">newCustomTheme</span>:<span class="code__class"> CustomTheme</span>  = {
           name: <span class="code__string">'test',</span> 
           styles: {
-            head:  <span class="code__string">'testClass',</span> 
-            list: <span class="code__string">'testClass',</span> ,
-            placeholder: <span class="code__string">'testClass',</span> ,
-            caret: <span class="code__string">'testClass',</span> ,
-            search: <span class="code__string">'testClass',</span> ,
-            chips: <span class="code__string">'testClass',</span> ,
-            lable: <span class="code__string">'testClass',</span> ,
+            head:  <span class="code__string">'headTestClass',</span> 
+            list: <span class="code__string">'listTestClass',</span> ,
+            placeholder: <span class="code__string">'placeholderTestClass',</span> ,
+            caret: <span class="code__string">'caretTestClass',</span> ,
+            search: <span class="code__string">'searchTestClass',</span> ,
+            chips: <span class="code__string">'chipsTestClass',</span> ,
+            lable: <span class="code__string">'lableTestClass',</span> ,
           },
         });
               </pre>
@@ -292,12 +292,49 @@
           <h6>CSS</h6>
           <code style="display: block; width: 44%">
             <pre>
-              .testClass {
-                background-color: #ff8282;
+              .headTestClass {
+                background-color: #8297ff;
+                color: white;
+              }
+
+              .listTestClass {
+                background-color: #8297ff;
+                border: 1px solid black;
                 color: white;
               }
             </pre>
           </code>
+
+          <h6>Example custom theme in CG-Select</h6>
+          <p>
+            See an example of a select on
+            <a
+              href="https://codesandbox.io/p/sandbox/cg-select-example-eq9rle?file=%2Fsrc%2Findex.js"
+              style="font-size: 16px; color: #88d0f7"
+              >codesandbox.io</a
+            >
+          </p>
+          <div class="layout-select" style="margin-bottom: 60px">
+            <button class="cg-dropdown cg-dropdown_theme"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-select">
+        <h1 class="example-select_title">Select constructor</h1>
+        <div class="layout-select constructor">
+          <button class="cg-dropdown body"></button>
+          <textarea
+            name="styles"
+            id="styles"
+            cols="30"
+            rows="5"
+            class="textareaStyle"
+            placeholder="Enter CSS properties"
+          ></textarea>
+        </div>
+        <div class="layout-select constructor">
+          <button class="cg-dropdown select"></button>
         </div>
       </div>
 
