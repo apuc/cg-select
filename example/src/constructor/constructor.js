@@ -3,7 +3,7 @@ import { CGSelect } from '../../../src/cg-select';
 const body = new CGSelect({
   selector: '.body',
   placeholder: 'Select element to style',
-  items: ['head', 'list', 'placeholder', 'caret', 'search', 'chips', 'lable'],
+  items: ['head', 'list', 'placeholder', 'caret', 'search', 'chips'],
 });
 
 let head = '';
@@ -11,7 +11,6 @@ let list = '';
 let placeholder = '';
 let caret = '';
 let chips = '';
-let lable = '';
 let valueSelect = '';
 
 const textarea = document.querySelector('#styles');
@@ -20,44 +19,41 @@ const saveStyleBtn = document.querySelector('.saveStyle');
 
 body.on('select', (e, value) => {
   valueSelect = value;
+  textarea.value = '';
+  textarea.removeAttribute('disabled');
   getValueSelect(valueSelect);
 });
 
 function getValueSelect(value) {
-  switch (value) {
-    case 'head':
-      // ввод стилей
-      // background: red;
-      textarea.onkeyup = function () {
-        console.log(textarea.value);
+  textarea.onkeyup = function () {
+    switch (value) {
+      case 'head':
+        // ввод стилей
         head = textarea.value;
-      };
-      break;
-    case 'list':
-      break;
-    case 'placeholder':
-      break;
-    case 'caret':
-      break;
-    case 'search':
-      break;
-    case 'chips':
-      break;
-    case 'lable':
-      break;
+        break;
+      case 'list':
+        list = textarea.value;
+        break;
+      case 'placeholder':
+        placeholder = textarea.value;
+        break;
+      case 'caret':
+        caret = textarea.value;
+        break;
+      case 'search':
+        search = textarea.value;
+        break;
+      case 'chips':
+        chips = textarea.value;
+        break;
 
-    default:
-      break;
-  }
+      default:
+        break;
+    }
+  };
 }
 
-// Рендер селекта со стилями
 renderBtn.addEventListener('click', () => {
-  // debugger;
-  // let HEAD = {
-  //   key[0]: key[1]
-  // };
-
   const select = new CGSelect({
     selector: '.select',
     placeholder: 'Choose a car',
@@ -72,16 +68,18 @@ renderBtn.addEventListener('click', () => {
       'MAN',
       'Ferari',
     ],
-    styles: {
-      head: {
-        background: head,
-      },
-      placeholder: {},
-      list: {},
-      caret: {},
-      chips: {},
-      search: {},
-      lable: {},
-    },
+    searchMode: true,
   });
+
+  const drop = document.querySelector('.select');
+  let headSelect = drop.querySelector('.cg-select');
+  let listSelect = drop.querySelector('.list');
+  let placeholderSelect = drop.querySelector('.selected');
+  let caretSelect = drop.querySelector('.caret');
+  let searchSelect = drop.querySelector('.inputSearch');
+  headSelect.setAttribute('style', head);
+  listSelect.setAttribute('style', list);
+  placeholderSelect.setAttribute('style', placeholder);
+  caretSelect.setAttribute('style', caret);
+  searchSelect.setAttribute('style', search);
 });

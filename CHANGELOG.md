@@ -46,3 +46,5 @@ Tested in JS and React. Errors in work in React applications are revealed.
 - Fixing bugs related to the cleanup of the select.
 - Documentation navigation update.
 - Added icon for example page and documentation.
+
+##### 00.02.2023 - update 0.2.34
