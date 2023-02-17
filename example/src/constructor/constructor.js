@@ -3,19 +3,17 @@ import { CGSelect } from '../../../src/cg-select';
 const body = new CGSelect({
   selector: '.body',
   placeholder: 'Select element to style',
-  items: ['head', 'list', 'placeholder', 'caret', 'search', 'chips'],
+  items: ['head', 'list', 'placeholder', 'caret', 'search'],
 });
 
 let head = '';
 let list = '';
 let placeholder = '';
 let caret = '';
-let chips = '';
 let valueSelect = '';
 
 const textarea = document.querySelector('#styles');
 const renderBtn = document.querySelector('.render');
-const saveStyleBtn = document.querySelector('.saveStyle');
 
 body.on('select', (e, value) => {
   valueSelect = value;
@@ -43,9 +41,6 @@ function getValueSelect(value) {
       case 'search':
         search = textarea.value;
         break;
-      case 'chips':
-        chips = textarea.value;
-        break;
 
       default:
         break;
@@ -69,6 +64,8 @@ renderBtn.addEventListener('click', () => {
       'Ferari',
     ],
     searchMode: true,
+    multiselect: true,
+    multiselectTag: true,
   });
 
   const drop = document.querySelector('.select');
