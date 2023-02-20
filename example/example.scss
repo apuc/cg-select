@@ -1,8 +1,21 @@
 @import '/src/main.scss';
+@import './src/constructor/constructor.scss';
 
 * {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
+  text-align: justify;
+}
+
+.testClass {
+  background-color: #8297ff;
+  color: white;
+}
+
+.listTest {
+  background-color: #8297ff;
+  border: 1px solid black;
+  color: white;
 }
 
 .body-example {
@@ -30,6 +43,7 @@
 }
 
 .header {
+  position: relative;
   width: 100%;
   border-radius: 5px;
   display: flex;
@@ -112,6 +126,7 @@
   }
 
   &_submit {
+    text-align: center;
     width: 200px;
     height: 35px;
     border-radius: 10px;
@@ -137,6 +152,40 @@
 
   .layout-select {
     margin: 15px;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.description-theme {
+  color: white;
+
+  .col {
+    width: 54%;
+  }
+
+  img {
+    border-radius: 15px;
+  }
+
+  .createTheme {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h5 {
+    font-size: 18px;
+    margin: 0;
+  }
+  h6 {
+    font-size: 17px;
+    margin: 0;
+  }
+  p {
+    font-size: 16px;
   }
 }
 
@@ -180,6 +229,7 @@ pre {
 }
 
 .check-code {
+  text-align: center;
   width: 200px;
   height: 35px;
   cursor: pointer;
@@ -209,4 +259,12 @@ pre {
     font-size: 14px;
     height: 40px;
   }
+}
+
+.version {
+  position: absolute;
+  color: white;
+  font-size: 10px;
+  right: 20px;
+  bottom: 0px;
 }

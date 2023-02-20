@@ -31,6 +31,7 @@
             <li><a href="/docs/index.html">Documentation</a></li>
           </ul>
         </nav>
+        <p class="version">v. 0.2.4</p>
       </header>
     </div>
 
@@ -190,6 +191,172 @@
             });
           </pre>
         </code>
+      </div>
+
+      <div class="example-select description-theme">
+        <h1 class="example-select_title">Setting up and adding a theme</h1>
+
+        <div class="layout-select">
+          <div class="row">
+            <div class="col">
+              <h5>Default theme:</h5>
+              <p style="margin-right: 50px">
+                To change the theme of the select, you need to specify this parameter in the select
+                settings. The default theme is the classic theme, you can choose a white or dark
+                theme.
+              </p>
+              <code style="display: block; margin-top: 32px">
+                <pre>
+                  <span class="code__keyword">const</span> <span class="code__var">dropdown</span> = <span class="code__keyword">new</span> <span class="code__class">CGSelect</span>({
+                    selector: <span class="code__string">'.cg-dropdown_one',</span> 
+                    placeholder: <span class="code__string">'Choose a car',</span> 
+                    lable: <span class="code__string">'EXAMPLE',</span> 
+                    items: [
+                      ...
+                    ],
+                    <span class="code__keyword">theme</span>:  <span class="code__string">'dark / white'</span>
+                  });
+                </pre>
+              </code>
+            </div>
+
+            <div class="col">
+              <h5>Create custom theme:</h5>
+              <div class="createTheme">
+                <p style="margin-right: 25px">
+                  To create your own theme, you need to create an object with the following fields.
+                  In these fields you need to insert the previously created css class. After
+                  creating the object, just pass it to the select settings.
+                </p>
+                <code style="display: block">
+                  <pre>
+            <span class="code__keyword">interface</span> <span class="code__var">CustomTheme</span> {
+              name: <span class="code__class">'string',</span> 
+              styles: {
+                head?:  <span class="code__class">'string',</span> 
+                list?: <span class="code__class">'testClass',</span> ,
+                placeholder?: <span class="code__class">'string',</span> ,
+                caret?: <span class="code__class">'string',</span> ,
+                search?: <span class="code__class">'string',</span> ,
+                chips?: <span class="code__class">'string',</span> ,
+                lable?: <span class="code__class">'string',</span> ,
+              },
+            });
+                  </pre>
+                </code>
+              </div>
+            </div>
+          </div>
+
+          <h5 style="margin: 20px 0 5px; text-align: center">Example:</h5>
+
+          <div class="row">
+            <h6>For JS</h6>
+            <h6>For TS</h6>
+          </div>
+
+          <div class="row">
+            <code style="display: block">
+              <pre>
+        <span class="code__keyword">const</span> <span class="code__var">newTheme</span> = {
+          name: <span class="code__string">'test',</span> 
+          styles: {
+            head:  <span class="code__string">'headTestClass',</span> 
+            list: <span class="code__string">'listTestClass',</span> ,
+            placeholder: <span class="code__string">'placeholderTestClass',</span> ,
+            caret: <span class="code__string">'caretTestClass',</span> ,
+            search: <span class="code__string">'searchTestClass',</span> ,
+            chips: <span class="code__string">'chipsTestClass',</span> ,
+            lable: <span class="code__string">'lableTestClass',</span> ,
+          },
+        });
+              </pre>
+            </code>
+
+            <code style="display: block">
+              <pre>
+        <span class="code__keyword">const</span> <span class="code__var">newCustomTheme</span>:<span class="code__class"> CustomTheme</span>  = {
+          name: <span class="code__string">'test',</span> 
+          styles: {
+            head:  <span class="code__string">'headTestClass',</span> 
+            list: <span class="code__string">'listTestClass',</span> ,
+            placeholder: <span class="code__string">'placeholderTestClass',</span> ,
+            caret: <span class="code__string">'caretTestClass',</span> ,
+            search: <span class="code__string">'searchTestClass',</span> ,
+            chips: <span class="code__string">'chipsTestClass',</span> ,
+            lable: <span class="code__string">'lableTestClass',</span> ,
+          },
+        });
+              </pre>
+            </code>
+          </div>
+          <h6>CSS</h6>
+          <code style="display: block; width: 44%">
+            <pre>
+              .headTestClass {
+                background-color: #8297ff;
+                color: white;
+              }
+
+              .listTestClass {
+                background-color: #8297ff;
+                border: 1px solid black;
+                color: white;
+              }
+            </pre>
+          </code>
+
+          <h6>Example custom theme in CG-Select</h6>
+          <p>
+            See an example of a select on
+            <a
+              href="https://codesandbox.io/p/sandbox/cg-select-example-eq9rle?file=%2Fsrc%2Findex.js"
+              style="font-size: 16px; color: #88d0f7"
+              >codesandbox.io</a
+            >
+          </p>
+          <div class="layout-select" style="margin-bottom: 60px">
+            <button class="cg-dropdown cg-dropdown_theme"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-select">
+        <h1 class="example-select_title">Select constructor</h1>
+        <div class="row" style="margin: 20px; color: white">
+          <div class="col">
+            <h5 style="font-size: 18px; margin: 0;">Select Style Builder:</h5>
+            <p style="margin-right: 50px; font-size: 17px">
+              This is a constructor for styling a select online without downloading. For it to work,
+              you need to: 
+              <ol style="font-size: 15px;">
+                <li class="liList">Select a part of the select for customization. </li>
+                <li  class="liList">Enter styles in the text field in the form "color: red;".</li>
+                <li  class="liList">Click on the render button.</li>
+              </ol>
+            </p>
+          </div>
+          <div class="col">
+            <div class="layout-select constructor">
+              <button class="cg-dropdown body"></button>
+              <textarea
+                name="styles"
+                id="styles"
+                cols="30"
+                rows="5"
+                class="textareaStyle"
+                placeholder="Enter CSS properties"
+                disabled="disabled"
+              ></textarea>
+              <button type="button" class="check-code render">Render</button>
+            </div>
+           
+          </div>
+          
+        </div>
+        <div class="layout-select constructor" style="margin-bottom: 60px;">
+          <button class="cg-dropdown select"></button>
+        </div>
       </div>
 
       <div class="example-select">

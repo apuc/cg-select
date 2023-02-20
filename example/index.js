@@ -1,5 +1,8 @@
 import { CGSelect } from '../src/cg-select';
-import './example';
+import { newCustomTheme } from './src/themeTest';
+
+import './src/example';
+import './src/constructor/constructor';
 
 // ------------------------------Обычный селект--------------------
 const dropdown = new CGSelect({
@@ -27,10 +30,34 @@ const dropdown = new CGSelect({
   },
 });
 
-dropdown.on('clear', function (e) {
-  console.log(`this state: ${e}`);
-});
+// dropdown.on('clear', function (e) {
+//   console.log(`this state: ${e}`);
+// });
 
+const droptheme = new CGSelect({
+  selector: '.cg-dropdown_theme',
+  placeholder: 'Choose a car',
+  items: [
+    'BMW',
+    {
+      id: '213sade',
+      title: 'Opel',
+      value: 1,
+    },
+    'Mersedes',
+    'MAN',
+    'Ferari',
+  ],
+  styles: {
+    head: {
+      width: '830px',
+    },
+    list: {
+      width: '824px',
+    },
+  },
+  theme: newCustomTheme,
+});
 // ------------------------------NativeSelect-----------------------
 const dropdownNativeSelect = new CGSelect({
   selector: '.cg-dropdown_selectNative',

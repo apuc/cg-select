@@ -1,3 +1,4 @@
+import { CustomTheme } from 'components/theme/theme.interface';
 import { IItems } from 'interfaces/items.interface';
 
 /**
@@ -55,5 +56,5 @@ export interface ISelectedItems {
    * An optional parameter that is responsible for enabling a light/dark theme by default, the dark theme is set.
    * @type {boolean}
    */
-  theme?: string;
+  theme?: string | CustomTheme;
 }
