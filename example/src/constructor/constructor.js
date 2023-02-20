@@ -52,6 +52,7 @@ renderBtn.addEventListener('click', () => {
   const select = new CGSelect({
     selector: '.select',
     placeholder: 'Choose a car',
+    label: 'Exemple select',
     items: [
       'BMW',
       {

@@ -31,6 +31,7 @@
             <li><a href="/docs/index.html">Documentation</a></li>
           </ul>
         </nav>
+        <p class="version">v. 0.2.4</p>
       </header>
     </div>
 
@@ -193,7 +194,7 @@
       </div>
 
       <div class="example-select description-theme">
-        <h1 class="example-select_title">Setting up and adding a theme.</h1>
+        <h1 class="example-select_title">Setting up and adding a theme</h1>
 
         <div class="layout-select">
           <div class="row">
@@ -322,33 +323,38 @@
 
       <div class="example-select">
         <h1 class="example-select_title">Select constructor</h1>
-        <div class="col" style="margin: 20px; color: white">
-          <h5 style="font-size: 18px">Select Style Builder:</h5>
-          <p style="margin-right: 50px; font-size: 17px">
-            This is a constructor for styling a select online without downloading. For it to work,
-            you need to: 
-            <ol style="font-size: 15px;">
-              <li>Select a part of the select for customization. </li>
-              <li>Enter styles in the text field in the form "color: red;".</li>
-              <li>Click on the render button.</li>
-            </ol>
-             
-          </p>
+        <div class="row" style="margin: 20px; color: white">
+          <div class="col">
+            <h5 style="font-size: 18px; margin: 0;">Select Style Builder:</h5>
+            <p style="margin-right: 50px; font-size: 17px">
+              This is a constructor for styling a select online without downloading. For it to work,
+              you need to: 
+              <ol style="font-size: 15px;">
+                <li class="liList">Select a part of the select for customization. </li>
+                <li  class="liList">Enter styles in the text field in the form "color: red;".</li>
+                <li  class="liList">Click on the render button.</li>
+              </ol>
+            </p>
+          </div>
+          <div class="col">
+            <div class="layout-select constructor">
+              <button class="cg-dropdown body"></button>
+              <textarea
+                name="styles"
+                id="styles"
+                cols="30"
+                rows="5"
+                class="textareaStyle"
+                placeholder="Enter CSS properties"
+                disabled="disabled"
+              ></textarea>
+              <button type="button" class="check-code render">Render</button>
+            </div>
+           
+          </div>
+          
         </div>
-        <div class="layout-select constructor">
-          <button class="cg-dropdown body"></button>
-          <textarea
-            name="styles"
-            id="styles"
-            cols="30"
-            rows="5"
-            class="textareaStyle"
-            placeholder="Enter CSS properties"
-            disabled="disabled"
-          ></textarea>
-          <button type="button" class="check-code render">Render</button>
-        </div>
-        <div class="layout-select constructor">
+        <div class="layout-select constructor" style="margin-bottom: 60px;">
           <button class="cg-dropdown select"></button>
         </div>
       </div>

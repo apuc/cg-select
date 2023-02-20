@@ -47,4 +47,9 @@ Tested in JS and React. Errors in work in React applications are revealed.
 - Documentation navigation update.
 - Added icon for example page and documentation.
 
-##### 00.02.2023 - update 0.2.34
+### 20.02.2023 - update 0.2.4
+
+- Added ability to create custom themes.
+- Added style builder on homepage.
+- Fixed documentation.
+- Added a block describing how to create your own themes.
