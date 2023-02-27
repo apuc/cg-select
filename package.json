@@ -1,6 +1,8 @@
 {
   "name": "cg-select",
-  "version": "0.2.32",
+  "version": "0.2.5",
+  "source": "index.js",
+  "main": "dist/index.js",
   "description": "Feature rich Select control for React/JS with multiselect, autocomplete and styling",
   "author": {
     "name": "CraftGroup",
@@ -8,8 +10,8 @@
   },
   "homepage": "https://cg-select.itguild.info",
   "scripts": {
-    "start": "parcel example/index.html -p 4500 --open ",
-    "build": "parcel build example/index.js --no-cache",
+    "watch": "parcel watch",
+    "build": "parcel build",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
