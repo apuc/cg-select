@@ -53,3 +53,9 @@ Tested in JS and React. Errors in work in React applications are revealed.
 - Added style builder on homepage.
 - Fixed documentation.
 - Added a block describing how to create your own themes.
+
+### 27.02.2023 - update 0.2.5
+
+- Moving an example using a select to a separate repository.
+- Fixed bugs.
+- Changed structure.
