@@ -10,3 +10,16 @@ export interface CustomTheme {
     lable?: string;
   };
 }
+
+export interface CustomThemeJson {
+  name: string;
+  styles: {
+    head?: {};
+    list?: {};
+    placeholder?: {};
+    caret?: {};
+    search?: {};
+    chips?: {};
+    lable?: {};
+  };
+}
