@@ -59,3 +59,7 @@ Tested in JS and React. Errors in work in React applications are revealed.
 - Moving an example using a select to a separate repository.
 - Fixed bugs.
 - Changed structure.
+
+### 00.03.2023 - update 0.2.6
+
+- Added new theme creation mode.

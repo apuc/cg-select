@@ -14,12 +14,12 @@ export interface CustomTheme {
 export interface CustomThemeJson {
   name: string;
   styles: {
-    head?: {};
-    list?: {};
-    placeholder?: {};
-    caret?: {};
-    search?: {};
-    chips?: {};
-    lable?: {};
+    head?: object;
+    list?: object;
+    placeholder?: object;
+    caret?: object;
+    search?: object;
+    chips?: object;
+    lable?: object;
   };
 }
