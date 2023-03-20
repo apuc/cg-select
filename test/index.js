@@ -4,6 +4,7 @@ import { newTheme } from './test';
 const dropdown = new CGSelect({
   selector: '.cg-dropdown_selector',
   placeholder: 'Выберите авто',
+  label: 'HI',
   items: [
     'BMW',
     {
@@ -15,6 +16,7 @@ const dropdown = new CGSelect({
     'MAN',
     'Ferari',
   ],
+  searchMode: true,
   multiselect: true,
   multiselectTag: true,
   theme: newTheme,

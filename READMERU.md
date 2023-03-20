@@ -2,6 +2,8 @@
 
 ## version ~ 0.2.6
 
+<a href="https://github.com/apuc/cg-select/blob/main/README.md">Вернуться к английской версии README</a>
+
 Этот компонент позволяет вам создать пользовательский Select. Он предлагает более гибкую настройку и использование select.
 Доступна кастомизация, multi-selection, живой поиск по элементам и многое другое.
 
@@ -68,16 +70,11 @@ const dropdown = new CGSelect({
 
 ## Примеры различных вариантов выбора.
 
-Рабочий пример -- https://cg-select.itguild.info/
-
-![image](https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
+<a href="https://cg-select.itguild.info/">Рабочий пример</a>
 
 Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в CGSelect. Вы также можете открыть его на странице с примером, или перейти по ссылке ниже.
 
-**Для просмотра перейдите по ссылке -** https://cg-select.itguild.info/up_/documentation/index.html
+<a href="https://cg-select.itguild.info/up_/documentation/index.html">Документация</a>
 
 ## Contributing
 

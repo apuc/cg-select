@@ -2,6 +2,8 @@
 
 ## version ~ 0.2.6
 
+<a href="https://github.com/apuc/cg-select/blob/main/READMERU.md">Читать на русском README</a>
+
 This component allows you to create a custom select. It offers more flexible customization and use of select.
 Customization, multi-selection and live search by elements are available.
 
@@ -67,20 +69,13 @@ const dropdown = new CGSelect({
 
 ## Example of different selects
 
-Same working example -- https://cg-select.itguild.info/
-
-![image](https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
+<a href="https://cg-select.itguild.info/">View live example</a>
 
 Built-in themes are also available: dark, white. To apply them, specify the theme attribute in the select settings and pass one of the values ​​into it dark or white.
 
 All documentation on CG-SELECT is located in the folder of the same name. The documentation describes all methods and variables, there are also examples of passing settings to select. You can also open it on the page with an example, or follow the link below.
 
-**To view it, follow the link -** https://cg-select.itguild.info/up_/documentation/index.html
-
-**Russian version README -** https://github.com/apuc/cg-select/blob/main/READMERU.md
+<a href="https://cg-select.itguild.info/up_/documentation/index.html">Documentation</a>
 
 ## Contributing
 

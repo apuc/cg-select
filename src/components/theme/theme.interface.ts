@@ -19,7 +19,6 @@ export interface CustomThemeJson {
     placeholder?: object;
     caret?: object;
     search?: object;
-    chips?: object;
     lable?: object;
   };
 }
