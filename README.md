@@ -2,7 +2,7 @@
 
 ## version ~ 0.2.6
 
-<a href="https://github.com/apuc/cg-select/blob/main/READMERU.md">Читать на русском README</a>
+<a href="https://github.com/apuc/cg-select/blob/main/READMERU.md">ЧИТАТЬ НА РУССКОМ</a>
 
 This component allows you to create a custom select. It offers more flexible customization and use of select.
 Customization, multi-selection and live search by elements are available.
