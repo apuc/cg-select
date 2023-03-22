@@ -1,6 +1,8 @@
 # CG-SELECT
 
-## version ~ 0.2.5
+## Версия ~ 0.2.6
+
+<a href="https://github.com/apuc/cg-select/blob/main/README.md">English README</a>
 
 Этот компонент позволяет вам создать пользовательский Select. Он предлагает более гибкую настройку и использование select.
 Доступна кастомизация, multi-selection, живой поиск по элементам и многое другое.
@@ -15,13 +17,13 @@
 - Переключить тему с темной на светлую.
 - Так же в документации указанны все элементы для катомизации с помощью CSS.
 
-## Installation
+## Установка
 
 ```
 npm i cg-select
 ```
 
-## Usage
+## Использование
 
 ### Для создания компонента необходимо:
 
@@ -68,33 +70,28 @@ const dropdown = new CGSelect({
 
 ## Примеры различных вариантов выбора.
 
-Рабочий пример -- https://cg-select.itguild.info/
-
-![image](https://github.com/apuc/cg-select/blob/main/src/images/DefaultSelect.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/MultiSelect.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/WhiteTheme.png)
-![image](https://github.com/apuc/cg-select/blob/main/src/images/Categories.png)
+<a href="https://cg-select.itguild.info/">Рабочий пример</a>
 
 Вся документация по CG-SELECT находится в одноименной папке. В документации описаны все методы и переменные, также есть примеры передачи настроек в CGSelect. Вы также можете открыть его на странице с примером, или перейти по ссылке ниже.
 
-**Для просмотра перейдите по ссылке -** https://cg-select.itguild.info/up_/documentation/index.html
+<a href="https://cg-select.itguild.info/up_/documentation/index.html">Документация</a>
 
-## Contributing
+## Содействие
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+1. Сделайте Fork!
+2. Создайте свою ветку: `git checkout -b my-new-feature`
+3. Зафиксируйте свои изменения: `git commit -am 'Add some feature'`
+4. Загрузите ветку: `git push origin my-new-feature`
+5. Отправте запрос на вытягивание изменений :D
 
-## Compatibility
+## Совместимость
 
-| Application Compatibility |                                    JS                                    |                                                                      React                                                                       |                                 Angular                                 |                                   Vue                                   |
-| ------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| CG-SELECT                 | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
-| Comment                   |              Tested in Js applications and it worksуспешно.              |                                               Works only with a crutch in the form `setTimeout()`                                                |                            not yet available                            |                            not yet available                            |
+| Совместимость в приложениях |                                    JS                                    |                                                                      React                                                                       |                                 Angular                                 |                                   Vue                                   |
+| --------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| CG-SELECT                   | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
+| Комментарий                 |                     Протестировано в Js приложениях                      |                                                 Работает только с костылем в виде `setTimeout()`                                                 |                             пока недоступно                             |                             пока недоступно                             |
 
-## History
+## История
 
 16.12.2022 - release version 0.1.0!
 

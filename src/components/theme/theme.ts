@@ -1,10 +1,13 @@
-import { CustomTheme } from './theme.interface';
+import { customStylesFormat } from '../utils/utils';
+import { CustomTheme, CustomThemeJson } from './theme.interface';
 
-export function changeTheme(element: Element, theme: string | CustomTheme) {
+export function changeTheme(element: Element, theme: string | CustomTheme | CustomThemeJson) {
   const select = element!.querySelector('.cg-select');
   const caret = element!.querySelector('.caret');
   const list = element!.querySelector('ul.list');
   const search = element!.querySelector('.inputSearch');
+  const placeholder = element!.querySelector('.selected');
+  const lable = document.querySelector('.label');
   const path = element.querySelectorAll('.pathWhite');
   const nativeSelect = element.querySelector('.nativeSelect');
 
@@ -45,7 +48,23 @@ export function changeTheme(element: Element, theme: string | CustomTheme) {
         break;
     }
   } else {
-    select!.classList.add(`${theme.styles.head}`);
-    list!.classList.add(`${theme.styles.list}`);
+    if (theme.name!) {
+      let customThemeHead = theme.styles.head! as object;
+      let customThemeList = theme.styles.list! as object;
+      let customThemeCaret = theme.styles.caret! as object;
+      let customThemePl = theme.styles.placeholder! as object;
+      let customThemeSearch = theme.styles.search! as object;
+      let customThemeLable = theme.styles.lable! as object;
+
+      customStylesFormat(customThemeHead, select!);
+      customStylesFormat(customThemeList, list!);
+      customStylesFormat(customThemeCaret, caret!);
+      customStylesFormat(customThemePl, placeholder!);
+      customStylesFormat(customThemeSearch, search!);
+      customStylesFormat(customThemeLable, lable!);
+    } else {
+      select!.classList.add(`${theme.styles.head}`);
+      list!.classList.add(`${theme.styles.list}`);
+    }
   }
 }

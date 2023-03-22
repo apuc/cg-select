@@ -1,4 +1,4 @@
-import { CustomTheme } from 'components/theme/theme.interface';
+import { CustomTheme, CustomThemeJson } from 'components/theme/theme.interface';
 import { IItems } from './items.interface';
 
 /**
@@ -30,7 +30,7 @@ export interface ICgSelect {
    * An optional parameter responsible for switching between different themes, the classic theme is set by default.
    * @type {string} values: dark, white
    */
-  theme?: string | CustomTheme;
+  theme?: string | CustomTheme | CustomThemeJson;
   /**
    * An optional parameter that adds a live search on the select elements.
    * @type {boolean}
