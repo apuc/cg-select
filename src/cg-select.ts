@@ -130,10 +130,14 @@ export class CGSelect implements ICgSelect {
    * } 
    */
   constructor(setting: ICgSelect) {
-    this.init(setting);
-    this.render();
-    this.closeSelectClick();
-    this.initEvent();
+    if (setting) {
+      this.init(setting);
+      this.render();
+      this.closeSelectClick();
+      this.initEvent();
+    } else {
+      throw new Error('Specify settings!');
+    }
   }
 
   //Getters

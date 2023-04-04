@@ -67,3 +67,7 @@ Tested in JS and React. Errors in work in React applications are revealed.
 ### 00.03.2023 - update 0.2.7
 
 - Switch to new webpack project builder.
+
+##### 00.03.2023 - fix 0.2.71
+
+- Select import fixed.
