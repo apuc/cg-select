@@ -2,16 +2,16 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './index.js',
+  entry: './test/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
     clean: true,
   },
-  // devServer: {
-  //   open: true,
-  //   port: 5000,
-  // },
+  devServer: {
+    open: true,
+    port: 5500,
+  },
   module: {
     rules: [
       {
@@ -28,10 +28,10 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //     template: path.resolve(__dirname, './test/index.html'),
-  //     filename: 'index.html',
-  //   }),
-  // ],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, './test/index.html'),
+      filename: 'index.html',
+    }),
+  ],
 };
