@@ -60,14 +60,19 @@ Tested in JS and React. Errors in work in React applications are revealed.
 - Fixed bugs.
 - Changed structure.
 
-### 00.03.2023 - update 0.2.6
+### 01.03.2023 - update 0.2.6
 
 - Added new theme creation mode.
 
-### 00.03.2023 - update 0.2.7
+### 01.03.2023 - update 0.2.7
 
 - Switch to new webpack project builder.
 
-##### 00.03.2023 - fix 0.2.71
+##### 04.03.2023 - fix 0.2.71
 
 - Select import fixed.
+
+### 06.03.2023 - update 0.3.0
+
+- Completely redesigned assembly to webpack and completed the transition to a new platform.
+- Assembly bugs fixed

@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## Версия ~ 0.2.71
+## Версия ~ 0.3.0
 
 <a href="https://github.com/apuc/cg-select/blob/main/README.md">English README</a>
 
@@ -96,3 +96,5 @@ const dropdown = new CGSelect({
 16.12.2022 - release version 0.1.0!
 
 20.01.2023 - upgrade to version 0.2.1
+
+06.03.2023 - upgrade to version 0.3.0

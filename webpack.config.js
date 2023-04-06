@@ -5,12 +5,14 @@ module.exports = {
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: 'main.js',
     clean: true,
+    library: 'CGSelect',
+    libraryTarget: 'umd',
   },
   // devServer: {
   //   open: true,
-  //   port: 5000,
+  //   port: 5500,
   // },
   module: {
     rules: [
@@ -22,6 +24,17 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(?:js|mjs|cjs)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env', { targets: 'defaults' }]],
+            plugins: ['@babel/plugin-proposal-class-properties'],
+          },
+        },
       },
     ],
   },
