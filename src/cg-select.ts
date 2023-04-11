@@ -32,7 +32,7 @@ import { CustomTheme, CustomThemeJson } from 'components/theme/theme.interface';
  * @description This class implements the functionality of a custom select, with customization capabilities.
  * @author Ovsyanikov Maxim
  */
-export class CGSelect implements ICgSelect {
+export default class CGSelect implements ICgSelect {
   selector?: string;
   selected?: string;
   placeholder?: string;
