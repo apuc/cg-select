@@ -76,3 +76,7 @@ Tested in JS and React. Errors in work in React applications are revealed.
 
 - Completely redesigned assembly to webpack and completed the transition to a new platform.
 - Assembly bugs fixed
+
+##### 04.03.2023 - fix 0.3.1
+
+- Fixed import select.
