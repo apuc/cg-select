@@ -7,8 +7,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
     clean: true,
-    library: 'CGSelect',
-    libraryTarget: 'umd',
+    library: {
+      name: 'CGSelect',
+      type: 'window',
+      export: 'default',
+    },
   },
   // devServer: {
   //   open: true,
