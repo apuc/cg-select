@@ -1,3 +1,3 @@
 import CGSelect from './src/cg-select';
 
-export { CGSelect };
+export default CGSelect;
