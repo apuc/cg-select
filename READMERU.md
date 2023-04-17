@@ -19,8 +19,16 @@
 
 ## Установка
 
+#### NPM
+
 ```
 npm i cg-select
+```
+
+#### CDN
+
+```
+<script src="https://cdn.itguild.info/items/cg-select/latest/main.js"></script>
 ```
 
 ## Использование

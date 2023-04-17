@@ -19,8 +19,16 @@ Customization, multi-selection and live search by elements are available.
 
 ## Installation
 
+#### NPM
+
 ```
 npm i cg-select
+```
+
+#### CDN
+
+```
+<script src="https://cdn.itguild.info/items/cg-select/latest/main.js"></script>
 ```
 
 ## Usage
