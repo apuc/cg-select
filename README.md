@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.3.11
+## version ~ 0.3.12
 
 <a href="https://github.com/apuc/cg-select/blob/main/READMERU.md">ЧИТАТЬ НА РУССКОМ</a>
 
@@ -75,6 +75,39 @@ const dropdown = new CGSelect({
 });
 ```
 
+### An example of initialization a CGSelect in React.
+
+```javascript
+import { useEffect } from 'react';
+import CGSelect from 'cg-select';
+
+const App = () => {
+  useEffect(() => {
+    const drop = new CGSelect({
+      selector: '.cg-dropdown_selector',
+      placeholder: 'Выберите авто',
+      items: [
+        'BMW',
+        {
+          id: '213sade',
+          title: 'Opel',
+          value: 1,
+        },
+        'Mersedes',
+        'MAN',
+        'Ferari',
+      ],
+    });
+  }, []);
+
+  return (
+    <div className="App">
+      <button className="cg-dropdown cg-dropdown_selector"></button>
+    </div>
+  );
+};
+```
+
 ## Example of different selects
 
 <a href="https://cg-select.itguild.info/">View live example</a>
@@ -95,10 +128,10 @@ All documentation on CG-SELECT is located in the folder of the same name. The do
 
 ## Compatibility
 
-| Application Compatibility |                                    JS                                    |                                                                      React                                                                       |                                 Angular                                 |                                   Vue                                   |
-| ------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| CG-SELECT                 | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
-| Comment                   |                 Tested in Js applications and it works.                  |                                               Works only with a crutch in the form `setTimeout()`                                                |                            not yet available                            |                            not yet available                            |
+| Application Compatibility |                                    JS                                    |                                  React                                   |                                 Angular                                 |                                   Vue                                   |
+| ------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| CG-SELECT                 | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
+| Comment                   |                 Tested in Js applications and it works.                  |          The select is initiated inside the `useEffect() `hook           |                            not yet available                            |                            not yet available                            |
 
 ## History
 

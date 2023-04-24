@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## Версия ~ 0.3.11
+## Версия ~ 0.3.12
 
 <a href="https://github.com/apuc/cg-select/blob/main/README.md">English README</a>
 
@@ -76,6 +76,39 @@ const dropdown = new CGSelect({
 });
 ```
 
+### Пример инициализации CGSelect в React.
+
+```javascript
+import { useEffect } from 'react';
+import CGSelect from 'cg-select';
+
+const App = () => {
+  useEffect(() => {
+    const drop = new CGSelect({
+      selector: '.cg-dropdown_selector',
+      placeholder: 'Выберите авто',
+      items: [
+        'BMW',
+        {
+          id: '213sade',
+          title: 'Opel',
+          value: 1,
+        },
+        'Mersedes',
+        'MAN',
+        'Ferari',
+      ],
+    });
+  }, []);
+
+  return (
+    <div className="App">
+      <button className="cg-dropdown cg-dropdown_selector"></button>
+    </div>
+  );
+};
+```
+
 ## Примеры различных вариантов выбора.
 
 <a href="https://cg-select.itguild.info/">Рабочий пример</a>
@@ -94,10 +127,10 @@ const dropdown = new CGSelect({
 
 ## Совместимость
 
-| Совместимость в приложениях |                                    JS                                    |                                                                      React                                                                       |                                 Angular                                 |                                   Vue                                   |
-| --------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| CG-SELECT                   | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
-| Комментарий                 |                     Протестировано в Js приложениях                      |                                                 Работает только с костылем в виде `setTimeout()`                                                 |                             пока недоступно                             |                             пока недоступно                             |
+| Совместимость в приложениях |                                    JS                                    |                                  React                                   |                                 Angular                                 |                                   Vue                                   |
+| --------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| CG-SELECT                   | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
+| Комментарий                 |                     Протестировано в Js приложениях                      |          Инициация селекта происходит внутри хука `useEffect()`          |                             пока недоступно                             |                             пока недоступно                             |
 
 ## История
 

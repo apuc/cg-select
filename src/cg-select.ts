@@ -664,7 +664,7 @@ export default class CGSelect implements ICgSelect {
   private selectMode(nativeSelectMode: boolean) {
     let win = window.outerWidth;
 
-    if (nativeSelectMode === true) {
+    if (nativeSelectMode) {
       const select = this.element!.querySelector('.cg-select');
       const list = this.element!.querySelector('.list');
       const nativeSelect = this.element!.querySelector('.nativeSelect');
@@ -797,10 +797,11 @@ export default class CGSelect implements ICgSelect {
       const textNode = document.createTextNode(textInListSearch);
 
       search!.setAttribute('placeholder', placeholder);
-      search!.setAttribute('placeholder', placeholder);
 
       textNoRezult!.textContent = '';
       textNoRezult!.appendChild(textNode);
+    } else {
+      throw new Error('You cannot change the language if it is not enabled searchMode!');
     }
   }
 
@@ -811,20 +812,21 @@ export default class CGSelect implements ICgSelect {
    * @method buttonControl
    */
   public buttonControl(button: Element, method: string) {
-    if (this.listDisplayMode) {
-      return;
+    if (!this.listDisplayMode) {
+      this.buttonAction = button!;
+      button.addEventListener('click', () => {
+        switch (method.toLowerCase()) {
+          case 'open':
+            this.open(true);
+            break;
+          case 'close':
+            this.close();
+            break;
+        }
+      });
+    } else {
+      throw new Error('Sheet display enabled in listDisplayMode!');
     }
-
-    this.buttonAction = button!;
-    button.addEventListener('click', () => {
-      if (method.toLowerCase() === 'open') {
-        this.open(true);
-      } else if (method.toLowerCase() === 'close') {
-        this.close();
-      } else {
-        return;
-      }
-    });
   }
 
   /**
@@ -836,7 +838,7 @@ export default class CGSelect implements ICgSelect {
     const select = this.element!.querySelector('.cg-select');
     const nativeSelect = this.element!.querySelector('.nativeSelect');
 
-    if (value === true) {
+    if (value) {
       this.element!.setAttribute('disabled', 'true');
       nativeSelect!.setAttribute('disabled', 'true');
       select!.classList.add('disabled');
@@ -875,10 +877,8 @@ export default class CGSelect implements ICgSelect {
    */
   public deleteItem(index: number) {
     if (this.category) {
-      console.log('can`t add item to category');
-      return;
+      throw new Error('Unable to remove item from category!');
     }
-
     const item = this.items[index];
 
     this.items.splice(index, 1);
@@ -901,8 +901,7 @@ export default class CGSelect implements ICgSelect {
    */
   public selectIndex(index: number) {
     if (this.category) {
-      console.log('can`t add item to category');
-      return;
+      throw new Error('Unable to select item from category!');
     }
 
     const options = this.element!.querySelectorAll('.list__item') as NodeListOf<HTMLElement>;

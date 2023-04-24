@@ -80,3 +80,8 @@ Tested in JS and React. Errors in work in React applications are revealed.
 ##### 04.03.2023 - fix 0.3.1
 
 - Fixed import select.
+
+##### 04.03.2023 - fix 0.3.12
+
+- Optimized code.
+- Added error messages when using public methods.
