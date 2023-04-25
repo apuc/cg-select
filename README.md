@@ -108,6 +108,41 @@ const App = () => {
 };
 ```
 
+### An example of initialization a CGSelect in Vue.
+
+```javascript
+<template>
+  <div>
+    <button class="cg-dropdown cg-dropdown_selector"></button>
+  </div>
+</template>
+
+<script>
+import CGSelect from "cg-select";
+
+export default {
+  mounted() {
+    const drop = new CGSelect({
+      selector: ".cg-dropdown_selector",
+      placeholder: "Выберите авто",
+      items: [
+        "BMW",
+        {
+          id: "213sade",
+          title: "Opel",
+          value: 1,
+        },
+        "Mersedes",
+        "MAN",
+        "Ferari",
+      ],
+    });
+    console.log(drop);
+  },
+};
+</script>
+```
+
 ## Example of different selects
 
 <a href="https://cg-select.itguild.info/">View live example</a>
@@ -128,10 +163,10 @@ All documentation on CG-SELECT is located in the folder of the same name. The do
 
 ## Compatibility
 
-| Application Compatibility |                                    JS                                    |                                  React                                   |                                 Angular                                 |                                   Vue                                   |
-| ------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| CG-SELECT                 | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
-| Comment                   |                 Tested in Js applications and it works.                  |          The select is initiated inside the `useEffect() `hook           |                            not yet available                            |                            not yet available                            |
+| Application Compatibility |                                    JS                                    |                                  React                                   |                                 Angular                                 |                                   Vue                                    |
+| ------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :----------------------------------------------------------------------: |
+| CG-SELECT                 | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) |
+| Comment                   |                 Tested in Js applications and it works.                  |          The select is initiated inside the `useEffect() `hook           |                            not yet available                            |           The select is initiated inside the `mounted() `hook            |
 
 ## History
 

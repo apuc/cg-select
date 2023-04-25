@@ -109,6 +109,41 @@ const App = () => {
 };
 ```
 
+### Пример инициализации CGSelect в Vue.
+
+```javascript
+<template>
+  <div>
+    <button class="cg-dropdown cg-dropdown_selector"></button>
+  </div>
+</template>
+
+<script>
+import CGSelect from "cg-select";
+
+export default {
+  mounted() {
+    const drop = new CGSelect({
+      selector: ".cg-dropdown_selector",
+      placeholder: "Выберите авто",
+      items: [
+        "BMW",
+        {
+          id: "213sade",
+          title: "Opel",
+          value: 1,
+        },
+        "Mersedes",
+        "MAN",
+        "Ferari",
+      ],
+    });
+    console.log(drop);
+  },
+};
+</script>
+```
+
 ## Примеры различных вариантов выбора.
 
 <a href="https://cg-select.itguild.info/">Рабочий пример</a>
@@ -127,10 +162,10 @@ const App = () => {
 
 ## Совместимость
 
-| Совместимость в приложениях |                                    JS                                    |                                  React                                   |                                 Angular                                 |                                   Vue                                   |
-| --------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| CG-SELECT                   | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) |
-| Комментарий                 |                     Протестировано в Js приложениях                      |          Инициация селекта происходит внутри хука `useEffect()`          |                             пока недоступно                             |                             пока недоступно                             |
+| Совместимость в приложениях |                                    JS                                    |                                  React                                   |                                 Angular                                 |                                   Vue                                    |
+| --------------------------- | :----------------------------------------------------------------------: | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :----------------------------------------------------------------------: |
+| CG-SELECT                   | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/no.png) | ![image](https://github.com/apuc/cg-select/blob/main/src/images/yes.png) |
+| Комментарий                 |                     Протестировано в Js приложениях                      |          Инициация селекта происходит внутри хука `useEffect()`          |                             пока недоступно                             |           Инициация селекта происходит внутри хука `mounted()`           |
 
 ## История
 
