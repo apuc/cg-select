@@ -31,6 +31,10 @@ npm i cg-select
 <script src="https://cdn.itguild.info/items/cg-select/latest/main.js"></script>
 ```
 
+#### PHP
+
+Репозиторий: <a href="https://git.itguild.info/apuc/php-cg-select-v2">Интеграция пакета cg-select для PHP</a>
+
 ## Использование
 
 ### Для создания компонента необходимо:
