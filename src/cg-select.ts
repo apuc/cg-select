@@ -46,6 +46,8 @@ export default class CGSelect implements ICgSelect {
   label?: string;
   styles?: IStyle;
   event?: string;
+  nameSelect?: string;
+  getRequestUrl?: string;
   url?: string;
   multiselect?: boolean;
   multiselectTag?: boolean;
@@ -95,6 +97,11 @@ export default class CGSelect implements ICgSelect {
    * @type {Element | null}
    */
   private buttonAction?: Element | null;
+  /**
+   * Array for request
+   * @type {IItems}
+   */
+  private forUrlSelectedItems: IItems[] = [];
 
   /**
    * @param {ICgSelect} setting Object accepting select settings.
@@ -113,6 +120,8 @@ export default class CGSelect implements ICgSelect {
       nativeSelectMode: true/false,
       listDisplayMode: true/false,
       language: 'ru/en',
+      nameSelect: "titleYouSelect";
+      getRequestUrl: "/endpoint/123";
       styles: {
         head: {
           background: '...',
@@ -197,6 +206,8 @@ export default class CGSelect implements ICgSelect {
       styles,
       label,
       event,
+      nameSelect,
+      getRequestUrl,
       selected,
       placeholder,
       theme,
@@ -216,6 +227,8 @@ export default class CGSelect implements ICgSelect {
     this.styles = styles;
     this.label = label;
     this.event = event;
+    this.nameSelect = nameSelect;
+    this.getRequestUrl = getRequestUrl;
     this.selected = selected;
     this.placeholder = placeholder;
     this.theme = theme;
@@ -283,7 +296,7 @@ export default class CGSelect implements ICgSelect {
     }
 
     const ulList = document.createElement('ul');
-    const nativeSelect = createNativeSelect();
+    const nativeSelect = createNativeSelect(this.nameSelect);
 
     let inputSearch: HTMLInputElement;
     let textNode: Text;
@@ -384,7 +397,7 @@ export default class CGSelect implements ICgSelect {
     const response = await fetch(this.url!);
     const dataUrl = await response.json();
 
-    const nativeSelect = createNativeSelect();
+    const nativeSelect = createNativeSelect(this.nameSelect!);
 
     dataUrl.forEach((dataItem: IItems, index: number) => {
       const item = {
@@ -613,6 +626,17 @@ export default class CGSelect implements ICgSelect {
                   select!.innerText = this.selectedItems.join(',');
                 }
               }
+
+              if (this.getRequestUrl!) {
+                this.forUrlSelectedItems.push(item);
+                fetch(this.getRequestUrl, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                  },
+                  body: JSON.stringify(this.forUrlSelectedItems),
+                });
+              }
             } else {
               if (this.multiselectTag) {
                 const tagItem = document.getElementById(`tag-${index}-${item.id}`);
@@ -622,6 +646,17 @@ export default class CGSelect implements ICgSelect {
               if (Array.isArray(this.selectedItems)) {
                 this.selectedItems.splice(checkIndex, 1);
                 this.indexes.splice(checkIndex, 1);
+
+                if (this.getRequestUrl! && this.forUrlSelectedItems.length > 0) {
+                  this.forUrlSelectedItems.splice(checkIndex, 1);
+                  fetch(this.getRequestUrl, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json;charset=utf-8',
+                    },
+                    body: JSON.stringify(this.forUrlSelectedItems),
+                  });
+                }
                 nativeOptionMultiple(nativeOption, item.title, false);
               }
             }
@@ -648,6 +683,16 @@ export default class CGSelect implements ICgSelect {
             option.classList.remove('active');
           });
           option.classList.add('active');
+
+          if (this.getRequestUrl!) {
+            fetch(this.getRequestUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+              },
+              body: JSON.stringify(item),
+            });
+          }
         }
 
         clearSelect(select!, this.element!, selectedItemsClear);

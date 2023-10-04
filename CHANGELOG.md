@@ -85,3 +85,9 @@ Tested in JS and React. Errors in work in React applications are revealed.
 
 - Optimized code.
 - Added error messages when using public methods.
+
+### 04.10.2023 - update 0.3.2
+
+- Added the ability to set the name attribute for further sending data to the server. (\*nameSelect: string)
+- Added a function to POST a request to the server when selecting an item. (\*getRequestUrl: string)
+- Optimized code.

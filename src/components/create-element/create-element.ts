@@ -5,10 +5,14 @@ import { ICreateBreadCrumb } from './create-element.interface';
  * The method that creates the native select.
  * @returns {HTMLSelectElement} Returns the created native select.
  */
-export function createNativeSelect(): HTMLSelectElement {
+export function createNativeSelect(nameSelect: string | undefined): HTMLSelectElement {
   const nativeSelect = document.createElement('select');
 
-  nativeSelect.setAttribute('name', 'dataSelect');
+  if (nameSelect == undefined) {
+    nativeSelect.setAttribute('name', 'CgSelect');
+  } else {
+    nativeSelect.setAttribute('name', nameSelect!);
+  }
   nativeSelect.classList.add('nativeSelect');
   return nativeSelect;
 }
