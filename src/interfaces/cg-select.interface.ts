@@ -75,6 +75,18 @@ export interface ICgSelect {
    * @type {string}
    */
   event?: string;
+
+  /**
+   * Optional parameter responsible for the native select attribute.
+   * @type {string}
+   */
+  nameSelect?: string;
+
+  /**
+   * Optional parameter responsible for the sending address when selected in the select.
+   * @type {string}
+   */
+  getRequestUrl?: string;
   /**
    * Required parameter (if no other way to get data (items) is specified),
    * data that comes from the backend in the format { id: "", title: "", value: ""}.

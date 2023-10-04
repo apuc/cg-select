@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.3.12
+## version ~ 0.3.2
 
 <a href="https://github.com/apuc/cg-select/blob/main/READMERU.md">ЧИТАТЬ НА РУССКОМ</a>
 
@@ -30,6 +30,7 @@ npm i cg-select
 ```
 <script src="https://cdn.itguild.info/items/cg-select/latest/main.js"></script>
 ```
+
 #### PHP
 
 Repository: <a href="https://git.itguild.info/apuc/php-cg-select-v2">PHP cg-select package integration</a>
@@ -155,8 +156,6 @@ Built-in themes are also available: dark, white. To apply them, specify the them
 All documentation on CG-SELECT is located in the folder of the same name. The documentation describes all methods and variables, there are also examples of passing settings to select. You can also open it on the page with an example, or follow the link below.
 
 <a href="https://cg-select.itguild.info/up_/documentation/index.html">Documentation</a>
-
-
 
 ## Contributing
 

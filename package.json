@@ -1,6 +1,6 @@
 {
   "name": "cg-select",
-  "version": "0.3.12",
+  "version": "0.3.2",
   "source": "index.js",
   "main": "dist/main.js",
   "description": "Feature rich Select control for React/JS with multiselect, autocomplete and styling",
@@ -40,7 +40,7 @@
     "typedoc": "^0.23.28",
     "typescript": "^5.0.2",
     "webpack": "^5.77.0",
-    "webpack-cli": "^5.0.1",
+    "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.13.2"
   },
   "keywords": [
