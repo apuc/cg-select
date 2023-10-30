@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## Версия ~ 0.3.2
+## Версия ~ 0.3.3
 
 <a href="https://github.com/apuc/cg-select/blob/main/README.md">English README</a>
 

@@ -1,6 +1,6 @@
 # CG-SELECT
 
-## version ~ 0.3.2.1
+## version ~ 0.3.3
 
 <a href="https://github.com/apuc/cg-select/blob/main/READMERU.md">ЧИТАТЬ НА РУССКОМ</a>
 
